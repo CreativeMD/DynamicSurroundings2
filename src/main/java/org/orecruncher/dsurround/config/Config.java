@@ -34,11 +34,12 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.config.ModConfigEvent;
 
-@Mod.EventBusSubscriber(modid = DynamicSurroundings.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = DynamicSurroundings.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public final class Config {
     public static final Client CLIENT;
-    private static final String CLIENT_CONFIG = DynamicSurroundings.MOD_ID + File.separator + DynamicSurroundings.MOD_ID + "-client.toml";
+    private static final String CLIENT_CONFIG = DynamicSurroundings.MODID + File.separator + DynamicSurroundings.MODID + "-client.toml";
     public static final ForgeConfigSpec SPEC;
     
     static {
@@ -55,13 +56,13 @@ public final class Config {
     }
     
     @SubscribeEvent
-    public static void onLoad(final ModConfig.Loading configEvent) {
+    public static void onLoad(final ModConfigEvent.Loading configEvent) {
         applyConfig();
         DynamicSurroundings.LOGGER.debug("Loaded config file %s", configEvent.getConfig().getFileName());
     }
     
     @SubscribeEvent
-    public static void onFileChange(final ModConfig.Reloading configEvent) {
+    public static void onFileChange(final ModConfigEvent.Reloading configEvent) {
         DynamicSurroundings.LOGGER.debug("Config file changed %s", configEvent.getConfig().getFileName());
         applyConfig();
     }

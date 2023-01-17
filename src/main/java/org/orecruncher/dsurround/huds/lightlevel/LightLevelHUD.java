@@ -20,8 +20,7 @@ package org.orecruncher.dsurround.huds.lightlevel;
 
 import javax.annotation.Nonnull;
 
-import org.joml.Vector3d;
-import org.joml.Vector3f;
+import org.joml.Quaternionf;
 import org.lwjgl.opengl.GL11;
 import org.orecruncher.dsurround.DynamicSurroundings;
 import org.orecruncher.dsurround.config.Config;
@@ -36,15 +35,15 @@ import org.orecruncher.lib.particles.FrustumHelper;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.Tesselator;
+import com.mojang.math.Axis;
 
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.util.math.vector.Quaternion;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.player.Player;
@@ -122,7 +121,7 @@ public final class LightLevelHUD {
     }
     
     protected static boolean inFrustum(final double x, final double y, final double z) {
-        return FrustumHelper.isLocationInFrustum(new Vector3d(x, y, z));
+        return FrustumHelper.isLocationInFrustum(new Vec3(x, y, z));
     }
     
     protected static boolean renderLightLevel(@Nonnull final BlockState state, @Nonnull final BlockState below) {
@@ -158,7 +157,7 @@ public final class LightLevelHUD {
         
         final ColorSet colors = Config.CLIENT.lightLevel.colorSet.get();
         final Mode displayMode = Config.CLIENT.lightLevel.mode.get();
-        final int skyLightSub = GameUtils.getLevel().getSkylightSubtracted();
+        final int skyLightSub = GameUtils.getLevel().getSkyDarken();
         final int rangeXZ = Config.CLIENT.lightLevel.range.get() * 2 + 1;
         final int rangeY = Config.CLIENT.lightLevel.range.get() + 1;
         final int originX = MathStuff.floor(position.x) - (rangeXZ / 2);
@@ -268,29 +267,29 @@ public final class LightLevelHUD {
     private static void drawStringRender(@Nonnull final PoseStack matrixStack, @Nonnull final Player player) {
         
         final boolean thirdPerson = GameUtils.isThirdPersonView();
-        Direction playerFacing = player.getHorizontalFacing();
+        Direction playerFacing = player.getDirection();
         if (thirdPerson)
             playerFacing = playerFacing.getOpposite();
         if (playerFacing == Direction.SOUTH || playerFacing == Direction.NORTH)
             playerFacing = playerFacing.getOpposite();
-        final float rotationAngle = playerFacing.getOpposite().getHorizontalAngle();
+        final float rotationAngle = playerFacing.getOpposite().toYRot();
         
-        final Quaternion rotY = Vector3f.YP.rotationDegrees(rotationAngle);
-        final Quaternion rotX = Vector3f.XP.rotationDegrees(90);
-        final Vector3d view = GameUtils.getMC().gameRenderer.getActiveRenderInfo().getProjectedView();
-        matrixStack.push();
-        matrixStack.translate(-view.getX(), -view.getY(), -view.getZ());
+        final Quaternionf rotY = Axis.YP.rotationDegrees(rotationAngle);
+        final Quaternionf rotX = Axis.XP.rotationDegrees(90);
+        final Vec3 view = GameUtils.getMC().gameRenderer.getMainCamera().getPosition();
+        matrixStack.pushPose();
+        matrixStack.translate(-view.x, -view.x, -view.x);
         
-        RenderSystem.disableLighting();
+        //RenderSystem.disableLighting();
         RenderSystem.enableBlend();
         RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
         RenderSystem.enableDepthTest();
         RenderSystem.depthFunc(GL11.GL_LEQUAL);
         RenderSystem.depthMask(true);
         
-        IRenderTypeBuffer.Impl buffer = IRenderTypeBuffer.getImpl(Tessellator.getInstance().getBuffer());
+        MultiBufferSource.BufferSource bufferSource = MultiBufferSource.immediate(Tesselator.getInstance().getBuilder());
         
-        final int yAdjust = -(font.FONT_HEIGHT / 2);
+        final int yAdjust = -(font.lineHeight / 2);
         
         for (int i = 0; i < nextCoord; i++) {
             final LightCoord coord = lightLevels.get(i);
@@ -298,18 +297,18 @@ public final class LightLevelHUD {
             final int margin = margins[coord.lightLevel];
             final float scale = 0.07F;
             
-            matrixStack.push();
+            matrixStack.pushPose();
             matrixStack.translate(coord.x + 0.5D, coord.y, coord.z + 0.5D);
-            matrixStack.rotate(rotY);
-            matrixStack.rotate(rotX);
+            matrixStack.mulPose(rotY);
+            matrixStack.mulPose(rotX);
             matrixStack.scale(-scale, -scale, scale);
             
-            font.renderString(text, margin, yAdjust, coord.color, false, matrixStack.getLast().getMatrix(), buffer, false, 0, 15728880);
+            font.drawInBatch(text, margin, yAdjust, coord.color, false, matrixStack.last().pose(), bufferSource, false, 0, 15728880);
             
-            matrixStack.pop();
+            matrixStack.popPose();
         }
         
-        buffer.finish();
-        matrixStack.pop();
+        bufferSource.endBatch();
+        matrixStack.popPose();
     }
 }

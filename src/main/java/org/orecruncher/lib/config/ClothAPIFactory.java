@@ -38,6 +38,7 @@ import me.shedaniel.clothconfig2.forge.impl.builders.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.DialogTexts;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.text.*;
 import net.minecraftforge.api.distmarker.Dist;
@@ -47,15 +48,15 @@ import net.minecraftforge.common.ForgeConfigSpec;
 @OnlyIn(Dist.CLIENT)
 public abstract class ClothAPIFactory implements BiFunction<Minecraft, Screen, Screen> {
     
-    private final ITextComponent title;
+    private final Component title;
     private final Runnable save;
     private final ResourceLocation background;
     
-    public ClothAPIFactory(@Nonnull final ITextComponent title, @Nonnull final Runnable save) {
+    public ClothAPIFactory(@Nonnull final Component title, @Nonnull final Runnable save) {
         this(title, save, null);
     }
     
-    public ClothAPIFactory(@Nonnull final ITextComponent title, @Nonnull final Runnable save, @Nullable final ResourceLocation background) {
+    public ClothAPIFactory(@Nonnull final Component title, @Nonnull final Runnable save, @Nullable final ResourceLocation background) {
         this.title = title;
         this.save = save;
         this.background = background;

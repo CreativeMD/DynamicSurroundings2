@@ -20,7 +20,7 @@ package org.orecruncher.environs.shaders.aurora;
 
 import javax.annotation.Nonnull;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -60,6 +60,6 @@ public interface IAurora {
      * Render the aurora to the client screen. It is possible that other updates can
      * occur to the state, such as doing the transformations to animate.
      */
-    void render(@Nonnull final MatrixStack matrixStack, final float partialTick);
+    void render(@Nonnull final PoseStack matrixStack, final float partialTick);
     
 }

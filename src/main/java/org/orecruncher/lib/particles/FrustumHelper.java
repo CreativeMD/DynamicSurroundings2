@@ -21,26 +21,24 @@ package org.orecruncher.lib.particles;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.joml.Vector3d;
-
-import net.minecraft.client.renderer.culling.ClippingHelper;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.client.renderer.culling.Frustum;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class FrustumHelper {
-    private FrustumHelper() {
-        
-    }
     
-    private static ClippingHelper helper = null;
+    private FrustumHelper() {}
+    
+    private static Frustum helper = null;
     
     /** Called by a Mixin to set the current clipping helper
      * 
      * @param clippingHelper
      *            Current clipping helper */
-    public static void setFrustum(@Nullable final ClippingHelper clippingHelper) {
+    public static void setFrustum(@Nullable final Frustum clippingHelper) {
         helper = clippingHelper;
     }
     
@@ -49,13 +47,13 @@ public class FrustumHelper {
      * @param pos
      *            Position to check
      * @return true if in the frustum, or there is no frustum, false otherwise */
-    public static boolean isLocationInFrustum(@Nonnull final Vector3d pos) {
-        return isBoundingBoxInFrustum(new AxisAlignedBB(pos, pos));
+    public static boolean isLocationInFrustum(@Nonnull final Vec3 pos) {
+        return isBoundingBoxInFrustum(new AABB(pos, pos));
     }
     
-    public static boolean isBoundingBoxInFrustum(@Nonnull final AxisAlignedBB bb) {
+    public static boolean isBoundingBoxInFrustum(@Nonnull final AABB bb) {
         if (helper == null)
             return true;
-        return helper.isBoundingBoxInFrustum(bb);
+        return helper.isVisible(bb);
     }
 }

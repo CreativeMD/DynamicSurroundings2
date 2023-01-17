@@ -23,43 +23,39 @@ import javax.annotation.Nonnull;
 import org.orecruncher.dsurround.DynamicSurroundings;
 import org.orecruncher.dsurround.commands.dump.DumpCommand;
 
-import net.minecraft.commands.CommandSource;
+import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
-import net.minecraft.util.concurrent.ThreadTaskExecutor;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.util.thread.BlockableEventLoop;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.util.LogicalSidedProvider;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.LogicalSide;
-import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
-@Mod.EventBusSubscriber(modid = DynamicSurroundings.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
+@EventBusSubscriber(modid = DynamicSurroundings.MODID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.FORGE)
 public class CommandHelpers {
-    private CommandHelpers() {
-        
-    }
+    
+    private CommandHelpers() {}
     
     @SubscribeEvent
     public static void registerCommands(@Nonnull final RegisterCommandsEvent event) {
         // Only register if its an integrated server environment
-        if (event.getEnvironment() == Commands.EnvironmentType.INTEGRATED) {
+        if (event.getCommandSelection() == Commands.CommandSelection.INTEGRATED)
             DumpCommand.register(event.getDispatcher());
-        }
     }
     
     public static void scheduleOnClientThread(Runnable runnable) {
-        final ThreadTaskExecutor<?> scheduler = LogicalSidedProvider.WORKQUEUE.get(LogicalSide.CLIENT);
-        scheduler.deferTask(runnable);
+        final BlockableEventLoop<?> scheduler = LogicalSidedProvider.WORKQUEUE.get(LogicalSide.CLIENT);
+        scheduler.submit(runnable);
     }
     
-    public static void sendSuccess(@Nonnull final CommandSource source, @Nonnull final String command, @Nonnull String operation, @Nonnull String target) {
-        final String key = String.format("command.dsurround.%s.success", command);
-        source.sendFeedback(new TranslationTextComponent(key, operation, target), true);
+    public static void sendSuccess(@Nonnull final CommandSourceStack source, @Nonnull final String command, @Nonnull String operation, @Nonnull String target) {
+        source.sendSystemMessage(Component.translatable(String.format("command.dsurround.%s.success", command), operation, target));
     }
     
-    public static void sendFailure(@Nonnull final CommandSource source, @Nonnull final String command) {
-        final String key = String.format("command.dsurround.%s.failure", command);
-        source.sendFeedback(new TranslationTextComponent(key), true);
+    public static void sendFailure(@Nonnull final CommandSourceStack source, @Nonnull final String command) {
+        source.sendSystemMessage(Component.translatable(String.format("command.dsurround.%s.failure", command)));
     }
 }
