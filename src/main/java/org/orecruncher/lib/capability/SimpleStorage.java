@@ -33,21 +33,19 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.INBTSerializable;
 
-/**
- * A simple implementation of {@link ICapabilityProvider} that supports a single {@link Capability} handler instance.
+/** A simple implementation of {@link ICapabilityProvider} that supports a single {@link Capability} handler instance.
  *
- * @author Choonster
- */
+ * @author Choonster */
 public final class SimpleStorage<T extends INBTSerializable<CompoundNBT>> implements Capability.IStorage<T> {
-
-	@Nullable
-	@Override
-	public INBT writeNBT(@Nonnull final Capability<T> capability, @Nonnull final T instance, @Nullable final Direction side) {
-		return instance.serializeNBT();
-	}
-
-	@Override
-	public void readNBT(@Nonnull final Capability<T> capability, @Nonnull final T instance, @Nullable final Direction side, @Nonnull final INBT nbt) {
-		instance.deserializeNBT((CompoundNBT) nbt);
-	}
+    
+    @Nullable
+    @Override
+    public INBT writeNBT(@Nonnull final Capability<T> capability, @Nonnull final T instance, @Nullable final Direction side) {
+        return instance.serializeNBT();
+    }
+    
+    @Override
+    public void readNBT(@Nonnull final Capability<T> capability, @Nonnull final T instance, @Nullable final Direction side, @Nonnull final INBT nbt) {
+        instance.deserializeNBT((CompoundNBT) nbt);
+    }
 }

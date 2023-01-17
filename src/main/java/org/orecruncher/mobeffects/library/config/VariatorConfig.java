@@ -30,7 +30,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class VariatorConfig implements IValidator<VariatorConfig> {
-
+    
     @SerializedName("immobileDuration")
     public int immobileDuration = 4;
     @SerializedName("eventOnJump")
@@ -41,7 +41,7 @@ public class VariatorConfig implements IValidator<VariatorConfig> {
     public float speedToJumpAsMultifoot = 0.005F;
     @SerializedName("speedToRun")
     public float speedToRun = 0.22F; // 0.022F; slow
-
+    
     @SerializedName("stride")
     public float stride = 0.75F; // 0.95F; slow
     @SerializedName("strideStair")
@@ -50,7 +50,7 @@ public class VariatorConfig implements IValidator<VariatorConfig> {
     public float strideLadder = 0.5F;
     @SerializedName("quadrupedMultiplier")
     public float quadrupedMultiplier = 1.25F; // 0.925; slow
-
+    
     @SerializedName("playWander")
     public boolean playWander = true;
     @SerializedName("quadruped")
@@ -67,9 +67,9 @@ public class VariatorConfig implements IValidator<VariatorConfig> {
     public float footprintScale = 1.0F;
     @SerializedName("volumeScale")
     public float volumeScale = 1.0F;
-
+    
     @Override
     public void validate(@Nonnull final VariatorConfig obj) throws ValidationException {
-
+        
     }
 }

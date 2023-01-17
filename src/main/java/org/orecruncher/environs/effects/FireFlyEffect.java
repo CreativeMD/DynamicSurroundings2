@@ -32,21 +32,19 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class FireFlyEffect extends BlockEffect {
-
+    
     public FireFlyEffect(final int chance) {
         super(chance);
     }
-
+    
     @Nonnull
     @Override
     public BlockEffectType getEffectType() {
         return BlockEffectType.FIREFLY;
     }
-
+    
     @Override
-    public void doEffect(@Nonnull final IBlockReader provider, @Nonnull final BlockState state,
-                         @Nonnull final BlockPos pos, @Nonnull final Random random) {
-        Collections.addFireFly(provider, pos.getX() + 0.5F, pos.getY() + 0.5F,
-                pos.getZ() + 0.5F);
+    public void doEffect(@Nonnull final IBlockReader provider, @Nonnull final BlockState state, @Nonnull final BlockPos pos, @Nonnull final Random random) {
+        Collections.addFireFly(provider, pos.getX() + 0.5F, pos.getY() + 0.5F, pos.getZ() + 0.5F);
     }
 }

@@ -34,44 +34,44 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class MoteFireFly extends AnimatedMote {
-
+    
     private static final float XZ_MOTION_DELTA = 0.2F;
     private static final float Y_MOTION_DELTA = XZ_MOTION_DELTA / 2.0F;
     private static final float ACCELERATION = 0.004F;
-
+    
     private boolean doRender;
-
+    
     public MoteFireFly(@Nonnull final IBlockReader world, final double x, final double y, final double z) {
         super(GameUtils.getMC().particles.sprites.get(ParticleTypes.FIREWORK.getRegistryName()), world, x, y, z, 0, 0, 0);
-
+        
         this.motionX = RANDOM.nextGaussian() * XZ_MOTION_DELTA;
         this.motionZ = RANDOM.nextGaussian() * XZ_MOTION_DELTA;
         this.motionY = RANDOM.nextGaussian() * Y_MOTION_DELTA;
-
+        
         this.xAcceleration = RANDOM.nextGaussian() * ACCELERATION;
         this.yAcceleration = RANDOM.nextGaussian() / 2.0D * ACCELERATION;
         this.zAcceleration = RANDOM.nextGaussian() * ACCELERATION;
-
+        
         this.gravity = 0D;
-
+        
         this.particleScale *= 0.75F * 0.25F * 0.1F;
         this.maxAge = 120 + RANDOM.nextInt(12);
-
+        
         setColor(ColorPalette.MC_YELLOW);
         setColorFade(ColorPalette.MC_GREEN);
     }
-
+    
     @Override
     public void update() {
         super.update();
-
+        
         this.doRender = this.age < this.maxAge / 3 || (this.age + this.maxAge) / 3 % 2 == 0;
     }
-
+    
     @Override
     public void renderParticle(@Nonnull IVertexBuilder buffer, @Nonnull ActiveRenderInfo info, float partialTicks) {
         if (this.doRender)
             super.renderParticle(buffer, info, partialTicks);
     }
-
+    
 }

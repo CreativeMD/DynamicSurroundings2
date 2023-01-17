@@ -42,24 +42,24 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public final class ParticleHooks {
-
+    
     private static final ResourceLocation STEAM_HISS_ACOUSTIC = new ResourceLocation(Environs.MOD_ID, "steam.hiss");
     private static final ResourceLocation WATER_DRIP_ACOUSTIC = new ResourceLocation(Environs.MOD_ID, "waterdrips");
     private static final ResourceLocation WATER_DROP_ACOUSTIC = new ResourceLocation(Environs.MOD_ID, "waterdrops");
-
+    
     private ParticleHooks() {
-
+        
     }
-
+    
     private static boolean doRipples() {
         return Config.CLIENT.effects.enableWaterRipples.get();
     }
-
-    /**
-     * ASM hook called when detecting whether a liquid drip has hit the ground.  We can do fancy effects like water
+    
+    /** ASM hook called when detecting whether a liquid drip has hit the ground. We can do fancy effects like water
      * ripples, steam, etc. when detected.
-     * @param particle DripParticle that is being processed
-     */
+     * 
+     * @param particle
+     *            DripParticle that is being processed */
     public static void dripHandler(@Nonnull final DripParticle particle) {
         // If the particle is down at bedrock level kill it.  This could happen if water is sitting on top of flat
         // bedrock.
@@ -67,12 +67,12 @@ public final class ParticleHooks {
             particle.setExpired();
             return;
         }
-
+        
         final World world = GameUtils.getWorld();
         // Move down slightly on the Y.  Reason is that the particle may literally just above the block
         final BlockPos pos = new BlockPos(particle.posX, particle.posY - 0.01D, particle.posZ);
         final BlockState state = world.getBlockState(pos);
-
+        
         // Could be falling into a fluid
         final FluidState fluidState = world.getFluidState(pos);
         if (!fluidState.isEmpty()) {
@@ -84,7 +84,7 @@ public final class ParticleHooks {
                 boolean isDripLava = particle.fluid.isIn(FluidTags.LAVA);
                 final Vector3d vecPos = new Vector3d(particle.posX, particle.posY, particle.posZ);
                 final ResourceLocation acoustic;
-
+                
                 if (fluidState.isTagged(FluidTags.LAVA)) {
                     if (isDripLava) {
                         acoustic = WATER_DROP_ACOUSTIC;
@@ -103,13 +103,13 @@ public final class ParticleHooks {
                         acoustic = WATER_DRIP_ACOUSTIC;
                     }
                 }
-
+                
                 Library.resolve(acoustic).playAt(vecPos);
                 particle.setExpired();
                 return;
             }
         }
-
+        
         // If the particle is hitting solid ground we need to play a splat
         if (particle.onGround) {
             final Vector3d vecPos = new Vector3d(particle.posX, particle.posY, particle.posZ);
@@ -127,22 +127,20 @@ public final class ParticleHooks {
             Library.resolve(acoustic).playAt(vecPos);
         }
     }
-
+    
     // Fudge factor because the height algo is off.
     private static final double LIQUID_HEIGHT_ADJUST = (1D / 9D) + 0.1D;
-
-    /**
-     * Similar to drip handling, but generically handles the event of a fluid type falling and hitting a surface, wether
-     * solid or liquid.
-     */
+    
+    /** Similar to drip handling, but generically handles the event of a fluid type falling and hitting a surface, wether
+     * solid or liquid. */
     public static void splashHandler(@Nonnull final Fluid fluidType, @Nonnull final ParticleCollisionResult collision, final boolean playSound) {
-
+        
         final IBlockReader world = collision.world;
         // Move down slightly on the Y.  Reason is that the particle may literally just above the block
         final Vector3d particlePos = collision.position;
         final BlockPos pos = new BlockPos(particlePos.x, particlePos.y - 0.01D, particlePos.z);
         final BlockState state = collision.state;
-
+        
         // If the particle is hitting solid ground we need to play a splat and generate a steam puff as needed
         if (collision.onGround) {
             final ResourceLocation acoustic;
@@ -157,7 +155,7 @@ public final class ParticleHooks {
                 Library.resolve(acoustic).playAt(particlePos);
             return;
         }
-
+        
         // Could be falling into a fluid
         final FluidState fluidState = collision.fluidState;
         if (!fluidState.isEmpty() && fluidState.isSource() && world.getBlockState(pos.up()).getMaterial() == Material.AIR) {
@@ -167,7 +165,7 @@ public final class ParticleHooks {
                 // hitting lava is different than water.
                 boolean isDripLava = fluidType.isIn(FluidTags.LAVA);
                 final ResourceLocation acoustic;
-
+                
                 if (fluidState.isTagged(FluidTags.LAVA)) {
                     if (isDripLava) {
                         acoustic = WATER_DROP_ACOUSTIC;
@@ -186,13 +184,13 @@ public final class ParticleHooks {
                         acoustic = WATER_DRIP_ACOUSTIC;
                     }
                 }
-
+                
                 if (playSound)
                     Library.resolve(acoustic).playAt(particlePos);
             }
         }
     }
-
+    
     // Hook for Rain particle effect to generate a ripple instead of a splash
     public static boolean spawnRippleOnBlock(@Nonnull final World world, @Nonnull final Vector3d position) {
         if (doRipples()) {
@@ -206,12 +204,12 @@ public final class ParticleHooks {
         }
         return false;
     }
-
+    
     private static void createSteamCloud(@Nonnull final IBlockReader world, @Nonnull final Vector3d pos) {
         final Particle steamCloud = new SteamCloudParticle(GameUtils.getWorld(), pos.x, pos.y + 0.01D, pos.z, 0.01D);
         GameUtils.getMC().particles.addEffect(steamCloud);
     }
-
+    
     private static boolean doSteamHiss(@Nonnull final Fluid particleFluid, @Nonnull final BlockState state) {
         return JetEffect.HOTBLOCK_PREDICATE.test(state) && particleFluid.isIn(FluidTags.WATER);
     }

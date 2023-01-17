@@ -31,19 +31,19 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class FootstepAccents {
-
+    
     private FootstepAccents() {
-
+        
     }
-
+    
     private static final ObjectArray<IFootstepAccentProvider> providers = new ObjectArray<>();
-
+    
     static {
         providers.add(new ArmorAccents());
         providers.add(new RainSplashAccent());
         providers.add(new WaterLoggedAccent());
     }
-
+    
     public static void provide(@Nonnull final LivingEntity entity, @Nonnull final BlockPos pos, @Nonnull final ObjectArray<IAcoustic> in) {
         final BlockState state = entity.getEntityWorld().getBlockState(pos);
         providers.forEach(provider -> {

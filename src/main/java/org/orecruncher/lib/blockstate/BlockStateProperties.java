@@ -31,35 +31,32 @@ import com.google.common.collect.ImmutableMap;
 
 import net.minecraft.world.level.block.state.BlockState;
 
-/**
- * Special property collection that can be used to perform fuzzy matching against other
- * property collections.  Used for partial matching.
- */
+/** Special property collection that can be used to perform fuzzy matching against other
+ * property collections. Used for partial matching. */
 public class BlockStateProperties {
-
+    
     public static final BlockStateProperties NONE = new BlockStateProperties();
-
+    
     private final Map<Property<?>, Comparable<?>> props;
-
+    
     private BlockStateProperties() {
         this.props = ImmutableMap.of();
     }
-
+    
     public BlockStateProperties(@Nonnull final BlockState state) {
         this(state.getValues());
     }
-
+    
     public BlockStateProperties(@Nonnull final Map<Property<?>, Comparable<?>> props) {
         this.props = props;
     }
-
-    /**
-     * Determines if the property values of this collection are a subset of the properties of the provided
+    
+    /** Determines if the property values of this collection are a subset of the properties of the provided
      * BlockState value.
      *
-     * @param state The BlockState that is to be evaluated
-     * @return true if all the property values in the collection match the BlockState; false otherwise
-     */
+     * @param state
+     *            The BlockState that is to be evaluated
+     * @return true if all the property values in the collection match the BlockState; false otherwise */
     public boolean matches(@Nonnull final BlockState state) {
         try {
             for (final Map.Entry<Property<?>, Comparable<?>> kvp : this.props.entrySet()) {
@@ -75,24 +72,22 @@ public class BlockStateProperties {
         }
         return false;
     }
-
-    /**
-     * Determines if the property values are a subset of the values specifed in the target BlockStateProperties
+    
+    /** Determines if the property values are a subset of the values specifed in the target BlockStateProperties
      * collection.
      *
-     * @param props Target BlockStateProperties collection to evaluate
-     * @return true if all the property values in the collection match BlockStateProperties; false otherwise
-     */
+     * @param props
+     *            Target BlockStateProperties collection to evaluate
+     * @return true if all the property values in the collection match BlockStateProperties; false otherwise */
     public boolean matches(@Nonnull final BlockStateProperties props) {
         return matches(props.props);
     }
-
-    /**
-     * Determines if the property values are a subset of the specified properties map.
+    
+    /** Determines if the property values are a subset of the specified properties map.
      *
-     * @param m Property map to evaluate
-     * @return true if all the property values in the collection are present in the map; false otherwise
-     */
+     * @param m
+     *            Property map to evaluate
+     * @return true if all the property values in the collection are present in the map; false otherwise */
     public boolean matches(@Nonnull final Map<Property<?>, Comparable<?>> m) {
         try {
             if (this.props == m)
@@ -111,7 +106,7 @@ public class BlockStateProperties {
         }
         return false;
     }
-
+    
     @Override
     public int hashCode() {
         int code = 0;
@@ -121,7 +116,7 @@ public class BlockStateProperties {
         }
         return code;
     }
-
+    
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -131,20 +126,18 @@ public class BlockStateProperties {
         final BlockStateProperties e = (BlockStateProperties) obj;
         return this.props.size() == e.props.size() && matches(e.props);
     }
-
+    
     @Nonnull
     public String getFormattedProperties() {
         if (this.props.size() == 0)
             return StringUtils.EMPTY;
-        final String txt = this.props.entrySet().stream()
-                .map(kvp -> kvp.getKey().getName() + "=" + kvp.getValue().toString())
-                .collect(Collectors.joining(","));
+        final String txt = this.props.entrySet().stream().map(kvp -> kvp.getKey().getName() + "=" + kvp.getValue().toString()).collect(Collectors.joining(","));
         return "[" + txt + "]";
     }
-
+    
     @Nonnull
     public String toString() {
         return MoreObjects.toStringHelper(this).addValue(getFormattedProperties()).toString();
     }
-
+    
 }

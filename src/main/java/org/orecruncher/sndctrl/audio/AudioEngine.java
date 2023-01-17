@@ -52,9 +52,7 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.LogicalSide;
 
-/**
- * Handles the life cycle of sounds submitted to the Minecraft sound engine.
- */
+/** Handles the life cycle of sounds submitted to the Minecraft sound engine. */
 @OnlyIn(Dist.CLIENT)
 public final class AudioEngine {
     private static final IModLog LOGGER = SoundControl.LOGGER.createChild(AudioEngine.class);
@@ -62,26 +60,24 @@ public final class AudioEngine {
     private static final String FMT_DBG_TRACKED = TextFormatting.AQUA + "AudioEngine: %d";
     private static final String FMT_DBG_SOUND = TextFormatting.GOLD + "%s: %d";
     private static final ReferenceOpenHashSet<ISoundInstance> playingSounds = new ReferenceOpenHashSet<>(256);
-
+    
     @Nonnull
     private static List<String> diagnostics = ImmutableList.of();
     @Nullable
     private static ISound playedSound = null;
-
-    private AudioEngine() {
-    }
-
-    /**
-     * Stops the specified sound if it is playing.  There may be latency between the request and when the sound play is
+    
+    private AudioEngine() {}
+    
+    /** Stops the specified sound if it is playing. There may be latency between the request and when the sound play is
      * terminated.
      *
-     * @param sound The sound to stop
-     */
+     * @param sound
+     *            The sound to stop */
     public static void stop(@Nonnull final ISoundInstance sound) {
         Objects.requireNonNull(sound);
-
+        
         final SoundState state = sound.getState();
-
+        
         if (state != SoundState.STOPPING && !state.isTerminal()) {
             if (state == SoundState.DELAYED) {
                 // Delayed sounds are held in a separate queue in the engine thus there is nothing to stop.
@@ -94,25 +90,22 @@ public final class AudioEngine {
             }
         }
     }
-
-    /**
-     * Stops all playing and pending sounds. All lists and queues are dumped.
-     */
+    
+    /** Stops all playing and pending sounds. All lists and queues are dumped. */
     public static void stopAll() {
         LOGGER.debug("Stopping all sounds");
         GameUtils.getSoundHander().stop();
         playingSounds.forEach(s -> s.setState(SoundState.DONE));
         processTerminalSounds();
     }
-
-    /**
-     * Submits the sound to the sound system to be played.
+    
+    /** Submits the sound to the sound system to be played.
      * <p>
-     * The status of the sound play can be obtained by checking the sound instance status.  If the sound instance is
+     * The status of the sound play can be obtained by checking the sound instance status. If the sound instance is
      * in a non-terminal state the instance is being handled.
      *
-     * @param sound Sound to play
-     */
+     * @param sound
+     *            Sound to play */
     public static void play(@Nonnull final ISoundInstance sound) {
         Objects.requireNonNull(sound);
         // If the sound is already queued return it's current active state.
@@ -120,11 +113,11 @@ public final class AudioEngine {
             playSound0(sound);
         }
     }
-
+    
     private static void playSound0(@Nonnull ISoundInstance sound) {
         // Set the initial state
         sound.setState(SoundState.QUEUING);
-
+        
         if (SoundUtils.isSoundVolumeBlocked(sound)) {
             // Check if the sound even has a chance at playing.  If the calculated volume is too low the sound engine
             // will just drop it.  This check isn't perfect, but will get the majority of the cases.
@@ -165,7 +158,7 @@ public final class AudioEngine {
                 playedSound = null;
             }
         }
-
+        
         LOGGER.debug(Config.Flags.SOUND_PLAY, () -> {
             final double distance;
             if (GameUtils.getPlayer() != null) {
@@ -177,32 +170,31 @@ public final class AudioEngine {
             return String.format("%sQUEUED: [%s] (distance: %f)", sound.getState().isActive() ? StringUtils.EMPTY : "NOT ", sound, distance);
         });
     }
-
-    /**
-     * Run down our active sound list checking that they are still active. If they
+    
+    /** Run down our active sound list checking that they are still active. If they
      * aren't update the state accordingly.
      *
-     * @param event Event that was raised
-     */
+     * @param event
+     *            Event that was raised */
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void onClientTick(@Nonnull final TickEvent.ClientTickEvent event) {
         if (event.side != LogicalSide.CLIENT || event.phase != Phase.START)
             return;
-
+        
         final Map<ISound, Integer> delayedSounds = SoundUtils.getDelayedSounds();
         final Map<ISound, Entry> playing = SoundUtils.getPlayingSounds();
-
+        
         /*
          Process our queued sounds to make sure the state is appropriate. A sound can move between the playing sound
          list and the delayed sound list based on its attributes so we need to make sure we detect that.
-
+        
          We cannot rely on isSoundPlaying(). It can return FALSE even though the sound is in the internal playing
          lists. We only want to transition if the sound is in the playing lists or not.
         */
         for (final ISoundInstance sound : playingSounds) {
             final SoundState currentState = sound.getState();
             final boolean isPlaying = playing.containsKey(sound);
-
+            
             switch (currentState) {
                 case DELAYED:
                     // The sound play is delayed. Check to see if Minecraft transitioned it's state.
@@ -229,53 +221,48 @@ public final class AudioEngine {
                     break;
             }
         }
-
+        
         // Process any sounds in a terminal state.
         processTerminalSounds();
-
+        
         // Generate diagnostics if needed.
         if (processDiagnostics() && Minecraft.getInstance().gameSettings.showDebugInfo) {
             diagnostics = new ArrayList<>(16);
             diagnostics.add(String.format(FMT_DBG_SOUND_SYSTEM, SoundUtils.getTotalPlaying(), SoundUtils.getMaxSounds()));
             diagnostics.add(String.format(FMT_DBG_TRACKED, playingSounds.size()));
-
-            playing.keySet().stream()
-                    .map(s -> s.getSound().getSoundLocation())
-                    .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
-                    .entrySet().stream()
-                    .map(e -> String.format(FMT_DBG_SOUND, e.getKey().toString(), e.getValue()))
-                    .sorted()
-                    .forEach(diagnostics::add);
+            
+            playing.keySet().stream().map(s -> s.getSound().getSoundLocation()).collect(Collectors.groupingBy(Function.identity(), Collectors.counting())).entrySet().stream()
+                    .map(e -> String.format(FMT_DBG_SOUND, e.getKey().toString(), e.getValue())).sorted().forEach(diagnostics::add);
         } else if (diagnostics.size() > 0) {
             diagnostics = ImmutableList.of();
         }
     }
-
+    
     private static void processTerminalSounds() {
         playingSounds.removeIf(s -> s.getState().isTerminal());
     }
-
+    
     @SubscribeEvent(priority = EventPriority.LOW)
     public static void onGatherText(@Nonnull final DiagnosticEvent event) {
         if (processDiagnostics() && !diagnostics.isEmpty()) {
             event.getLeft().addAll(diagnostics);
         }
     }
-
+    
     private static boolean processDiagnostics() {
         return Config.CLIENT.logging.enableLogging.get();
     }
-
+    
     public static void initialize() {
         MinecraftForge.EVENT_BUS.register(AudioEngine.class);
     }
-
-    /**
-     * Hook that is called when the sound is actually being queued down into the engine.  Use this to determine
-     * what actually got played and to perform logging.  The standard sound listener will not receive callbacks if
+    
+    /** Hook that is called when the sound is actually being queued down into the engine. Use this to determine
+     * what actually got played and to perform logging. The standard sound listener will not receive callbacks if
      * the sound is too far away (based on the sound instance distance value).
-     * @param sound Sound that is being queued into the audio engine
-     */
+     * 
+     * @param sound
+     *            Sound that is being queued into the audio engine */
     public static void onPlaySound(@Nonnull final ISound sound) {
         playedSound = sound;
         if (!(playedSound instanceof ISoundInstance)) {

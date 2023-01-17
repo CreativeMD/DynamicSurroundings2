@@ -31,20 +31,18 @@ import com.google.common.base.Preconditions;
 
 @SuppressWarnings("unused")
 public final class ReflectionHelper {
-    private ReflectionHelper() {
-    }
-
+    private ReflectionHelper() {}
+    
     @Nullable
     public static Field resolveField(@Nonnull final String className, @Nonnull final String... fieldName) {
         Preconditions.checkNotNull(className);
         Preconditions.checkArgument(fieldName.length > 0, "Field name cannot be empty");
         try {
             return resolveField(Class.forName(className), fieldName);
-        } catch (@Nonnull final Throwable ignored) {
-        }
+        } catch (@Nonnull final Throwable ignored) {}
         return null;
     }
-
+    
     @Nullable
     public static Field resolveField(@Nonnull final Class<?> clazz, @Nonnull final String... fieldName) {
         Preconditions.checkNotNull(clazz);
@@ -54,45 +52,41 @@ public final class ReflectionHelper {
                 final Field f = clazz.getDeclaredField(name);
                 f.setAccessible(true);
                 return f;
-            } catch (final Throwable ignored) {
-            }
+            } catch (final Throwable ignored) {}
         }
         return null;
     }
-
+    
     @Nullable
     public static Method resolveMethod(@Nonnull final String className, @Nonnull final String[] names, Class<?>... parameters) {
         try {
             return resolveMethod(Class.forName(className), names, parameters);
-        } catch (@Nonnull final Throwable ignored) {
-        }
+        } catch (@Nonnull final Throwable ignored) {}
         return null;
     }
-
+    
     @Nullable
     public static Method resolveMethod(@Nonnull final Class<?> clazz, @Nonnull final String[] names, Class<?>... parameters) {
-
+        
         for (final String name : names) {
             try {
                 final Method f = clazz.getDeclaredMethod(name, parameters);
                 f.setAccessible(true);
                 return f;
-            } catch (@Nonnull final Throwable ignored) {
-            }
+            } catch (@Nonnull final Throwable ignored) {}
         }
         return null;
     }
-
+    
     @Nullable
     public static Class<?> resolveClass(@Nonnull final String className) {
         Preconditions.checkNotNull(className);
         try {
             return Class.forName(className);
-        } catch (@Nonnull final Throwable ignored) {
-        }
+        } catch (@Nonnull final Throwable ignored) {}
         return null;
     }
-
+    
     @Nonnull
     public static Collection<Field> getStaticFields(@Nonnull final Class<?> clazz) {
         final List<Field> staticFields = new ArrayList<>();
@@ -102,8 +96,8 @@ public final class ReflectionHelper {
                 staticFields.add(field);
             }
         }
-
+        
         return staticFields;
     }
-
+    
 }

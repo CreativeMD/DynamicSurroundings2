@@ -31,41 +31,36 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class ScanContext {
-
-	private final Supplier<IBlockReader> worldReader;
-	private final Supplier<BlockPos> scanCenter;
-	private final Supplier<Integer> worldReference;
-	private final Supplier<IModLog> logger;
-
-	public ScanContext(
-			@Nonnull final Supplier<IBlockReader> worldReader,
-			@Nonnull final Supplier<BlockPos> scanCenter,
-			@Nonnull final Supplier<IModLog> logger,
-			@Nonnull final Supplier<Integer> worldReference
-	) {
-		this.worldReader = worldReader;
-		this.scanCenter = scanCenter;
-		this.worldReference = worldReference;
-		this.logger = logger;
-	}
-
-	@Nonnull
-	public IBlockReader getWorld() {
-		return this.worldReader.get();
-	}
-
-	@Nonnull
-	public BlockPos getCenter() {
-		return this.scanCenter.get();
-	}
-
-	@Nonnull
-	public IModLog getLogger() {
-		return this.logger.get();
-	}
-
-	public int getReference() {
-		return this.worldReference.get();
-	}
-
+    
+    private final Supplier<IBlockReader> worldReader;
+    private final Supplier<BlockPos> scanCenter;
+    private final Supplier<Integer> worldReference;
+    private final Supplier<IModLog> logger;
+    
+    public ScanContext(@Nonnull final Supplier<IBlockReader> worldReader, @Nonnull final Supplier<BlockPos> scanCenter, @Nonnull final Supplier<IModLog> logger, @Nonnull final Supplier<Integer> worldReference) {
+        this.worldReader = worldReader;
+        this.scanCenter = scanCenter;
+        this.worldReference = worldReference;
+        this.logger = logger;
+    }
+    
+    @Nonnull
+    public IBlockReader getWorld() {
+        return this.worldReader.get();
+    }
+    
+    @Nonnull
+    public BlockPos getCenter() {
+        return this.scanCenter.get();
+    }
+    
+    @Nonnull
+    public IModLog getLogger() {
+        return this.logger.get();
+    }
+    
+    public int getReference() {
+        return this.worldReference.get();
+    }
+    
 }

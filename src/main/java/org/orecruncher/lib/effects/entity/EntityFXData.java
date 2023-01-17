@@ -25,21 +25,20 @@ import org.orecruncher.lib.effects.EntityEffectManager;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-
 @OnlyIn(Dist.CLIENT)
 public class EntityFXData implements IEntityFX {
-
-	protected EntityEffectManager handler;
-
-	@Override
-	public void set(@Nullable final EntityEffectManager handler) {
-		this.handler = handler;
-	}
-
-	@Override
-	@Nullable
-	public EntityEffectManager get() {
-		return this.handler;
-	}
-
+    
+    protected EntityEffectManager handler;
+    
+    @Override
+    public void set(@Nullable final EntityEffectManager handler) {
+        this.handler = handler;
+    }
+    
+    @Override
+    @Nullable
+    public EntityEffectManager get() {
+        return this.handler;
+    }
+    
 }

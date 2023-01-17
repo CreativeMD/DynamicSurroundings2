@@ -31,63 +31,63 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class BiomeAdapter implements IBiome {
-
-	protected final Biome biome;
-	protected final Set<Type> types;
-
-	public BiomeAdapter(@Nonnull final Biome biome) {
-		this.biome = biome;
-		this.types = BiomeUtilities.getBiomeTypes(this.biome);
-	}
-
-	@Override
-	public Biome getBiome() {
-		return this.biome;
-	}
-
-	@Override
-	public ResourceLocation getKey() {
-		return this.biome.getRegistryName();
-	}
-
-	@Override
-	public String getName() {
-		return BiomeUtilities.getBiomeName(biome);
-	}
-
-	@Override
-	public Set<Type> getTypes() {
-		return this.types;
-	}
-
-	@Override
-	public Biome.RainType getPrecipitationType() {
-		return this.biome.getPrecipitation();
-	}
-
-	@Override
-	public float getFloatTemperature(@Nonnull final BlockPos pos) {
-		return this.biome.getTemperature(pos);
-	}
-
-	@Override
-	public float getTemperature() {
-		return this.biome.getTemperature();
-	}
-
-	@Override
-	public boolean isHighHumidity() {
-		return this.biome.isHighHumidity();
-	}
-
-	@Override
-	public float getDownfall() {
-		return this.biome.getDownfall();
-	}
-
-	@Override
-	public boolean isFake() {
-		return false;
-	}
-
+    
+    protected final Biome biome;
+    protected final Set<Type> types;
+    
+    public BiomeAdapter(@Nonnull final Biome biome) {
+        this.biome = biome;
+        this.types = BiomeUtilities.getBiomeTypes(this.biome);
+    }
+    
+    @Override
+    public Biome getBiome() {
+        return this.biome;
+    }
+    
+    @Override
+    public ResourceLocation getKey() {
+        return this.biome.getRegistryName();
+    }
+    
+    @Override
+    public String getName() {
+        return BiomeUtilities.getBiomeName(biome);
+    }
+    
+    @Override
+    public Set<Type> getTypes() {
+        return this.types;
+    }
+    
+    @Override
+    public Biome.RainType getPrecipitationType() {
+        return this.biome.getPrecipitation();
+    }
+    
+    @Override
+    public float getFloatTemperature(@Nonnull final BlockPos pos) {
+        return this.biome.getTemperature(pos);
+    }
+    
+    @Override
+    public float getTemperature() {
+        return this.biome.getTemperature();
+    }
+    
+    @Override
+    public boolean isHighHumidity() {
+        return this.biome.isHighHumidity();
+    }
+    
+    @Override
+    public float getDownfall() {
+        return this.biome.getDownfall();
+    }
+    
+    @Override
+    public boolean isFake() {
+        return false;
+    }
+    
 }

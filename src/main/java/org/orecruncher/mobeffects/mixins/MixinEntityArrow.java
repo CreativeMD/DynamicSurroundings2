@@ -28,11 +28,11 @@ import net.minecraft.world.entity.EntityType;
 
 @Mixin(AbstractArrowEntity.class)
 public abstract class MixinEntityArrow extends Entity {
-
+    
     public MixinEntityArrow(EntityType<? extends AbstractArrowEntity> type, World worldIn) {
         super(type, worldIn);
     }
-
+    
     @Redirect(method = "tick()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/projectile/AbstractArrowEntity;getIsCritical()Z"))
     private boolean isCriticalCheck(AbstractArrowEntity self) {
         return self.getIsCritical() && Config.CLIENT.effects.showArrowTrail.get();

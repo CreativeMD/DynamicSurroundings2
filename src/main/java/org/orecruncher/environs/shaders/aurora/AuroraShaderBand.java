@@ -43,116 +43,116 @@ import net.minecraftforge.api.distmarker.OnlyIn;
  */
 @OnlyIn(Dist.CLIENT)
 public class AuroraShaderBand extends AuroraBase {
-
-	private static final float V1 = 0;
-	private static final float V2 = 0.5F;
-	
-	protected ShaderPrograms program;
-	protected Consumer<ShaderCallContext> callback;
-
-	protected final float auroraWidth;
-	protected final float panelTexWidth;
-	
-	public AuroraShaderBand(final long seed) {
-		super(seed);
-
-		this.program = ShaderPrograms.AURORA;
-
-		this.callback = shaderCallContext -> {
-			shaderCallContext.set("time", AuroraUtils.getTimeSeconds() * 0.75F);
-			shaderCallContext.set("resolution", AuroraShaderBand.this.getAuroraWidth(), AuroraShaderBand.this.getAuroraHeight());
-			shaderCallContext.set("topColor", AuroraShaderBand.this.getFadeColor());
-			shaderCallContext.set("middleColor", AuroraShaderBand.this.getMiddleColor());
-			shaderCallContext.set("bottomColor", AuroraShaderBand.this.getBaseColor());
-			shaderCallContext.set("alpha", AuroraShaderBand.this.getAlpha());
-		};
-
-		this.auroraWidth = this.band.getPanelCount() * this.band.getNodeWidth();
-		this.panelTexWidth = this.band.getNodeWidth() / this.auroraWidth;
-	}
-
-	@Override
-	public void update() {
-		super.update();
-		this.band.update();
-	}
-
-	@Override
-	protected float getAlpha() {
-		return MathStuff.clamp((this.band.getAlphaLimit() / 255F) * this.tracker.ageRatio() * 2.0F, 0F, 1F);
-	}
-
-	protected float getAuroraWidth() {
-		return this.auroraWidth;
-	}
-
-	protected float getAuroraHeight() {
-		return AuroraBand.AURORA_AMPLITUDE;
-	}
-
-	protected void generateBand(@Nonnull final IVertexBuilder builder, @Nonnull final Matrix4f matrix) {
-
-		for (int i = 0; ; i++) {
-			final Vector3f[] quad = this.band.getPanelQuad(i);
-			if (quad == null)
-				break;
-
-			final float u1 = i * this.panelTexWidth;
-			final float u2 = u1 + this.panelTexWidth;
-
-			builder.pos(matrix, quad[0].getX(), quad[0].getY(), quad[0].getZ()).tex(u1, V1).endVertex();
-			builder.pos(matrix, quad[1].getX(), quad[1].getY(), quad[1].getZ()).tex(u2, V1).endVertex();
-			builder.pos(matrix, quad[2].getX(), quad[2].getY(), quad[2].getZ()).tex(u2, V2).endVertex();
-			builder.pos(matrix, quad[3].getX(), quad[3].getY(), quad[3].getZ()).tex(u1, V2).endVertex();
-		}
-
-	}
-
-	@Override
-	public void render(@Nonnull final MatrixStack matrixStack, final float partialTick) {
-
-		if (this.program == null)
-			return;
-
-		this.band.translate(partialTick);
-
-		final double tranY = getTranslationY(partialTick);
-		final double tranX = getTranslationX(partialTick);
-		final double tranZ = getTranslationZ(partialTick);
-
-		final Vector3d view = GameUtils.getMC().gameRenderer.getActiveRenderInfo().getProjectedView();
-		matrixStack.push();
-		matrixStack.translate(-view.getX(), -view.getY(), -view.getZ());
-
-		final RenderType type = AuroraRenderType.QUAD;
-		final IRenderTypeBuffer.Impl buffer = GameUtils.getMC().getRenderTypeBuffers().getBufferSource();
-
-		ShaderPrograms.MANAGER.useShader(this.program, this.callback);
-
-		try {
-
-			for (int b = 0; b < this.bandCount; b++) {
-				final IVertexBuilder builder = buffer.getBuffer(type);
-				matrixStack.push();
-				matrixStack.translate(tranX, tranY, tranZ + this.offset * b);
-				generateBand(builder, matrixStack.getLast().getMatrix());
-				matrixStack.pop();
-				RenderSystem.disableDepthTest();
-				buffer.finish(type);
-			}
-
-		} catch (final Exception ex) {
-			ex.printStackTrace();
-			this.program = null;
-		}
-
-		ShaderPrograms.MANAGER.releaseShader();
-
-		matrixStack.pop();
-	}
-
-	@Override
-	public String toString() {
-		return "<SHADER> " + super.toString();
-	}
+    
+    private static final float V1 = 0;
+    private static final float V2 = 0.5F;
+    
+    protected ShaderPrograms program;
+    protected Consumer<ShaderCallContext> callback;
+    
+    protected final float auroraWidth;
+    protected final float panelTexWidth;
+    
+    public AuroraShaderBand(final long seed) {
+        super(seed);
+        
+        this.program = ShaderPrograms.AURORA;
+        
+        this.callback = shaderCallContext -> {
+            shaderCallContext.set("time", AuroraUtils.getTimeSeconds() * 0.75F);
+            shaderCallContext.set("resolution", AuroraShaderBand.this.getAuroraWidth(), AuroraShaderBand.this.getAuroraHeight());
+            shaderCallContext.set("topColor", AuroraShaderBand.this.getFadeColor());
+            shaderCallContext.set("middleColor", AuroraShaderBand.this.getMiddleColor());
+            shaderCallContext.set("bottomColor", AuroraShaderBand.this.getBaseColor());
+            shaderCallContext.set("alpha", AuroraShaderBand.this.getAlpha());
+        };
+        
+        this.auroraWidth = this.band.getPanelCount() * this.band.getNodeWidth();
+        this.panelTexWidth = this.band.getNodeWidth() / this.auroraWidth;
+    }
+    
+    @Override
+    public void update() {
+        super.update();
+        this.band.update();
+    }
+    
+    @Override
+    protected float getAlpha() {
+        return MathStuff.clamp((this.band.getAlphaLimit() / 255F) * this.tracker.ageRatio() * 2.0F, 0F, 1F);
+    }
+    
+    protected float getAuroraWidth() {
+        return this.auroraWidth;
+    }
+    
+    protected float getAuroraHeight() {
+        return AuroraBand.AURORA_AMPLITUDE;
+    }
+    
+    protected void generateBand(@Nonnull final IVertexBuilder builder, @Nonnull final Matrix4f matrix) {
+        
+        for (int i = 0;; i++) {
+            final Vector3f[] quad = this.band.getPanelQuad(i);
+            if (quad == null)
+                break;
+            
+            final float u1 = i * this.panelTexWidth;
+            final float u2 = u1 + this.panelTexWidth;
+            
+            builder.pos(matrix, quad[0].getX(), quad[0].getY(), quad[0].getZ()).tex(u1, V1).endVertex();
+            builder.pos(matrix, quad[1].getX(), quad[1].getY(), quad[1].getZ()).tex(u2, V1).endVertex();
+            builder.pos(matrix, quad[2].getX(), quad[2].getY(), quad[2].getZ()).tex(u2, V2).endVertex();
+            builder.pos(matrix, quad[3].getX(), quad[3].getY(), quad[3].getZ()).tex(u1, V2).endVertex();
+        }
+        
+    }
+    
+    @Override
+    public void render(@Nonnull final MatrixStack matrixStack, final float partialTick) {
+        
+        if (this.program == null)
+            return;
+        
+        this.band.translate(partialTick);
+        
+        final double tranY = getTranslationY(partialTick);
+        final double tranX = getTranslationX(partialTick);
+        final double tranZ = getTranslationZ(partialTick);
+        
+        final Vector3d view = GameUtils.getMC().gameRenderer.getActiveRenderInfo().getProjectedView();
+        matrixStack.push();
+        matrixStack.translate(-view.getX(), -view.getY(), -view.getZ());
+        
+        final RenderType type = AuroraRenderType.QUAD;
+        final IRenderTypeBuffer.Impl buffer = GameUtils.getMC().getRenderTypeBuffers().getBufferSource();
+        
+        ShaderPrograms.MANAGER.useShader(this.program, this.callback);
+        
+        try {
+            
+            for (int b = 0; b < this.bandCount; b++) {
+                final IVertexBuilder builder = buffer.getBuffer(type);
+                matrixStack.push();
+                matrixStack.translate(tranX, tranY, tranZ + this.offset * b);
+                generateBand(builder, matrixStack.getLast().getMatrix());
+                matrixStack.pop();
+                RenderSystem.disableDepthTest();
+                buffer.finish(type);
+            }
+            
+        } catch (final Exception ex) {
+            ex.printStackTrace();
+            this.program = null;
+        }
+        
+        ShaderPrograms.MANAGER.releaseShader();
+        
+        matrixStack.pop();
+    }
+    
+    @Override
+    public String toString() {
+        return "<SHADER> " + super.toString();
+    }
 }

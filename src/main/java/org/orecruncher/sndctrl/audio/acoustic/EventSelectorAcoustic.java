@@ -37,66 +37,64 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-/**
- * An acoustic that will play different sounds based on the AcousticEvent provided.  For example, for a given
- * EventSelectorAcoustic, an acoustic could be selected if a mob is walking vs. running.
- */
+/** An acoustic that will play different sounds based on the AcousticEvent provided. For example, for a given
+ * EventSelectorAcoustic, an acoustic could be selected if a mob is walking vs. running. */
 @OnlyIn(Dist.CLIENT)
 public class EventSelectorAcoustic implements IAcoustic {
-
+    
     private final Map<AcousticEvent, IAcoustic> mapping = new IdentityHashMap<>(4);
     @Nonnull
     private final ResourceLocation name;
-
+    
     public EventSelectorAcoustic(@Nonnull final ResourceLocation name) {
         this.name = Objects.requireNonNull(name);
     }
-
+    
     public void add(@Nonnull final AcousticEvent event, @Nonnull final IAcoustic acoustic) {
         this.mapping.put(event, acoustic);
     }
-
+    
     @Nonnull
     @Override
     public ResourceLocation getName() {
         return this.name;
     }
-
+    
     @Override
     public void play(@Nonnull final AcousticEvent event) {
         resolve(event).ifPresent(IAcoustic::play);
     }
-
+    
     @Override
     public void playAt(@Nonnull final BlockPos pos, @Nonnull final AcousticEvent event) {
         resolve(event).ifPresent(a -> a.playAt(pos));
     }
-
+    
     @Override
     public void playAt(@Nonnull final Vector3d pos, @Nonnull final AcousticEvent event) {
         resolve(event).ifPresent(a -> a.playAt(pos));
     }
-
+    
     @Override
     public void playNear(@Nonnull final Entity entity, @Nonnull final AcousticEvent event) {
         resolve(event).ifPresent(a -> a.playNear(entity));
     }
-
+    
     @Override
     public void playNear(@Nonnull final Entity entity, @Nonnull final AcousticEvent event, final int minRange, final int maxRange) {
         resolve(event).ifPresent(a -> a.playNear(entity, minRange, maxRange));
     }
-
+    
     @Override
     public void playBackground(@Nonnull final AcousticEvent event) {
         resolve(event).ifPresent(IAcoustic::playBackground);
     }
-
+    
     @Override
     public IAcousticFactory getFactory(@Nonnull final AcousticEvent event) {
         return resolve(event).map(IAcoustic::getFactory).orElse(null);
     }
-
+    
     @Nonnull
     protected Optional<IAcoustic> resolve(@Nonnull final AcousticEvent event) {
         IAcoustic acoustic = this.mapping.get(event);
@@ -104,10 +102,10 @@ public class EventSelectorAcoustic implements IAcoustic {
             acoustic = this.mapping.get(event.getTransition());
         return Optional.ofNullable(acoustic);
     }
-
+    
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this).addValue(getName().toString()).add("entries", this.mapping.size()).toString();
     }
-
+    
 }

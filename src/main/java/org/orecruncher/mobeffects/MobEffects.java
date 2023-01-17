@@ -43,56 +43,36 @@ import net.minecraftforge.fml.network.FMLNetworkConstants;
 
 @Mod(MobEffects.MOD_ID)
 public final class MobEffects {
-
-    /**
-     * ID of the mod
-     */
+    
+    /** ID of the mod */
     public static final String MOD_ID = "mobeffects";
-    /**
-     * Logging instance for trace
-     */
+    /** Logging instance for trace */
     public static final ModLog LOGGER = new ModLog(MobEffects.class);
-
+    
     public MobEffects() {
-
+        
         // Since we are 100% client side
         ModLoadingContext.get().registerExtensionPoint(ExtensionPoint.DISPLAYTEST, () -> Pair.of(() -> FMLNetworkConstants.IGNORESERVERONLY, (a, b) -> true));
-
+        
         if (FMLEnvironment.dist == Dist.CLIENT) {
             // Various event bus registrations
             FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
             MinecraftForge.EVENT_BUS.register(this);
-
+            
             // Initialize our configuration
             Config.setup();
-
+            
             DynamicSurroundings.doConfigMenuSetup();
         }
     }
-
+    
     private void enqueueIMC(final InterModEnqueueEvent event) {
         // Sound Categories
-        IMC.registerSoundCategory(
-                Constants.FOOTSTEPS,
-                Constants.TOOLBAR
-        );
-
+        IMC.registerSoundCategory(Constants.FOOTSTEPS, Constants.TOOLBAR);
+        
         // Register our AcousticEvents
-        IMC.registerAcousticEvent(
-                Constants.WALK,
-                Constants.WANDER,
-                Constants.SWIM,
-                Constants.RUN,
-                Constants.JUMP,
-                Constants.LAND,
-                Constants.CLIMB,
-                Constants.CLIMB_RUN,
-                Constants.DOWN,
-                Constants.DOWN_RUN,
-                Constants.UP,
-                Constants.UP_RUN
-        );
-
+        IMC.registerAcousticEvent(Constants.WALK, Constants.WANDER, Constants.SWIM, Constants.RUN, Constants.JUMP, Constants.LAND, Constants.CLIMB, Constants.CLIMB_RUN, Constants.DOWN, Constants.DOWN_RUN, Constants.UP, Constants.UP_RUN);
+        
         // Register our effect handlers
         IMC.registerEffectFactoryHandler(EntityFootprintEffect.FACTORY);
         if (Config.CLIENT.effects.showBreath.get())
@@ -103,7 +83,7 @@ public final class MobEffects {
             IMC.registerEffectFactoryHandler(PlayerToolbarEffect.FACTORY);
         if (Config.CLIENT.effects.enableSwingEffect.get())
             IMC.registerEffectFactoryHandler(EntitySwingEffect.FACTORY);
-
+        
         // Callback for completions
         IMC.registerCompletionCallback(Libraries::initialize);
         IMC.registerCompletionCallback(Libraries::complete);

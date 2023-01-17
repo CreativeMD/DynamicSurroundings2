@@ -16,9 +16,7 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>
  */
 
-/**
- * API accessible to other mods.
- */
+/** API accessible to other mods. */
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 package org.orecruncher.sndctrl.api;

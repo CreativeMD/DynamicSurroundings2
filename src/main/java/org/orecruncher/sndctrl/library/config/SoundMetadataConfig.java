@@ -34,7 +34,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class SoundMetadataConfig implements IValidator<SoundMetadataConfig> {
-
+    
     @SerializedName("category")
     public String category = null;
     @SerializedName("title")
@@ -43,23 +43,18 @@ public class SoundMetadataConfig implements IValidator<SoundMetadataConfig> {
     public String caption = null;
     @SerializedName("credits")
     public List<String> credits = ImmutableList.of();
-
-    /**
-     * Indicates whether the settings in the instance are the default settings.
+    
+    /** Indicates whether the settings in the instance are the default settings.
      *
-     * @return true if the properties are the same as defaults; false otherwise
-     */
+     * @return true if the properties are the same as defaults; false otherwise */
     public boolean isDefault() {
         //@formatter:off
-        return StringUtils.isEmpty(this.category)
-                && StringUtils.isEmpty(this.title)
-                && StringUtils.isEmpty(this.caption)
-                && this.credits.size() == 0;
+        return StringUtils.isEmpty(this.category) && StringUtils.isEmpty(this.title) && StringUtils.isEmpty(this.caption) && this.credits.size() == 0;
         //@formatter:on
     }
-
+    
     @Override
     public void validate(@Nonnull final SoundMetadataConfig obj) throws ValidationException {
-
+        
     }
 }

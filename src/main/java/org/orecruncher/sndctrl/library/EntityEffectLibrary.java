@@ -32,47 +32,46 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public final class EntityEffectLibrary {
-
-	private static final ObjectArray<IEntityEffectFactoryHandler> entityEffectfactoryHandlers = new ObjectArray<>();
-
-	private EntityEffectLibrary() {
-
-	}
-
-	public static void initialize() {
-		// Kick the class ctor
-	}
-
-	public static void complete() {
-		if (Config.CLIENT.logging.enableLogging.get()) {
-			SoundControl.LOGGER.info("Registered Handlers");
-			SoundControl.LOGGER.info("===================");
-			for (final IEntityEffectFactoryHandler h : entityEffectfactoryHandlers) {
-				SoundControl.LOGGER.info(h.getName().toString());
-			}
-		}
-	}
-
-	@Nonnull
-	public static ObjectArray<AbstractEntityEffect> getEffects(@Nonnull final LivingEntity entity) {
-		final ObjectArray<AbstractEntityEffect> result = new ObjectArray<>();
-		entityEffectfactoryHandlers.forEach(h -> {
-			if (h.appliesTo(entity))
-				result.add(h.get(entity));
-		});
-		result.trim();
-		return result;
-	}
-
-	/**
-	 * Registers an IEntityEffectFactoryFilter/IEntityEffectFactory pair. The filter
-	 * is used by the EntityEffectLibrary to determine if an EntityEffect applies to
-	 * a target entity.
-	 *
-	 * @param handler Factory handler to register with the system
-	 */
-	public static void register(@Nonnull final IEntityEffectFactoryHandler handler) {
-		entityEffectfactoryHandlers.add(handler);
-	}
-
+    
+    private static final ObjectArray<IEntityEffectFactoryHandler> entityEffectfactoryHandlers = new ObjectArray<>();
+    
+    private EntityEffectLibrary() {
+        
+    }
+    
+    public static void initialize() {
+        // Kick the class ctor
+    }
+    
+    public static void complete() {
+        if (Config.CLIENT.logging.enableLogging.get()) {
+            SoundControl.LOGGER.info("Registered Handlers");
+            SoundControl.LOGGER.info("===================");
+            for (final IEntityEffectFactoryHandler h : entityEffectfactoryHandlers) {
+                SoundControl.LOGGER.info(h.getName().toString());
+            }
+        }
+    }
+    
+    @Nonnull
+    public static ObjectArray<AbstractEntityEffect> getEffects(@Nonnull final LivingEntity entity) {
+        final ObjectArray<AbstractEntityEffect> result = new ObjectArray<>();
+        entityEffectfactoryHandlers.forEach(h -> {
+            if (h.appliesTo(entity))
+                result.add(h.get(entity));
+        });
+        result.trim();
+        return result;
+    }
+    
+    /** Registers an IEntityEffectFactoryFilter/IEntityEffectFactory pair. The filter
+     * is used by the EntityEffectLibrary to determine if an EntityEffect applies to
+     * a target entity.
+     *
+     * @param handler
+     *            Factory handler to register with the system */
+    public static void register(@Nonnull final IEntityEffectFactoryHandler handler) {
+        entityEffectfactoryHandlers.add(handler);
+    }
+    
 }

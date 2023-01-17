@@ -34,76 +34,76 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class MoteWaterRipple extends AgeableMote {
-
-	private static final float TEX_SIZE_HALF = 0.5F;
-
-	protected final float growthRate;
-	protected float scale;
-	protected float scaledWidth;
-
-	protected float texU1, texU2;
-	protected float texV1, texV2;
-
-	public MoteWaterRipple(final IBlockReader world, final double x, final double y, final double z) {
-		super(world, x, y, z);
-
-		final RippleStyle style = Config.CLIENT.effects.waterRippleStyle.get();
-
-		this.maxAge = style.getMaxAge();
-
-		if (style.doScaling()) {
-			this.growthRate = this.maxAge / 500F;
-			this.scale = this.growthRate;
-			this.scaledWidth = this.scale * TEX_SIZE_HALF;
-		} else {
-			this.growthRate = 0F;
-			this.scale = 0F;
-			this.scaledWidth = 0.5F;
-		}
-
-		this.posY -= 0.2D;
-
-		final Color waterColor = BiomeUtilities.getColorForLiquid(world, this.position.down());
-		this.red = waterColor.red();
-		this.green = waterColor.green();
-		this.blue = waterColor.blue();
-		this.alpha = 0.99F;
-
-		this.texU1 = style.getU1(this.age);
-		this.texU2 = style.getU2(this.age);
-		this.texV1 = style.getV1(this.age);
-		this.texV2 = style.getV2(this.age);
-	}
-
-	@Override
-	public void update() {
-		final RippleStyle style = Config.CLIENT.effects.waterRippleStyle.get();
-		if (style.doScaling()) {
-			this.scale += this.growthRate;
-			this.scaledWidth = this.scale * TEX_SIZE_HALF;
-		}
-
-		if (style.doAlpha()) {
-			this.alpha = (float) (this.maxAge - this.age) / (float) (this.maxAge + 3);
-		}
-
-		this.texU1 = style.getU1(this.age);
-		this.texU2 = style.getU2(this.age);
-		this.texV1 = style.getV1(this.age);
-		this.texV2 = style.getV2(this.age);
-	}
-
-	@Override
-	public void renderParticle(@Nonnull IVertexBuilder buffer, @Nonnull ActiveRenderInfo info, float partialTicks) {
-
-		final float x = this.renderX(info, partialTicks);
-		final float y = this.renderY(info, partialTicks);
-		final float z = this.renderZ(info, partialTicks);
-
-		drawVertex(buffer, -this.scaledWidth + x, y, this.scaledWidth + z, this.texU2, this.texV2);
-		drawVertex(buffer, this.scaledWidth + x, y, this.scaledWidth + z, this.texU2, this.texV1);
-		drawVertex(buffer, this.scaledWidth + x, y, -this.scaledWidth + z, this.texU1, this.texV1);
-		drawVertex(buffer, -this.scaledWidth + x, y, -this.scaledWidth + z, this.texU1, this.texV2);
-	}
-
+    
+    private static final float TEX_SIZE_HALF = 0.5F;
+    
+    protected final float growthRate;
+    protected float scale;
+    protected float scaledWidth;
+    
+    protected float texU1, texU2;
+    protected float texV1, texV2;
+    
+    public MoteWaterRipple(final IBlockReader world, final double x, final double y, final double z) {
+        super(world, x, y, z);
+        
+        final RippleStyle style = Config.CLIENT.effects.waterRippleStyle.get();
+        
+        this.maxAge = style.getMaxAge();
+        
+        if (style.doScaling()) {
+            this.growthRate = this.maxAge / 500F;
+            this.scale = this.growthRate;
+            this.scaledWidth = this.scale * TEX_SIZE_HALF;
+        } else {
+            this.growthRate = 0F;
+            this.scale = 0F;
+            this.scaledWidth = 0.5F;
+        }
+        
+        this.posY -= 0.2D;
+        
+        final Color waterColor = BiomeUtilities.getColorForLiquid(world, this.position.down());
+        this.red = waterColor.red();
+        this.green = waterColor.green();
+        this.blue = waterColor.blue();
+        this.alpha = 0.99F;
+        
+        this.texU1 = style.getU1(this.age);
+        this.texU2 = style.getU2(this.age);
+        this.texV1 = style.getV1(this.age);
+        this.texV2 = style.getV2(this.age);
+    }
+    
+    @Override
+    public void update() {
+        final RippleStyle style = Config.CLIENT.effects.waterRippleStyle.get();
+        if (style.doScaling()) {
+            this.scale += this.growthRate;
+            this.scaledWidth = this.scale * TEX_SIZE_HALF;
+        }
+        
+        if (style.doAlpha()) {
+            this.alpha = (float) (this.maxAge - this.age) / (float) (this.maxAge + 3);
+        }
+        
+        this.texU1 = style.getU1(this.age);
+        this.texU2 = style.getU2(this.age);
+        this.texV1 = style.getV1(this.age);
+        this.texV2 = style.getV2(this.age);
+    }
+    
+    @Override
+    public void renderParticle(@Nonnull IVertexBuilder buffer, @Nonnull ActiveRenderInfo info, float partialTicks) {
+        
+        final float x = this.renderX(info, partialTicks);
+        final float y = this.renderY(info, partialTicks);
+        final float z = this.renderZ(info, partialTicks);
+        
+        drawVertex(buffer, -this.scaledWidth + x, y, this.scaledWidth + z, this.texU2, this.texV2);
+        drawVertex(buffer, this.scaledWidth + x, y, this.scaledWidth + z, this.texU2, this.texV1);
+        drawVertex(buffer, this.scaledWidth + x, y, -this.scaledWidth + z, this.texU1, this.texV1);
+        drawVertex(buffer, -this.scaledWidth + x, y, -this.scaledWidth + z, this.texU1, this.texV2);
+    }
+    
 }

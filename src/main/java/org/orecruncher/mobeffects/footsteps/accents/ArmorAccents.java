@@ -36,7 +36,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 class ArmorAccents implements IFootstepAccentProvider {
-
+    
     @Nullable
     protected IAcoustic resolveArmor(@Nonnull final ItemStack stack) {
         final ItemData id = ItemLibrary.getItemData(stack);
@@ -45,7 +45,7 @@ class ArmorAccents implements IFootstepAccentProvider {
         }
         return null;
     }
-
+    
     protected IAcoustic resolveFootArmor(@Nonnull final ItemStack stack) {
         final ItemData id = ItemLibrary.getItemData(stack);
         if (id.isArmor()) {
@@ -53,31 +53,27 @@ class ArmorAccents implements IFootstepAccentProvider {
         }
         return null;
     }
-
+    
     @Override
     public boolean isEnabled() {
         return Config.CLIENT.footsteps.enableArmorAccents.get();
     }
-
+    
     @Override
-    public void provide(
-            @Nonnull final LivingEntity entity,
-            @Nonnull final BlockPos blockPos,
-            @Nonnull final BlockState posState,
-            @Nonnull final ObjectArray<IAcoustic> acoustics) {
+    public void provide(@Nonnull final LivingEntity entity, @Nonnull final BlockPos blockPos, @Nonnull final BlockState posState, @Nonnull final ObjectArray<IAcoustic> acoustics) {
         final ItemStack armor = ItemData.effectiveArmorItemStack(entity);
         final ItemStack foot = ItemData.footArmorItemStack(entity);
         final IAcoustic armorAddon = resolveArmor(armor);
         IAcoustic footAddon = resolveFootArmor(foot);
-
+        
         if (armorAddon != null) {
             acoustics.add(armorAddon);
             if (armorAddon == footAddon)
                 footAddon = null;
         }
-
+        
         if (footAddon != null)
             acoustics.add(footAddon);
     }
-
+    
 }

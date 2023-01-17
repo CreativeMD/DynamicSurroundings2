@@ -34,43 +34,43 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public final class AcousticEvent {
-
+    
     private static final Map<ResourceLocation, AcousticEvent> mapping = new HashMap<>();
     @Nonnull
     public static final AcousticEvent NONE = new AcousticEvent(new ResourceLocation(SoundControl.MOD_ID, "none"), null).register();
     private final ResourceLocation name;
     private final AcousticEvent transition;
-
+    
     public AcousticEvent(@Nonnull final ResourceLocation name, @Nullable final AcousticEvent transition) {
         this.name = name;
         this.transition = transition;
     }
-
+    
     @Nullable
     public static AcousticEvent getEvent(@Nonnull final ResourceLocation name) {
         return mapping.get(name);
     }
-
+    
     @Nonnull
     public ResourceLocation getName() {
         return this.name;
     }
-
+    
     public boolean canTransition() {
         return this.transition != null;
     }
-
+    
     @Nullable
     public AcousticEvent getTransition() {
         return this.transition;
     }
-
+    
     @Nonnull
     public AcousticEvent register() {
         mapping.put(this.name, this);
         return this;
     }
-
+    
     @Override
     public String toString() {
         final MoreObjects.ToStringHelper builder = MoreObjects.toStringHelper(this).addValue(this.name.toString());
@@ -78,5 +78,5 @@ public final class AcousticEvent {
             builder.add("transition", this.transition.getName());
         return builder.toString();
     }
-
+    
 }

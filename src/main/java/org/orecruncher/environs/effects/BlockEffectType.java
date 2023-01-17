@@ -31,12 +31,10 @@ import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-/**
- * Describes the various types of block effects that can be generated.
- */
+/** Describes the various types of block effects that can be generated. */
 @OnlyIn(Dist.CLIENT)
 public enum BlockEffectType {
-
+    
     UNKNOWN("UNKNOWN", ignored -> null, () -> false),
     FIREFLY("firefly", FireFlyEffect::new, Config.CLIENT.effects.enableFireFlies::get),
     STEAM("steam", SteamJetEffect::new, Config.CLIENT.effects.enableSteamJets::get),
@@ -45,38 +43,38 @@ public enum BlockEffectType {
     DUST("dust", DustJetEffect::new, Config.CLIENT.effects.enableDustJets::get),
     FOUNTAIN("fountain", FountainJetEffect::new, Config.CLIENT.effects.enableFountainJets::get),
     SPLASH("splash", WaterfallSplashEffect::new, Config.CLIENT.effects.enableWaterfalls::get);
-
+    
     private static final Map<String, BlockEffectType> typeMap = new Object2ObjectOpenHashMap<>();
     static {
         for (final BlockEffectType effect : BlockEffectType.values())
             typeMap.put(effect.getName(), effect);
     }
-
+    
     @Nonnull
     public static BlockEffectType get(@Nonnull final String name) {
         final BlockEffectType result = typeMap.get(name);
         return result == null ? BlockEffectType.UNKNOWN : result;
     }
-
+    
     protected final String name;
     protected final Function<Integer, BlockEffect> factory;
     protected final Supplier<Boolean> enabled;
-
+    
     BlockEffectType(@Nonnull final String name, @Nonnull final Function<Integer, BlockEffect> factory, @Nonnull final Supplier<Boolean> enabled) {
         this.name = name;
         this.enabled = enabled;
         this.factory = factory;
     }
-
+    
     @Nonnull
     public String getName() {
         return this.name;
     }
-
+    
     public boolean isEnabled() {
         return this.enabled.get();
     }
-
+    
     @Nonnull
     public Optional<BlockEffect> getInstance(final int chance) {
         return Optional.ofNullable(this.factory.apply(chance));

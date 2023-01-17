@@ -27,13 +27,13 @@ import net.minecraft.client.audio.SoundSystem;
 
 @Mixin(SoundSystem.class)
 public class MixinSoundSystem {
-
-    /**
-     * Modify the number of streaming sounds that can be handled by the underlying sound engine.  Normally it
-     * allows for 8.  This mixin will change to 10.
-     * @param v Existing value for the number of streaming sounds (should be 8)
-     * @return The quantity of streaming sounds (10)
-     */
+    
+    /** Modify the number of streaming sounds that can be handled by the underlying sound engine. Normally it
+     * allows for 8. This mixin will change to 10.
+     * 
+     * @param v
+     *            Existing value for the number of streaming sounds (should be 8)
+     * @return The quantity of streaming sounds (10) */
     @ModifyConstant(method = "init()V", constant = @Constant(intValue = 8))
     private int initialize(int v) {
         return Config.CLIENT.sound.streamingSoundCount.get();

@@ -26,9 +26,9 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class Validators {
     private Validators() {
-
+        
     }
-
+    
     public static <T extends Enum<T>> boolean isValid(@Nonnull final T[] possibles, @Nonnull final Object val) {
         final String s = (String) val;
         for (final T e : possibles)

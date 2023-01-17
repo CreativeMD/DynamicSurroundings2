@@ -26,46 +26,44 @@ import org.orecruncher.sndctrl.api.sound.ISoundInstance;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-/**
- * A BackgroundSoundInstance is intended to play continuously in the background, similar to the music
- * of Minecraft.  The difference here is that the volume can fade in and out.  Used by Dynamic Surroundings
- * to scale background sound volumes based on biome distribution.
- */
+/** A BackgroundSoundInstance is intended to play continuously in the background, similar to the music
+ * of Minecraft. The difference here is that the volume can fade in and out. Used by Dynamic Surroundings
+ * to scale background sound volumes based on biome distribution. */
 @OnlyIn(Dist.CLIENT)
 public class BackgroundSoundInstance extends FadableSoundInstance {
-
+    
     public BackgroundSoundInstance(@Nonnull final ISoundInstance sound, @Nonnull final ISoundCategory category) {
         super(sound, category);
     }
-
+    
     public BackgroundSoundInstance(@Nonnull final ISoundInstance sound) {
         super(sound);
     }
-
+    
     @Override
     public boolean isGlobal() {
         return true;
     }
-
+    
     @Override
     public double getX() {
         return 0;
     }
-
+    
     @Override
     public double getY() {
         return 0;
     }
-
+    
     @Override
     public double getZ() {
         return 0;
     }
-
+    
     @Nonnull
     @Override
     public AttenuationType getAttenuationType() {
         return AttenuationType.NONE;
     }
-
+    
 }

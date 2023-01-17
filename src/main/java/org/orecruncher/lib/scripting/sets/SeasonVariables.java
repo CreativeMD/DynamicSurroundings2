@@ -29,47 +29,47 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class SeasonVariables  extends VariableSet<ISeasonVariables> implements ISeasonVariables {
-
+public class SeasonVariables extends VariableSet<ISeasonVariables> implements ISeasonVariables {
+    
     private final LazyVariable<Season> season = new LazyVariable<>(() -> Season.getSeason(GameUtils.getWorld()));
     private final LazyVariable<String> seasonName = new LazyVariable<>(() -> season.get().getFormattedText());
-
+    
     public SeasonVariables() {
         super("season");
     }
-
+    
     @Nonnull
     @Override
     public ISeasonVariables getInterface() {
         return this;
     }
-
+    
     @Override
     public void update() {
         this.season.reset();
         this.seasonName.reset();
     }
-
+    
     @Override
     public boolean isSpring() {
         return this.season.get().getType() == SeasonType.SPRING;
     }
-
+    
     @Override
     public boolean isSummer() {
         return this.season.get().getType() == SeasonType.SUMMER;
     }
-
+    
     @Override
     public boolean isAutumn() {
         return this.season.get().getType() == SeasonType.AUTUMN;
     }
-
+    
     @Override
     public boolean isWinter() {
         return this.season.get().getType() == SeasonType.WINTER;
     }
-
+    
     @Override
     public String getSeason() {
         return this.seasonName.get();

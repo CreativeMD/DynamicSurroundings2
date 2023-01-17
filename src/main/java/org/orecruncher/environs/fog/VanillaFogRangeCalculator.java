@@ -24,37 +24,35 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
 
-/**
- * Vanilla calculator that reflects whatever is in the event in terms of
- * start/end points for fog.
- */
+/** Vanilla calculator that reflects whatever is in the event in terms of
+ * start/end points for fog. */
 @OnlyIn(Dist.CLIENT)
 public class VanillaFogRangeCalculator implements IFogRangeCalculator {
-
+    
     private final String name;
-
+    
     protected VanillaFogRangeCalculator(@Nonnull final String name) {
         this.name = name;
     }
-
+    
     @Nonnull
     public String getName() {
         return this.name;
     }
-
+    
     public boolean enabled() {
         return true;
     }
-
+    
     @Override
     @Nonnull
     public FogResult calculate(@Nonnull final EntityViewRenderEvent.RenderFogEvent event) {
         return new FogResult(event);
     }
-
+    
     @Override
     public void tick() {
-
+        
     }
-
+    
 }

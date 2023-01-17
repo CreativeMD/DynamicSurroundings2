@@ -31,38 +31,36 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-/**
- * An acoustic that will delay play for a random period of ticks.  The sound instance will be held in the sound engine
- * until the delay threshold is hit.
- */
+/** An acoustic that will delay play for a random period of ticks. The sound instance will be held in the sound engine
+ * until the delay threshold is hit. */
 @OnlyIn(Dist.CLIENT)
 public class DelayedAcoustic extends SimpleAcoustic {
-
+    
     private static final Random RANDOM = XorShiftRandom.current();
-
+    
     private int delayMin;
     private int delayMax;
-
+    
     public DelayedAcoustic(@Nonnull final ResourceLocation name, @Nonnull AcousticFactory factory) {
         super(name, factory);
     }
-
+    
     public void setDelay(final int delay) {
         this.delayMin = this.delayMax = delay;
     }
-
+    
     public void setDelayMin(final int min) {
         this.delayMin = min;
     }
-
+    
     public void setDelayMax(final int max) {
         this.delayMax = max;
     }
-
+    
     public boolean hasDelay() {
         return this.delayMax > 0;
     }
-
+    
     @Override
     protected void play(@Nonnull final ISoundInstance sound) {
         if (hasDelay()) {
@@ -73,7 +71,7 @@ public class DelayedAcoustic extends SimpleAcoustic {
         }
         super.play(sound);
     }
-
+    
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this).addValue(getName().toString()).toString();

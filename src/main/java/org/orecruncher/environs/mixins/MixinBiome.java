@@ -33,20 +33,20 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Biome.class)
 public class MixinBiome implements IMixinBiomeData {
-
+    
     private BiomeInfo environs_biomeInfo;
-
+    
     @Nullable
     @Override
     public BiomeInfo getInfo() {
         return this.environs_biomeInfo;
     }
-
+    
     @Override
     public void setInfo(@Nullable BiomeInfo info) {
         this.environs_biomeInfo = info;
     }
-
+    
     @Inject(method = "getFogColor()I", at = @At("HEAD"), cancellable = true)
     public void getFogColor(@Nonnull final CallbackInfoReturnable<Integer> cir) {
         if (doFogColor()) {
@@ -58,7 +58,7 @@ public class MixinBiome implements IMixinBiomeData {
             }
         }
     }
-
+    
     private boolean doFogColor() {
         return FogHandler.doFog() && Config.CLIENT.fog.enableBiomeFog.get();
     }

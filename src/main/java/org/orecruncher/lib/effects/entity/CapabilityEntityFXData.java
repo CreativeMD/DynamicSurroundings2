@@ -39,35 +39,35 @@ import net.minecraftforge.fml.common.Mod;
 
 @OnlyIn(Dist.CLIENT)
 public class CapabilityEntityFXData {
-
-	@SuppressWarnings("ConstantConditions")
-	@CapabilityInject(IEntityFX.class)
-	@Nonnull
-	public static final Capability<IEntityFX> FX_INFO = null;
-	public static final ResourceLocation CAPABILITY_ID = new ResourceLocation(SoundControl.MOD_ID, "entityfx");
-
-	@OnlyIn(Dist.CLIENT)
-	public static void register() {
-		CapabilityManager.INSTANCE.register(IEntityFX.class, new NullStorage<>(), EntityFXData::new);
-	}
-
-	@OnlyIn(Dist.CLIENT)
-	@Nonnull
-	public static ICapabilityProvider createProvider(final IEntityFX data) {
-		return new SimpleProvider<>(FX_INFO, null, data);
-	}
-
-	@Mod.EventBusSubscriber(modid = SoundControl.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
-	public static class EventHandler {
-		@SubscribeEvent
-		public static void attachCapabilities(@Nonnull final AttachCapabilitiesEvent<Entity> event) {
-			final World world = event.getObject().getEntityWorld();
-			// Check for null - some mods do no honor the contract
-			if (world != null && world.isRemote && event.getObject() instanceof LivingEntity) {
-				final EntityFXData info = new EntityFXData();
-				event.addCapability(CAPABILITY_ID, createProvider(info));
-			}
-		}
-	}
-
+    
+    @SuppressWarnings("ConstantConditions")
+    @CapabilityInject(IEntityFX.class)
+    @Nonnull
+    public static final Capability<IEntityFX> FX_INFO = null;
+    public static final ResourceLocation CAPABILITY_ID = new ResourceLocation(SoundControl.MOD_ID, "entityfx");
+    
+    @OnlyIn(Dist.CLIENT)
+    public static void register() {
+        CapabilityManager.INSTANCE.register(IEntityFX.class, new NullStorage<>(), EntityFXData::new);
+    }
+    
+    @OnlyIn(Dist.CLIENT)
+    @Nonnull
+    public static ICapabilityProvider createProvider(final IEntityFX data) {
+        return new SimpleProvider<>(FX_INFO, null, data);
+    }
+    
+    @Mod.EventBusSubscriber(modid = SoundControl.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
+    public static class EventHandler {
+        @SubscribeEvent
+        public static void attachCapabilities(@Nonnull final AttachCapabilitiesEvent<Entity> event) {
+            final World world = event.getObject().getEntityWorld();
+            // Check for null - some mods do no honor the contract
+            if (world != null && world.isRemote && event.getObject() instanceof LivingEntity) {
+                final EntityFXData info = new EntityFXData();
+                event.addCapability(CAPABILITY_ID, createProvider(info));
+            }
+        }
+    }
+    
 }

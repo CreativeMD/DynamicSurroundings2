@@ -33,28 +33,28 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class EntityEffectInfo {
-
-	public final Set<ResourceLocation> effects = new HashSet<>(6);
-	public final String variator;
-
-	public EntityEffectInfo() {
-		this.variator = "default";
-	}
-
-	public EntityEffectInfo(@Nonnull final EntityConfig ec) {
-		final String[] effects = ec.effects.split(",");
-		for (final String e : effects) {
-			final ResourceLocation r = Library.resolveResource(MobEffects.MOD_ID, e);
-			this.effects.add(r);
-		}
-		this.variator = ec.variator;
-	}
-
-	@Override
-	public String toString() {
-		if (!this.effects.isEmpty()) {
-			return this.effects.toString() + "; variator=" + this.variator;
-		}
-		return "<NONE>";
-	}
+    
+    public final Set<ResourceLocation> effects = new HashSet<>(6);
+    public final String variator;
+    
+    public EntityEffectInfo() {
+        this.variator = "default";
+    }
+    
+    public EntityEffectInfo(@Nonnull final EntityConfig ec) {
+        final String[] effects = ec.effects.split(",");
+        for (final String e : effects) {
+            final ResourceLocation r = Library.resolveResource(MobEffects.MOD_ID, e);
+            this.effects.add(r);
+        }
+        this.variator = ec.variator;
+    }
+    
+    @Override
+    public String toString() {
+        if (!this.effects.isEmpty()) {
+            return this.effects.toString() + "; variator=" + this.variator;
+        }
+        return "<NONE>";
+    }
 }

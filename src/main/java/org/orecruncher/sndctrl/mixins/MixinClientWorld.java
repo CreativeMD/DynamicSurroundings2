@@ -30,17 +30,20 @@ import net.minecraft.world.level.block.state.BlockState;
 
 @Mixin(ClientWorld.class)
 public class MixinClientWorld {
-
-    /**
-     * Inserts a hook into client side BlockState processing so that block changes can be monitored and listeners
+    
+    /** Inserts a hook into client side BlockState processing so that block changes can be monitored and listeners
      * notified of such changes.
      *
-     * @param pos      Position of the block change that has occurred
-     * @param oldState The old blockState
-     * @param newState The new blockState
-     * @param flags    Update flags
-     * @param ci       Ignored
-     */
+     * @param pos
+     *            Position of the block change that has occurred
+     * @param oldState
+     *            The old blockState
+     * @param newState
+     *            The new blockState
+     * @param flags
+     *            Update flags
+     * @param ci
+     *            Ignored */
     @Inject(method = "notifyBlockUpdate(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;Lnet/minecraft/block/BlockState;I)V", at = @At("RETURN"))
     public void blockUpdateCallback(BlockPos pos, BlockState oldState, BlockState newState, int flags, CallbackInfo ci) {
         if (oldState != newState)

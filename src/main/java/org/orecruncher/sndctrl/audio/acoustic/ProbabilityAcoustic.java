@@ -36,77 +36,75 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-/**
- * Plays a random acoustic from a weighted list of selections.
- */
+/** Plays a random acoustic from a weighted list of selections. */
 @OnlyIn(Dist.CLIENT)
 public class ProbabilityAcoustic implements IAcoustic {
-
+    
     protected final ResourceLocation name;
     protected final WeightTable<IAcoustic> table;
-
+    
     public ProbabilityAcoustic(@Nonnull final ResourceLocation name) {
         this.name = Objects.requireNonNull(name);
         this.table = new WeightTable<>();
     }
-
+    
     public void add(@Nonnull final IAcoustic acoustic, final int weight) {
         this.table.add(acoustic, weight);
     }
-
+    
     public void trim() {
         this.table.trim();
     }
-
+    
     @Nonnull
     private Optional<IAcoustic> select() {
         return Optional.ofNullable(this.table.next());
     }
-
+    
     @Override
     @Nonnull
     public ResourceLocation getName() {
         return this.name;
     }
-
+    
     @Override
     public void play(@Nonnull final AcousticEvent event) {
         select().ifPresent(a -> a.play(event));
     }
-
+    
     @Override
     public void playAt(@Nonnull BlockPos pos, @Nonnull final AcousticEvent event) {
         select().ifPresent(a -> a.playAt(pos, event));
     }
-
+    
     @Override
     public void playAt(@Nonnull Vector3d pos, @Nonnull final AcousticEvent event) {
         select().ifPresent(a -> a.playAt(pos, event));
     }
-
+    
     @Override
     public void playNear(@Nonnull Entity entity, @Nonnull final AcousticEvent event) {
         select().ifPresent(a -> a.playNear(entity, event));
     }
-
+    
     @Override
     public void playNear(@Nonnull Entity entity, @Nonnull final AcousticEvent event, final int minRange, final int maxRange) {
         select().ifPresent(a -> a.playNear(entity, event, minRange, maxRange));
     }
-
+    
     @Override
     public void playBackground(@Nonnull final AcousticEvent event) {
         select().ifPresent(a -> a.playBackground(event));
     }
-
+    
     @Override
     public IAcousticFactory getFactory(@Nonnull final AcousticEvent event) {
         return select().map(IAcoustic::getFactory).orElse(null);
     }
-
+    
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this).addValue(getName().toString()).add("entries", this.table.size()).toString();
     }
-
+    
 }

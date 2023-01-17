@@ -27,29 +27,25 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public interface IEntityEffectFactoryHandler {
-
-    /**
-     * Resource name of the effect.  Ensure that it is properly scoped to the mod.
+    
+    /** Resource name of the effect. Ensure that it is properly scoped to the mod.
      *
-     * @return ResourceLocation to serve as the name of the effect.
-     */
+     * @return ResourceLocation to serve as the name of the effect. */
     ResourceLocation getName();
-
-    /**
-     * Called by the framework to determine if the effect is to be applied to the specified entity.
+    
+    /** Called by the framework to determine if the effect is to be applied to the specified entity.
      *
-     * @param entity Entity that is being evaluated for effects
-     * @return true if the effect is to be applied; false otherwise
-     */
+     * @param entity
+     *            Entity that is being evaluated for effects
+     * @return true if the effect is to be applied; false otherwise */
     boolean appliesTo(@Nonnull final LivingEntity entity);
-
-    /**
-     * Obtains an instance of the effect.  This effect could be unique to the entity, or a singleton.  It's up
+    
+    /** Obtains an instance of the effect. This effect could be unique to the entity, or a singleton. It's up
      * to the effect implementation.
      *
-     * @param entity Entity that is to have the effect
-     * @return Effect instance
-     */
+     * @param entity
+     *            Entity that is to have the effect
+     * @return Effect instance */
     @Nonnull
     AbstractEntityEffect get(@Nonnull final LivingEntity entity);
 }

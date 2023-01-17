@@ -28,27 +28,25 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
 
-/**
- * Calculates the fog ranges based on current weather. The stronger the
- * intensity of the storm the foggier it gets.
- */
+/** Calculates the fog ranges based on current weather. The stronger the
+ * intensity of the storm the foggier it gets. */
 @OnlyIn(Dist.CLIENT)
 public class WeatherFogRangeCalculator extends VanillaFogRangeCalculator {
-
+    
     protected static final float START_IMPACT = 0.9F;
     protected static final float END_IMPACT = 0.4F;
-
+    
     protected final FogResult cache = new FogResult();
-
+    
     public WeatherFogRangeCalculator() {
         super("WeatherFogRangeCalculator");
     }
-
+    
     @Override
     public boolean enabled() {
         return Config.CLIENT.fog.enableWeatherFog.get();
     }
-
+    
     @Override
     @Nonnull
     public FogResult calculate(@Nonnull final EntityViewRenderEvent.RenderFogEvent event) {
@@ -61,7 +59,7 @@ public class WeatherFogRangeCalculator extends VanillaFogRangeCalculator {
             final float endScale = 1F - (END_IMPACT * rainStr);
             this.cache.set(this.cache.getStart() * startScale, this.cache.getEnd() * endScale);
         }
-
+        
         return this.cache;
     }
 }

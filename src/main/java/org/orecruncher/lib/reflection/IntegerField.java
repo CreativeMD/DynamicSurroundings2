@@ -22,16 +22,16 @@ import javax.annotation.Nonnull;
 
 @SuppressWarnings("unused")
 public class IntegerField<T> extends ObjectField<T, Integer> {
-
+    
     public IntegerField(@Nonnull final String className, @Nonnull final String... fieldName) {
         super(className, () -> 0, fieldName);
     }
-
+    
     public IntegerField(@Nonnull final Class<T> clazz, @Nonnull final String... fieldName) {
         this(clazz, 0, fieldName);
     }
-
+    
     public IntegerField(@Nonnull final Class<T> clazz, final int defaultValue, @Nonnull final String... fieldName) {
-        super(clazz, () ->defaultValue, fieldName);
+        super(clazz, () -> defaultValue, fieldName);
     }
 }

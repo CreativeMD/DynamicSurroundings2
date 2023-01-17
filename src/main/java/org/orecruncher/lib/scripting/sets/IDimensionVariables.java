@@ -23,12 +23,12 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public interface IDimensionVariables {
-
+    
     String getId();
-
+    
     String getDimName();
-
+    
     boolean hasSky();
-
+    
     boolean isSuperFlat();
 }

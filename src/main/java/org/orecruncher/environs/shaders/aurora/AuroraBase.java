@@ -39,110 +39,110 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public abstract class AuroraBase implements IAurora {
-
-	protected final Random random;
-	protected final AuroraBand band;
-	protected final int bandCount;
-	protected final float offset;
-	protected final AuroraLifeTracker tracker;
-	protected final AuroraColor colors;
-
-	protected final PlayerEntity player;
-	protected final DimensionInfo dimInfo;
-
-	public AuroraBase(final long seed) {
-		this(new XorShiftRandom(seed));
-	}
-
-	public AuroraBase(final Random rand) {
-		this.random = rand;
-		this.bandCount = Math.min(this.random.nextInt(3) + 1, Config.CLIENT.aurora.maxBands.get());
-		this.offset = this.random.nextInt(20) + 20;
-		this.colors = AuroraColor.get(this.random);
-
-		final AuroraFactory.AuroraGeometry geo = AuroraFactory.AuroraGeometry.get(this.random);
-		this.band = new AuroraBand(this.random, geo);
-		this.tracker = new AuroraLifeTracker(AuroraUtils.AURORA_PEAK_AGE, AuroraUtils.AURORA_AGE_RATE);
-
-		this.player = GameUtils.getPlayer();
-		this.dimInfo = CommonState.getDimensionInfo();
-	}
-
-	@Override
-	public boolean isAlive() {
-		return this.tracker.isAlive();
-	}
-
-	@Override
-	public void setFading(final boolean flag) {
-		this.tracker.setFading(flag);
-	}
-
-	@Override
-	public boolean isDying() {
-		return this.tracker.isFading();
-	}
-
-	@Override
-	public void update() {
-		this.tracker.update();
-	}
-
-	@Override
-	public boolean isComplete() {
-		return !isAlive();
-	}
-
-	protected float getAlpha() {
-		return (this.tracker.ageRatio() * this.band.getAlphaLimit()) / 255;
-	}
-
-	protected double getTranslationX(final float partialTick) {
-		return MathHelper.lerp(partialTick, this.player.lastTickPosX, this.player.getPosX());
-	}
-
-	protected double getTranslationZ(final float partialTick) {
-		return MathHelper.lerp(partialTick, this.player.lastTickPosZ, this.player.getPosZ()) - AuroraUtils.PLAYER_FIXED_Z_OFFSET;
-	}
-
-	protected double getTranslationY(final float partialTick) {
-		final double posY = MathHelper.lerp(partialTick, this.player.lastTickPosY, this.player.getPosY()) + AuroraUtils.PLAYER_FIXED_Y_OFFSET;
-		final double limit = (this.dimInfo.getSkyHeight() + this.dimInfo.getCloudHeight()) / 2D;
-		return MathStuff.clamp(posY, AuroraUtils.PLAYER_FIXED_Y_OFFSET, limit);
-	}
-
-	@Nonnull
-	protected Color getBaseColor() {
-		return this.colors.baseColor;
-	}
-
-	@Nonnull
-	protected Color getFadeColor() {
-		return this.colors.fadeColor;
-	}
-
-	@Nonnull
-	protected Color getMiddleColor() {
-		return this.colors.middleColor;
-	}
-
-	@Override
-	public abstract void render(@Nonnull final MatrixStack matrixStack, final float partialTick);
-
-	@Override
-	public String toString() {
-		final StringBuilder builder = new StringBuilder();
-		builder.append("bands: ").append(this.bandCount);
-		builder.append(", off: ").append(this.offset);
-		builder.append(", len: ").append(this.band.length);
-		builder.append(", base: ").append(getBaseColor().toString());
-		builder.append(", fade: ").append(getFadeColor().toString());
-		builder.append(", alpha: ").append((int) (getAlpha() * 255));
-		if (!this.tracker.isAlive())
-			builder.append(", DEAD");
-		else if (this.tracker.isFading())
-			builder.append(", FADING");
-		return builder.toString();
-	}
-
+    
+    protected final Random random;
+    protected final AuroraBand band;
+    protected final int bandCount;
+    protected final float offset;
+    protected final AuroraLifeTracker tracker;
+    protected final AuroraColor colors;
+    
+    protected final PlayerEntity player;
+    protected final DimensionInfo dimInfo;
+    
+    public AuroraBase(final long seed) {
+        this(new XorShiftRandom(seed));
+    }
+    
+    public AuroraBase(final Random rand) {
+        this.random = rand;
+        this.bandCount = Math.min(this.random.nextInt(3) + 1, Config.CLIENT.aurora.maxBands.get());
+        this.offset = this.random.nextInt(20) + 20;
+        this.colors = AuroraColor.get(this.random);
+        
+        final AuroraFactory.AuroraGeometry geo = AuroraFactory.AuroraGeometry.get(this.random);
+        this.band = new AuroraBand(this.random, geo);
+        this.tracker = new AuroraLifeTracker(AuroraUtils.AURORA_PEAK_AGE, AuroraUtils.AURORA_AGE_RATE);
+        
+        this.player = GameUtils.getPlayer();
+        this.dimInfo = CommonState.getDimensionInfo();
+    }
+    
+    @Override
+    public boolean isAlive() {
+        return this.tracker.isAlive();
+    }
+    
+    @Override
+    public void setFading(final boolean flag) {
+        this.tracker.setFading(flag);
+    }
+    
+    @Override
+    public boolean isDying() {
+        return this.tracker.isFading();
+    }
+    
+    @Override
+    public void update() {
+        this.tracker.update();
+    }
+    
+    @Override
+    public boolean isComplete() {
+        return !isAlive();
+    }
+    
+    protected float getAlpha() {
+        return (this.tracker.ageRatio() * this.band.getAlphaLimit()) / 255;
+    }
+    
+    protected double getTranslationX(final float partialTick) {
+        return MathHelper.lerp(partialTick, this.player.lastTickPosX, this.player.getPosX());
+    }
+    
+    protected double getTranslationZ(final float partialTick) {
+        return MathHelper.lerp(partialTick, this.player.lastTickPosZ, this.player.getPosZ()) - AuroraUtils.PLAYER_FIXED_Z_OFFSET;
+    }
+    
+    protected double getTranslationY(final float partialTick) {
+        final double posY = MathHelper.lerp(partialTick, this.player.lastTickPosY, this.player.getPosY()) + AuroraUtils.PLAYER_FIXED_Y_OFFSET;
+        final double limit = (this.dimInfo.getSkyHeight() + this.dimInfo.getCloudHeight()) / 2D;
+        return MathStuff.clamp(posY, AuroraUtils.PLAYER_FIXED_Y_OFFSET, limit);
+    }
+    
+    @Nonnull
+    protected Color getBaseColor() {
+        return this.colors.baseColor;
+    }
+    
+    @Nonnull
+    protected Color getFadeColor() {
+        return this.colors.fadeColor;
+    }
+    
+    @Nonnull
+    protected Color getMiddleColor() {
+        return this.colors.middleColor;
+    }
+    
+    @Override
+    public abstract void render(@Nonnull final MatrixStack matrixStack, final float partialTick);
+    
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("bands: ").append(this.bandCount);
+        builder.append(", off: ").append(this.offset);
+        builder.append(", len: ").append(this.band.length);
+        builder.append(", base: ").append(getBaseColor().toString());
+        builder.append(", fade: ").append(getFadeColor().toString());
+        builder.append(", alpha: ").append((int) (getAlpha() * 255));
+        if (!this.tracker.isAlive())
+            builder.append(", DEAD");
+        else if (this.tracker.isFading())
+            builder.append(", FADING");
+        return builder.toString();
+    }
+    
 }

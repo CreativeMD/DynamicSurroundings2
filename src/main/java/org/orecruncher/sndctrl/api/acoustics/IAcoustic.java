@@ -29,71 +29,57 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public interface IAcoustic {
-
-    /**
-     * Get's the name of the acoustic, if any
+    
+    /** Get's the name of the acoustic, if any
      *
-     * @return Name of the acoustic
-     */
+     * @return Name of the acoustic */
     ResourceLocation getName();
-
-    /**
-     * Play the acoustic on the MASTER channel with no attenuation.
-     */
+    
+    /** Play the acoustic on the MASTER channel with no attenuation. */
     default void play() {
         play(AcousticEvent.NONE);
     }
-
+    
     void play(@Nonnull final AcousticEvent event);
-
-    /**
-     * Play the acoustic at the specified block position.
-     */
+    
+    /** Play the acoustic at the specified block position. */
     default void playAt(@Nonnull final BlockPos pos) {
         playAt(pos, AcousticEvent.NONE);
     }
-
+    
     void playAt(@Nonnull final BlockPos pos, @Nonnull final AcousticEvent event);
-
-    /**
-     * Play the acoustic at the specified block position
-     */
+    
+    /** Play the acoustic at the specified block position */
     default void playAt(@Nonnull final Vector3d pos) {
         playAt(pos, AcousticEvent.NONE);
     }
-
+    
     void playAt(@Nonnull final Vector3d pos, @Nonnull final AcousticEvent event);
-
-    /**
-     * Play the acoustic near the entity
-     */
+    
+    /** Play the acoustic near the entity */
     default void playNear(@Nonnull final Entity entity) {
         playNear(entity, AcousticEvent.NONE);
     }
-
+    
     default void playNear(@Nonnull final Entity entity, final int minRange, final int maxRange) {
         playNear(entity, AcousticEvent.NONE, minRange, maxRange);
     }
-
+    
     void playNear(@Nonnull final Entity entity, @Nonnull final AcousticEvent event);
-
+    
     void playNear(@Nonnull final Entity entity, @Nonnull final AcousticEvent event, final int minRange, final int maxRange);
-
-    /**
-     * Play the acoustic in the background
-     */
+    
+    /** Play the acoustic in the background */
     default void playBackground() {
         playBackground(AcousticEvent.NONE);
     }
-
+    
     void playBackground(@Nonnull final AcousticEvent event);
-
-    /**
-     * Obtains the underlying factory for creating sounds.
-     */
+    
+    /** Obtains the underlying factory for creating sounds. */
     default IAcousticFactory getFactory() {
         return getFactory(AcousticEvent.NONE);
     }
-
+    
     IAcousticFactory getFactory(@Nonnull final AcousticEvent event);
 }

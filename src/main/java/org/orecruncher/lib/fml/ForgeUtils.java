@@ -44,82 +44,72 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public final class ForgeUtils {
     private ForgeUtils() {
-
+        
     }
-
+    
     @Nonnull
     public static Optional<? extends ModContainer> findModContainer(@Nonnull final String modId) {
         return ModList.get().getModContainerById(modId);
     }
-
+    
     @Nonnull
     public static Optional<IModInfo> getModInfo(@Nonnull final String modId) {
         return findModContainer(modId).map(ModContainer::getModInfo);
     }
-
+    
     @Nonnull
     public static String getModDisplayName(@Nonnull final String modId) {
         if ("minecraft".equalsIgnoreCase(modId))
             return "Minecraft";
         return getModInfo(modId).map(IModInfo::getDisplayName).orElse("UNKNOWN");
     }
-
+    
     @Nonnull
     public static String getModDisplayName(@Nonnull final ResourceLocation resource) {
         Objects.requireNonNull(resource);
         return getModDisplayName(resource.getNamespace());
     }
-
+    
     @Nullable
     public static ArtifactVersion getForgeVersion() {
         return getModInfo("forge").map(IModInfo::getVersion).orElse(null);
     }
-
+    
     @Nonnull
     public static List<String> getModIdList() {
-        List<String> result = ModList.get().getModFiles()
-                .stream()
-                .flatMap(e -> e.getMods().stream())
-                .map(IModInfo::getModId)
-                .distinct()
-                .collect(Collectors.toList());
-
+        List<String> result = ModList.get().getModFiles().stream().flatMap(e -> e.getMods().stream()).map(IModInfo::getModId).distinct().collect(Collectors.toList());
+        
         // Make sure minecraft is the first element.  This is done to ensure that any baseline configs are applied
         // first so that other configs can properly override.
         result.remove("minecraft");
         result.add(0, "minecraft");
-
+        
         return result;
     }
-
+    
     @OnlyIn(Dist.CLIENT)
     @Nonnull
     public static Collection<ResourcePackInfo> getEnabledResourcePacks() {
         return GameUtils.getMC().getResourcePackList().getEnabledPacks();
     }
-
+    
     @OnlyIn(Dist.CLIENT)
     @Nonnull
     public static List<String> getResourcePackIdList() {
-        return getEnabledResourcePacks()
-                .stream()
-                .flatMap(e -> e.getResourcePack().getResourceNamespaces(ResourcePackType.CLIENT_RESOURCES).stream())
-                .collect(Collectors.toList());
+        return getEnabledResourcePacks().stream().flatMap(e -> e.getResourcePack().getResourceNamespaces(ResourcePackType.CLIENT_RESOURCES).stream()).collect(Collectors.toList());
     }
-
+    
     @Nonnull
     public static Collection<Biome> getBiomes() {
         return ForgeRegistries.BIOMES.getValues();
     }
-
+    
     @Nonnull
     public static Collection<BlockState> getBlockStates() {
-        return StreamSupport.stream(ForgeRegistries.BLOCKS.spliterator(), false)
-                .map(block -> block.getStateContainer().getValidStates())
-                .flatMap(Collection::stream)
+        return StreamSupport.stream(ForgeRegistries.BLOCKS.spliterator(), false).map(block -> block.getStateContainer().getValidStates()).flatMap(Collection::stream)
                 .collect(Collectors.toList());
     }
-
+    
     public static boolean isModLoaded(@Nonnull final String mod) {
         return ModList.get().isLoaded(mod.toLowerCase());
     }

@@ -34,11 +34,11 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class DimensionInfo {
-
+    
     private static final int SPACE_HEIGHT_OFFSET = 32;
-
-    public static final  DimensionInfo NONE = new DimensionInfo();
-
+    
+    public static final DimensionInfo NONE = new DimensionInfo();
+    
     // Attributes about the dimension. This is information is loaded from local configs.
     protected ResourceLocation name;
     protected int seaLevel;
@@ -50,14 +50,14 @@ public class DimensionInfo {
     protected boolean hasFog = false;
     protected boolean alwaysOutside = false;
     protected boolean playBiomeSounds = true;
-
+    
     protected final boolean isFlatWorld;
-
+    
     DimensionInfo() {
         this.name = new ResourceLocation(Environs.MOD_ID, "no_dimension");
         this.isFlatWorld = false;
     }
-
+    
     public DimensionInfo(@Nonnull final World world, @Nullable final DimensionConfig dimConfig) {
         // Attributes that come from the world object itself. Set now because the config may override.
         DimensionType dt = world.getDimensionType();
@@ -67,21 +67,21 @@ public class DimensionInfo {
         this.cloudHeight = this.skyHeight;
         this.spaceHeight = this.skyHeight + SPACE_HEIGHT_OFFSET;
         this.isFlatWorld = WorldUtils.isSuperFlat(world);
-
+        
         if (dt.isNatural() && dt.hasSkyLight()) {
             this.hasAuroras = true;
             this.hasFog = true;
         }
-
+        
         // Force sea level based on known world types that give heartburn
         if (this.isFlatWorld)
             this.seaLevel = 0;
         else if (dt.isNatural() && Config.CLIENT.biome.worldSealevelOverride.get() > 0)
             this.seaLevel = Config.CLIENT.biome.worldSealevelOverride.get();
-
+        
         if (Config.CLIENT.biome.biomeSoundBlacklist.get().contains(this.name.toString()))
             this.playBiomeSounds = false;
-
+        
         // Override based on player config settings
         if (dimConfig != null) {
             if (dimConfig.seaLevel != null)
@@ -100,54 +100,54 @@ public class DimensionInfo {
                 this.hasFog = dimConfig.hasFog;
             if (dimConfig.alwaysOutside != null)
                 this.alwaysOutside = dimConfig.alwaysOutside;
-
+            
             this.spaceHeight = this.skyHeight + SPACE_HEIGHT_OFFSET;
         }
     }
-
+    
     @Nonnull
     public ResourceLocation getName() {
         return this.name;
     }
-
+    
     public int getSeaLevel() {
         return this.seaLevel;
     }
-
+    
     public int getSkyHeight() {
         return this.skyHeight;
     }
-
+    
     public int getCloudHeight() {
         return this.cloudHeight;
     }
-
+    
     public int getSpaceHeight() {
         return this.spaceHeight;
     }
-
+    
     public boolean hasHaze() {
         return this.hasHaze;
     }
-
+    
     public boolean hasAuroras() {
         return this.hasAuroras;
     }
-
+    
     public boolean hasFog() {
         return this.hasFog;
     }
-
+    
     public boolean playBiomeSounds() {
         return this.playBiomeSounds;
     }
-
+    
     public boolean alwaysOutside() {
         return this.alwaysOutside;
     }
-
+    
     public boolean isFlatWorld() {
         return this.isFlatWorld;
     }
-
+    
 }

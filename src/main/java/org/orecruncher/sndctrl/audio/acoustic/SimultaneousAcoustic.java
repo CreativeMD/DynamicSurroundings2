@@ -35,80 +35,78 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-/**
- * Plays a group of acoustics simultaneously creating a composite effect
- */
+/** Plays a group of acoustics simultaneously creating a composite effect */
 @OnlyIn(Dist.CLIENT)
 public class SimultaneousAcoustic implements IAcoustic {
-
+    
     @Nonnull
     private final ResourceLocation name;
     @Nonnull
     private final ObjectArray<IAcoustic> acoustics = new ObjectArray<>();
-
+    
     public SimultaneousAcoustic(@Nonnull final ResourceLocation name) {
         this.name = Objects.requireNonNull(name);
     }
-
+    
     public void add(@Nonnull final IAcoustic a) {
         // Ignore null acoustics
         if (!(a instanceof NullAcoustic))
             this.acoustics.add(a);
     }
-
+    
     public void trim() {
         this.acoustics.trim();
     }
-
+    
     @Override
     @Nonnull
     public ResourceLocation getName() {
         return this.name;
     }
-
+    
     @Override
     public void play(@Nonnull final AcousticEvent event) {
         for (final IAcoustic a : this.acoustics)
             a.play(event);
     }
-
+    
     @Override
     public void playAt(@Nonnull final BlockPos pos, @Nonnull final AcousticEvent event) {
         for (final IAcoustic a : this.acoustics)
             a.playAt(pos, event);
     }
-
+    
     @Override
     public void playAt(@Nonnull final Vector3d pos, @Nonnull final AcousticEvent event) {
         for (final IAcoustic a : this.acoustics)
             a.playAt(pos, event);
     }
-
+    
     @Override
     public void playNear(@Nonnull final Entity entity, @Nonnull final AcousticEvent event) {
         for (final IAcoustic a : this.acoustics)
             a.playNear(entity, event);
     }
-
+    
     @Override
     public void playNear(@Nonnull final Entity entity, @Nonnull final AcousticEvent event, final int minRange, final int maxRange) {
         for (final IAcoustic a : this.acoustics)
             a.playNear(entity, event, minRange, maxRange);
     }
-
+    
     @Override
     public void playBackground(@Nonnull final AcousticEvent event) {
         for (final IAcoustic a : this.acoustics)
             a.playBackground(event);
     }
-
+    
     @Override
     public IAcousticFactory getFactory(@Nonnull final AcousticEvent event) {
         if (this.acoustics.size() > 0)
             return this.acoustics.get(0).getFactory();
         return null;
     }
-
+    
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this).addValue(getName().toString()).add("entries", this.acoustics.size()).toString();

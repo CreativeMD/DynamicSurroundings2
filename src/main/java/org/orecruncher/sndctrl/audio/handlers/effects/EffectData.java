@@ -21,38 +21,31 @@ package org.orecruncher.sndctrl.audio.handlers.effects;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-/**
- * The state context for a given effect.
- */
+/** The state context for a given effect. */
 @OnlyIn(Dist.CLIENT)
 public abstract class EffectData {
-
+    
     protected boolean process;
-
+    
     protected EffectData() {
         this.process = false;
     }
-
-    /**
-     * Indicates if the data set should be applied as an effect
+    
+    /** Indicates if the data set should be applied as an effect
      *
-     * @return true to apply data; false otherwise
-     */
+     * @return true to apply data; false otherwise */
     public boolean doProcess() {
         return this.process;
     }
-
-    /**
-     * Sets whether the data should be applied to a sound source.
+    
+    /** Sets whether the data should be applied to a sound source.
      *
-     * @param flag true to indicate data should be applied; false otherwise
-     */
+     * @param flag
+     *            true to indicate data should be applied; false otherwise */
     public void setProcess(final boolean flag) {
         this.process = flag;
     }
-
-    /**
-     * Ensures that the effect data is properly bounded.
-     */
+    
+    /** Ensures that the effect data is properly bounded. */
     public abstract void clamp();
 }

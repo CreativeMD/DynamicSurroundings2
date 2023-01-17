@@ -31,18 +31,16 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class EntityBowEffect extends AbstractEntityEffect {
-
+    
     private static final ResourceLocation NAME = new ResourceLocation(MobEffects.MOD_ID, "bow");
-    public static final FactoryHandler FACTORY = new FactoryHandler(
-            EntityBowEffect.NAME,
-            entity -> new EntityBowEffect());
-
+    public static final FactoryHandler FACTORY = new FactoryHandler(EntityBowEffect.NAME, entity -> new EntityBowEffect());
+    
     protected ItemStack lastActiveStack = ItemStack.EMPTY;
-
+    
     public EntityBowEffect() {
         super(NAME);
     }
-
+    
     @Override
     public void update() {
         final LivingEntity entity = getEntity();
@@ -56,13 +54,13 @@ public class EntityBowEffect extends AbstractEntityEffect {
                     else
                         data.playUseSound(entity.getPosition());
                 }
-
+                
                 this.lastActiveStack = currentStack;
             }
-
+            
         } else {
             this.lastActiveStack = ItemStack.EMPTY;
         }
     }
-
+    
 }

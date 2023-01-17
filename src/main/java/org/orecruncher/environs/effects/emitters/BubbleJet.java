@@ -27,14 +27,14 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class BubbleJet extends Jet {
-
-	public BubbleJet(final int strength, final IBlockReader world, final double x, final double y, final double z) {
-		super(strength, world, x, y, z);
-	}
-
-	@Override
-	protected void spawnJetParticle() {
-		GameUtils.getMC().particles.addParticle(ParticleTypes.BUBBLE, this.posX, this.posY, this.posZ, 0, 0.5D + this.jetStrength / 10D, 0D);
-	}
-
+    
+    public BubbleJet(final int strength, final IBlockReader world, final double x, final double y, final double z) {
+        super(strength, world, x, y, z);
+    }
+    
+    @Override
+    protected void spawnJetParticle() {
+        GameUtils.getMC().particles.addParticle(ParticleTypes.BUBBLE, this.posX, this.posY, this.posZ, 0, 0.5D + this.jetStrength / 10D, 0D);
+    }
+    
 }

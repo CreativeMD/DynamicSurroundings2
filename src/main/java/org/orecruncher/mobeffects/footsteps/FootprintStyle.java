@@ -25,19 +25,19 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public enum FootprintStyle {
-
-	SHOE,
-	SQUARE,
-	HORSESHOE,
-	BIRD,
-	PAW,
-	SQUARE_SOLID,
-	LOWRES_SQUARE;
-
-	@Nonnull
-	public static FootprintStyle getStyle(final int v) {
-		if (v >= values().length)
-			return LOWRES_SQUARE;
-		return values()[v];
-	}
+    
+    SHOE,
+    SQUARE,
+    HORSESHOE,
+    BIRD,
+    PAW,
+    SQUARE_SOLID,
+    LOWRES_SQUARE;
+    
+    @Nonnull
+    public static FootprintStyle getStyle(final int v) {
+        if (v >= values().length)
+            return LOWRES_SQUARE;
+        return values()[v];
+    }
 }

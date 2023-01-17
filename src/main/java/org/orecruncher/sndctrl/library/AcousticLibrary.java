@@ -49,34 +49,34 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public final class AcousticLibrary {
-
+    
     private static final IModLog LOGGER = SoundControl.LOGGER.createChild(AudioEffectLibrary.class);
-
+    
     private static final ResourceLocation ADHOC = new ResourceLocation(SoundControl.MOD_ID, "ad_hoc");
     private static final Map<String, IAcoustic> compiled = new Object2ObjectAVLTreeMap<>();
-
+    
     AcousticLibrary() {
-
+        
     }
-
+    
     public static Stream<String> dump() {
         return compiled.entrySet().stream().map(kvp -> String.format("%s -> %s", kvp.getKey(), kvp.getValue().toString())).sorted();
     }
-
-    /**
-     * Adds/replaces a known acoustic in the library.
+    
+    /** Adds/replaces a known acoustic in the library.
      *
-     * @param name     Name of the acoustic
-     * @param acoustic The acoustic mapped to that name
-     */
+     * @param name
+     *            Name of the acoustic
+     * @param acoustic
+     *            The acoustic mapped to that name */
     public static void addAcoustic(@Nonnull final ResourceLocation name, @Nonnull final IAcoustic acoustic) {
         compiled.put(name.toString(), acoustic);
     }
-
+    
     public static void initialize() {
-
+        
         final Collection<IResourceAccessor> configs = ResourceUtils.findConfigs(DynamicSurroundings.MOD_ID, DynamicSurroundings.DATA_PATH, "acoustics.json");
-
+        
         IResourceAccessor.process(configs, accessor -> {
             final AcousticCompiler compiler = new AcousticCompiler(accessor.location().getNamespace());
             final List<IAcoustic> acoustics = compiler.compile(accessor.asString());
@@ -85,16 +85,14 @@ public final class AcousticLibrary {
             }
         });
     }
-
+    
     @Nonnull
     public static IAcoustic resolve(@Nonnull final String namespace, @Nonnull String definition, @Nullable final Function<ResourceLocation, IAcoustic> acousticGenerator) {
-
+        
         // Reformat the definition to ensure proper sequencing, etc.
-        definition = Arrays.stream(definition.toLowerCase().split(","))
-                .map(frag -> AcousticLibrary.resolveResource(namespace, frag).toString())
-                .sorted()
+        definition = Arrays.stream(definition.toLowerCase().split(",")).map(frag -> AcousticLibrary.resolveResource(namespace, frag).toString()).sorted()
                 .collect(Collectors.joining(","));
-
+        
         IAcoustic result = compiled.get(definition);
         if (result == null) {
             result = parseDefinition(null, definition, acousticGenerator);
@@ -102,12 +100,12 @@ public final class AcousticLibrary {
         compiled.put(definition, result);
         return result;
     }
-
+    
     @Nonnull
     public static IAcoustic resolve(@Nonnull final ResourceLocation acousticName) {
         return resolve(acousticName, null);
     }
-
+    
     @Nonnull
     private static IAcoustic parseDefinition(@Nullable ResourceLocation acousticName, @Nullable String definition, @Nullable final Function<ResourceLocation, IAcoustic> acousticGenerator) {
         IAcoustic result;
@@ -127,7 +125,7 @@ public final class AcousticLibrary {
                     SoundControl.LOGGER.warn("Acoustic '%s' not found!", fragment);
                 return a;
             }).filter(Objects::nonNull).toArray(IAcoustic[]::new);
-
+            
             if (acoustics.length == 0) {
                 result = NullAcoustic.INSTANCE;
             } else if (acoustics.length == 1) {
@@ -144,49 +142,49 @@ public final class AcousticLibrary {
         }
         return result;
     }
-
+    
     @Nonnull
     public static IAcoustic resolve(@Nonnull final ResourceLocation acousticName, @Nullable final String definition) {
         return resolve(acousticName, definition, false);
     }
-
+    
     public static IAcoustic resolve(@Nonnull final ResourceLocation acousticName, @Nonnull final ResourceLocation definition, @Nullable final Function<ResourceLocation, IAcoustic> acousticGenerator) {
         IAcoustic result;
-
+        
         result = compiled.get(acousticName.toString());
-
+        
         if (result == null) {
             result = parseDefinition(acousticName, definition.toString(), acousticGenerator);
             addAcoustic(acousticName, result);
         }
-
+        
         return result;
     }
-
+    
     @Nonnull
     public static IAcoustic resolve(@Nonnull final ResourceLocation acousticName, @Nullable final String definition, final boolean overwrite) {
         IAcoustic result;
-
+        
         result = compiled.get(acousticName.toString());
-
+        
         if (overwrite)
             result = null;
-
+        
         if (result == null) {
             result = parseDefinition(acousticName, definition, null);
             addAcoustic(acousticName, result);
         }
-
+        
         return result;
     }
-
+    
     @Nonnull
     public static ResourceLocation resolveResource(@Nonnull final String defaultDomain, @Nonnull final String name) {
         if (StringUtils.isNullOrEmpty(name))
             throw new IllegalArgumentException("Sound name is null or empty");
         if (StringUtils.isNullOrEmpty(defaultDomain))
             throw new IllegalArgumentException("Default domain is null or empty");
-
+        
         ResourceLocation res;
         if (name.charAt(0) == '@') {
             // Sound is in the Minecraft namespace
@@ -200,7 +198,7 @@ public final class AcousticLibrary {
         }
         return res;
     }
-
+    
     @Nullable
     private static IAcoustic generateAcoustic(@Nonnull final ResourceLocation name) {
         IAcoustic a = compiled.get(name.toString());
@@ -214,10 +212,10 @@ public final class AcousticLibrary {
                     a = generateAcoustic(evt.get());
             }
         }
-
+        
         return a;
     }
-
+    
     @Nonnull
     private static IAcoustic generateAcoustic(@Nonnull final SoundEvent evt) {
         IAcoustic result = compiled.get(evt.getName().toString());

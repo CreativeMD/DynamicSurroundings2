@@ -29,72 +29,72 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public enum RippleStyle {
-
-	CIRCLE("textures/particles/ripple.png"),
-	DARK_CIRCLE("textures/particles/ripple1.png"),
-	DARK_SQUARE("textures/particles/ripple2.png"),
-	PIXELATED_CIRCLE("textures/particles/pixel_ripples.png") {
-		private final int FRAMES = 7;
-		private final float DELTA = 1F / this.FRAMES;
-		private final int MAX_AGE = this.FRAMES * 2;
-
-		@Override
-		public float getU1(final int age) {
-			return (age / 2) * this.DELTA;
-		}
-
-		@Override
-		public float getU2(final int age) {
-			return getU1(age) + this.DELTA;
-		}
-
-		@Override
-		public boolean doScaling() {
-			return false;
-		}
-
-		@Override
-		public int getMaxAge() {
-			return this.MAX_AGE;
-		}
-	};
-
-	private final ResourceLocation resource;
-
-	RippleStyle(@Nonnull final String texture) {
-		this.resource = new ResourceLocation(Environs.MOD_ID, texture);
-	}
-
-	@Nonnull
-	public ResourceLocation getTexture() {
-		return this.resource;
-	}
-
-	public float getU1(final int age) {
-		return 0F;
-	}
-
-	public float getU2(final int age) {
-		return 1F;
-	}
-
-	public float getV1(final int age) {
-		return 0F;
-	}
-
-	public float getV2(final int age) {
-		return 1F;
-	}
-
-	public boolean doScaling() {
-		return true;
-	}
-
-	public boolean doAlpha() {
-		return true;
-	}
-
-	public int getMaxAge() {
-		return 12 + XorShiftRandom.current().nextInt(8);
-	}
+    
+    CIRCLE("textures/particles/ripple.png"),
+    DARK_CIRCLE("textures/particles/ripple1.png"),
+    DARK_SQUARE("textures/particles/ripple2.png"),
+    PIXELATED_CIRCLE("textures/particles/pixel_ripples.png") {
+        private final int FRAMES = 7;
+        private final float DELTA = 1F / this.FRAMES;
+        private final int MAX_AGE = this.FRAMES * 2;
+        
+        @Override
+        public float getU1(final int age) {
+            return (age / 2) * this.DELTA;
+        }
+        
+        @Override
+        public float getU2(final int age) {
+            return getU1(age) + this.DELTA;
+        }
+        
+        @Override
+        public boolean doScaling() {
+            return false;
+        }
+        
+        @Override
+        public int getMaxAge() {
+            return this.MAX_AGE;
+        }
+    };
+    
+    private final ResourceLocation resource;
+    
+    RippleStyle(@Nonnull final String texture) {
+        this.resource = new ResourceLocation(Environs.MOD_ID, texture);
+    }
+    
+    @Nonnull
+    public ResourceLocation getTexture() {
+        return this.resource;
+    }
+    
+    public float getU1(final int age) {
+        return 0F;
+    }
+    
+    public float getU2(final int age) {
+        return 1F;
+    }
+    
+    public float getV1(final int age) {
+        return 0F;
+    }
+    
+    public float getV2(final int age) {
+        return 1F;
+    }
+    
+    public boolean doScaling() {
+        return true;
+    }
+    
+    public boolean doAlpha() {
+        return true;
+    }
+    
+    public int getMaxAge() {
+        return 12 + XorShiftRandom.current().nextInt(8);
+    }
 }

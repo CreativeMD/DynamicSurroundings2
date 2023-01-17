@@ -38,56 +38,50 @@ import net.minecraft.core.BlockPos;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-/**
- * Helper that creates sound instances using a SoundBuilder, but tweaks based on the circumstances requested.
- */
+/** Helper that creates sound instances using a SoundBuilder, but tweaks based on the circumstances requested. */
 @OnlyIn(Dist.CLIENT)
 public class AcousticFactory extends SoundBuilder implements IAcousticFactory {
-
+    
     public static final int SOUND_RANGE = 16;
     private static final Random RANDOM = new XorShiftRandom();
-
+    
     public AcousticFactory(@Nonnull final SoundEvent event) {
         super(event, Category.AMBIENT);
     }
-
+    
     public AcousticFactory(@Nonnull final SoundEvent event, @Nonnull final ISoundCategory category) {
         super(event, category);
     }
-
+    
     private static Vector3d randomPoint(final int minRange, final int maxRange) {
         // Establish a random unit vector
         final double x = RANDOM.nextDouble() - 0.5D;
         final double y = RANDOM.nextDouble() - 0.5D;
         final double z = RANDOM.nextDouble() - 0.5D;
         final Vector3d vec = new Vector3d(x, y, z).normalize();
-
+        
         // Establish the range and scaling value
         final int range = maxRange - minRange;
         final double magnitude;
-
+        
         if (range <= 0) {
             magnitude = minRange;
         } else {
             magnitude = minRange + RANDOM.nextDouble() * range;
         }
-
+        
         // Generate a vector based on the generated scaling values
         return vec.scale(magnitude);
     }
-
-    /**
-     * Creates a sound instance that is non-attenuated
-     */
+    
+    /** Creates a sound instance that is non-attenuated */
     @Override
     @Nonnull
     public ISoundInstance createSound() {
         return createSoundAt(BlockPos.ZERO);
     }
-
-    /**
-     * Creates a sound instance centered in the block at the specified position.
-     */
+    
+    /** Creates a sound instance centered in the block at the specified position. */
     @Override
     @Nonnull
     public ISoundInstance createSoundAt(@Nonnull final BlockPos pos) {
@@ -95,10 +89,8 @@ public class AcousticFactory extends SoundBuilder implements IAcousticFactory {
         sound.setPosition(pos);
         return sound;
     }
-
-    /**
-     * Creates a sound instance centered at the specified location.
-     */
+    
+    /** Creates a sound instance centered at the specified location. */
     @Override
     @Nonnull
     public ISoundInstance createSoundAt(@Nonnull final Vector3d pos) {
@@ -106,26 +98,28 @@ public class AcousticFactory extends SoundBuilder implements IAcousticFactory {
         sound.setPosition(pos);
         return sound;
     }
-
-    /**
-     * Creates a sound instance within a random range centered on the specified entity.
-     * @param entity Entity on which the sound will be centered
-     * @return Sound instance for playing
-     */
+    
+    /** Creates a sound instance within a random range centered on the specified entity.
+     * 
+     * @param entity
+     *            Entity on which the sound will be centered
+     * @return Sound instance for playing */
     @Override
     @Nonnull
     public ISoundInstance createSoundNear(@Nonnull final Entity entity) {
         return createSoundNear(entity, 0, SOUND_RANGE);
     }
-
-    /**
-     * Creates a sound instance within a random range centered on the specific entity.  The range variation is set by
+    
+    /** Creates a sound instance within a random range centered on the specific entity. The range variation is set by
      * range parameters.
-     * @param entity Entity on which the sound will be centered
-     * @param minRange Minimum range from the entity
-     * @param maxRange Maximum range from the entity
-     * @return Sound instance for playing
-     */
+     * 
+     * @param entity
+     *            Entity on which the sound will be centered
+     * @param minRange
+     *            Minimum range from the entity
+     * @param maxRange
+     *            Maximum range from the entity
+     * @return Sound instance for playing */
     @Nonnull
     public ISoundInstance createSoundNear(@Nonnull final Entity entity, final int minRange, final int maxRange) {
         final Vector3d offset = randomPoint(minRange, maxRange);
@@ -136,23 +130,19 @@ public class AcousticFactory extends SoundBuilder implements IAcousticFactory {
         sound.setPosition(posX, posY, posZ);
         return sound;
     }
-
-    /**
-     * Attaches a sound instance to the specified entity, and will move as the entity moves.
-     */
+    
+    /** Attaches a sound instance to the specified entity, and will move as the entity moves. */
     @Override
     @Nonnull
     public ISoundInstance attachSound(@Nonnull final Entity entity) {
         return new EntitySoundInstance(entity, makeSound());
     }
-
-    /**
-     * Creates a sound instance with no attenuation and is not affected by range or other sound effects.
-     */
+    
+    /** Creates a sound instance with no attenuation and is not affected by range or other sound effects. */
     @Override
     @Nonnull
     public IFadableSoundInstance createBackgroundSound() {
         return new BackgroundSoundInstance(createSound());
     }
-
+    
 }

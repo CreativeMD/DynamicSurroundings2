@@ -34,18 +34,20 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public final class Constants {
     private Constants() {
-
+        
     }
-
-    public static final ISoundCategory FOOTSTEPS = new Category("footsteps", "mobeffects.soundcategory.footsteps", () -> Config.CLIENT.footsteps.footstepVolume.get() / 100F, (v) -> Config.CLIENT.footsteps.footstepVolume.set((int)(v * 100)));
-    public static final ISoundCategory TOOLBAR = new Category("toolbar", "mobeffects.soundcategory.toolbar", () -> Config.CLIENT.effects.toolbarVolume.get() / 100F, (v) -> Config.CLIENT.effects.toolbarVolume.set((int)(v * 100)));
-
+    
+    public static final ISoundCategory FOOTSTEPS = new Category("footsteps", "mobeffects.soundcategory.footsteps", () -> Config.CLIENT.footsteps.footstepVolume
+            .get() / 100F, (v) -> Config.CLIENT.footsteps.footstepVolume.set((int) (v * 100)));
+    public static final ISoundCategory TOOLBAR = new Category("toolbar", "mobeffects.soundcategory.toolbar", () -> Config.CLIENT.effects.toolbarVolume
+            .get() / 100F, (v) -> Config.CLIENT.effects.toolbarVolume.set((int) (v * 100)));
+    
     public static final ResourceLocation NONE = new ResourceLocation(MobEffects.MOD_ID, "empty");
-
+    
     public static final IAcoustic EMPTY = new NullAcoustic(NONE);
-    public static final IAcoustic NOT_EMITTER = new NullAcoustic(new ResourceLocation(MobEffects.MOD_ID,"not_emitter"));
-    public static final IAcoustic MESSY_GROUND = new NullAcoustic(new ResourceLocation(MobEffects.MOD_ID,"messy_ground"));
-
+    public static final IAcoustic NOT_EMITTER = new NullAcoustic(new ResourceLocation(MobEffects.MOD_ID, "not_emitter"));
+    public static final IAcoustic MESSY_GROUND = new NullAcoustic(new ResourceLocation(MobEffects.MOD_ID, "messy_ground"));
+    
     public static final AcousticEvent WALK = new AcousticEvent(new ResourceLocation(MobEffects.MOD_ID, "walk"), null);
     public static final AcousticEvent WANDER = new AcousticEvent(new ResourceLocation(MobEffects.MOD_ID, "wander"), null);
     public static final AcousticEvent SWIM = new AcousticEvent(new ResourceLocation(MobEffects.MOD_ID, "swim"), null);
@@ -58,7 +60,7 @@ public final class Constants {
     public static final AcousticEvent DOWN_RUN = new AcousticEvent(new ResourceLocation(MobEffects.MOD_ID, "down_run"), RUN);
     public static final AcousticEvent UP = new AcousticEvent(new ResourceLocation(MobEffects.MOD_ID, "up"), WALK);
     public static final AcousticEvent UP_RUN = new AcousticEvent(new ResourceLocation(MobEffects.MOD_ID, "up_run"), RUN);
-
+    
     public static final ResourceLocation LIGHT_ARMOR = new ResourceLocation(MobEffects.MOD_ID, "armor_light");
     public static final ResourceLocation MEDIUM_ARMOR = new ResourceLocation(MobEffects.MOD_ID, "armor_medium");
     public static final ResourceLocation HEAVY_ARMOR = new ResourceLocation(MobEffects.MOD_ID, "armor_heavy");
@@ -68,7 +70,7 @@ public final class Constants {
     public static final ResourceLocation HEAVY_FOOT_ARMOR = new ResourceLocation(MobEffects.MOD_ID, "heavy_foot");
     public static final ResourceLocation CRYSTAL_FOOT_ARMOR = new ResourceLocation(MobEffects.MOD_ID, "crystal_foot");
     public static final ResourceLocation NETHERITE_ARMOR = SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE.getName();
-
+    
     public static final ResourceLocation LEATHER_ARMOR_EQUIP = LIGHT_ARMOR;
     public static final ResourceLocation CHAIN_ARMOR_EQUIP = MEDIUM_ARMOR;
     public static final ResourceLocation CRYSTAL_ARMOR_EQUIP = CRYSTAL_ARMOR;
@@ -87,5 +89,5 @@ public final class Constants {
     public static final ResourceLocation BOW_EQUIP = new ResourceLocation(MobEffects.MOD_ID, "bow.equip");
     public static final ResourceLocation BOOK_EQUIP = new ResourceLocation(MobEffects.MOD_ID, "pageflip");
     public static final ResourceLocation POTION_EQUIP = new ResourceLocation(MobEffects.MOD_ID, "potion.equip");
-
+    
 }

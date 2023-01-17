@@ -34,18 +34,16 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public abstract class BaseParticle extends Particle {
-
+    
     protected static final EntityRendererManager manager = GameUtils.getMC().getRenderManager();
     protected static final Random RANDOM = XorShiftRandom.current();
-
-    protected BaseParticle(@Nonnull final World worldIn, final double posXIn, final double posYIn,
-                           final double posZIn) {
+    
+    protected BaseParticle(@Nonnull final World worldIn, final double posXIn, final double posYIn, final double posZIn) {
         super((ClientWorld) worldIn, posXIn, posYIn, posZIn);
     }
-
-    public BaseParticle(@Nonnull final World worldIn, final double xCoordIn, final double yCoordIn,
-                        final double zCoordIn, final double xSpeedIn, final double ySpeedIn, final double zSpeedIn) {
+    
+    public BaseParticle(@Nonnull final World worldIn, final double xCoordIn, final double yCoordIn, final double zCoordIn, final double xSpeedIn, final double ySpeedIn, final double zSpeedIn) {
         super((ClientWorld) worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
     }
-
+    
 }

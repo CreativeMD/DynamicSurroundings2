@@ -22,10 +22,10 @@ import org.orecruncher.dsurround.DynamicSurroundings;
 import org.orecruncher.lib.logging.IModLog;
 
 public final class Lib {
-
+    
     public final static IModLog LOGGER = DynamicSurroundings.LOGGER.createChild(Lib.class);
-
+    
     private Lib() {
-
+        
     }
 }

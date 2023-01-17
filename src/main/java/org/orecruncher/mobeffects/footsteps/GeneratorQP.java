@@ -29,89 +29,89 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class GeneratorQP extends Generator {
-
-	private static final int USE_FUNCTION = 2;
-
-	private int hoof = 0;
-	private float nextWalkDistanceMultiplier = 0.05f;
-
-	public GeneratorQP(@Nonnull final Variator var) {
-		super(var);
-	}
-
-	@Override
-	protected void stepped(@Nonnull final LivingEntity ply, @Nonnull final AcousticEvent event) {
-		if (this.hoof == 0 || this.hoof == 2) {
-			this.nextWalkDistanceMultiplier = RANDOM.nextFloat();
-		}
-
-		if (this.hoof >= 3) {
-			this.hoof = 0;
-		} else {
-			this.hoof++;
-		}
-
-		if (this.hoof == 3 && event == Constants.RUN) {
-			produceStep(ply, event);
-			this.hoof = 0;
-		}
-
-		if (event == Constants.WALK) {
-			produceStep(ply, event);
-		}
-	}
-
-	protected float walkFunction2(final float distance) {
-		final float overallMultiplier = this.VAR.QUADRUPED_MULTIPLIER;
-		final float ndm = 0.2F;
-		float pond = this.nextWalkDistanceMultiplier;
-		pond *= pond;
-		pond *= ndm;
-		if (this.hoof == 1 || this.hoof == 3) {
-			return distance * pond * overallMultiplier;
-		}
-		return distance * (1 - pond) * overallMultiplier;
-	}
-
-	protected float walkFunction1(final float distance) {
-		final float overallMultiplier = 1.4f;
-		final float ndm = 0.5f;
-
-		if (this.hoof == 1 || this.hoof == 3) {
-			return distance * (ndm + this.nextWalkDistanceMultiplier * ndm * 0.5f) * overallMultiplier;
-		}
-		return distance * (1 - ndm) * overallMultiplier;
-	}
-
-	protected float walkFunction0(final float distance) {
-		final float overallMultiplier = 1.5f;
-		final float ndm = 0.425f + this.nextWalkDistanceMultiplier * 0.15f;
-
-		if (this.hoof == 1 || this.hoof == 3) {
-			return distance * ndm * overallMultiplier;
-		}
-		return distance * (1 - ndm) * overallMultiplier;
-	}
-
-	@Override
-	protected float reevaluateDistance(@Nonnull final AcousticEvent event, final float distance) {
-		if (event == Constants.WALK)
-			switch (USE_FUNCTION) {
-			case 0:
-				return walkFunction0(distance);
-			case 1:
-				return walkFunction1(distance);
-			default:
-				return walkFunction2(distance);
-			}
-
-		if (event == Constants.RUN && this.hoof == 0)
-			return distance * 0.8f;
-
-		if (event == Constants.RUN)
-			return distance * 0.3f;
-
-		return distance;
-	}
-
+    
+    private static final int USE_FUNCTION = 2;
+    
+    private int hoof = 0;
+    private float nextWalkDistanceMultiplier = 0.05f;
+    
+    public GeneratorQP(@Nonnull final Variator var) {
+        super(var);
+    }
+    
+    @Override
+    protected void stepped(@Nonnull final LivingEntity ply, @Nonnull final AcousticEvent event) {
+        if (this.hoof == 0 || this.hoof == 2) {
+            this.nextWalkDistanceMultiplier = RANDOM.nextFloat();
+        }
+        
+        if (this.hoof >= 3) {
+            this.hoof = 0;
+        } else {
+            this.hoof++;
+        }
+        
+        if (this.hoof == 3 && event == Constants.RUN) {
+            produceStep(ply, event);
+            this.hoof = 0;
+        }
+        
+        if (event == Constants.WALK) {
+            produceStep(ply, event);
+        }
+    }
+    
+    protected float walkFunction2(final float distance) {
+        final float overallMultiplier = this.VAR.QUADRUPED_MULTIPLIER;
+        final float ndm = 0.2F;
+        float pond = this.nextWalkDistanceMultiplier;
+        pond *= pond;
+        pond *= ndm;
+        if (this.hoof == 1 || this.hoof == 3) {
+            return distance * pond * overallMultiplier;
+        }
+        return distance * (1 - pond) * overallMultiplier;
+    }
+    
+    protected float walkFunction1(final float distance) {
+        final float overallMultiplier = 1.4f;
+        final float ndm = 0.5f;
+        
+        if (this.hoof == 1 || this.hoof == 3) {
+            return distance * (ndm + this.nextWalkDistanceMultiplier * ndm * 0.5f) * overallMultiplier;
+        }
+        return distance * (1 - ndm) * overallMultiplier;
+    }
+    
+    protected float walkFunction0(final float distance) {
+        final float overallMultiplier = 1.5f;
+        final float ndm = 0.425f + this.nextWalkDistanceMultiplier * 0.15f;
+        
+        if (this.hoof == 1 || this.hoof == 3) {
+            return distance * ndm * overallMultiplier;
+        }
+        return distance * (1 - ndm) * overallMultiplier;
+    }
+    
+    @Override
+    protected float reevaluateDistance(@Nonnull final AcousticEvent event, final float distance) {
+        if (event == Constants.WALK)
+            switch (USE_FUNCTION) {
+                case 0:
+                    return walkFunction0(distance);
+                case 1:
+                    return walkFunction1(distance);
+                default:
+                    return walkFunction2(distance);
+            }
+        
+        if (event == Constants.RUN && this.hoof == 0)
+            return distance * 0.8f;
+        
+        if (event == Constants.RUN)
+            return distance * 0.3f;
+        
+        return distance;
+    }
+    
 }

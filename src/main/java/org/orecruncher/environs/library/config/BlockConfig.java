@@ -35,29 +35,29 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class BlockConfig implements IValidator<BlockConfig> {
-	@SerializedName("blocks")
-	public List<String> blocks = ImmutableList.of();
-	@SerializedName("soundReset")
-	public Boolean soundReset = null;
-	@SerializedName("effectReset")
-	public Boolean effectReset = null;
-	@SerializedName("chance")
-	public Integer chance = null;
-	@SerializedName("acoustics")
-	public List<AcousticConfig> acoustics = ImmutableList.of();
-	@SerializedName("effects")
-	public List<EffectConfig> effects = ImmutableList.of();
-
-	@Override
-	public void validate(@Nonnull final BlockConfig obj) throws ValidationException {
-		ValidationHelpers.hasElements("blocks", this.blocks, Environs.LOGGER::warn);
-		for (final String s : blocks) {
-			ValidationHelpers.notNullOrWhitespace("blocks", s, Environs.LOGGER::warn);
-			ValidationHelpers.mustBeLowerCase("blocks", s, Environs.LOGGER::warn);
-		}
-		for (final AcousticConfig ac : this.acoustics)
-			ac.validate(ac);
-		for (final EffectConfig ec : this.effects)
-			ec.validate(ec);
-	}
+    @SerializedName("blocks")
+    public List<String> blocks = ImmutableList.of();
+    @SerializedName("soundReset")
+    public Boolean soundReset = null;
+    @SerializedName("effectReset")
+    public Boolean effectReset = null;
+    @SerializedName("chance")
+    public Integer chance = null;
+    @SerializedName("acoustics")
+    public List<AcousticConfig> acoustics = ImmutableList.of();
+    @SerializedName("effects")
+    public List<EffectConfig> effects = ImmutableList.of();
+    
+    @Override
+    public void validate(@Nonnull final BlockConfig obj) throws ValidationException {
+        ValidationHelpers.hasElements("blocks", this.blocks, Environs.LOGGER::warn);
+        for (final String s : blocks) {
+            ValidationHelpers.notNullOrWhitespace("blocks", s, Environs.LOGGER::warn);
+            ValidationHelpers.mustBeLowerCase("blocks", s, Environs.LOGGER::warn);
+        }
+        for (final AcousticConfig ac : this.acoustics)
+            ac.validate(ac);
+        for (final EffectConfig ec : this.effects)
+            ec.validate(ec);
+    }
 }

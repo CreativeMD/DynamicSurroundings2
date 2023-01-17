@@ -28,21 +28,22 @@ import it.unimi.dsi.fastutil.objects.Reference2ObjectMap;
 import it.unimi.dsi.fastutil.objects.Reference2ObjectOpenHashMap;
 
 public class Validators {
-
+    
     private static final Reference2ObjectMap<Type, IValidator<?>> registeredValidators = new Reference2ObjectOpenHashMap<>();
-
+    
     public static void registerValidator(@Nonnull final Type type, @Nonnull final IValidator<?> validator) {
         registeredValidators.put(type, validator);
     }
-
+    
     public static <T> void validate(@Nonnull final T obj) throws ValidationException {
         validate(obj, (Consumer<String>) null);
     }
-
+    
     public static <T> void validate(@Nonnull final T obj, @Nullable final Consumer<String> errorLogging) throws ValidationException {
         try {
             if (obj instanceof IValidator) {
-                @SuppressWarnings("unchecked") final IValidator<T> v = (IValidator<T>) obj;
+                @SuppressWarnings("unchecked")
+                final IValidator<T> v = (IValidator<T>) obj;
                 v.validate(obj);
             }
         } catch (@Nonnull final ValidationException ex) {
@@ -53,18 +54,20 @@ public class Validators {
             }
         }
     }
-
+    
     public static <T> void validate(@Nonnull final T obj, @Nullable final Type type) throws ValidationException {
         validate(obj, type, null);
     }
-
+    
     public static <T> void validate(@Nonnull final T obj, @Nullable final Type type, @Nullable final Consumer<String> errorLogging) throws ValidationException {
         try {
             if (obj instanceof IValidator) {
-                @SuppressWarnings("unchecked") final IValidator<T> v = (IValidator<T>) obj;
+                @SuppressWarnings("unchecked")
+                final IValidator<T> v = (IValidator<T>) obj;
                 v.validate(obj);
             } else {
-                @SuppressWarnings("unchecked") final IValidator<T> validator = (IValidator<T>) registeredValidators.get(type);
+                @SuppressWarnings("unchecked")
+                final IValidator<T> validator = (IValidator<T>) registeredValidators.get(type);
                 if (validator != null)
                     validator.validate(obj);
             }

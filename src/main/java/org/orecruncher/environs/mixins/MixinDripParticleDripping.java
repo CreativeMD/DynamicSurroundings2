@@ -28,9 +28,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import net.minecraft.client.particle.DripParticle;
 
-@Mixin(targets = {"net.minecraft.client.particle.DripParticle$FallingLiquidParticle"})
+@Mixin(targets = { "net.minecraft.client.particle.DripParticle$FallingLiquidParticle" })
 public class MixinDripParticleDripping {
-
+    
     @Inject(method = "updateMotion()V", at = @At("HEAD"))
     public void onHitGround(@Nonnull final CallbackInfo ci) {
         ParticleHooks.dripHandler((DripParticle) (Object) this);

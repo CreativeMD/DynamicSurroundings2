@@ -25,10 +25,10 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public interface IParticleCollection {
-
+    
     String name();
-
+    
     boolean canFit();
-
+    
     void add(@Nonnull final IParticleMote mote);
 }

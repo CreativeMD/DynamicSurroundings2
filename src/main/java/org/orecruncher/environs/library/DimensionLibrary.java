@@ -50,115 +50,114 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public final class DimensionLibrary {
-
-	private static final IModLog LOGGER = Environs.LOGGER.createChild(DimensionLibrary.class);
-
-	private DimensionLibrary() {
-
-	}
-
-	private static final ObjectArray<DimensionConfig> cache = new ObjectArray<>();
-	// TODO:  What type of hash map?
-	private static final HashMap<RegistryKey<World>, DimensionInfo> configs = new HashMap<>();
-
-	static void initialize() {
-		ModuleServiceManager.instance().add(new DimensionLibraryService());
-	}
-
-	static void initFromConfig(@Nonnull final List<DimensionConfig> cfg) {
-		cfg.forEach(DimensionLibrary::register);
-	}
-
-	@Nonnull
-	private static DimensionConfig getData(@Nonnull final DimensionConfig entry) {
-		final Optional<DimensionConfig> result = cache.stream().filter(e -> e.equals(entry)).findFirst();
-		if (result.isPresent())
-			return result.get();
-		cache.add(entry);
-		return entry;
-	}
-
-	private static void register(@Nonnull final DimensionConfig entry) {
-		if (entry.dimensionId != null) {
-			final DimensionConfig data = getData(entry);
-			if (data == entry)
-				return;
-			if (data.dimensionId == null)
-				data.dimensionId = entry.dimensionId;
-			if (entry.hasAurora != null)
-				data.hasAurora = entry.hasAurora;
-			if (entry.hasHaze != null)
-				data.hasHaze = entry.hasHaze;
-			if (entry.hasWeather != null)
-				data.hasWeather = entry.hasWeather;
-			if (entry.cloudHeight != null)
-				data.cloudHeight = entry.cloudHeight;
-			if (entry.seaLevel != null)
-				data.seaLevel = entry.seaLevel;
-			if (entry.skyHeight != null)
-				data.skyHeight = entry.skyHeight;
-		}
-	}
-
-	@Nonnull
-	public static DimensionInfo getData(@Nonnull final World world) {
-		RegistryKey<World> key = world.getDimensionKey();
-		DimensionInfo dimInfo = configs.get(key);
-
-		if (dimInfo == null) {
-			DimensionConfig config = null;
-			ResourceLocation location = key.getLocation();
-			for (final DimensionConfig e : cache)
-				if (e.dimensionId.equals(location.toString())) {
-					config = e;
-					break;
-				}
-
-			configs.put(key, dimInfo = new DimensionInfo(world, config));
-		}
-		return dimInfo;
-	}
-
-	public static Stream<String> dump()
-	{
-		return cache.stream().map(Object::toString).sorted();
-	}
-
-	private static class DimensionLibraryService implements IModuleService {
-
-		private static final Type dimensionType = TypeToken.getParameterized(List.class, DimensionConfig.class).getType();
-
-		static {
-			Validators.registerValidator(dimensionType, new ListValidator<DimensionConfig>());
-		}
-
-		@Override
-		public String name() {
-			return "DimensionLibrary";
-		}
-
-		@Override
-		public void start() {
-
-			final Collection<IResourceAccessor> configs = ResourceUtils.findConfigs(DynamicSurroundings.MOD_ID, DynamicSurroundings.DATA_PATH, "dimensions.json");
-
-			IResourceAccessor.process(configs, accessor -> {
-				initFromConfig(accessor.as(dimensionType));
-			});
-		}
-
-		@Override
-		public void log() {
-			if (Config.CLIENT.logging.enableLogging.get()) {
-				LOGGER.info("*** DIMENSION REGISTRY (cache) ***");
-				dump().forEach(LOGGER::info);
-			}
-		}
-
-		@Override
-		public void stop() {
-			cache.clear();
-			configs.clear();
-		}
-	}
+    
+    private static final IModLog LOGGER = Environs.LOGGER.createChild(DimensionLibrary.class);
+    
+    private DimensionLibrary() {
+        
+    }
+    
+    private static final ObjectArray<DimensionConfig> cache = new ObjectArray<>();
+    // TODO:  What type of hash map?
+    private static final HashMap<RegistryKey<World>, DimensionInfo> configs = new HashMap<>();
+    
+    static void initialize() {
+        ModuleServiceManager.instance().add(new DimensionLibraryService());
+    }
+    
+    static void initFromConfig(@Nonnull final List<DimensionConfig> cfg) {
+        cfg.forEach(DimensionLibrary::register);
+    }
+    
+    @Nonnull
+    private static DimensionConfig getData(@Nonnull final DimensionConfig entry) {
+        final Optional<DimensionConfig> result = cache.stream().filter(e -> e.equals(entry)).findFirst();
+        if (result.isPresent())
+            return result.get();
+        cache.add(entry);
+        return entry;
+    }
+    
+    private static void register(@Nonnull final DimensionConfig entry) {
+        if (entry.dimensionId != null) {
+            final DimensionConfig data = getData(entry);
+            if (data == entry)
+                return;
+            if (data.dimensionId == null)
+                data.dimensionId = entry.dimensionId;
+            if (entry.hasAurora != null)
+                data.hasAurora = entry.hasAurora;
+            if (entry.hasHaze != null)
+                data.hasHaze = entry.hasHaze;
+            if (entry.hasWeather != null)
+                data.hasWeather = entry.hasWeather;
+            if (entry.cloudHeight != null)
+                data.cloudHeight = entry.cloudHeight;
+            if (entry.seaLevel != null)
+                data.seaLevel = entry.seaLevel;
+            if (entry.skyHeight != null)
+                data.skyHeight = entry.skyHeight;
+        }
+    }
+    
+    @Nonnull
+    public static DimensionInfo getData(@Nonnull final World world) {
+        RegistryKey<World> key = world.getDimensionKey();
+        DimensionInfo dimInfo = configs.get(key);
+        
+        if (dimInfo == null) {
+            DimensionConfig config = null;
+            ResourceLocation location = key.getLocation();
+            for (final DimensionConfig e : cache)
+                if (e.dimensionId.equals(location.toString())) {
+                    config = e;
+                    break;
+                }
+            
+            configs.put(key, dimInfo = new DimensionInfo(world, config));
+        }
+        return dimInfo;
+    }
+    
+    public static Stream<String> dump() {
+        return cache.stream().map(Object::toString).sorted();
+    }
+    
+    private static class DimensionLibraryService implements IModuleService {
+        
+        private static final Type dimensionType = TypeToken.getParameterized(List.class, DimensionConfig.class).getType();
+        
+        static {
+            Validators.registerValidator(dimensionType, new ListValidator<DimensionConfig>());
+        }
+        
+        @Override
+        public String name() {
+            return "DimensionLibrary";
+        }
+        
+        @Override
+        public void start() {
+            
+            final Collection<IResourceAccessor> configs = ResourceUtils.findConfigs(DynamicSurroundings.MOD_ID, DynamicSurroundings.DATA_PATH, "dimensions.json");
+            
+            IResourceAccessor.process(configs, accessor -> {
+                initFromConfig(accessor.as(dimensionType));
+            });
+        }
+        
+        @Override
+        public void log() {
+            if (Config.CLIENT.logging.enableLogging.get()) {
+                LOGGER.info("*** DIMENSION REGISTRY (cache) ***");
+                dump().forEach(LOGGER::info);
+            }
+        }
+        
+        @Override
+        public void stop() {
+            cache.clear();
+            configs.clear();
+        }
+    }
 }

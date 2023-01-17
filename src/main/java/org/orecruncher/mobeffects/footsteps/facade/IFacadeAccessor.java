@@ -31,29 +31,28 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 interface IFacadeAccessor {
-
-	/*
-	 * Name of the facade accessor for logging and identification purposes.
-	 */
-	@Nonnull
-	String getName();
-
-	/*
-	 * Determines if the block can be handled by the accessor
-	 */
-	boolean instanceOf(@Nonnull final Block block);
-
-	/*
-	 * Indicates if the accessor is valid. It could be invalid if the associated mod
-	 * is not installed.
-	 */
-	boolean isValid();
-
-	/*
-	 * Requests the underlying IBlockState for the block. The underlying IBlockState
-	 * is what should be used when generating sound effects.
-	 */
-	@Nullable
-	BlockState getBlockState(@Nonnull final LivingEntity entity, @Nonnull final BlockState state,
-							 @Nonnull final IBlockReader world, @Nonnull final Vector3d pos, @Nullable final Direction side);
+    
+    /*
+     * Name of the facade accessor for logging and identification purposes.
+     */
+    @Nonnull
+    String getName();
+    
+    /*
+     * Determines if the block can be handled by the accessor
+     */
+    boolean instanceOf(@Nonnull final Block block);
+    
+    /*
+     * Indicates if the accessor is valid. It could be invalid if the associated mod
+     * is not installed.
+     */
+    boolean isValid();
+    
+    /*
+     * Requests the underlying IBlockState for the block. The underlying IBlockState
+     * is what should be used when generating sound effects.
+     */
+    @Nullable
+    BlockState getBlockState(@Nonnull final LivingEntity entity, @Nonnull final BlockState state, @Nonnull final IBlockReader world, @Nonnull final Vector3d pos, @Nullable final Direction side);
 }

@@ -33,46 +33,36 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public enum ShaderPrograms implements IShaderResourceProvider {
-
-    AURORA(
-            "environs:shaders/aurora.vert",
-            "environs:shaders/aurora.frag",
-            ImmutableList.of(
-                    "time",
-                    "resolution",
-                    "topColor",
-                    "middleColor",
-                    "bottomColor",
-                    "alpha"
-            ));
-
+    
+    AURORA("environs:shaders/aurora.vert", "environs:shaders/aurora.frag", ImmutableList.of("time", "resolution", "topColor", "middleColor", "bottomColor", "alpha"));
+    
     private final ResourceLocation vertex;
     private final ResourceLocation fragment;
     private final Collection<String> uniforms;
-
+    
     public static final ShaderManager<ShaderPrograms> MANAGER = new ShaderManager<>(ShaderPrograms.class);
-
+    
     ShaderPrograms(@Nonnull final String vert, @Nonnull final String frag, @Nonnull final Collection<String> uniforms) {
         this.vertex = new ResourceLocation(vert);
         this.fragment = new ResourceLocation(frag);
         this.uniforms = uniforms;
     }
-
+    
     @Nonnull
     public ResourceLocation getVertex() {
         return this.vertex;
     }
-
+    
     @Nonnull
     public ResourceLocation getFragment() {
         return this.fragment;
     }
-
+    
     @Nonnull
     public String getShaderName() {
         return this.name();
     }
-
+    
     @Nonnull
     public Collection<String> getUniforms() {
         return this.uniforms;

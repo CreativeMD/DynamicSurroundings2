@@ -26,26 +26,26 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public abstract class AgeableMote extends Mote {
-
+    
     protected int age;
     protected int maxAge;
-
+    
     protected AgeableMote(@Nonnull final IBlockReader world, final double x, final double y, final double z) {
         super(world, x, y, z);
         this.age = 0;
     }
-
+    
     protected boolean advanceAge() {
         return this.age++ >= this.maxAge;
     }
-
+    
     @Override
     public boolean tick() {
-
+        
         // The mote reached it's life expectancy
         if (advanceAge())
             kill();
-
+        
         return super.tick();
     }
 }

@@ -30,41 +30,39 @@ import com.google.common.base.Preconditions;
 
 @SuppressWarnings("unused")
 public class ReflectedMethod<R> {
-
+    
     protected final String className;
     protected final String methodName;
     protected final Method method;
-
-    public ReflectedMethod(@Nonnull final String className, @Nonnull final String methodName,
-                           @Nullable final String obfMethodName, Class<?>... parameters) {
+    
+    public ReflectedMethod(@Nonnull final String className, @Nonnull final String methodName, @Nullable final String obfMethodName, Class<?>... parameters) {
         this.className = className;
         this.methodName = methodName;
-        this.method = ReflectionHelper.resolveMethod(className, new String[]{methodName, obfMethodName}, parameters);
-
+        this.method = ReflectionHelper.resolveMethod(className, new String[] { methodName, obfMethodName }, parameters);
+        
         if (isNotAvailable()) {
             final String msg = String.format("Unable to locate method [%s::%s]", this.className, methodName);
             Lib.LOGGER.warn(msg);
         }
     }
-
-    public ReflectedMethod(@Nonnull final Class<?> clazz, @Nonnull final String methodName,
-                           @Nullable final String obfMethodName, Class<?>... parameters) {
+    
+    public ReflectedMethod(@Nonnull final Class<?> clazz, @Nonnull final String methodName, @Nullable final String obfMethodName, Class<?>... parameters) {
         Preconditions.checkNotNull(clazz);
         Preconditions.checkArgument(StringUtils.isNotEmpty(methodName), "Field name cannot be empty");
         this.className = clazz.getName();
         this.methodName = methodName;
-        this.method = ReflectionHelper.resolveMethod(clazz, new String[]{methodName, obfMethodName}, parameters);
-
+        this.method = ReflectionHelper.resolveMethod(clazz, new String[] { methodName, obfMethodName }, parameters);
+        
         if (isNotAvailable()) {
             final String msg = String.format("Unable to locate method [%s::%s]", this.className, methodName);
             Lib.LOGGER.warn(msg);
         }
     }
-
+    
     public boolean isNotAvailable() {
         return this.method == null;
     }
-
+    
     @SuppressWarnings("unchecked")
     public R invoke(Object ref, Object... parms) {
         check();
@@ -75,12 +73,12 @@ public class ReflectedMethod<R> {
         }
         return null;
     }
-
+    
     protected void check() {
         if (isNotAvailable()) {
             final String msg = String.format("Uninitialized method [%s::%s]", this.className, this.methodName);
             throw new IllegalStateException(msg);
         }
     }
-
+    
 }

@@ -16,9 +16,7 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>
  */
 
-/**
- * Audio support for SoundControl and other mods
- */
+/** Audio support for SoundControl and other mods */
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 package org.orecruncher.sndctrl.audio;

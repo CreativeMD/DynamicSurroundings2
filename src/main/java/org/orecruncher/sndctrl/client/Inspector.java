@@ -57,23 +57,22 @@ import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = SoundControl.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class Inspector {
-
+    
     private static final String TEXT_BLOCKSTATE = TextFormatting.DARK_PURPLE + "<BlockState>";
     private static final String TEXT_TAGS = TextFormatting.DARK_PURPLE + "<Tags>";
-
+    
     private static List<String> diagnostics = ImmutableList.of();
-
+    
     private Inspector() {
-
+        
     }
-
+    
     private static List<String> getTags(@Nonnull final BlockState state) {
         return state.getBlock().getTags().stream().map(t -> "#" + t.toString()).collect(Collectors.toList());
     }
-
-    private static void gatherBlockText(final ItemStack stack, final List<String> text, final BlockState state,
-                                        final BlockPos pos) {
-
+    
+    private static void gatherBlockText(final ItemStack stack, final List<String> text, final BlockState state, final BlockPos pos) {
+        
         if (!stack.isEmpty()) {
             text.add(TextFormatting.RED + stack.getDisplayName().getString());
             final String itemName = stack.getItem().getName().getString();
@@ -82,7 +81,7 @@ public class Inspector {
                 text.add(TextFormatting.DARK_AQUA + stack.getItem().getClass().getName());
             }
         }
-
+        
         if (state != null) {
             final BlockStateMatcher info = BlockStateMatcher.create(state);
             if (!info.isEmpty()) {
@@ -104,9 +103,9 @@ public class Inspector {
                 }
             }
         }
-
+        
     }
-
+    
     private static boolean isHolding() {
         final PlayerEntity player = GameUtils.getPlayer();
         if (player == null)
@@ -114,14 +113,14 @@ public class Inspector {
         final ItemStack held = player.getHeldItem(Hand.MAIN_HAND);
         return !held.isEmpty() && held.getItem() == Items.CARROT_ON_A_STICK;
     }
-
+    
     @SubscribeEvent
     public static void onClientTick(@Nonnull final TickEvent.ClientTickEvent event) {
-
+        
         if (TickCounter.getTickCount() % 5 == 0) {
-
+            
             diagnostics = ImmutableList.of();
-
+            
             if (Config.CLIENT.logging.enableLogging.get() && isHolding()) {
                 final World world = GameUtils.getWorld();
                 if (GameUtils.getMC().pointedEntity != null) {
@@ -134,9 +133,9 @@ public class Inspector {
                     if (current instanceof BlockRayTraceResult) {
                         final BlockRayTraceResult trace = (BlockRayTraceResult) current;
                         if (trace.getType() != RayTraceResult.Type.MISS) {
-
+                            
                             final BlockState state = world.getBlockState(trace.getPos());
-
+                            
                             if (!state.isAir(world, trace.getPos())) {
                                 final BlockInspectionEvent evt = new BlockInspectionEvent(trace, world, state, trace.getPos());
                                 MinecraftForge.EVENT_BUS.post(evt);
@@ -148,13 +147,13 @@ public class Inspector {
             }
         }
     }
-
+    
     @SubscribeEvent(priority = EventPriority.HIGH)
     public static void onBlockInspectionEvent(@Nonnull final BlockInspectionEvent event) {
         final ItemStack stack = event.state.getBlock().getPickBlock(event.state, event.rayTrace, event.world, event.pos, GameUtils.getPlayer());
         gatherBlockText(stack, event.data, event.state, event.pos);
     }
-
+    
     @SubscribeEvent(priority = EventPriority.HIGH)
     public static void onGatherText(@Nonnull final DiagnosticEvent event) {
         event.getLeft().addAll(diagnostics);

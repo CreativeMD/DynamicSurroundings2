@@ -28,7 +28,7 @@ import org.orecruncher.lib.logging.IModLog;
 import org.orecruncher.lib.math.TimerEMA;
 
 public final class Worker {
-
+    
     @Nonnull
     private final Thread thread;
     @Nonnull
@@ -39,15 +39,17 @@ public final class Worker {
     @Nonnull
     private String diagnosticString;
     private boolean stopProcessing;
-
-    /**
-     * Instantiates a worker thread to execute a task on a repeating basis.
+    
+    /** Instantiates a worker thread to execute a task on a repeating basis.
      *
-     * @param threadName     Name of the worker thread
-     * @param task           The task to be executed
-     * @param frequencyMsecs The frequency of execution in msecs
-     * @param logger         The logger to use when logging is needed
-     */
+     * @param threadName
+     *            Name of the worker thread
+     * @param task
+     *            The task to be executed
+     * @param frequencyMsecs
+     *            The frequency of execution in msecs
+     * @param logger
+     *            The logger to use when logging is needed */
     public Worker(@Nonnull final String threadName, @Nonnull final Runnable task, final int frequencyMsecs, @Nonnull final IModLog logger) {
         this.thread = new Thread(this::run);
         this.thread.setName(threadName);
@@ -57,11 +59,11 @@ public final class Worker {
         this.logger = logger;
         this.diagnosticString = StringUtils.EMPTY;
     }
-
+    
     private void run() {
         final TimerEMA timeTrack = new TimerEMA(this.thread.getName());
         final StopWatch sw = new StopWatch();
-        while (!this.stopProcessing ) {
+        while (!this.stopProcessing) {
             sw.start();
             try {
                 task.run();
@@ -84,30 +86,26 @@ public final class Worker {
                 logger.warn("%s is lagging; behind %d msecs", this.thread.getName(), Math.abs(sleepTime));
             }
         }
-
+        
     }
-
-    /**
-     * Starts up the worker.  Execution will start immediately.
-     */
+    
+    /** Starts up the worker. Execution will start immediately. */
     public void start() {
         this.thread.start();
     }
-
+    
     public void stop() {
         try {
             this.stopProcessing = true;
             this.thread.join();
-        } catch(@Nonnull final Throwable t) {
+        } catch (@Nonnull final Throwable t) {
             logger.warn("Error stopping worker thread '%s'", this.thread.getName());
         }
     }
-
-    /**
-     * Gathers a diagnostic string to display or log.
+    
+    /** Gathers a diagnostic string to display or log.
      *
-     * @return String for logging or display
-     */
+     * @return String for logging or display */
     @Nonnull
     public String getDiagnosticString() {
         return this.diagnosticString;

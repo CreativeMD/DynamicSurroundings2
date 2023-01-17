@@ -31,7 +31,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class PlayerVariables extends VariableSet<IPlayerVariables> implements IPlayerVariables {
-
+    
     private final LazyVariable<Boolean> isSuffocating = new LazyVariable<>(() -> {
         if (GameUtils.isInGame()) {
             final PlayerEntity player = GameUtils.getPlayer();
@@ -75,18 +75,18 @@ public class PlayerVariables extends VariableSet<IPlayerVariables> implements IP
     private double x;
     private double y;
     private double z;
-
+    
     public PlayerVariables() {
         super("player");
     }
-
+    
     @Override
     public void update() {
-
+        
         if (GameUtils.isInGame()) {
             final PlayerEntity player = GameUtils.getPlayer();
             assert player != null;
-
+            
             this.isCreative = player.isCreative();
             this.isBurning = player.isBurning();
             this.isFlying = player.isAirBorne;
@@ -106,9 +106,9 @@ public class PlayerVariables extends VariableSet<IPlayerVariables> implements IP
             this.x = player.getPosX();
             this.y = player.getPosY();
             this.z = player.getPosZ();
-
+            
         } else {
-
+            
             this.isCreative = false;
             this.isBurning = false;
             this.isFlying = false;
@@ -127,126 +127,126 @@ public class PlayerVariables extends VariableSet<IPlayerVariables> implements IP
             this.x = 0;
             this.y = 0;
             this.z = 0;
-
+            
         }
-
+        
         this.isSuffocating.reset();
         this.canRainOn.reset();
         this.canSeeSky.reset();
-
+        
     }
-
+    
     @Nonnull
     @Override
     public IPlayerVariables getInterface() {
         return this;
     }
-
+    
     @Override
     public boolean isCreative() {
         return this.isCreative;
     }
-
+    
     @Override
     public boolean isBurning() {
         return this.isBurning;
     }
-
+    
     @Override
     public boolean isSuffocating() {
         return this.isSuffocating.get();
     }
-
+    
     @Override
     public boolean isFlying() {
         return this.isFlying;
     }
-
+    
     @Override
     public boolean isSprintnig() {
         return this.isSprintnig;
     }
-
+    
     @Override
     public boolean isInLava() {
         return this.isInLava;
     }
-
+    
     @Override
     public boolean isInvisible() {
         return this.isInvisible;
     }
-
+    
     @Override
     public boolean isBlind() {
         return this.isBlind;
     }
-
+    
     @Override
     public boolean isInWater() {
         return this.isInWater;
     }
-
+    
     @Override
     public boolean isMoving() {
         return this.isMoving;
     }
-
+    
     @Override
     public boolean isWet() {
         return this.isWet;
     }
-
+    
     @Override
     public boolean isRiding() {
         return this.isRiding;
     }
-
+    
     @Override
     public boolean isOnGround() {
         return this.isOnGround;
     }
-
+    
     @Override
     public boolean canRainOn() {
         return this.canRainOn.get();
     }
-
+    
     @Override
     public boolean canSeeSky() {
         return this.canSeeSky.get();
     }
-
+    
     @Override
     public float getHealth() {
         return this.health;
     }
-
+    
     @Override
     public float getMaxHealth() {
         return this.maxHealth;
     }
-
+    
     @Override
     public float getFoodLevel() {
         return this.foodLevel;
     }
-
+    
     @Override
     public float getFoodSaturationLevel() {
         return this.foodSaturationLevel;
     }
-
+    
     @Override
     public double getX() {
         return this.x;
     }
-
+    
     @Override
     public double getY() {
         return this.y;
     }
-
+    
     @Override
     public double getZ() {
         return this.z;

@@ -33,19 +33,19 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class AcousticConfig implements IValidator<AcousticConfig> {
-	@SerializedName("acoustic")
-	public String acoustic = null;
-	@SerializedName("conditions")
-	public String conditions = StringUtils.EMPTY;
-	@SerializedName("weight")
-	public int weight = 10;
-	@SerializedName("type")
-	public String type = "background";
-
-	@Override
-	public void validate(@Nonnull final AcousticConfig obj) throws ValidationException {
-		ValidationHelpers.notNullOrWhitespace("acoustic", this.acoustic, Environs.LOGGER::warn);
-		ValidationHelpers.inRange("weight", this.weight, 1, Integer.MAX_VALUE, Environs.LOGGER::warn);
-		ValidationHelpers.isOneOf("type", this.type, false, new String[]{"spot", "background"}, Environs.LOGGER::warn);
-	}
+    @SerializedName("acoustic")
+    public String acoustic = null;
+    @SerializedName("conditions")
+    public String conditions = StringUtils.EMPTY;
+    @SerializedName("weight")
+    public int weight = 10;
+    @SerializedName("type")
+    public String type = "background";
+    
+    @Override
+    public void validate(@Nonnull final AcousticConfig obj) throws ValidationException {
+        ValidationHelpers.notNullOrWhitespace("acoustic", this.acoustic, Environs.LOGGER::warn);
+        ValidationHelpers.inRange("weight", this.weight, 1, Integer.MAX_VALUE, Environs.LOGGER::warn);
+        ValidationHelpers.isOneOf("type", this.type, false, new String[] { "spot", "background" }, Environs.LOGGER::warn);
+    }
 }

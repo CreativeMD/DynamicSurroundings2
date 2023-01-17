@@ -23,12 +23,12 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 final class ChiselFacadeAccessor extends FacadeAccessor {
-
-	private static final String CLASS = "team.chisel.ctm.api.IFacade";
-	private static final String METHOD = "getFacade";
-
-	public ChiselFacadeAccessor() {
-		super(CLASS, METHOD);
-	}
-
+    
+    private static final String CLASS = "team.chisel.ctm.api.IFacade";
+    private static final String METHOD = "getFacade";
+    
+    public ChiselFacadeAccessor() {
+        super(CLASS, METHOD);
+    }
+    
 }

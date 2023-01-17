@@ -31,13 +31,13 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public final class ParticleCollisionResult {
-
+    
     public final IBlockReader world;
     public final Vector3d position;
     public final BlockState state;
     public final FluidState fluidState;
     public final boolean onGround;
-
+    
     public ParticleCollisionResult(@Nonnull final IBlockReader world, @Nonnull final Vector3d pos, @Nonnull final BlockState state, final boolean onGround, @Nullable final FluidState fluid) {
         this.world = world;
         this.position = pos;

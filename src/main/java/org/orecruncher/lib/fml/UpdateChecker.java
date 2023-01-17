@@ -33,24 +33,22 @@ import net.minecraftforge.fml.VersionChecker.CheckResult;
 import net.minecraftforge.fml.VersionChecker.Status;
 import net.minecraftforge.forgespi.language.IModInfo;
 
-/**
- * Simple update checker that can be registered with the ClientLoginChecks manager to provide feedback to the player
- * in the chat window if a newer version of a mod is available.
- */
+/** Simple update checker that can be registered with the ClientLoginChecks manager to provide feedback to the player
+ * in the chat window if a newer version of a mod is available. */
 @OnlyIn(Dist.CLIENT)
 public class UpdateChecker extends Checker {
-
+    
     protected final String messageId;
-
+    
     public UpdateChecker(@Nonnull final String modId) {
         this(modId, modId + ".msg.NewVersion");
     }
-
+    
     public UpdateChecker(@Nonnull final String id, @Nonnull final String messageId) {
         super(id);
         this.messageId = messageId;
     }
-
+    
     @Nullable
     private String getUpdateMessage(@Nonnull final String modId) {
         final Optional<IModInfo> mod = ForgeUtils.getModInfo(modId);
@@ -63,7 +61,7 @@ public class UpdateChecker extends Checker {
         final String u = result.url != null ? result.url : "UNKNOWN";
         return I18n.format(this.messageId, mod.get().getDisplayName(), t, u);
     }
-
+    
     @Nullable
     @Override
     public ITextComponent onClientLogin(@Nonnull final ClientPlayerEntity player) {

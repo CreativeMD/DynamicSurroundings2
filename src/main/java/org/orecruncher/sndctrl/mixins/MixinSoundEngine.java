@@ -53,111 +53,125 @@ import net.minecraft.util.SoundCategory;
 
 @Mixin(SoundEngine.class)
 public class MixinSoundEngine {
-
+    
     @Final
     @Shadow
     private SoundSystem sndSystem;
-
+    
     @Final
     @Shadow
     public Map<ISound, ChannelManager.Entry> playingSoundsChannel;
-
+    
     @Final
     @Shadow
     private GameSettings options;
-
+    
     @Final
     @Shadow
     private Map<ISound, Integer> playingSoundsStopTime;
-
+    
     @Final
     @Shadow
     private Multimap<SoundCategory, ISound> categorySounds;
-
+    
     @Final
     @Shadow
     private List<ITickableSound> tickableSounds;
-
-    /**
-     * Calculates the volume of sound based on the myriad of factors in the game as
+    
+    /** Calculates the volume of sound based on the myriad of factors in the game as
      * well as configuration.
      *
-     * @param sound The sound instance that is being evaluated
-     * @param ci    The callback context used to return the result of the calculation
-     */
+     * @param sound
+     *            The sound instance that is being evaluated
+     * @param ci
+     *            The callback context used to return the result of the calculation */
     @Inject(method = "getClampedVolume(Lnet/minecraft/client/audio/ISound;)F", at = @At("HEAD"), cancellable = true)
     private void getClampedVolume(ISound sound, CallbackInfoReturnable<Float> ci) {
         try {
             ci.setReturnValue(SoundVolumeEvaluator.getClampedVolume(sound));
-        } catch (final Throwable ignored) {
-        }
+        } catch (final Throwable ignored) {}
     }
-
-    /**
-     * Callback hook to initialize sndcntrl when the SoundEngine initializes.
+    
+    /** Callback hook to initialize sndcntrl when the SoundEngine initializes.
      *
-     * @param ci ignored
-     */
+     * @param ci
+     *            ignored */
     @Inject(method = "load()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/audio/SoundSystem;init()V", shift = At.Shift.AFTER))
     public void initialize(CallbackInfo ci) {
         SoundUtils.initialize(this.sndSystem);
     }
-
-    /**
-     * Callback hook to deinitialize sndctrl when the SoundEngine is unloaded.
+    
+    /** Callback hook to deinitialize sndctrl when the SoundEngine is unloaded.
      *
-     * @param ci ignored
-     */
+     * @param ci
+     *            ignored */
     @Inject(method = "unload()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/audio/SoundSystem;unload()V", shift = At.Shift.BEFORE))
     public void deinitialize(CallbackInfo ci) {
         SoundUtils.deinitialize(this.sndSystem);
     }
-
-    /**
-     * Callback will trigger creation of sound context information for the sound play once it has been queued to the
-     * sound engine.  It will also perform the first calculations of sound effects based on the player environment.
+    
+    /** Callback will trigger creation of sound context information for the sound play once it has been queued to the
+     * sound engine. It will also perform the first calculations of sound effects based on the player environment.
      *
-     * @param p_sound            The sound that is being played
-     * @param ci                 Ignored
-     * @param soundeventaccessor Ignored
-     * @param resourcelocation   Ignored
-     * @param sound              Ignored
-     * @param f                  Ignored
-     * @param f1                 Ignored
-     * @param soundcategory      Ignored
-     * @param f2                 Ignored
-     * @param f3                 Ignored
-     * @param attenuationtype    Ignored
-     * @param flag               Ignored
-     * @param vector3d           Ignored
-     * @param flag2              Ignored
-     * @param flag3              Ignored
-     * @param completablefuture  Ignored
-     * @param entry              The ChannelManager entry that is being queued to the SoundEngine for off thread processing.
-     */
-    @Inject(method = "play(Lnet/minecraft/client/audio/ISound;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/audio/ChannelManager$Entry;runOnSoundExecutor(Ljava/util/function/Consumer;)V", shift = At.Shift.AFTER), locals = LocalCapture.CAPTURE_FAILEXCEPTION)
+     * @param p_sound
+     *            The sound that is being played
+     * @param ci
+     *            Ignored
+     * @param soundeventaccessor
+     *            Ignored
+     * @param resourcelocation
+     *            Ignored
+     * @param sound
+     *            Ignored
+     * @param f
+     *            Ignored
+     * @param f1
+     *            Ignored
+     * @param soundcategory
+     *            Ignored
+     * @param f2
+     *            Ignored
+     * @param f3
+     *            Ignored
+     * @param attenuationtype
+     *            Ignored
+     * @param flag
+     *            Ignored
+     * @param vector3d
+     *            Ignored
+     * @param flag2
+     *            Ignored
+     * @param flag3
+     *            Ignored
+     * @param completablefuture
+     *            Ignored
+     * @param entry
+     *            The ChannelManager entry that is being queued to the SoundEngine for off thread processing. */
+    @Inject(method = "play(Lnet/minecraft/client/audio/ISound;)V",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/audio/ChannelManager$Entry;runOnSoundExecutor(Ljava/util/function/Consumer;)V", shift = At.Shift.AFTER),
+            locals = LocalCapture.CAPTURE_FAILEXCEPTION)
     public void onSoundPlay(ISound p_sound, CallbackInfo ci, SoundEventAccessor soundeventaccessor, ResourceLocation resourcelocation, Sound sound, float f, float f1, SoundCategory soundcategory, float f2, float f3, ISound.AttenuationType attenuationtype, boolean flag, Vector3d vector3d, boolean flag2, boolean flag3, CompletableFuture completablefuture, ChannelManager.Entry entry) {
         try {
             SoundFXProcessor.onSoundPlay(p_sound, entry);
             AudioEngine.onPlaySound(p_sound);
-        } catch(@Nonnull final Throwable t) {
+        } catch (@Nonnull final Throwable t) {
             SoundControl.LOGGER.error(t, "Error in onSoundPlay()!");
         }
     }
-
-    /**
-     * Need to tick and handle sounds that are tagged with CONFIG category even if the game is paused.
+    
+    /** Need to tick and handle sounds that are tagged with CONFIG category even if the game is paused.
      *
-     * @param isGamePaused Flag indicating whether game is paused
-     * @param ci           Ignored
-     */
+     * @param isGamePaused
+     *            Flag indicating whether game is paused
+     * @param ci
+     *            Ignored */
     @Inject(method = "tick(Z)V", at = @At("RETURN"))
     public void tick(final boolean isGamePaused, @Nonnull final CallbackInfo ci) {
         if (!isGamePaused)
             return;
-
+        
         final Iterator<Map.Entry<ISound, ChannelManager.Entry>> iterator = this.playingSoundsChannel.entrySet().iterator();
-
+        
         while (iterator.hasNext()) {
             Map.Entry<ISound, ChannelManager.Entry> entry = iterator.next();
             if (entry.getKey() instanceof ISoundInstance) {
@@ -173,12 +187,11 @@ public class MixinSoundEngine {
                 } else if (channelmanager$entry1.isReleased()) {
                     iterator.remove();
                     this.playingSoundsStopTime.remove(instance);
-
+                    
                     try {
                         this.categorySounds.remove(instance.getCategory(), instance);
-                    } catch (RuntimeException ignore) {
-                    }
-
+                    } catch (RuntimeException ignore) {}
+                    
                     if (instance instanceof ITickableSound) {
                         this.tickableSounds.remove(instance);
                     }

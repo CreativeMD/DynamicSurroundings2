@@ -32,66 +32,66 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class DimensionConfig implements IValidator<DimensionConfig> {
-	@SerializedName("dimId")
-	public String dimensionId = null;
-	@SerializedName("seaLevel")
-	public Integer seaLevel = null;
-	@SerializedName("skyHeight")
-	public Integer skyHeight = null;
-	@SerializedName("cloudHeight")
-	public Integer cloudHeight = null;
-	@SerializedName("haze")
-	public Boolean hasHaze = null;
-	@SerializedName("aurora")
-	public Boolean hasAurora = null;
-	@SerializedName("weather")
-	public Boolean hasWeather = null;
-	@SerializedName("fog")
-	public Boolean hasFog = null;
-	@SerializedName("alwaysOutside")
-	public Boolean alwaysOutside = null;
-
-	@Override
-	@Nonnull
-	public String toString() {
-		final StringBuilder builder = new StringBuilder();
-		if (this.dimensionId != null)
-			builder.append("dimensionId: ").append(this.dimensionId).append(" ");
-		if (this.seaLevel != null)
-			builder.append("seaLevel: ").append(this.seaLevel.intValue()).append(" ");
-		if (this.skyHeight != null)
-			builder.append("skyHeight: ").append(this.skyHeight.intValue()).append(" ");
-		if (this.cloudHeight != null)
-			builder.append("cloudHeight: ").append(this.cloudHeight.intValue()).append(" ");
-		if (this.hasAurora != null)
-			builder.append("hasAurora: ").append(this.hasAurora).append(" ");
-		if (this.hasHaze != null)
-			builder.append("hasHaze: ").append(this.hasHaze).append(" ");
-		if (this.hasWeather != null)
-			builder.append("hasWeather: ").append(this.hasWeather).append(" ");
-		if (this.hasFog != null)
-			builder.append("hasFog: ").append(this.hasFog).append(" ");
-		if (this.alwaysOutside != null)
-			builder.append("alwaysOutside: ").append(this.alwaysOutside).append(" ");
-		return builder.toString();
-	}
-
-	@Override
-	public int hashCode() {
-		return this.dimensionId != null ? this.dimensionId.hashCode() : 0;
-	}
-
-	@Override
-	public boolean equals(final Object obj) {
-		if (obj instanceof DimensionConfig) {
-			final DimensionConfig dc = (DimensionConfig) obj;
-			return (this.dimensionId != null && this.dimensionId.equals(dc.dimensionId));
-		}
-		return false;
-	}
-
-	@Override
-	public void validate(@Nonnull final DimensionConfig obj) throws ValidationException {
-		ValidationHelpers.isProperResourceLocation("dimId", this.dimensionId, Environs.LOGGER::warn);
-	}
+    @SerializedName("dimId")
+    public String dimensionId = null;
+    @SerializedName("seaLevel")
+    public Integer seaLevel = null;
+    @SerializedName("skyHeight")
+    public Integer skyHeight = null;
+    @SerializedName("cloudHeight")
+    public Integer cloudHeight = null;
+    @SerializedName("haze")
+    public Boolean hasHaze = null;
+    @SerializedName("aurora")
+    public Boolean hasAurora = null;
+    @SerializedName("weather")
+    public Boolean hasWeather = null;
+    @SerializedName("fog")
+    public Boolean hasFog = null;
+    @SerializedName("alwaysOutside")
+    public Boolean alwaysOutside = null;
+    
+    @Override
+    @Nonnull
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        if (this.dimensionId != null)
+            builder.append("dimensionId: ").append(this.dimensionId).append(" ");
+        if (this.seaLevel != null)
+            builder.append("seaLevel: ").append(this.seaLevel.intValue()).append(" ");
+        if (this.skyHeight != null)
+            builder.append("skyHeight: ").append(this.skyHeight.intValue()).append(" ");
+        if (this.cloudHeight != null)
+            builder.append("cloudHeight: ").append(this.cloudHeight.intValue()).append(" ");
+        if (this.hasAurora != null)
+            builder.append("hasAurora: ").append(this.hasAurora).append(" ");
+        if (this.hasHaze != null)
+            builder.append("hasHaze: ").append(this.hasHaze).append(" ");
+        if (this.hasWeather != null)
+            builder.append("hasWeather: ").append(this.hasWeather).append(" ");
+        if (this.hasFog != null)
+            builder.append("hasFog: ").append(this.hasFog).append(" ");
+        if (this.alwaysOutside != null)
+            builder.append("alwaysOutside: ").append(this.alwaysOutside).append(" ");
+        return builder.toString();
+    }
+    
+    @Override
+    public int hashCode() {
+        return this.dimensionId != null ? this.dimensionId.hashCode() : 0;
+    }
+    
+    @Override
+    public boolean equals(final Object obj) {
+        if (obj instanceof DimensionConfig) {
+            final DimensionConfig dc = (DimensionConfig) obj;
+            return (this.dimensionId != null && this.dimensionId.equals(dc.dimensionId));
+        }
+        return false;
+    }
+    
+    @Override
+    public void validate(@Nonnull final DimensionConfig obj) throws ValidationException {
+        ValidationHelpers.isProperResourceLocation("dimId", this.dimensionId, Environs.LOGGER::warn);
+    }
 }

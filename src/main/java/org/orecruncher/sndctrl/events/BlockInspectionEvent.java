@@ -33,13 +33,13 @@ import net.minecraftforge.eventbus.api.Event;
 
 @OnlyIn(Dist.CLIENT)
 public class BlockInspectionEvent extends Event {
-
+    
     public final List<String> data = new ArrayList<>();
     public final BlockRayTraceResult rayTrace;
     public final World world;
     public final BlockState state;
     public final BlockPos pos;
-
+    
     public BlockInspectionEvent(@Nonnull final BlockRayTraceResult trace, @Nonnull final World world, @Nonnull final BlockState state, @Nonnull final BlockPos pos) {
         this.rayTrace = trace;
         this.world = world;

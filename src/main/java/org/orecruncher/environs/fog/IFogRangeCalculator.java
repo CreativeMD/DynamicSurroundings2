@@ -26,35 +26,29 @@ import net.minecraftforge.client.event.EntityViewRenderEvent;
 
 @OnlyIn(Dist.CLIENT)
 public interface IFogRangeCalculator {
-
-    /**
-     * The name of the fog calculator for logging purposes.
+    
+    /** The name of the fog calculator for logging purposes.
      *
-     * @return The name of the fog calculator
-     */
+     * @return The name of the fog calculator */
     @Nonnull
     String getName();
-
-    /**
-     * If the calculator is enabled or not
-     * @return true if enabled, false otherwise
-     */
+    
+    /** If the calculator is enabled or not
+     * 
+     * @return true if enabled, false otherwise */
     boolean enabled();
-
-    /**
-     * Called during the render pass to obtain parameters for fog rendering.
+    
+    /** Called during the render pass to obtain parameters for fog rendering.
      *
-     * @param event The event that is being fired
+     * @param event
+     *            The event that is being fired
      * @return FogResult containing the fog information the calculator is interested
-     * in reporting
-     */
+     *         in reporting */
     @Nonnull
     FogResult calculate(@Nonnull final EntityViewRenderEvent.RenderFogEvent event);
-
-    /**
-     * Called once every client side tick. Up to the calculator to figure out what
-     * to do with the time, if anything.
-     */
+    
+    /** Called once every client side tick. Up to the calculator to figure out what
+     * to do with the time, if anything. */
     void tick();
-
+    
 }

@@ -29,24 +29,24 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public interface IBiome {
-
-	Biome getBiome();
-
-	ResourceLocation getKey();
-
-	String getName();
-
-	Set<Type> getTypes();
-
-	Biome.RainType getPrecipitationType();
-
-	float getFloatTemperature(@Nonnull final BlockPos pos);
-
-	float getTemperature();
-
-	boolean isHighHumidity();
-
-	float getDownfall();
-
-	boolean isFake();
+    
+    Biome getBiome();
+    
+    ResourceLocation getKey();
+    
+    String getName();
+    
+    Set<Type> getTypes();
+    
+    Biome.RainType getPrecipitationType();
+    
+    float getFloatTemperature(@Nonnull final BlockPos pos);
+    
+    float getTemperature();
+    
+    boolean isHighHumidity();
+    
+    float getDownfall();
+    
+    boolean isFake();
 }

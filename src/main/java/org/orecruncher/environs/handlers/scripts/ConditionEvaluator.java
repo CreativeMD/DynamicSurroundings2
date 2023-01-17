@@ -35,11 +35,11 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public final class ConditionEvaluator {
-
+    
     public static final ConditionEvaluator INSTANCE = new ConditionEvaluator();
-
+    
     private final ExecutionContext context = new ExecutionContext("Conditions");
-
+    
     private ConditionEvaluator() {
         this.context.add(new BiomeVariables());
         this.context.add(new DimensionVariables());
@@ -49,16 +49,16 @@ public final class ConditionEvaluator {
         this.context.add(new StateVariables());
         this.context.add(new SeasonVariables());
     }
-
+    
     public void tick() {
         this.context.update();
     }
-
+    
     public boolean check(@Nonnull final String conditions) {
         final Object result = eval(conditions);
         return result instanceof Boolean && (boolean) result;
     }
-
+    
     public Object eval(@Nonnull final String conditions) {
         if (StringUtils.isNullOrEmpty(conditions))
             return true;

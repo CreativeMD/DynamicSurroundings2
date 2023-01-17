@@ -62,78 +62,68 @@ import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = SoundControl.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public final class SoundFXProcessor {
-
+    
     private static final IModLog LOGGER = SoundControl.LOGGER.createChild(SoundFXProcessor.class);
-    private static final int SOUND_PROCESS_ITERATION = 1000 / 20;   // Match MC client tick rate
-
-    /**
-     * Sound categories that are ignored when determining special effects.  Things like MASTER, and MUSIC.
-     */
+    private static final int SOUND_PROCESS_ITERATION = 1000 / 20; // Match MC client tick rate
+    
+    /** Sound categories that are ignored when determining special effects. Things like MASTER, and MUSIC. */
     private static final Set<ISoundCategory> IGNORE_CATEGORIES = new ReferenceOpenHashSet<>(4);
-
+    
     static boolean isAvailable;
     // Sparse array to hold references to the SoundContexts of playing sounds
     private static SourceContext[] sources;
     private static Worker soundProcessor;
-
+    
     // Use our own thread pool avoiding the common pool.  Thread allocation is better controlled, and we won't run
     // into/cause any problems with other tasks in the common pool.
-    private static final Singleton<ExecutorService> threadPool = new Singleton<>(() ->{
+    private static final Singleton<ExecutorService> threadPool = new Singleton<>(() -> {
         int threads = Config.CLIENT.sound.backgroundThreadWorkers.get();
         if (threads == 0)
             threads = 2;
         LOGGER.info("Threads allocated to SoundControl sound processor: %d", threads);
         return Executors.newFixedThreadPool(threads);
     });
-
+    
     private static WorldContext worldContext = new WorldContext();
-
+    
     static {
         MinecraftForge.EVENT_BUS.register(SoundFXProcessor.class);
     }
-
-    private SoundFXProcessor() {
-    }
-
+    
+    private SoundFXProcessor() {}
+    
     @Nonnull
     public static WorldContext getWorldContext() {
         return worldContext;
     }
-
-    /**
-     * Indicates if the SoundFX feature is available.
+    
+    /** Indicates if the SoundFX feature is available.
      *
-     * @return true if the feature is available, false otherwise.
-     */
+     * @return true if the feature is available, false otherwise. */
     public static boolean isAvailable() {
         return isAvailable;
     }
-
+    
     public static void initialize() {
         Effects.initialize();
-
+        
         sources = new SourceContext[SoundUtils.getMaxSounds()];
-
+        
         if (soundProcessor == null) {
-            soundProcessor = new Worker(
-                    "SoundControl Sound Processor",
-                    SoundFXProcessor::processSounds,
-                    SOUND_PROCESS_ITERATION,
-                    LOGGER
-            );
+            soundProcessor = new Worker("SoundControl Sound Processor", SoundFXProcessor::processSounds, SOUND_PROCESS_ITERATION, LOGGER);
             soundProcessor.start();
         }
-
+        
         // Configure our categories to ignore
         IGNORE_CATEGORIES.clear();
         Category.getCategories().forEach(c -> {
             if (!c.doEffects())
                 IGNORE_CATEGORIES.add(c);
         });
-
+        
         isAvailable = true;
     }
-
+    
     public static void deinitialize() {
         if (isAvailable()) {
             isAvailable = false;
@@ -148,23 +138,23 @@ public final class SoundFXProcessor {
             Effects.deinitialize();
         }
     }
-
-    /**
-     * Callback hook from an injection.  This callback is made on the client thread after the sound source
+    
+    /** Callback hook from an injection. This callback is made on the client thread after the sound source
      * is created, but before it is configured.
      *
-     * @param sound The sound that is going to play
-     * @param entry The ChannelManager.Entry instance for the sound play
-     */
+     * @param sound
+     *            The sound that is going to play
+     * @param entry
+     *            The ChannelManager.Entry instance for the sound play */
     public static void onSoundPlay(@Nonnull final ISound sound, @Nonnull final ChannelManager.Entry entry) {
-
+        
         if (!isAvailable())
             return;
-
+        
         final Optional<ISoundCategory> cat = Category.getCategory(sound);
         if (cat.isPresent() && IGNORE_CATEGORIES.contains(cat.get()))
             return;
-
+        
         // Double suplex!  Queue the operation on the sound executor to do the config work.  This should queue in
         // behind any attempt at getting a sound source.
         entry.runOnSoundExecutor(source -> {
@@ -178,72 +168,67 @@ public final class SoundFXProcessor {
             }
         });
     }
-
-    /**
-     * Callback hook from an injection.  Will be invoked by the sound processing thread when checking status which
+    
+    /** Callback hook from an injection. Will be invoked by the sound processing thread when checking status which
      * essentially is a "tick".
      *
-     * @param source SoundSource being ticked
-     */
+     * @param source
+     *            SoundSource being ticked */
     public static void tick(@Nonnull final SoundSource source) {
-        final SourceContext ctx = ((IMixinSoundContext)source).getData();
+        final SourceContext ctx = ((IMixinSoundContext) source).getData();
         if (ctx != null)
             ctx.tick(source.id);
     }
-
-    /**
-     * Injected into SoundSource and will be invoked when a sound source is being terminated.
+    
+    /** Injected into SoundSource and will be invoked when a sound source is being terminated.
      *
-     * @param source The sound source that is stopping
-     */
+     * @param source
+     *            The sound source that is stopping */
     public static void stopSoundPlay(@Nonnull final SoundSource source) {
-        final SourceContext ctx = ((IMixinSoundContext)source).getData();
+        final SourceContext ctx = ((IMixinSoundContext) source).getData();
         if (ctx != null)
             sources[source.id - 1] = null;
     }
-
-    /**
-     * Injected into SoundSource and will be invoked when a non-streaming sound data stream is attached to the
-     * SoundSource.  Take the opportunity to convert the audio stream into mono format if needed.
+    
+    /** Injected into SoundSource and will be invoked when a non-streaming sound data stream is attached to the
+     * SoundSource. Take the opportunity to convert the audio stream into mono format if needed.
      *
-     * @param source SoundSource for which the audio buffer is being generated
-     * @param buffer The buffer in question.
-     */
+     * @param source
+     *            SoundSource for which the audio buffer is being generated
+     * @param buffer
+     *            The buffer in question. */
     @Nonnull
     public static AudioStreamBuffer playBuffer(@Nonnull final SoundSource source, @Nonnull final AudioStreamBuffer buffer) {
-
+        
         // If disabled return
         if (!Config.CLIENT.sound.enableMonoConversion.get())
             return buffer;
-
+        
         final SourceContext ctx = ((IMixinSoundContext) source).getData();
-
+        
         // If there is no context attached and conversion is enabled do it.  This can happen if enhanced sound
         // processing is turned off.  If there is a context, make sure that the sound is attenuated.
         boolean doConversion = ctx == null || (ctx.getSound() != null && ctx.getSound().getAttenuationType() != ISound.AttenuationType.NONE);
-
+        
         if (doConversion)
             return Conversion.convert(buffer);
-
+        
         return buffer;
     }
-
-    /**
-     * Invoked on a client tick. Establishes the current world context for further computation..
+    
+    /** Invoked on a client tick. Establishes the current world context for further computation..
      *
-     * @param event Event trigger in question.
-     */
+     * @param event
+     *            Event trigger in question. */
     @SubscribeEvent(priority = EventPriority.HIGH)
     public static void onClientTick(@Nonnull final TickEvent.ClientTickEvent event) {
         if (isAvailable() && event.side == LogicalSide.CLIENT && event.phase == TickEvent.Phase.START) {
             worldContext = new WorldContext();
         }
     }
-
-    /**
-     * Separate thread for evaluating the environment for the sound play.  These routines can get a little heavy
-     * so offloading to a separate thread to keep it out of either the client tick or sound engine makes sense.
-     */
+    
+    /** Separate thread for evaluating the environment for the sound play. These routines can get a little heavy
+     * so offloading to a separate thread to keep it out of either the client tick or sound engine makes sense. */
     private static void processSounds() {
         try {
             final ExecutorService pool = threadPool.get();
@@ -255,19 +240,18 @@ public final class SoundFXProcessor {
                     tasks.add(pool.submit(ctx));
                 }
             }
-
+            
             if (tasks.size() > 0)
                 tasks.forEach(t -> {
                     try {
                         t.get();
-                    } catch (InterruptedException | ExecutionException ignored) {
-                    }
+                    } catch (InterruptedException | ExecutionException ignored) {}
                 });
         } catch (@Nonnull final Throwable t) {
             LOGGER.error(t, "Error in SoundContext ForkJoinPool");
         }
     }
-
+    
     @SubscribeEvent(priority = EventPriority.HIGH)
     public static void onGatherText(@Nonnull final DiagnosticEvent event) {
         if (isAvailable() && soundProcessor != null) {
@@ -276,21 +260,19 @@ public final class SoundFXProcessor {
                 event.getLeft().add(TextFormatting.GREEN + msg);
         }
     }
-
-    /**
-     * Validates that the current OpenAL state is not in error.  If in an error state an exception will be thrown.
+    
+    /** Validates that the current OpenAL state is not in error. If in an error state an exception will be thrown.
      *
-     * @param msg Optional message to be displayed along with error data
-     */
+     * @param msg
+     *            Optional message to be displayed along with error data */
     public static void validate(@Nonnull final String msg) {
         validate(() -> msg);
     }
-
-    /**
-     * Validates that the current OpenAL state is not in error.  If in an error state an exception will be thrown.
+    
+    /** Validates that the current OpenAL state is not in error. If in an error state an exception will be thrown.
      *
-     * @param err Supplier for the error message to post with exception info
-     */
+     * @param err
+     *            Supplier for the error message to post with exception info */
     public static void validate(@Nullable final Supplier<String> err) {
         final int error = AL10.alGetError();
         if (error != AL10.AL_NO_ERROR) {

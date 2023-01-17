@@ -35,22 +35,20 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-/**
- * Diagnostic helper that fires an event every tick to collect data that will be rendered on the diagnostics
- * screen (F3).
- */
+/** Diagnostic helper that fires an event every tick to collect data that will be rendered on the diagnostics
+ * screen (F3). */
 @Mod.EventBusSubscriber(modid = DynamicSurroundings.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public final class Diagnostics {
-
+    
     private static final TimerEMA clientTick = new TimerEMA("Client Tick");
     private static final TimerEMA lastTick = new TimerEMA("Last Tick");
     private static final LoggingTimerEMA diagnostics = new LoggingTimerEMA("Diagnostics");
     private static long lastTickMark = -1;
     private static long timeMark = 0;
     private static float tps = 0;
-
+    
     private static DiagnosticEvent lastEvent = new DiagnosticEvent();
-
+    
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void startTick(@Nonnull final TickEvent.ClientTickEvent event) {
         if (event.phase == TickEvent.Phase.START) {
@@ -61,9 +59,9 @@ public final class Diagnostics {
             }
             lastTickMark = timeMark;
         }
-
+        
     }
-
+    
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void endTick(@Nonnull final TickEvent.ClientTickEvent event) {
         if (event.phase == TickEvent.Phase.END) {
@@ -71,43 +69,43 @@ public final class Diagnostics {
             clientTick.update(delta);
         }
     }
-
+    
     @SubscribeEvent(priority = EventPriority.LOW)
     public static void onClientTick(@Nonnull final TickEvent.ClientTickEvent event) {
         if (GameUtils.displayDebug()) {
             diagnostics.begin();
-
+            
             final DiagnosticEvent evt = new DiagnosticEvent();
-
+            
             evt.getRight().add("");
             evt.getRight().add(TextFormatting.LIGHT_PURPLE + clientTick.toString());
             evt.getRight().add(TextFormatting.LIGHT_PURPLE + lastTick.toString());
             evt.getRight().add(TextFormatting.LIGHT_PURPLE + diagnostics.toString());
             evt.getRight().add(TextFormatting.LIGHT_PURPLE + String.format("TPS:%7.3fms", tps));
-
+            
             MinecraftForge.EVENT_BUS.post(evt);
             lastEvent = evt;
-
+            
             if (!lastEvent.getTimers().isEmpty()) {
                 for (final TimerEMA timer : lastEvent.getTimers())
                     evt.getRight().add(TextFormatting.GREEN + timer.toString());
             }
-
+            
             if (!lastEvent.getRenderTimers().isEmpty()) {
                 for (final TimerEMA timer : lastEvent.getRenderTimers())
                     evt.getRight().add(TextFormatting.AQUA + timer.toString());
             }
-
+            
             diagnostics.end();
         }
     }
-
+    
     @SubscribeEvent
     public static void onGatherText(@Nonnull final RenderGameOverlayEvent.Text event) {
         if (GameUtils.displayDebug()) {
             if (!lastEvent.getLeft().isEmpty())
                 event.getLeft().addAll(lastEvent.getLeft());
-
+            
             if (!lastEvent.getRight().isEmpty())
                 event.getRight().addAll(lastEvent.getRight());
         }

@@ -42,42 +42,42 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public final class ResourceUtils {
     private ResourceUtils() {
-
+        
     }
-
+    
     private static final String MANIFEST_FILE = "manifest.json";
-
+    
     private static Collection<String> cachedNamespaces = null;
-
-    /**
-     * Clears any cached namespace information
-     */
-    public static void  clearCache() {
+    
+    /** Clears any cached namespace information */
+    public static void clearCache() {
         cachedNamespaces = null;
     }
-
-    /**
-     * Scans the local disk as well as resource packs and JARs locating and creating accessors for the config file
-     * in question.  Configs on disk have priority over resource packs and JARs, and 3rd party jars have priority
-     * over the provided mod ID.  These resources are read from CLIENT resources (assets) rather than SERVER
+    
+    /** Scans the local disk as well as resource packs and JARs locating and creating accessors for the config file
+     * in question. Configs on disk have priority over resource packs and JARs, and 3rd party jars have priority
+     * over the provided mod ID. These resources are read from CLIENT resources (assets) rather than SERVER
      * resources (data).
-     * @param modId Mod ID that is considered the least in priority
-     * @param root Location on disk where external configs can be cached
-     * @param config The config file that is of interest
-     * @return A collection of resource accessors that match the config criteria
-     */
+     * 
+     * @param modId
+     *            Mod ID that is considered the least in priority
+     * @param root
+     *            Location on disk where external configs can be cached
+     * @param config
+     *            The config file that is of interest
+     * @return A collection of resource accessors that match the config criteria */
     public static Collection<IResourceAccessor> findConfigs(@Nonnull final String modId, @Nonnull final File root, @Nonnull final String config) {
-
+        
         final String specialConfigFolder = modId + "_configs";
         final String resourceContainer = specialConfigFolder + "/%s";
         final String parentModConfigs = modId + "/configs";
-
+        
         final Map<ResourceLocation, IResourceAccessor> locations = new HashMap<>();
         final Collection<ResourcePackInfo> packs = ForgeUtils.getEnabledResourcePacks();
-
+        
         // Cache the namespaces so we don't do discovery unnecessarily.
         final Collection<String> namespaceList = discoverNamespaces(resourceContainer);
-
+        
         // Look for resources in resource packs.  Mod resources will be exposed by an internal Forge resource pack
         // so we do not need to scan JARs directly.  The collection returned is already sorted so that the first
         // entries in the collection are lower priority that those further in the collection.  The result is that
@@ -89,10 +89,7 @@ public final class ResourceUtils {
                 if (namespaces.contains(mod)) {
                     final String container = String.format(resourceContainer, config);
                     final ResourceLocation location = new ResourceLocation(mod, config);
-                    IResourceAccessor accessor = IResourceAccessor.createPackResource(
-                            rp,
-                            location,
-                            new ResourceLocation(mod, container));
+                    IResourceAccessor accessor = IResourceAccessor.createPackResource(rp, location, new ResourceLocation(mod, container));
                     if (accessor.exists()) {
                         // Need to make sure we use namespace:config as the location since it can be overridden
                         // by subsequent configs.
@@ -102,7 +99,7 @@ public final class ResourceUtils {
                 }
             }
         }
-
+        
         // Scan resources from external configuration sources as well as default configs found in the parent JAR.
         // Data from external configs will replace any existing entries in the location dictionary since they are
         // considered highest priority.  Those from the parent JAR will only be applied if no other configs have
@@ -114,23 +111,22 @@ public final class ResourceUtils {
                 locations.put(location, accessor);
                 continue;
             }
-
+            
             accessor = IResourceAccessor.createJarResource(parentModConfigs, location);
             if (accessor.exists())
                 locations.put(location, accessor);
         }
-
+        
         return locations.values();
     }
-
-    /**
-     * Scans resource packs locating sound.json configurations.
-     * @return Collection of accessors to retrieve sound.json configurations.
-     */
+    
+    /** Scans resource packs locating sound.json configurations.
+     * 
+     * @return Collection of accessors to retrieve sound.json configurations. */
     public static Collection<IResourceAccessor> findSounds() {
         final List<IResourceAccessor> results = new ArrayList<>();
         final Collection<ResourcePackInfo> packs = ForgeUtils.getEnabledResourcePacks();
-
+        
         for (final ResourcePackInfo pack : packs) {
             final IResourcePack rp = pack.getResourcePack();
             final Set<String> embeddedNamespaces = rp.getResourceNamespaces(ResourcePackType.CLIENT_RESOURCES);
@@ -142,20 +138,20 @@ public final class ResourceUtils {
                 }
             }
         }
-
+        
         return results;
     }
-
+    
     private static Collection<String> discoverNamespaces(@Nonnull final String resourceContainer) {
-
+        
         if (cachedNamespaces != null)
             return cachedNamespaces;
-
+        
         final String container = String.format(resourceContainer, MANIFEST_FILE);
-
+        
         // Initial namespace list is based on the currently loaded mod list
         final List<String> namespaces = new ArrayList<>(ForgeUtils.getModIdList());
-
+        
         // Resource packs are a bit of a challenge.  There are two different ways that a pack can provide resource
         // information to us:
         //
@@ -167,7 +163,7 @@ public final class ResourceUtils {
         //    other mod present.  We identify these namespaces by the presence of a manifest file.
         //
         final Collection<ResourcePackInfo> packs = ForgeUtils.getEnabledResourcePacks();
-
+        
         for (final ResourcePackInfo pack : packs) {
             final IResourcePack rp = pack.getResourcePack();
             final Set<String> embeddedNamespaces = rp.getResourceNamespaces(ResourcePackType.CLIENT_RESOURCES);
@@ -185,27 +181,28 @@ public final class ResourceUtils {
                 }
             }
         }
-
+        
         cachedNamespaces = namespaces;
         return cachedNamespaces;
     }
-
-    /**
-     * Obtains the string content of the resource at the specified asset location with the JAR
-     * @param location The resource to load
-     * @return The content of the specified resource, or null if not found
-     */
+    
+    /** Obtains the string content of the resource at the specified asset location with the JAR
+     * 
+     * @param location
+     *            The resource to load
+     * @return The content of the specified resource, or null if not found */
     @Nullable
     public static String readResource(@Nonnull final ResourceLocation location) {
         return readResource("", location);
     }
-
-    /**
-     * Obtains the string content of the resource at the specified asset location with the JAR
-     * @param root Location is relative to this root in the JAR
-     * @param location The resource to load
-     * @return The content of the specified resource, or null if not found
-     */
+    
+    /** Obtains the string content of the resource at the specified asset location with the JAR
+     * 
+     * @param root
+     *            Location is relative to this root in the JAR
+     * @param location
+     *            The resource to load
+     * @return The content of the specified resource, or null if not found */
     @Nullable
     public static String readResource(@Nonnull final String root, @Nonnull final ResourceLocation location) {
         final IResourceAccessor accessor = IResourceAccessor.createJarResource(root, location);

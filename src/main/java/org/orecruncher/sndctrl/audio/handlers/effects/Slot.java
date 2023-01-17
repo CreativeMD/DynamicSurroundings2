@@ -34,39 +34,39 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public abstract class Slot {
-
+    
     private final Supplier<Integer> factory;
     private int slot = EXTEfx.AL_EFFECTSLOT_NULL;
-
+    
     public Slot(@Nonnull final Supplier<Integer> slotFactory) {
         this.factory = slotFactory;
     }
-
+    
     public boolean isInitialized() {
         return this.slot != EXTEfx.AL_EFFECTSLOT_NULL;
     }
-
+    
     public final void initialize() {
         if (this.slot == EXTEfx.AL_EFFECTSLOT_NULL) {
             execute(() -> this.slot = this.factory.get(), () -> "Slot factory get");
             execute(this::init0, () -> "Slot init0");
         }
     }
-
+    
     public final void deinitialize() {
         this.slot = EXTEfx.AL_EFFECTSLOT_NULL;
     }
-
+    
     protected abstract void init0();
-
+    
     public int getSlot() {
         return this.slot;
     }
-
+    
     protected void execute(@Nonnull final Runnable func) {
         execute(func, null);
     }
-
+    
     protected void execute(@Nonnull final Runnable func, @Nullable final Supplier<String> context) {
         func.run();
         final int error = AL10.alGetError();

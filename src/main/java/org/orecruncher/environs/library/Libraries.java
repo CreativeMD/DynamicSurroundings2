@@ -24,15 +24,14 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public final class Libraries {
     private Libraries() {
-
+        
     }
-
+    
     public static void initialize() {
         DimensionLibrary.initialize();
         BiomeLibrary.initialize();
         BlockStateLibrary.initialize();
     }
-
-    public static void complete() {
-    }
+    
+    public static void complete() {}
 }

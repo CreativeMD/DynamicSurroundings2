@@ -28,27 +28,27 @@ import net.minecraft.world.level.block.state.BlockState;
 
 @Mixin(BlockState.class)
 public class MixinBlockState implements IMixinFootstepData {
-
+    
     private Boolean mobeffects_hasFootprint;
     private IAcoustic[] mobeffects_acoustics;
-
+    
     @Override
     @Nullable
     public Boolean hasFootprint() {
         return this.mobeffects_hasFootprint;
     }
-
+    
     @Override
     public void setHasFootprint(final boolean flag) {
         this.mobeffects_hasFootprint = flag;
     }
-
+    
     @Nullable
     @Override
     public IAcoustic[] getAcoustics() {
         return this.mobeffects_acoustics;
     }
-
+    
     @Override
     public void setAcoustics(@Nullable final IAcoustic[] acoustics) {
         this.mobeffects_acoustics = acoustics;

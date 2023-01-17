@@ -31,56 +31,48 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public final class Conversion {
-
-    /**
-     * Handles the conversion of the incoming IAudioStream into mono format as needed.
+    
+    /** Handles the conversion of the incoming IAudioStream into mono format as needed.
      *
-     * @param inputStream The audio stream that is to be played
-     * @return An IAudioStream that is in mono format
-     */
+     * @param inputStream
+     *            The audio stream that is to be played
+     * @return An IAudioStream that is in mono format */
     public static IAudioStream convert(@Nonnull final IAudioStream inputStream) {
         final AudioFormat format = inputStream.getAudioFormat();
         if (format.getChannels() == 1)
             return inputStream;
-
+        
         return new MonoStream(inputStream);
     }
-
-    /**
-     * Converts the AudioStreamBuffer into mono if needed.
+    
+    /** Converts the AudioStreamBuffer into mono if needed.
      *
-     * @param buffer Audio stream buffer to convert
-     * @return Converted audio buffer
-     */
+     * @param buffer
+     *            Audio stream buffer to convert
+     * @return Converted audio buffer */
     public static AudioStreamBuffer convert(@Nonnull final AudioStreamBuffer buffer) {
-
+        
         final AudioFormat format = buffer.audioFormat;
-
+        
         // If it is already mono return original buffer
         if (format.getChannels() == 1)
             return buffer;
-
+        
         // If the sample size is not 8 or 16 bits just return the original
         int bits = format.getSampleSizeInBits();
         if (bits != 8 && bits != 16)
             return buffer;
-
+        
         // Do the conversion.  Essentially it averages the values in the source buffer based on the sample size.
         boolean bigendian = format.isBigEndian();
-        final AudioFormat monoformat = new AudioFormat(
-                format.getEncoding(),
-                format.getSampleRate(),
-                bits,
-                1, // Mono - single channel
-                format.getFrameSize() >> 1,
-                format.getFrameRate(),
-                bigendian);
-
+        final AudioFormat monoformat = new AudioFormat(format.getEncoding(), format.getSampleRate(), bits, 1, // Mono - single channel
+                format.getFrameSize() >> 1, format.getFrameRate(), bigendian);
+        
         final ByteBuffer source = buffer.inputBuffer;
         if (source == null) {
             return buffer;
         }
-
+        
         final int sourceLength = source.limit();
         final int skip = format.getFrameSize();
         for (int i = 0; i < sourceLength; i += skip) {
@@ -103,25 +95,25 @@ public final class Conversion {
         buffer.inputBuffer.limit(sourceLength >> 1);
         return buffer;
     }
-
+    
     private static class MonoStream implements IAudioStream {
-
+        
         private final IAudioStream source;
-
+        
         public MonoStream(@Nonnull final IAudioStream source) {
             this.source = source;
         }
-
+        
         @Override
         public AudioFormat getAudioFormat() {
             return this.source.getAudioFormat();
         }
-
+        
         @Override
         public ByteBuffer readOggSoundWithCapacity(int size) throws IOException {
             return this.source.readOggSoundWithCapacity(size);
         }
-
+        
         @Override
         public void close() throws IOException {
             this.source.close();

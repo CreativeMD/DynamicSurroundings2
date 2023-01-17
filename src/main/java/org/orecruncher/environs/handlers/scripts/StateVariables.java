@@ -28,51 +28,51 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 class StateVariables extends VariableSet<IStateVariables> implements IStateVariables {
-
+    
     public StateVariables() {
         super("state");
     }
-
+    
     @Nonnull
     @Override
     public IStateVariables getInterface() {
         return this;
     }
-
+    
     public void update() {
-
+        
     }
-
+    
     @Override
     public boolean isInside() {
         return CommonState.isInside();
     }
-
+    
     @Override
     public float getCurrentTemperature() {
         return CommonState.getCurrentTemperature();
     }
-
+    
     @Override
     public boolean isUnderground() {
         return CommonState.isUnderground();
     }
-
+    
     @Override
     public boolean isInClouds() {
         return CommonState.isInClouds();
     }
-
+    
     @Override
     public boolean isInSpace() {
         return CommonState.isInSpace();
     }
-
+    
     @Override
     public boolean isInVillage() {
         return CommonState.isInVillage();
     }
-
+    
     @Override
     public int getLightLevel() {
         return CommonState.getLightLevel();

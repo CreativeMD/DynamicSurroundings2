@@ -35,19 +35,14 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 class RainSplashAccent implements IFootstepAccentProvider {
-
+    
     @Override
     public boolean isEnabled() {
         return Config.CLIENT.footsteps.enableRainSplashAccent.get();
     }
-
+    
     @Override
-    public void provide(
-            @Nonnull final LivingEntity entity,
-            @Nonnull final BlockPos blockPos,
-            @Nonnull final BlockState posState,
-            @Nonnull final ObjectArray<IAcoustic> acoustics)
-    {
+    public void provide(@Nonnull final LivingEntity entity, @Nonnull final BlockPos blockPos, @Nonnull final BlockState posState, @Nonnull final ObjectArray<IAcoustic> acoustics) {
         final World world = entity.getEntityWorld();
         if (world.isRaining()) {
             // Get the precipitation type at the location
@@ -56,5 +51,5 @@ class RainSplashAccent implements IFootstepAccentProvider {
                 acoustics.add(FootstepLibrary.getRainSplashAcoustic());
         }
     }
-
+    
 }

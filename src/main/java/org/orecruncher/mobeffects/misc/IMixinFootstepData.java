@@ -23,13 +23,13 @@ import javax.annotation.Nullable;
 import org.orecruncher.sndctrl.api.acoustics.IAcoustic;
 
 public interface IMixinFootstepData {
-
+    
     Boolean hasFootprint();
-
+    
     void setHasFootprint(final boolean flag);
-
+    
     @Nullable
     IAcoustic[] getAcoustics();
-
+    
     void setAcoustics(@Nullable final IAcoustic[] obj);
 }

@@ -36,11 +36,11 @@ import net.minecraftforge.fml.common.Mod;
 @Mod.EventBusSubscriber(modid = SoundControl.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public final class CollectionManager {
     private CollectionManager() {
-
+        
     }
-
+    
     private static final ObjectArray<ParticleCollectionHelper> helpers = new ObjectArray<>();
-
+    
     @Nonnull
     public static IParticleCollection create(@Nonnull final String name, @Nonnull final IParticleRenderType renderType) {
         final ParticleCollectionHelper helper = new ParticleCollectionHelper(name, renderType);
@@ -49,14 +49,14 @@ public final class CollectionManager {
         }
         return helper;
     }
-
+    
     @SubscribeEvent
     public static void onWorldUnload(@Nonnull final WorldEvent.Unload event) {
         if (event.getWorld() instanceof ClientWorld) {
             helpers.forEach(ParticleCollectionHelper::clear);
         }
     }
-
+    
     @SubscribeEvent
     public static void diagnostics(@Nonnull final DiagnosticEvent event) {
         if (Config.CLIENT.logging.enableLogging.get()) {
@@ -67,5 +67,5 @@ public final class CollectionManager {
             });
         }
     }
-
+    
 }

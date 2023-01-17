@@ -24,21 +24,21 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public final class Singleton<T> {
-
+    
     private static final Object NO_INIT = new Object();
-
+    
     private final Supplier<T> factory;
     @SuppressWarnings("unchecked")
     private volatile T instance = (T) NO_INIT;
-
+    
     public Singleton(@Nonnull final Supplier<T> factory) {
         this.factory = factory;
     }
-
+    
     @Nullable
     public T get() {
         T result = this.instance;
-
+        
         if (result == NO_INIT)
             synchronized (this) {
                 result = this.instance;

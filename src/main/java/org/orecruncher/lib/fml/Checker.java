@@ -28,13 +28,13 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public abstract class Checker implements ClientLoginChecks.ICallbackHandler {
-
+    
     protected final String modId;
-
+    
     public Checker(@Nonnull final String modId) {
         this.modId = modId;
     }
-
+    
     @Nullable
     public abstract ITextComponent onClientLogin(@Nonnull ClientPlayerEntity player);
 }

@@ -29,10 +29,10 @@ import net.minecraftforge.eventbus.api.Event;
 
 @OnlyIn(Dist.CLIENT)
 public class EntityInspectionEvent extends Event {
-
+    
     public final List<String> data = new ArrayList<>();
     public final Entity entity;
-
+    
     public EntityInspectionEvent(@Nonnull final Entity entity) {
         this.entity = entity;
     }

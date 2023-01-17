@@ -22,7 +22,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class ValidationException extends Exception {
-
+    
     public ValidationException(@Nonnull final String field, @Nonnull final String fmt, @Nullable final Object... params) {
         super(String.format("%s: %s", field, String.format(fmt, params)));
     }

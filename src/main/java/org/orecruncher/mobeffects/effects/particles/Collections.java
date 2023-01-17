@@ -40,26 +40,24 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public final class Collections {
-
-    private static final ParticleRenderType FOOTPRINT_RENDER =
-            new ParticleRenderType(new ResourceLocation(MobEffects.MOD_ID, "textures/particles/footprint.png")) {
-                @Override
-                public void beginRender(@Nonnull final BufferBuilder buffer, @Nonnull final TextureManager textureManager) {
-                    super.beginRender(buffer, textureManager);
-                    RenderSystem.depthMask(false);
-                    RenderSystem.enableBlend();
-                    RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
-                }
-            };
-
+    
+    private static final ParticleRenderType FOOTPRINT_RENDER = new ParticleRenderType(new ResourceLocation(MobEffects.MOD_ID, "textures/particles/footprint.png")) {
+        @Override
+        public void beginRender(@Nonnull final BufferBuilder buffer, @Nonnull final TextureManager textureManager) {
+            super.beginRender(buffer, textureManager);
+            RenderSystem.depthMask(false);
+            RenderSystem.enableBlend();
+            RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
+        }
+    };
+    
     private final static IParticleCollection thePrints = CollectionManager.create("Footprints", FOOTPRINT_RENDER);
-
+    
     private Collections() {
-
+        
     }
-
-    public static void addFootprint(@Nonnull final FootprintStyle style, @Nonnull final World world,
-                                    final Vector3d loc, final float rot, final float scale, final boolean isRight) {
+    
+    public static void addFootprint(@Nonnull final FootprintStyle style, @Nonnull final World world, final Vector3d loc, final float rot, final float scale, final boolean isRight) {
         if (thePrints.canFit()) {
             final IParticleMote mote = new FootprintMote(style, world, loc.x, loc.y, loc.z, rot, scale, isRight);
             thePrints.add(mote);

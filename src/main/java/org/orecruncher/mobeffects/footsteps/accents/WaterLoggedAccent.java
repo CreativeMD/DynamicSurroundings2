@@ -35,18 +35,14 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 class WaterLoggedAccent implements IFootstepAccentProvider {
-
+    
     @Override
     public boolean isEnabled() {
         return Config.CLIENT.footsteps.enableWaterLoggedAccent.get();
     }
-
+    
     @Override
-    public void provide(
-            @Nonnull final LivingEntity entity,
-            @Nonnull final BlockPos blockPos,
-            @Nonnull final BlockState posState,
-            @Nonnull final ObjectArray<IAcoustic> acoustics) {
+    public void provide(@Nonnull final LivingEntity entity, @Nonnull final BlockPos blockPos, @Nonnull final BlockState posState, @Nonnull final ObjectArray<IAcoustic> acoustics) {
         if (posState.getBlock() instanceof IWaterLoggable) {
             final FluidState fluid = posState.getFluidState();
             if (!fluid.isEmpty())

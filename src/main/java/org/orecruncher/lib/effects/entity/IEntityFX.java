@@ -27,14 +27,14 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public interface IEntityFX {
-
-	void set(@Nullable final EntityEffectManager handler);
-
-	@Nullable
-	EntityEffectManager get();
-
-	default void clear() {
-		set(null);
-	}
-
+    
+    void set(@Nullable final EntityEffectManager handler);
+    
+    @Nullable
+    EntityEffectManager get();
+    
+    default void clear() {
+        set(null);
+    }
+    
 }

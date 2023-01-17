@@ -37,15 +37,14 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class SteamCloudParticle extends SpriteTexturedParticle {
-
+    
     private static final Random RANDOM = XorShiftRandom.current();
-
+    
     private final IAnimatedSprite field_217583_C;
-
+    
     public SteamCloudParticle(World world, double x, double y, double z, double dY) {
-        super((ClientWorld) world, x, y, z, RANDOM.nextGaussian() * 0.02D, dY,
-                RANDOM.nextGaussian() * 0.02D);
-
+        super((ClientWorld) world, x, y, z, RANDOM.nextGaussian() * 0.02D, dY, RANDOM.nextGaussian() * 0.02D);
+        
         this.field_217583_C = GameUtils.getMC().particles.sprites.get(ParticleTypes.CLOUD.getRegistryName());
         this.motionX *= 0.1F;
         this.motionY *= 0.1F;
@@ -63,16 +62,16 @@ public class SteamCloudParticle extends SpriteTexturedParticle {
         this.canCollide = false;
         this.selectSpriteWithAge(this.field_217583_C);
     }
-
+    
     @Nonnull
     public IParticleRenderType getRenderType() {
         return IParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
     }
-
+    
     public float getScale(float p_217561_1_) {
         return this.particleScale * MathHelper.clamp(((float) this.age + p_217561_1_) / (float) this.maxAge * 32.0F, 0.0F, 1.0F);
     }
-
+    
     public void tick() {
         this.prevPosX = this.posX;
         this.prevPosY = this.posY;
@@ -85,12 +84,12 @@ public class SteamCloudParticle extends SpriteTexturedParticle {
             this.motionX *= 0.96F;
             this.motionY *= 0.96F;
             this.motionZ *= 0.96F;
-
+            
             if (this.onGround) {
                 this.motionX *= 0.7F;
                 this.motionZ *= 0.7F;
             }
-
+            
         }
     }
 }

@@ -34,35 +34,29 @@ import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = DynamicSurroundings.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class Keys {
-
+    
     private static KeyBinding lightLevelHUD;
     private static KeyBinding chunkBorders;
-
+    
     public static void register() {
         if ((Config.CLIENT.logging.flagMask.get() & Config.Flags.ALLOW_CHUNK_BORDER_HUD) != 0) {
-            lightLevelHUD = new KeyBinding(
-                    "dsurround.text.lightlevel.toggle",
-                    InputMappings.INPUT_INVALID.getKeyCode(),
-                    "dsurround.text.controls.group");
+            lightLevelHUD = new KeyBinding("dsurround.text.lightlevel.toggle", InputMappings.INPUT_INVALID.getKeyCode(), "dsurround.text.controls.group");
             ClientRegistry.registerKeyBinding(lightLevelHUD);
         }
-
+        
         if ((Config.CLIENT.logging.flagMask.get() & Config.Flags.ALLOW_LIGHTLEVEL_HUD) != 0) {
-            chunkBorders = new KeyBinding(
-                    "dsurround.text.chunkborders.toggle",
-                    InputMappings.INPUT_INVALID.getKeyCode(),
-                    "dsurround.text.controls.group");
+            chunkBorders = new KeyBinding("dsurround.text.chunkborders.toggle", InputMappings.INPUT_INVALID.getKeyCode(), "dsurround.text.controls.group");
             ClientRegistry.registerKeyBinding(chunkBorders);
         }
     }
-
+    
     @SubscribeEvent
     public static void keyPressed(InputEvent.KeyInputEvent event) {
         if (GameUtils.getMC().currentScreen == null && GameUtils.getPlayer() != null) {
             if (lightLevelHUD != null && lightLevelHUD.isPressed()) {
                 LightLevelHUD.toggleDisplay();
             }
-
+            
             if (chunkBorders != null && chunkBorders.isPressed()) {
                 GameUtils.getMC().debugRenderer.toggleChunkBorders();
             }

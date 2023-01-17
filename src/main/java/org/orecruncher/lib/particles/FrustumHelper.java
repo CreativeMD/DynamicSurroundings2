@@ -31,28 +31,28 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class FrustumHelper {
     private FrustumHelper() {
-
+        
     }
-
+    
     private static ClippingHelper helper = null;
-
-    /**
-     * Called by a Mixin to set the current clipping helper
-     * @param clippingHelper Current clipping helper
-     */
+    
+    /** Called by a Mixin to set the current clipping helper
+     * 
+     * @param clippingHelper
+     *            Current clipping helper */
     public static void setFrustum(@Nullable final ClippingHelper clippingHelper) {
         helper = clippingHelper;
     }
-
-    /**
-     * Determines if the position is within the frustum
-     * @param pos Position to check
-     * @return true if in the frustum, or there is no frustum, false otherwise
-     */
+    
+    /** Determines if the position is within the frustum
+     * 
+     * @param pos
+     *            Position to check
+     * @return true if in the frustum, or there is no frustum, false otherwise */
     public static boolean isLocationInFrustum(@Nonnull final Vector3d pos) {
         return isBoundingBoxInFrustum(new AxisAlignedBB(pos, pos));
     }
-
+    
     public static boolean isBoundingBoxInFrustum(@Nonnull final AxisAlignedBB bb) {
         if (helper == null)
             return true;

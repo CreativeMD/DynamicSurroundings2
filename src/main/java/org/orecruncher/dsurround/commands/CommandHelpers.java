@@ -37,9 +37,9 @@ import net.minecraftforge.fml.common.Mod;
 @Mod.EventBusSubscriber(modid = DynamicSurroundings.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class CommandHelpers {
     private CommandHelpers() {
-
+        
     }
-
+    
     @SubscribeEvent
     public static void registerCommands(@Nonnull final RegisterCommandsEvent event) {
         // Only register if its an integrated server environment
@@ -47,17 +47,17 @@ public class CommandHelpers {
             DumpCommand.register(event.getDispatcher());
         }
     }
-
+    
     public static void scheduleOnClientThread(Runnable runnable) {
         final ThreadTaskExecutor<?> scheduler = LogicalSidedProvider.WORKQUEUE.get(LogicalSide.CLIENT);
         scheduler.deferTask(runnable);
     }
-
+    
     public static void sendSuccess(@Nonnull final CommandSource source, @Nonnull final String command, @Nonnull String operation, @Nonnull String target) {
         final String key = String.format("command.dsurround.%s.success", command);
         source.sendFeedback(new TranslationTextComponent(key, operation, target), true);
     }
-
+    
     public static void sendFailure(@Nonnull final CommandSource source, @Nonnull final String command) {
         final String key = String.format("command.dsurround.%s.failure", command);
         source.sendFeedback(new TranslationTextComponent(key), true);

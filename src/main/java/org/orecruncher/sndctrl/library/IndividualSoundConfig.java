@@ -31,39 +31,39 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public final class IndividualSoundConfig {
-
+    
     private static final String BLOCK_TOKEN = "block";
     private static final String CULL_TOKEN = "cull";
     private static final String DELIMITER = " ";
-
+    
     public static final int DEFAULT_VOLUME_SCALE = 100;
     public static final int VOLUME_SCALE_MIN = 0;
     public static final int VOLUME_SCALE_MAX = 400;
-
+    
     private final ResourceLocation location;
     private boolean isBocked;
     private boolean isCulled;
     private int volumeScale;
-
+    
     public IndividualSoundConfig(@Nonnull final SoundEvent soundEvent) {
         this.location = soundEvent.getName();
         this.isBocked = false;
         this.isCulled = false;
         this.volumeScale = DEFAULT_VOLUME_SCALE;
     }
-
+    
     public IndividualSoundConfig(@Nonnull final IndividualSoundConfig source) {
         this.location = source.location;
         this.isBocked = source.isBocked;
         this.isCulled = source.isCulled;
         this.volumeScale = source.volumeScale;
     }
-
+    
     public static boolean isValid(@Nonnull final String text) {
         // Just a simple see if it parses check
         return createFrom(text) != null;
     }
-
+    
     // This check enforces that the text contains a : to avoid matching the "minecraft" namespace by default
     private static boolean isResourceNameValid(@Nonnull final String text) {
         if (!text.contains(":"))
@@ -73,7 +73,7 @@ public final class IndividualSoundConfig {
             return false;
         return loc.getPath().length() > 0;
     }
-
+    
     @Nullable
     public static IndividualSoundConfig createFrom(@Nonnull final String entry) {
         IndividualSoundConfig result = null;
@@ -88,7 +88,7 @@ public final class IndividualSoundConfig {
                     boolean isCulled = false;
                     boolean isBlocked = false;
                     int volumeControl = DEFAULT_VOLUME_SCALE;
-
+                    
                     for (int i = 1; i < parts.length; i++) {
                         if (CULL_TOKEN.compareToIgnoreCase(parts[i]) == 0) {
                             isCulled = true;
@@ -103,7 +103,7 @@ public final class IndividualSoundConfig {
                             }
                         }
                     }
-
+                    
                     result = new IndividualSoundConfig(event.get());
                     result.isBocked = isBlocked;
                     result.isCulled = isCulled;
@@ -111,47 +111,47 @@ public final class IndividualSoundConfig {
                 }
             }
         }
-
+        
         return result;
     }
-
+    
     @Nonnull
     public ResourceLocation getLocation() {
         return this.location;
     }
-
+    
     public boolean isDefault() {
         return !(this.isBocked || this.isCulled || volumeScale != DEFAULT_VOLUME_SCALE);
     }
-
+    
     public boolean isBlocked() {
         return this.isBocked;
     }
-
+    
     public void setIsBlocked(final boolean flag) {
         this.isBocked = flag;
     }
-
+    
     public boolean isCulled() {
         return this.isCulled;
     }
-
+    
     public void setIsCulled(final boolean flag) {
         this.isCulled = flag;
     }
-
+    
     public float getVolumeScale() {
         return this.volumeScale / 100F;
     }
-
+    
     public int getVolumeScaleInt() {
         return this.volumeScale;
     }
-
+    
     public void setVolumeScaleInt(final int scale) {
         this.volumeScale = MathStuff.clamp(scale, VOLUME_SCALE_MIN, VOLUME_SCALE_MAX);
     }
-
+    
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();

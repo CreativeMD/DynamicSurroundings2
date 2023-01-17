@@ -19,14 +19,14 @@
 package org.orecruncher.lib.scripting.sets;
 
 public interface ISeasonVariables {
-
+    
     boolean isSpring();
-
+    
     boolean isSummer();
-
+    
     boolean isAutumn();
-
+    
     boolean isWinter();
-
+    
     String getSeason();
 }

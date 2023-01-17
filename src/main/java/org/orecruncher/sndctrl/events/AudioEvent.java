@@ -26,19 +26,15 @@ import net.minecraftforge.eventbus.api.Event;
 @SuppressWarnings("unused")
 @OnlyIn(Dist.CLIENT)
 public class AudioEvent extends Event {
-    public AudioEvent() {
-    }
-
-    /**
-     * Raised by sound system to determine if music should fade in volume. Canceling
+    public AudioEvent() {}
+    
+    /** Raised by sound system to determine if music should fade in volume. Canceling
      * the event will cause the MusicFader to fade music. Otherwise, the volume will
      * return to normal levels. As an example, Dynamic Surroundings battle music
-     * will fade out the background music while battle music is playing.
-     */
+     * will fade out the background music while battle music is playing. */
     @Cancelable
     public final static class MusicFadeAudioEvent extends AudioEvent {
-        public MusicFadeAudioEvent() {
-        }
+        public MusicFadeAudioEvent() {}
     }
-
+    
 }

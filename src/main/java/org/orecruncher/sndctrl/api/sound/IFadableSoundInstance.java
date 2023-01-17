@@ -24,14 +24,14 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public interface IFadableSoundInstance extends ISoundInstance, ITickableSound {
-
+    
     void noFade();
-
+    
     void fade();
-
+    
     void unfade();
-
+    
     boolean isFading();
-
+    
     void setFadeVolume(final float v);
 }

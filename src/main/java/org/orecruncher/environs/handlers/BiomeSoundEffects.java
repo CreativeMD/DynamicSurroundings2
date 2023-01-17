@@ -43,36 +43,34 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 @OnlyIn(Dist.CLIENT)
 public class BiomeSoundEffects extends HandlerBase {
-
+    
     public static final int SCAN_INTERVAL = 4;
     public static final int SPOT_SOUND_MIN_RANGE = 8;
     public static final int SPOT_SOUND_MAX_RANGE = AcousticFactory.SOUND_RANGE;
-
+    
     // Reusable map for biome acoustic work
     private static final Reference2FloatOpenHashMap<IAcoustic> WORK_MAP = new Reference2FloatOpenHashMap<>(8, 1F);
-
+    
     static {
         WORK_MAP.defaultReturnValue(0F);
     }
-
+    
     private final BiomeScanner biomes = new BiomeScanner();
     private final ObjectArray<BackgroundAcousticEmitter> emitters = new ObjectArray<>(8);
-
+    
     BiomeSoundEffects() {
         super("Biome Sounds");
     }
-
+    
     @Override
     public boolean doTick(final long tick) {
         return CommonState.getDimensionInfo().playBiomeSounds();
     }
-
+    
     private boolean doBiomeSounds() {
-        return CommonState.isUnderground()
-                || !CommonState.isInside()
-                || CommonState.getDimensionInfo().alwaysOutside();
+        return CommonState.isUnderground() || !CommonState.isInside() || CommonState.getDimensionInfo().alwaysOutside();
     }
-
+    
     private void generateBiomeSounds() {
         final float area = this.biomes.getBiomeArea();
         for (final Reference2IntMap.Entry<BiomeInfo> kvp : this.biomes.getBiomes().reference2IntEntrySet()) {
@@ -83,7 +81,7 @@ public class BiomeSoundEffects extends HandlerBase {
             }
         }
     }
-
+    
     @Override
     public void process(@Nonnull final PlayerEntity player) {
         this.emitters.forEach(BackgroundAcousticEmitter::tick);
@@ -92,49 +90,49 @@ public class BiomeSoundEffects extends HandlerBase {
             handleBiomeSounds(player);
         }
     }
-
+    
     @Override
     public void onConnect() {
         clearSounds();
     }
-
+    
     @Override
     public void onDisconnect() {
         clearSounds();
     }
-
+    
     private void handleBiomeSounds(@Nonnull final PlayerEntity player) {
         this.biomes.tick();
         WORK_MAP.clear();
-
+        
         // Only gather data if the player is alive. If the player is dead the biome sounds will cease playing.
         if (player.isAlive()) {
-
+            
             final boolean biomeSounds = doBiomeSounds();
-
+            
             if (biomeSounds)
                 generateBiomeSounds();
-
+            
             final ObjectArray<IAcoustic> playerSounds = new ObjectArray<>();
             BiomeLibrary.PLAYER_INFO.findSoundMatches(playerSounds);
             BiomeLibrary.VILLAGE_INFO.findSoundMatches(playerSounds);
             playerSounds.forEach(fx -> WORK_MAP.put(fx, 1.0F));
-
+            
             if (biomeSounds) {
                 final BiomeInfo playerBiome = CommonState.getPlayerBiome();
                 final IAcoustic sound = playerBiome.getSpotSound(RANDOM);
                 if (sound != null)
                     sound.playNear(player, SPOT_SOUND_MIN_RANGE, SPOT_SOUND_MAX_RANGE);
             }
-
+            
             final IAcoustic sound = BiomeLibrary.PLAYER_INFO.getSpotSound(RANDOM);
             if (sound != null)
                 sound.playNear(player, SPOT_SOUND_MIN_RANGE, SPOT_SOUND_MAX_RANGE);
         }
-
+        
         queueAmbientSounds();
     }
-
+    
     private void queueAmbientSounds() {
         // Iterate through the existing emitters:
         // * If done, remove
@@ -155,7 +153,7 @@ public class BiomeSoundEffects extends HandlerBase {
             }
             return false;
         });
-
+        
         // Any sounds left in the list are new and need an emitter created.
         WORK_MAP.forEach((fx, volume) -> {
             final BackgroundAcousticEmitter e = new BackgroundAcousticEmitter(fx);
@@ -163,14 +161,14 @@ public class BiomeSoundEffects extends HandlerBase {
             this.emitters.add(e);
         });
     }
-
+    
     public void clearSounds() {
         this.emitters.forEach(BackgroundAcousticEmitter::stop);
         this.emitters.clear();
         WORK_MAP.clear();
         AudioEngine.stopAll();
     }
-
+    
     @SubscribeEvent(priority = EventPriority.HIGH)
     public void diagnostics(@Nonnull final DiagnosticEvent event) {
         if (Config.CLIENT.logging.enableLogging.get())

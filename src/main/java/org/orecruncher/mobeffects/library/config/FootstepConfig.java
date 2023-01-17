@@ -45,7 +45,7 @@ public class FootstepConfig implements IValidator<FootstepConfig> {
     public Map<String, String> footsteps = ImmutableMap.of();
     @SerializedName("footprints")
     public List<String> footprints = ImmutableList.of();
-
+    
     @Override
     public void validate(@Nonnull final FootstepConfig obj) throws ValidationException {
         for (final String fp : this.footprints) {

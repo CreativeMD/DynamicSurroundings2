@@ -25,23 +25,23 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public interface IBiomeVariables {
-
+    
     String getName();
-
+    
     String getModId();
-
+    
     String getId();
-
+    
     float getRainfall();
-
+    
     float getTemperature();
-
+    
     String getCategory();
-
+    
     String getRainType();
-
+    
     String getTraits();
-
+    
     boolean is(@Nonnull final String traitName);
-
+    
 }

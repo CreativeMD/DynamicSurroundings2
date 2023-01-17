@@ -30,23 +30,23 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class SteamJet extends Jet {
-
+    
     private final BlockState source;
-
+    
     public SteamJet(final int strength, final IBlockReader world, final double x, final double y, final double z) {
         super(strength, world, x, y, z);
         this.source = world.getBlockState(getPos());
     }
-
+    
     @Override
     public boolean shouldDie() {
         return !SteamJetEffect.isValidSpawnBlock(GameUtils.getWorld(), getPos(), this.source);
     }
-
+    
     @Override
     protected void spawnJetParticle() {
         final Particle particle = new SteamCloudParticle(GameUtils.getWorld(), this.posX, this.posY, this.posZ, 0.1D);
         GameUtils.getMC().particles.addEffect(particle);
     }
-
+    
 }

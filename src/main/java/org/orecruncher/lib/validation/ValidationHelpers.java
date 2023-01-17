@@ -35,15 +35,15 @@ import net.minecraft.resources.ResourceLocation;
 @SuppressWarnings("unused")
 public class ValidationHelpers {
     private ValidationHelpers() {
-
+        
     }
-
+    
     public static void notNull(@Nonnull final String field, @Nullable final Object value, @Nullable final Consumer<String> errorLogger) throws ValidationException {
         if (value != null)
             return;
         handleException(new ValidationException(field, "Must not be null"), errorLogger);
     }
-
+    
     public static <T> void hasElements(@Nonnull final String field, @Nullable final List<T> elements, @Nullable final Consumer<String> errorLogger) throws ValidationException {
         notNull(field, elements, errorLogger);
         if (elements != null) {
@@ -52,7 +52,7 @@ public class ValidationHelpers {
             handleException(new ValidationException(field, "Has no elements"), errorLogger);
         }
     }
-
+    
     public static <T> void hasElements(@Nonnull final String field, @Nullable final T[] elements, @Nullable final Consumer<String> errorLogger) throws ValidationException {
         notNull(field, elements, errorLogger);
         if (elements != null) {
@@ -61,7 +61,7 @@ public class ValidationHelpers {
             handleException(new ValidationException(field, "Has no elements"), errorLogger);
         }
     }
-
+    
     public static void isOneOf(@Nonnull final String field, @Nullable final String value, final boolean ignoreCase, @Nonnull final String[] values, @Nullable final Consumer<String> errorLogger) throws ValidationException {
         notNull(field, value, errorLogger);
         hasElements(field, values, errorLogger);
@@ -74,37 +74,37 @@ public class ValidationHelpers {
             handleException(new ValidationException(field, "Invalid value \"%s\"; must be one of \"%s\"", value, possibles), errorLogger);
         }
     }
-
+    
     public static void inRange(@Nonnull final String field, final int value, final int min, final int max, @Nullable final Consumer<String> errorLogger) throws ValidationException {
         if (value >= min && value <= max)
             return;
         handleException(new ValidationException(field, "Invalid value \"%s\"; must be between %d and %d inclusive", value, min, max), errorLogger);
     }
-
+    
     public static void inRange(@Nonnull final String field, final float value, final float min, final float max, @Nullable final Consumer<String> errorLogger) throws ValidationException {
         if (value >= min && value <= max)
             return;
         handleException(new ValidationException(field, "Invalid value \"%s\"; must be between %f and %f inclusive", value, min, max), errorLogger);
     }
-
+    
     public static void inRange(@Nonnull final String field, final double value, final double min, final double max, @Nullable final Consumer<String> errorLogger) throws ValidationException {
         if (value >= min && value <= max)
             return;
         handleException(new ValidationException(field, "Invalid value \"%s\"; must be between %f and %f inclusive", value, min, max), errorLogger);
     }
-
+    
     public static void notNullOrEmpty(@Nonnull final String field, @Nonnull final String value, @Nullable final Consumer<String> errorLogger) throws ValidationException {
         if (StringUtils.isNotEmpty(value))
             return;
         handleException(new ValidationException(field, "Must not be null or empty"), errorLogger);
     }
-
+    
     public static void notNullOrWhitespace(@Nonnull final String field, @Nonnull final String value, @Nullable final Consumer<String> errorLogger) throws ValidationException {
         if (StringUtils.isNotBlank(value))
             return;
         handleException(new ValidationException(field, "Must not be null or empty, or comprised of whitespace"), errorLogger);
     }
-
+    
     public static <T extends Enum<T>> void isEnumValue(@Nonnull final String field, @Nullable final String value, @Nonnull final Class<T> enumeration, @Nullable final Consumer<String> errorLogger) throws ValidationException {
         notNull(field, value, errorLogger);
         if (value != null) {
@@ -112,7 +112,7 @@ public class ValidationHelpers {
             isOneOf(field, value, true, possibles, errorLogger);
         }
     }
-
+    
     public static void matchRegex(@Nonnull final String field, @Nullable final String value, @Nonnull final String regex, @Nullable final Consumer<String> errorLogger) throws ValidationException {
         notNull(field, value, errorLogger);
         if (value != null) {
@@ -121,7 +121,7 @@ public class ValidationHelpers {
             handleException(new ValidationException(field, "Does \"%s\" not match regular expression \"%s\"", value, regex), errorLogger);
         }
     }
-
+    
     public static void mustBeLowerCase(@Nonnull final String field, @Nullable final String value, @Nullable final Consumer<String> errorLogger) throws ValidationException {
         notNull(field, value, errorLogger);
         if (value != null) {
@@ -131,14 +131,14 @@ public class ValidationHelpers {
             throw new ValidationException(field, "\"%s\" Must be in lower case", value);
         }
     }
-
+    
     public static void isProperResourceLocation(@Nonnull final String field, @Nullable final String value, @Nullable final Consumer<String> errorLogger) throws ValidationException {
         notNull(field, value, errorLogger);
         if (value != null)
             if (!ResourceLocation.isResouceNameValid(value))
                 handleException(new ValidationException(field, "\"%s\" is not a proper resource location", value), errorLogger);
     }
-
+    
     private static void handleException(@Nonnull final ValidationException ex, @Nullable final Consumer<String> errorLogger) throws ValidationException {
         if (errorLogger != null)
             errorLogger.accept(ex.getMessage());

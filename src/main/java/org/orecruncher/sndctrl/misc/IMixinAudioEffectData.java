@@ -24,6 +24,6 @@ import org.orecruncher.sndctrl.library.AudioEffectLibrary;
 public interface IMixinAudioEffectData {
     @Nullable
     AudioEffectLibrary.EffectData getData();
-
+    
     void setData(@Nullable AudioEffectLibrary.EffectData data);
 }

@@ -41,12 +41,10 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod;
 
-/**
- * This guy is responsible for manipulating the volume state of the Music
+/** This guy is responsible for manipulating the volume state of the Music
  * SoundCategory. This is so normal playing music can fade in/out whenever
  * BattleMusic is being played, or when a player hits the "play" button in the
- * sound configuration.
- */
+ * sound configuration. */
 @SuppressWarnings("unused")
 @Mod.EventBusSubscriber(modid = SoundControl.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public final class MusicFader {
@@ -56,27 +54,26 @@ public final class MusicFader {
     private static float currentScale = 1.0F;
     @Nullable
     private static ISoundInstance playingConfigSound;
-
-    private MusicFader() {
-    }
-
+    
+    private MusicFader() {}
+    
     public static float getMusicScaling() {
         return currentScale;
     }
-
+    
     @SubscribeEvent
     public static void onTick(@Nonnull final TickEvent.ClientTickEvent event) {
-
+        
         if (event.side != LogicalSide.CLIENT || event.phase == Phase.END)
             return;
-
+        
         final float oldScale = currentScale;
-
+        
         if (playingConfigSound != null) {
             if (playingConfigSound.getState().isTerminal())
                 stopConfigSound(playingConfigSound);
         }
-
+        
         if (playingConfigSound == null) {
             final MusicFadeAudioEvent doFade = new MusicFadeAudioEvent();
             MinecraftForge.EVENT_BUS.post(doFade);
@@ -85,10 +82,10 @@ public final class MusicFader {
             else
                 currentScale += FADE_AMOUNT;
         }
-
+        
         // Make sure it is properly bounded
         currentScale = MathStuff.clamp(currentScale, MIN_VOLUME_SCALE, 1.0F);
-
+        
         // If there is a change in scale tell the sound handler. Just by tickling the
         // the value it triggers all sounds that are currently playing that are in the
         // MUSIC category to be re-evaluated, and the getClampedVolume() override will
@@ -98,26 +95,24 @@ public final class MusicFader {
             GameUtils.getSoundHander().setSoundLevel(SoundCategory.MUSIC, mcScale);
         }
     }
-
-    /**
-     * Used by the configuration system to short circuit the playing music in order
+    
+    /** Used by the configuration system to short circuit the playing music in order
      * to play a sound sample.
      *
-     * @param sound The configuration sound instance to play
-     */
+     * @param sound
+     *            The configuration sound instance to play */
     public static void playConfigSound(@Nonnull final ISoundInstance sound) {
         playingConfigSound = Objects.requireNonNull(sound);
         currentScale = MIN_VOLUME_SCALE;
         AudioEngine.stopAll();
         AudioEngine.play(sound);
     }
-
-    /**
-     * Used by the configuration system to stop playing a configure sound. Sounds
+    
+    /** Used by the configuration system to stop playing a configure sound. Sounds
      * that were muted prior will fade back in.
      *
-     * @param sound The configuration sound instance to stop
-     */
+     * @param sound
+     *            The configuration sound instance to stop */
     public static void stopConfigSound(@Nonnull final ISoundInstance sound) {
         if (playingConfigSound != null) {
             if (playingConfigSound != Objects.requireNonNull(sound))
@@ -126,16 +121,15 @@ public final class MusicFader {
             playingConfigSound = null;
         }
     }
-
-    /**
-     * Does an identity compare of the specified sound instance to the playing sound
+    
+    /** Does an identity compare of the specified sound instance to the playing sound
      * to see if they are the same instance.
      *
-     * @param sound Sound instance to check
-     * @return true if the sound is the currently play configuration sound, false otherwise
-     */
+     * @param sound
+     *            Sound instance to check
+     * @return true if the sound is the currently play configuration sound, false otherwise */
     public static boolean isConfigSoundInstance(@Nonnull final ISound sound) {
         return playingConfigSound == Objects.requireNonNull(sound);
     }
-
+    
 }

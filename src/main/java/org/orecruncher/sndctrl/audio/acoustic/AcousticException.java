@@ -26,7 +26,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class AcousticException extends Exception {
-
+    
     public AcousticException(@Nonnull final String msg, @Nullable final Object... params) {
         super(String.format(msg, params));
     }

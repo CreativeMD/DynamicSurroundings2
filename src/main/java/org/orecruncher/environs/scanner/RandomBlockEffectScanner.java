@@ -34,47 +34,45 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-/**
- * Modeled after WorldClient::doVoidFogParticles() which handles the random
+/** Modeled after WorldClient::doVoidFogParticles() which handles the random
  * block update client side as well as barrier particles.
  *
  * The routine iterates 667 times. During each iteration it creates particles up
  * to a max of 16 blocks, and then up to a max of 32 blocks. There is some
  * overlap with the 16 block range when generating the 32 block version, but
  * since the iteration has been reduce to 667 (from 1000 in MC 1.7.10) it should
- * compensate.
- */
+ * compensate. */
 @OnlyIn(Dist.CLIENT)
 public class RandomBlockEffectScanner extends RandomScanner {
-
-	private static final int ITERATION_COUNT = 667;
-
-	public static final int NEAR_RANGE = 16;
-	public static final int FAR_RANGE = 32;
-
-	public RandomBlockEffectScanner(@Nonnull final ScanContext locus, final int range) {
-		super(locus, "RandomBlockScanner: " + range, range, ITERATION_COUNT);
-	}
-
-	@Override
-	protected boolean interestingBlock(@Nonnull final BlockState state) {
-		return BlockStateUtil.getData(state).hasSoundsOrEffects();
-	}
-
-	@Override
-	public void blockScan(@Nonnull final BlockState state, @Nonnull final BlockPos pos, @Nonnull final Random rand) {
-		final IBlockReader world = this.locus.getWorld();
-		final BlockStateData profile = BlockStateUtil.getData(state);
-		final Collection<BlockEffect> effects = profile.getEffects();
-
-		for (final BlockEffect be : effects) {
-			if (be.canTrigger(world, state, pos, rand))
-				be.doEffect(world, state, pos, rand);
-		}
-
-		final IAcoustic sound = profile.getSoundToPlay(rand);
-		if (sound != null)
-			sound.playAt(pos);
-	}
-
+    
+    private static final int ITERATION_COUNT = 667;
+    
+    public static final int NEAR_RANGE = 16;
+    public static final int FAR_RANGE = 32;
+    
+    public RandomBlockEffectScanner(@Nonnull final ScanContext locus, final int range) {
+        super(locus, "RandomBlockScanner: " + range, range, ITERATION_COUNT);
+    }
+    
+    @Override
+    protected boolean interestingBlock(@Nonnull final BlockState state) {
+        return BlockStateUtil.getData(state).hasSoundsOrEffects();
+    }
+    
+    @Override
+    public void blockScan(@Nonnull final BlockState state, @Nonnull final BlockPos pos, @Nonnull final Random rand) {
+        final IBlockReader world = this.locus.getWorld();
+        final BlockStateData profile = BlockStateUtil.getData(state);
+        final Collection<BlockEffect> effects = profile.getEffects();
+        
+        for (final BlockEffect be : effects) {
+            if (be.canTrigger(world, state, pos, rand))
+                be.doEffect(world, state, pos, rand);
+        }
+        
+        final IAcoustic sound = profile.getSoundToPlay(rand);
+        if (sound != null)
+            sound.playAt(pos);
+    }
+    
 }

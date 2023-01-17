@@ -29,7 +29,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class DiurnalCycleVariables extends VariableSet<IDiurnalCycle> implements IDiurnalCycle {
-
+    
     private final LazyVariable<Float> moonPhaseFactor = new LazyVariable<>(() -> GameUtils.isInGame() ? DayCycle.getMoonPhaseFactor(GameUtils.getWorld()) : 0F);
     private final LazyVariable<Float> celestialAngle = new LazyVariable<>(() -> GameUtils.isInGame() ? GameUtils.getWorld().func_242415_f(0F) : 0F);
     private boolean isAuroraVisible;
@@ -37,19 +37,19 @@ public class DiurnalCycleVariables extends VariableSet<IDiurnalCycle> implements
     private boolean isNight;
     private boolean isSunrise;
     private boolean isSunset;
-
+    
     public DiurnalCycleVariables() {
         super("diurnal");
     }
-
+    
     @Nonnull
     @Override
     public IDiurnalCycle getInterface() {
         return this;
     }
-
+    
     public void update() {
-
+        
         if (GameUtils.isInGame()) {
             DayCycle cycle = DayCycle.getCycle(GameUtils.getWorld());
             this.isAuroraVisible = cycle.isAuroraVisible();
@@ -64,41 +64,41 @@ public class DiurnalCycleVariables extends VariableSet<IDiurnalCycle> implements
             this.isSunrise = false;
             this.isSunset = false;
         }
-
+        
         this.moonPhaseFactor.reset();
         this.celestialAngle.reset();
     }
-
+    
     @Override
     public boolean isDay() {
         return this.isDay;
     }
-
+    
     @Override
     public boolean isNight() {
         return this.isNight;
     }
-
+    
     @Override
     public boolean isSunrise() {
         return this.isSunrise;
     }
-
+    
     @Override
     public boolean isSunset() {
         return this.isSunset;
     }
-
+    
     @Override
     public boolean isAuroraVisible() {
         return this.isAuroraVisible;
     }
-
+    
     @Override
     public float getMoonPhaseFactor() {
         return this.moonPhaseFactor.get();
     }
-
+    
     @Override
     public float getCelestialAngle() {
         return this.celestialAngle.get();

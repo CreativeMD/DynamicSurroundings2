@@ -33,42 +33,36 @@ public class PlayerCenteredSoundInstance extends WrappedSoundInstance {
     public PlayerCenteredSoundInstance(@Nonnull final ISoundInstance sound, @Nonnull final ISoundCategory category) {
         super(sound, category);
     }
-
+    
     @Override
     public boolean isGlobal() {
         return true;
     }
-
+    
     @Override
     public AttenuationType getAttenuationType() {
         return AttenuationType.NONE;
     }
-
+    
     @Override
     public double getX() {
         return 0;
     }
-
+    
     @Override
     public double getY() {
         return 0;
     }
-
+    
     @Override
     public double getZ() {
         return 0;
     }
-
+    
     @Override
     @Nonnull
     public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .addValue(getSoundLocation().toString())
-                .addValue(getSoundCategory().toString())
-                .addValue(getState().toString())
-                .add("v", getVolume())
-                .add("ev", SoundInstance.getEffectiveVolume(this))
-                .add("p", getPitch())
-                .toString();
+        return MoreObjects.toStringHelper(this).addValue(getSoundLocation().toString()).addValue(getSoundCategory().toString()).addValue(getState().toString())
+                .add("v", getVolume()).add("ev", SoundInstance.getEffectiveVolume(this)).add("p", getPitch()).toString();
     }
 }

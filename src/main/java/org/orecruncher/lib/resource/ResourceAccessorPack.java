@@ -32,16 +32,16 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 final class ResourceAccessorPack extends ResourceAccessorBase {
-
+    
     private final IResourcePack pack;
     private final ResourceLocation actual;
-
+    
     public ResourceAccessorPack(@Nonnull final ResourceLocation location, @Nonnull final IResourcePack pack, @Nonnull final ResourceLocation actual) {
         super(location);
         this.pack = pack;
         this.actual = actual;
     }
-
+    
     @Override
     protected byte[] getAsset() {
         try {
@@ -53,7 +53,7 @@ final class ResourceAccessorPack extends ResourceAccessorBase {
         }
         return null;
     }
-
+    
     @Override
     public String toString() {
         return String.format("%s (%s = %s)", super.toString(), this.pack.getName(), this.actual.toString());

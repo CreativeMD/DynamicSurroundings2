@@ -37,82 +37,80 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-/**
- * A simple acoustic that uses an AcousticFactory to produce sound instances for playing.
- */
+/** A simple acoustic that uses an AcousticFactory to produce sound instances for playing. */
 @OnlyIn(Dist.CLIENT)
 public class SimpleAcoustic implements IAcoustic {
-
+    
     private final AcousticFactory factory;
     private final ResourceLocation name;
-
+    
     public SimpleAcoustic(@Nonnull final SoundEvent event, @Nonnull final ISoundCategory category) {
         this(event.getName(), event);
         this.factory.setCategory(category);
     }
-
+    
     public SimpleAcoustic(@Nonnull final SoundEvent event) {
         this(event.getName(), event);
     }
-
+    
     public SimpleAcoustic(@Nonnull final ResourceLocation name, @Nonnull final SoundEvent evt) {
         this(name, new AcousticFactory(evt));
     }
-
+    
     public SimpleAcoustic(@Nonnull final ResourceLocation name, @Nonnull final AcousticFactory factory) {
         this.name = Objects.requireNonNull(name);
         this.factory = factory;
     }
-
+    
     @Nonnull
     public AcousticFactory getFactory() {
         return this.factory;
     }
-
+    
     @Nonnull
     public ResourceLocation getName() {
         return this.name;
     }
-
+    
     @Override
     public void play(@Nonnull final AcousticEvent ignored) {
         play(this.factory.createSound());
     }
-
+    
     @Override
     public void playAt(@Nonnull final BlockPos pos, @Nonnull final AcousticEvent ignored) {
         play(this.factory.createSoundAt(pos));
     }
-
+    
     @Override
     public void playAt(@Nonnull final Vector3d pos, @Nonnull final AcousticEvent ignored) {
         play(this.factory.createSoundAt(pos));
     }
-
+    
     @Override
     public void playNear(@Nonnull final Entity entity, @Nonnull final AcousticEvent ignored) {
         play(this.factory.createSoundNear(entity));
     }
-
+    
     @Override
     public void playNear(@Nonnull final Entity entity, @Nonnull final AcousticEvent ignored, final int minRange, final int maxRange) {
         play(this.factory.createSoundNear(entity, minRange, maxRange));
     }
-
+    
     @Override
     public void playBackground(@Nonnull final AcousticEvent ignored) {
         play(this.factory.createBackgroundSound());
     }
-
+    
     @Override
     public IAcousticFactory getFactory(@Nonnull final AcousticEvent event) {
         return this.factory;
     }
-
+    
     protected void play(@Nonnull final ISoundInstance sound) {
         AudioEngine.play(sound);
     }
-
+    
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this).addValue(getName().toString()).toString();

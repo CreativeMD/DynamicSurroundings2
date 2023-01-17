@@ -29,15 +29,13 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-/**
- * Interface for objects that provide additional accents to acoustics when
- * producing step sounds.
- */
+/** Interface for objects that provide additional accents to acoustics when
+ * producing step sounds. */
 @OnlyIn(Dist.CLIENT)
 interface IFootstepAccentProvider {
-
-	void provide(@Nonnull final LivingEntity entity, @Nonnull final BlockPos pos, @Nonnull final BlockState posState, @Nonnull final ObjectArray<IAcoustic> acoustics);
-
-	boolean isEnabled();
-
+    
+    void provide(@Nonnull final LivingEntity entity, @Nonnull final BlockPos pos, @Nonnull final BlockState posState, @Nonnull final ObjectArray<IAcoustic> acoustics);
+    
+    boolean isEnabled();
+    
 }

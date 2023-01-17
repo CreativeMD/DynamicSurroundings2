@@ -40,73 +40,68 @@ import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.commands.CommandSource;
 import net.minecraft.commands.Commands;
 
-/**
- * Command for dumping out various things about the state of the mod.  These commands are only available single player
- * and execute on the main client thread.
- */
+/** Command for dumping out various things about the state of the mod. These commands are only available single player
+ * and execute on the main client thread. */
 public class DumpCommand {
     public static void register(@Nonnull final CommandDispatcher<CommandSource> dispatcher) {
-        dispatcher.register(Commands.literal("dsdump")
-                .requires(req -> req.hasPermissionLevel(0))
+        dispatcher.register(Commands.literal("dsdump").requires(req -> req.hasPermissionLevel(0))
                 .then(Commands.literal("acoustics").executes(cmd -> dumpAcoustics(cmd.getSource())))
                 .then(Commands.literal("audioeffects").executes(cmd -> dumpAudioEffects(cmd.getSource())))
-                .then(Commands.literal("blocks").executes(cmd -> dumpBlocks(cmd.getSource())))
-                .then(Commands.literal("blocktags").executes(cmd -> dumpBlockTags(cmd.getSource())))
-                .then(Commands.literal("biomes").executes(cmd -> dumpBiomes(cmd.getSource())))
-                .then(Commands.literal("items").executes(cmd -> dumpItems(cmd.getSource())))
+                .then(Commands.literal("blocks").executes(cmd -> dumpBlocks(cmd.getSource()))).then(Commands.literal("blocktags").executes(cmd -> dumpBlockTags(cmd.getSource())))
+                .then(Commands.literal("biomes").executes(cmd -> dumpBiomes(cmd.getSource()))).then(Commands.literal("items").executes(cmd -> dumpItems(cmd.getSource())))
                 .then(Commands.literal("footsteps").executes(cmd -> dumpFootsteps(cmd.getSource())))
                 .then(Commands.literal("mobeffects").executes(cmd -> dumpMobeffects(cmd.getSource())))
                 .then(Commands.literal("blockstates").executes(cmd -> dumpBlockStates(cmd.getSource())))
                 .then(Commands.literal("dimensions").executes(cmd -> dumpDimensions(cmd.getSource()))));
     }
-
+    
     private static int dumpAcoustics(@Nonnull final CommandSource source) {
         return handle(source, "dump.acoustics", AcousticLibrary::dump);
     }
-
+    
     private static int dumpAudioEffects(@Nonnull final CommandSource source) {
         return handle(source, "dump.audioeffects", DumpCommand::tbd);
     }
-
+    
     private static int dumpBlocks(@Nonnull final CommandSource source) {
         return handle(source, "dump.blocks", DumpCommand::tbd);
     }
-
+    
     private static int dumpBlockTags(@Nonnull final CommandSource source) {
         return handle(source, "dump.blocktags", TagUtils::dumpBlockTags);
     }
-
+    
     private static int dumpBiomes(@Nonnull final CommandSource source) {
         return handle(source, "dump.biomes", DumpCommand::tbd);
     }
-
+    
     private static int dumpFootsteps(@Nonnull final CommandSource source) {
         return handle(source, "dump.footsteps", FootstepLibrary::dump);
     }
-
+    
     private static int dumpItems(@Nonnull final CommandSource source) {
         return handle(source, "dump.items", DumpCommand::tbd);
     }
-
+    
     private static int dumpMobeffects(@Nonnull final CommandSource source) {
         return handle(source, "dump.mobeffects", DumpCommand::tbd);
     }
-
+    
     private static int dumpBlockStates(@Nonnull final CommandSource source) {
         return handle(source, "dump.blockstates", DumpCommand::tbd);
     }
-
+    
     private static int dumpDimensions(@Nonnull final CommandSource source) {
         return handle(source, "dump.dimensions", DimensionLibrary::dump);
     }
-
+    
     private static int handle(@Nonnull final CommandSource source, @Nonnull final String cmdString, @Nonnull final Supplier<Stream<String>> supplier) {
         try {
             if (GameUtils.getMC().isSingleplayer()) {
                 final String operation = cmdString.substring(5);
                 final String fileName = operation + ".txt";
                 File target = new File(DynamicSurroundings.DUMP_PATH, fileName);
-
+                
                 CommandHelpers.scheduleOnClientThread(() -> {
                     try (PrintStream out = new PrintStream(target)) {
                         final Stream<String> strm = supplier.get();
@@ -125,10 +120,10 @@ public class DumpCommand {
         }
         return 0;
     }
-
+    
     private static Stream<String> tbd() {
         final List<String> result = ImmutableList.of("Not hooked up");
         return result.stream();
     }
-
+    
 }

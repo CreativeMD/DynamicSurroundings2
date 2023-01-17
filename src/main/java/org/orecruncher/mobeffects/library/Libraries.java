@@ -23,15 +23,13 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public final class Libraries {
-    private Libraries() {
-    }
-
+    private Libraries() {}
+    
     public static void initialize() {
         EffectLibrary.initialize();
         ItemLibrary.initialize();
         FootstepLibrary.initialize();
     }
-
-    public static void complete() {
-    }
+    
+    public static void complete() {}
 }

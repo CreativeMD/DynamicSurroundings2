@@ -47,11 +47,11 @@ import net.minecraftforge.registries.ForgeRegistries;
 @OnlyIn(Dist.CLIENT)
 public class BiomeUtilities {
     private BiomeUtilities() {
-
+        
     }
-
+    
     private static final Color NO_COLOR = new Color(1F, 1F, 1F);
-
+    
     @Nonnull
     public static String getBiomeName(@Nonnull final Biome biome) {
         ResourceLocation loc = biome.getRegistryName();
@@ -65,7 +65,7 @@ public class BiomeUtilities {
         final String fmt = String.format("biome.%s.%s", loc.getNamespace(), loc.getPath());
         return Localization.load(fmt);
     }
-
+    
     // ===================================
     //
     // Miscellaneous Support Functions
@@ -75,14 +75,14 @@ public class BiomeUtilities {
     public static Collection<BiomeDictionary.Type> getBiomeTypes() {
         return BiomeDictionary.Type.getAll();
     }
-
+    
     @Nonnull
     public static Color getColorForLiquid(@Nonnull final IBlockReader world, @Nonnull final BlockPos pos) {
         final FluidState fluidState = world.getFluidState(pos);
-
+        
         if (fluidState.isEmpty())
             return NO_COLOR;
-
+        
         // If the fluid is water, need to check the biome for coloration
         final Fluid fluid = fluidState.getFluid();
         if (fluid.isIn(FluidTags.WATER)) {
@@ -92,7 +92,7 @@ public class BiomeUtilities {
         }
         return new Color(fluid.getAttributes().getColor());
     }
-
+    
     @Nonnull
     public static Set<BiomeDictionary.Type> getBiomeTypes(@Nonnull final Biome biome) {
         try {
@@ -112,7 +112,7 @@ public class BiomeUtilities {
         }
         return ImmutableSet.of();
     }
-
+    
     @Nullable
     public static Biome getClientBiome(@Nonnull final BlockPos pos) {
         final ClientWorld world = GameUtils.getWorld();
@@ -121,7 +121,7 @@ public class BiomeUtilities {
         final Biome biome = world.getBiome(pos);
         return getClientBiome(biome);
     }
-
+    
     @Nullable
     public static Biome getClientBiome(@Nonnull final Biome biome) {
         final ClientWorld world = GameUtils.getWorld();

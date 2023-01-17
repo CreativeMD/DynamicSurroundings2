@@ -38,53 +38,51 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 @OnlyIn(Dist.CLIENT)
 public final class FacadeHelper {
-
-	private static final Map<Block, IFacadeAccessor> crackers = new Reference2ObjectOpenHashMap<>();
-
-	private static void addAccessor(@Nonnull final List<IFacadeAccessor> accessors,
-			@Nonnull final IFacadeAccessor accessor) {
-		if (accessor.isValid()) {
-			MobEffects.LOGGER.info("Facade Accessor: %s", accessor.getName());
-			accessors.add(accessor);
-		}
-	}
-
-	static {
-
-		final List<IFacadeAccessor> accessors = new ArrayList<>();
-
-		addAccessor(accessors, new ChiselFacadeAccessor());
-
-		// Iterate through the block list filling out our cracker list.
-		if (accessors.size() > 0) {
-			for (Block b : ForgeRegistries.BLOCKS) {
-				for (final IFacadeAccessor accessor : accessors) {
-					if (accessor.instanceOf(b)) {
-						crackers.put(b, accessor);
-						break;
-					}
-				}
-			}
-		}
-
-	}
-
-	protected FacadeHelper() {
-
-	}
-
-	@Nonnull
-	public static BlockState resolveState(@Nonnull final LivingEntity entity, @Nonnull final BlockState state,
-										  @Nonnull final IWorldReader world, @Nonnull final Vector3d pos, @Nullable final Direction side) {
-		if (crackers.size() > 0 && state.getMaterial() != Material.AIR) {
-			final IFacadeAccessor accessor = crackers.get(state.getBlock());
-			if (accessor != null) {
-				final BlockState newState = accessor.getBlockState(entity, state, world, pos, side);
-				if (newState != null)
-					return newState;
-			}
-		}
-		return state;
-	}
-
+    
+    private static final Map<Block, IFacadeAccessor> crackers = new Reference2ObjectOpenHashMap<>();
+    
+    private static void addAccessor(@Nonnull final List<IFacadeAccessor> accessors, @Nonnull final IFacadeAccessor accessor) {
+        if (accessor.isValid()) {
+            MobEffects.LOGGER.info("Facade Accessor: %s", accessor.getName());
+            accessors.add(accessor);
+        }
+    }
+    
+    static {
+        
+        final List<IFacadeAccessor> accessors = new ArrayList<>();
+        
+        addAccessor(accessors, new ChiselFacadeAccessor());
+        
+        // Iterate through the block list filling out our cracker list.
+        if (accessors.size() > 0) {
+            for (Block b : ForgeRegistries.BLOCKS) {
+                for (final IFacadeAccessor accessor : accessors) {
+                    if (accessor.instanceOf(b)) {
+                        crackers.put(b, accessor);
+                        break;
+                    }
+                }
+            }
+        }
+        
+    }
+    
+    protected FacadeHelper() {
+        
+    }
+    
+    @Nonnull
+    public static BlockState resolveState(@Nonnull final LivingEntity entity, @Nonnull final BlockState state, @Nonnull final IWorldReader world, @Nonnull final Vector3d pos, @Nullable final Direction side) {
+        if (crackers.size() > 0 && state.getMaterial() != Material.AIR) {
+            final IFacadeAccessor accessor = crackers.get(state.getBlock());
+            if (accessor != null) {
+                final BlockState newState = accessor.getBlockState(entity, state, world, pos, side);
+                if (newState != null)
+                    return newState;
+            }
+        }
+        return state;
+    }
+    
 }

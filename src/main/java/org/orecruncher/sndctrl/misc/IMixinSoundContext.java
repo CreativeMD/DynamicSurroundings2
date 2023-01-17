@@ -24,6 +24,6 @@ import org.orecruncher.sndctrl.audio.handlers.SourceContext;
 public interface IMixinSoundContext {
     @Nullable
     SourceContext getData();
-
+    
     void setData(@Nullable SourceContext data);
 }

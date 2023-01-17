@@ -30,13 +30,13 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public interface IShaderResourceProvider {
     @Nonnull
     ResourceLocation getVertex();
-
+    
     @Nonnull
     ResourceLocation getFragment();
-
+    
     @Nonnull
     String getShaderName();
-
+    
     @Nonnull
     Collection<String> getUniforms();
 }

@@ -28,15 +28,14 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public final class Localization {
-
-    private Localization() {
-    }
-
+    
+    private Localization() {}
+    
     @Nonnull
     public static String format(@Nonnull final String fmt, @Nullable final Object... args) {
         return I18n.format(fmt, args);
     }
-
+    
     @Nonnull
     public static String load(@Nonnull final String fmt) {
         return LanguageMap.getInstance().func_230503_a_(fmt);

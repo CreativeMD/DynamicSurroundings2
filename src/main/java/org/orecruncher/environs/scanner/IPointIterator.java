@@ -22,12 +22,10 @@ import net.minecraft.core.BlockPos;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-/**
- * Interface for a "peeking" iterator.
- */
+/** Interface for a "peeking" iterator. */
 @OnlyIn(Dist.CLIENT)
 public interface IPointIterator {
-	BlockPos next();
-
-	BlockPos peek();
+    BlockPos next();
+    
+    BlockPos peek();
 }

@@ -34,70 +34,50 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public final class WorldContext {
-
-    /**
-     * Quick Minecraft reference
-     */
+    
+    /** Quick Minecraft reference */
     public final Minecraft mc;
-    /**
-     * Reference to the client side PlayerEntity
-     */
+    /** Reference to the client side PlayerEntity */
     public final PlayerEntity player;
-    /**
-     * Reference to the player's world
-     */
+    /** Reference to the player's world */
     public final IWorldReader world;
-    /**
-     * Position of the player.
-     */
+    /** Position of the player. */
     public final Vector3d playerPosition;
-    /**
-     * Position of the player's eyes.
-     */
+    /** Position of the player's eyes. */
     public final Vector3d playerEyePosition;
-    /**
-     * Block position of the player.
-     */
+    /** Block position of the player. */
     public final BlockPos playerPos;
-    /**
-     * Block position of the player's eyes.
-     */
+    /** Block position of the player's eyes. */
     public final BlockPos playerEyePos;
-    /**
-     * Flag indicating if it is precipitating
-     */
+    /** Flag indicating if it is precipitating */
     public final boolean isPrecipitating;
-    /**
-     * Current strength of precipitation.
-     */
+    /** Current strength of precipitation. */
     public final float precipitationStrength;
-    /**
-     * Coefficient used for dampening sound.  Usually caused by the player's head being in lava or water.
-     */
+    /** Coefficient used for dampening sound. Usually caused by the player's head being in lava or water. */
     public final float auralDampening;
-
+    
     public WorldContext() {
         if (GameUtils.isInGame()) {
             final World w = GameUtils.getWorld();
             this.world = w;
             assert world != null;
-
+            
             this.player = GameUtils.getPlayer();
             assert this.player != null;
-
+            
             this.isPrecipitating = w.isRaining();
             this.playerPosition = this.player.getPositionVec();
             this.playerEyePosition = this.player.getEyePosition(1F);
             this.playerPos = new BlockPos(this.playerPosition);
             this.playerEyePos = new BlockPos(this.playerEyePosition);
-
+            
             final Fluid fs = this.player.world.getFluidState(this.playerEyePos).getFluid();
             final ResourceLocation name = fs.getRegistryName();
             if (name != null)
                 this.auralDampening = AudioEffectLibrary.getFluidCoeffcient(name);
             else
                 this.auralDampening = 0;
-
+            
             // Get our current rain strength.
             this.precipitationStrength = WorldUtils.getRainStrength(w, 1F);
             this.mc = Minecraft.getInstance();
@@ -114,9 +94,9 @@ public final class WorldContext {
             this.precipitationStrength = 0F;
         }
     }
-
+    
     public boolean isNotValid() {
         return this.mc == null;
     }
-
+    
 }

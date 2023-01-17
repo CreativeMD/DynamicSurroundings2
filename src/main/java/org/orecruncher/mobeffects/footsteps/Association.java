@@ -32,40 +32,40 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class Association {
-
-	private final FootStrikeLocation location;
-	private IAcoustic data;
-
-	public Association(@Nonnull final LivingEntity entity, @Nonnull final IAcoustic association) {
-		final Vector3d vec = entity.getPositionVec();
-		this.location = new FootStrikeLocation(entity, vec.x, vec.y + 1, vec.z);
-		this.data = association;
-	}
-
-	public Association(@Nonnull final FootStrikeLocation pos, @Nonnull final IAcoustic association) {
-		this.location = pos;
-		this.data = association;
-	}
-
-	public void merge(@Nonnull final IAcoustic... acoustics) {
-		final IAcoustic[] t = new IAcoustic[1 + acoustics.length];
-		t[0] = this.data;
-		System.arraycopy(acoustics, 0, t, 1, acoustics.length);
-		this.data = AcousticCompiler.combine(t);
-	}
-
-	public void play(@Nonnull final AcousticEvent event) {
-		this.data.playAt(this.location.getStrikePosition(), event);
-	}
-
-	@Nonnull
-	public FootStrikeLocation getStrikeLocation() {
-		return this.location;
-	}
-
-	@Nonnull
-	public BlockPos getStepPos() {
-		return this.location.getStepPos();
-	}
-
+    
+    private final FootStrikeLocation location;
+    private IAcoustic data;
+    
+    public Association(@Nonnull final LivingEntity entity, @Nonnull final IAcoustic association) {
+        final Vector3d vec = entity.getPositionVec();
+        this.location = new FootStrikeLocation(entity, vec.x, vec.y + 1, vec.z);
+        this.data = association;
+    }
+    
+    public Association(@Nonnull final FootStrikeLocation pos, @Nonnull final IAcoustic association) {
+        this.location = pos;
+        this.data = association;
+    }
+    
+    public void merge(@Nonnull final IAcoustic... acoustics) {
+        final IAcoustic[] t = new IAcoustic[1 + acoustics.length];
+        t[0] = this.data;
+        System.arraycopy(acoustics, 0, t, 1, acoustics.length);
+        this.data = AcousticCompiler.combine(t);
+    }
+    
+    public void play(@Nonnull final AcousticEvent event) {
+        this.data.playAt(this.location.getStrikePosition(), event);
+    }
+    
+    @Nonnull
+    public FootStrikeLocation getStrikeLocation() {
+        return this.location;
+    }
+    
+    @Nonnull
+    public BlockPos getStepPos() {
+        return this.location.getStepPos();
+    }
+    
 }

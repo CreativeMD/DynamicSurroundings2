@@ -50,59 +50,55 @@ import net.minecraftforge.fml.network.FMLNetworkConstants;
 
 @Mod(Environs.MOD_ID)
 public final class Environs {
-
-    /**
-     * ID of the mod
-     */
+    
+    /** ID of the mod */
     public static final String MOD_ID = "environs";
-    /**
-     * Logging instance for trace
-     */
+    /** Logging instance for trace */
     public static final ModLog LOGGER = new ModLog(Environs.class);
-
+    
     public Environs() {
-
+        
         // Since we are 100% client side
         ModLoadingContext.get().registerExtensionPoint(ExtensionPoint.DISPLAYTEST, () -> Pair.of(() -> FMLNetworkConstants.IGNORESERVERONLY, (a, b) -> true));
-
+        
         if (FMLEnvironment.dist == Dist.CLIENT) {
             // Various event bus registrations
             FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
             FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
             MinecraftForge.EVENT_BUS.register(this);
-
+            
             // Initialize our configuration
             Config.setup();
-
+            
             ShaderPrograms.MANAGER.initShaders();
-
+            
             DynamicSurroundings.doConfigMenuSetup();
         }
     }
-
+    
     private void clientSetup(@Nonnull final FMLClientSetupEvent event) {
         // Disable Particles if configured to do so
         if (Config.CLIENT.effects.disableUnderwaterParticles.get())
             Minecraft.getInstance().particles.registerFactory(ParticleTypes.UNDERWATER, (IParticleFactory<BasicParticleType>) null);
     }
-
+    
     private void enqueueIMC(final InterModEnqueueEvent event) {
         IMC.registerSoundCategory(Constants.BIOMES);
         IMC.registerSoundCategory(Constants.SPOT_SOUNDS);
         IMC.registerSoundCategory(Constants.WATERFALL);
-
+        
         IMC.registerCompletionCallback(Libraries::initialize);
         IMC.registerCompletionCallback(Libraries::complete);
     }
-
+    
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public void clientConnect(@Nonnull final ClientPlayerNetworkEvent.LoggedInEvent event) {
         Manager.connect();
     }
-
+    
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public void clientDisconnect(@Nonnull final ClientPlayerNetworkEvent.LoggedOutEvent event) {
         Manager.disconnect();
     }
-
+    
 }

@@ -22,13 +22,13 @@ import javax.annotation.Nonnull;
 
 @SuppressWarnings("unused")
 public class BooleanField<T> extends ObjectField<T, Boolean> {
-
+    
     public BooleanField(@Nonnull final Class<T> clazz, @Nonnull final String... fieldName) {
         this(clazz, false, fieldName);
     }
-
+    
     public BooleanField(@Nonnull final Class<T> clazz, final boolean defaultValue, @Nonnull final String... fieldName) {
         super(clazz, () -> defaultValue, fieldName);
     }
-
+    
 }

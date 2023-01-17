@@ -18,47 +18,40 @@
 
 package org.orecruncher.lib.random;
 
-/**
- * Simple Linear congruential generator for integer psuedo random numbers.
+/** Simple Linear congruential generator for integer psuedo random numbers.
  * Intended to be fast. Limit is that it can only generate random numbers 0 -
- * 32K.
- */
+ * 32K. */
 @SuppressWarnings("unused")
 public final class LCGRandom {
-
+    
     private long v;
-
-    /**
-     * Creates and seeds an LCG using an integer from XorShiftRandom.
-     */
+    
+    /** Creates and seeds an LCG using an integer from XorShiftRandom. */
     public LCGRandom() {
         this(SplitMax.current().next());
     }
-
-    /**
-     * Creates and initializes an LCG generator using a seed value.
+    
+    /** Creates and initializes an LCG generator using a seed value.
      *
-     * @param seed Seed to initialize the LCG generator with
-     */
+     * @param seed
+     *            Seed to initialize the LCG generator with */
     public LCGRandom(final long seed) {
         this.v = seed;
     }
-
-    /**
-     * Generates a random number between 0 and the bound specified.
+    
+    /** Generates a random number between 0 and the bound specified.
      *
-     * @param bound upper bound of the random integer generated
-     * @return Pseudo random integer between 0 and bound
-     */
+     * @param bound
+     *            upper bound of the random integer generated
+     * @return Pseudo random integer between 0 and bound */
     public int nextInt(final int bound) {
         this.v = (2862933555777941757L * this.v + 3037000493L);
         return ((int) ((this.v >> 32) & 0x7FFFFFFF)) % bound;
     }
-
-    /**
-     * Generates a random boolean value.
-     * @return true or false
-     */
+    
+    /** Generates a random boolean value.
+     * 
+     * @return true or false */
     public boolean nextBool() {
         return this.nextInt(1) == 0;
     }

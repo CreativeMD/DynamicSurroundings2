@@ -23,35 +23,34 @@ import javax.annotation.Nonnull;
 import net.minecraftforge.fml.ModList;
 
 public enum ModEnvironment {
-
+    
     SoundPhysics("soundphysics"),
     SoundFilters("soundfilters"),
     SereneSeasons("sereneseasons"),
     ClothAPI("me.shedaniel.clothconfig2.forge.api.ConfigBuilder");
-
+    
     protected final String modId;
     protected boolean isLoaded;
-
+    
     ModEnvironment(@Nonnull final String modId) {
         this.modId = modId;
     }
-
+    
     static {
         for (final ModEnvironment me : ModEnvironment.values()) {
             me.isLoaded = ModList.get().isLoaded(me.modId.toLowerCase());
-
+            
             if (!me.isLoaded) {
                 try {
                     final Class<?> clazz = Class.forName(me.modId);
                     me.isLoaded = true;
-                } catch(@Nonnull Throwable ignore) {
-                }
+                } catch (@Nonnull Throwable ignore) {}
             }
         }
     }
-
+    
     public boolean isLoaded() {
         return this.isLoaded;
     }
-
+    
 }

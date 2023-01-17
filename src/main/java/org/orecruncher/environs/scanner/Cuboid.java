@@ -29,24 +29,24 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class Cuboid {
-
+    
     protected final BlockPos[] vertices = new BlockPos[8];
     protected final int volume;
     protected final BlockPos minPoint;
     protected final BlockPos maxPoint;
-
+    
     public Cuboid(@Nonnull final BlockPos[] points) {
         this(points[0], points[1]);
     }
-
+    
     public Cuboid(@Nonnull final BlockPos vx1, @Nonnull final BlockPos vx2) {
-
+        
         this.minPoint = BlockPosUtil.createMinPoint(vx1, vx2);
         this.maxPoint = BlockPosUtil.createMaxPoint(vx1, vx2);
-
+        
         final BlockPos t = this.maxPoint.subtract(this.minPoint);
         this.volume = t.getX() * t.getY() * t.getZ();
-
+        
         this.vertices[0] = this.minPoint;
         this.vertices[1] = this.maxPoint;
         this.vertices[2] = new BlockPos(this.minPoint.getX(), this.maxPoint.getY(), this.maxPoint.getZ());
@@ -56,25 +56,25 @@ public class Cuboid {
         this.vertices[6] = new BlockPos(this.minPoint.getX(), this.maxPoint.getY(), this.minPoint.getZ());
         this.vertices[7] = new BlockPos(this.maxPoint.getX(), this.maxPoint.getY(), this.minPoint.getZ());
     }
-
+    
     public boolean contains(@Nonnull final BlockPos p) {
         return BlockPosUtil.contains(p, this.minPoint, this.maxPoint);
     }
-
+    
     @Nonnull
     public BlockPos maximum() {
         return this.maxPoint;
     }
-
+    
     @Nonnull
     public BlockPos minimum() {
         return this.minPoint;
     }
-
+    
     public long volume() {
         return this.volume;
     }
-
+    
     @Nullable
     public Cuboid intersection(@Nonnull final Cuboid o) {
         BlockPos vx1 = null;
@@ -84,10 +84,10 @@ public class Cuboid {
                 break;
             }
         }
-
+        
         if (vx1 == null)
             return null;
-
+        
         BlockPos vx2 = null;
         for (final BlockPos vx : o.vertices) {
             if (contains(vx) && BlockPosUtil.canFormCuboid(vx, vx1)) {
@@ -95,8 +95,8 @@ public class Cuboid {
                 break;
             }
         }
-
+        
         return vx2 == null ? null : new Cuboid(vx1, vx2);
     }
-
+    
 }

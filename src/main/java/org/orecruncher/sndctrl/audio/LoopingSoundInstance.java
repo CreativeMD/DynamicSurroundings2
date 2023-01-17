@@ -31,78 +31,69 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class LoopingSoundInstance extends WrappedSoundInstance {
-
+    
     private final Vector3d position;
-
+    
     public LoopingSoundInstance(@Nonnull final ISoundInstance sound, @Nonnull final ISoundCategory category) {
         super(sound, category);
         this.position = null;
     }
-
+    
     public LoopingSoundInstance(@Nonnull final ISoundInstance sound) {
         super(sound);
         this.position = null;
     }
-
+    
     public LoopingSoundInstance(@Nonnull final ISoundInstance sound, @Nonnull final Vector3d position) {
         super(sound);
         this.position = position;
     }
-
+    
     @Override
     public boolean canRepeat() {
         return true;
     }
-
+    
     @Override
     public int getRepeatDelay() {
         return 0;
     }
-
+    
     @Override
     public int getPlayDelay() {
         return this.sound.getPlayDelay();
     }
-
+    
     @Override
     public void setPlayDelay(final int delay) {
         this.sound.setPlayDelay(delay);
     }
-
+    
     @Override
     public double getX() {
         return this.position != null ? (float) this.position.x : super.getX();
     }
-
+    
     @Override
     public double getY() {
         return this.position != null ? (float) this.position.y : super.getY();
     }
-
+    
     @Override
     public double getZ() {
         return this.position != null ? (float) this.position.z : super.getZ();
     }
-
+    
     @Override
     public AttenuationType getAttenuationType() {
         return AttenuationType.LINEAR;
     }
-
+    
     @Override
     @Nonnull
     public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .addValue(getSoundLocation().toString())
-                .addValue(getSoundCategory().toString())
-                .addValue(getState().toString())
-                .add("v", getVolume())
-                .add("ev", SoundInstance.getEffectiveVolume(this))
-                .add("p", getPitch())
-                .add("x", getX())
-                .add("y", getY())
-                .add("z", getZ())
-                .toString();
+        return MoreObjects.toStringHelper(this).addValue(getSoundLocation().toString()).addValue(getSoundCategory().toString()).addValue(getState().toString())
+                .add("v", getVolume()).add("ev", SoundInstance.getEffectiveVolume(this)).add("p", getPitch()).add("x", getX()).add("y", getY()).add("z", getZ()).toString();
     }
-
+    
 }

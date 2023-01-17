@@ -21,80 +21,56 @@ package org.orecruncher.sndctrl.audio;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-/**
- * Used by sounds that have long term state that gets manipulated
- * by the sound engine.  Intended to mitigate the constant polling
+/** Used by sounds that have long term state that gets manipulated
+ * by the sound engine. Intended to mitigate the constant polling
  * of the sound engine by mod logic to figure out what is happening
- * with a sound.
- */
+ * with a sound. */
 
 @OnlyIn(Dist.CLIENT)
 public enum SoundState {
-    /**
-     * The sound was just created.
-     */
+    /** The sound was just created. */
     NONE(false, false),
-    /**
-     * The sound is in the process of being evaluated for play.
-     */
+    /** The sound is in the process of being evaluated for play. */
     QUEUING(false, true),
-    /**
-     * Currently playing in the sound engine.
-     */
+    /** Currently playing in the sound engine. */
     PLAYING(true, false),
-    /**
-     * The sound is in the sound engine DELAYED queue waiting to play.
-     */
+    /** The sound is in the sound engine DELAYED queue waiting to play. */
     DELAYED(true, false),
-    /**
-     * The sound is in the process of being stopped.
-     */
+    /** The sound is in the process of being stopped. */
     STOPPING(true, false),
-    /**
-     * The sound has completed it play.
-     */
+    /** The sound has completed it play. */
     DONE(false, true),
-    /**
-     * The sound was blocked from playing because it was explicitly blocked or culled by SoundControl, some
+    /** The sound was blocked from playing because it was explicitly blocked or culled by SoundControl, some
      * other mod decided to kill the sound (like a sound muffler), or the calculated volume would be too low
-     * to be heard.
-     */
+     * to be heard. */
     BLOCKED(false, true),
-    /**
-     * The sound instance was replaced by another mod via the Forge hooks.  Mods that do volume scaling due to
-     * their game mechanics (blocks, items, etc.) recreate the sound with the adjusted parameters.  This is why
-     * SoundControl uses ASM to do volume scaling - the originating mod isn't aware that it is happening.
-     */
+    /** The sound instance was replaced by another mod via the Forge hooks. Mods that do volume scaling due to
+     * their game mechanics (blocks, items, etc.) recreate the sound with the adjusted parameters. This is why
+     * SoundControl uses ASM to do volume scaling - the originating mod isn't aware that it is happening. */
     REPLACED(false, true),
-    /**
-     * There was an error of some sort playing the sound.
-     */
+    /** There was an error of some sort playing the sound. */
     ERROR(false, true);
-
+    
     private final boolean isActive;
     private final boolean isTerminal;
-
+    
     SoundState(final boolean active, final boolean terminal) {
         this.isActive = active;
         this.isTerminal = terminal;
     }
-
-    /**
-     * A sound in this state is actively queued in the SoundManager.
+    
+    /** A sound in this state is actively queued in the SoundManager.
      *
-     * @return true if this is an active state; false otherwise
-     */
+     * @return true if this is an active state; false otherwise */
     public boolean isActive() {
         return this.isActive;
     }
-
-    /**
-     * A sound in this state is considered terminal. It was processed by the
+    
+    /** A sound in this state is considered terminal. It was processed by the
      * SoundManager and has reached a state where it has completed either because it
      * ran it's course or ended in error.
      *
-     * @return true if this is a terminal state; false otherwise
-     */
+     * @return true if this is a terminal state; false otherwise */
     public boolean isTerminal() {
         return this.isTerminal;
     }

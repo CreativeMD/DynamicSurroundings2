@@ -32,38 +32,35 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class AcousticEntry {
-
+    
     private final IAcoustic acoustic;
     private final String conditions;
-
+    
     public AcousticEntry(@Nonnull final IAcoustic acoustic, @Nullable final String condition) {
         this.acoustic = acoustic;
         this.conditions = condition != null ? condition : StringUtils.EMPTY;
     }
-
+    
     @Nonnull
     public IAcoustic getAcoustic() {
         return this.acoustic;
     }
-
+    
     @Nonnull
     public String getConditions() {
         return this.conditions;
     }
-
+    
     public boolean matches() {
         return ConditionEvaluator.INSTANCE.check(this.conditions);
     }
-
+    
     protected String getConditionsForLogging() {
         final String cond = getConditions();
         return cond.length() > 0 ? cond : "No Conditions";
     }
-
+    
     public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .addValue(getAcoustic().toString())
-                .addValue(getConditionsForLogging())
-                .toString();
+        return MoreObjects.toStringHelper(this).addValue(getAcoustic().toString()).addValue(getConditionsForLogging()).toString();
     }
 }

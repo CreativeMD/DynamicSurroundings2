@@ -36,81 +36,76 @@ import net.minecraft.world.IWorldReader;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-/**
- * Performs an area scan around the to calculate the relative weights of the
- * biomes in the local area.
- */
+/** Performs an area scan around the to calculate the relative weights of the
+ * biomes in the local area. */
 @OnlyIn(Dist.CLIENT)
 public final class BiomeScanner {
-
-	private static final int BIOME_SURVEY_RANGE = 18;
-	private static final int MAX_BIOME_AREA = (int) Math.pow(BIOME_SURVEY_RANGE * 2 + 1, 2);
-
-	private final BlockPos.Mutable mutable = new BlockPos.Mutable();
-
-	private int biomeArea;
-	private Reference2IntOpenHashMap<BiomeInfo> weights = new Reference2IntOpenHashMap<>(8);
-
-	// "Finger print" of the last area survey.
-	private BiomeInfo surveyedBiome = null;
-	private int surveyedDimension = 0;
-	private BlockPos surveyedPosition = BlockPos.ZERO;
-
-	public void tick() {
-		final BlockPos position = CommonState.getPlayerPosition();
-		final BiomeInfo playerBiome = CommonState.getPlayerBiome();
-		final int dimId = CommonState.getDimensionId();
-
-		if (this.surveyedBiome != playerBiome
-				|| this.surveyedDimension != dimId
-				|| this.surveyedPosition.compareTo(position) != 0
-				|| TickCounter.getTickCount() % 20 == 0) {
-
-			this.surveyedBiome = playerBiome;
-			this.surveyedDimension = dimId;
-			this.surveyedPosition = position;
-
-			this.biomeArea = 0;
-			this.weights = new Reference2IntOpenHashMap<>(8);
-
-			if (playerBiome.isFake()) {
-				this.biomeArea = 1;
-				this.weights.put(playerBiome, 1);
-			} else {
-				final IWorldReader provider = CommonState.getBlockReader();
-				for (int dZ = -BIOME_SURVEY_RANGE; dZ <= BIOME_SURVEY_RANGE; dZ++) {
-					for (int dX = -BIOME_SURVEY_RANGE; dX <= BIOME_SURVEY_RANGE; dX++) {
-						this.mutable.setPos(this.surveyedPosition.getX() + dX, 0, this.surveyedPosition.getZ() + dZ);
-						final Biome biome = BiomeUtilities.getClientBiome(this.mutable);
-						if (biome == null || biome.getRegistryName() == null) {
-							continue;
-						}
-						final BiomeInfo info = BiomeUtil.getBiomeData(biome);
-						this.weights.addTo(info, 1);
-					}
-				}
-				this.biomeArea = MAX_BIOME_AREA;
-			}
-
-			// Validate there are no duplicates in the list.
-			final Set<ResourceLocation> seen = new HashSet<>();
-			for (final Reference2IntMap.Entry<BiomeInfo> kvp : this.weights.reference2IntEntrySet()) {
-				final ResourceLocation location = kvp.getKey().getKey();
-				if (seen.contains(location)) {
-					Environs.LOGGER.debug("Duplicate entry detected: %s", location.toString());
-				} else {
-					seen.add(location);
-				}
-			}
-		}
-	}
-
-	public int getBiomeArea() {
-		return this.biomeArea;
-	}
-
-	public Reference2IntOpenHashMap<BiomeInfo> getBiomes() {
-		return this.weights;
-	}
-
+    
+    private static final int BIOME_SURVEY_RANGE = 18;
+    private static final int MAX_BIOME_AREA = (int) Math.pow(BIOME_SURVEY_RANGE * 2 + 1, 2);
+    
+    private final BlockPos.Mutable mutable = new BlockPos.Mutable();
+    
+    private int biomeArea;
+    private Reference2IntOpenHashMap<BiomeInfo> weights = new Reference2IntOpenHashMap<>(8);
+    
+    // "Finger print" of the last area survey.
+    private BiomeInfo surveyedBiome = null;
+    private int surveyedDimension = 0;
+    private BlockPos surveyedPosition = BlockPos.ZERO;
+    
+    public void tick() {
+        final BlockPos position = CommonState.getPlayerPosition();
+        final BiomeInfo playerBiome = CommonState.getPlayerBiome();
+        final int dimId = CommonState.getDimensionId();
+        
+        if (this.surveyedBiome != playerBiome || this.surveyedDimension != dimId || this.surveyedPosition.compareTo(position) != 0 || TickCounter.getTickCount() % 20 == 0) {
+            
+            this.surveyedBiome = playerBiome;
+            this.surveyedDimension = dimId;
+            this.surveyedPosition = position;
+            
+            this.biomeArea = 0;
+            this.weights = new Reference2IntOpenHashMap<>(8);
+            
+            if (playerBiome.isFake()) {
+                this.biomeArea = 1;
+                this.weights.put(playerBiome, 1);
+            } else {
+                final IWorldReader provider = CommonState.getBlockReader();
+                for (int dZ = -BIOME_SURVEY_RANGE; dZ <= BIOME_SURVEY_RANGE; dZ++) {
+                    for (int dX = -BIOME_SURVEY_RANGE; dX <= BIOME_SURVEY_RANGE; dX++) {
+                        this.mutable.setPos(this.surveyedPosition.getX() + dX, 0, this.surveyedPosition.getZ() + dZ);
+                        final Biome biome = BiomeUtilities.getClientBiome(this.mutable);
+                        if (biome == null || biome.getRegistryName() == null) {
+                            continue;
+                        }
+                        final BiomeInfo info = BiomeUtil.getBiomeData(biome);
+                        this.weights.addTo(info, 1);
+                    }
+                }
+                this.biomeArea = MAX_BIOME_AREA;
+            }
+            
+            // Validate there are no duplicates in the list.
+            final Set<ResourceLocation> seen = new HashSet<>();
+            for (final Reference2IntMap.Entry<BiomeInfo> kvp : this.weights.reference2IntEntrySet()) {
+                final ResourceLocation location = kvp.getKey().getKey();
+                if (seen.contains(location)) {
+                    Environs.LOGGER.debug("Duplicate entry detected: %s", location.toString());
+                } else {
+                    seen.add(location);
+                }
+            }
+        }
+    }
+    
+    public int getBiomeArea() {
+        return this.biomeArea;
+    }
+    
+    public Reference2IntOpenHashMap<BiomeInfo> getBiomes() {
+        return this.weights;
+    }
+    
 }

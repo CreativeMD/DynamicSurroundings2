@@ -26,20 +26,18 @@ import org.spongepowered.asm.mixin.Mixin;
 
 import net.minecraft.world.level.block.state.BlockState;
 
-/**
- * Simple mixin that adds a context field to BlockState where effect information for the block can be stored.
- */
+/** Simple mixin that adds a context field to BlockState where effect information for the block can be stored. */
 @Mixin(BlockState.class)
 public class MixinBlockState implements IMixinAudioEffectData {
-
+    
     private AudioEffectLibrary.EffectData sndctrl_data = null;
-
+    
     @Override
     @Nullable
     public AudioEffectLibrary.EffectData getData() {
         return this.sndctrl_data;
     }
-
+    
     @Override
     public void setData(@Nullable AudioEffectLibrary.EffectData data) {
         this.sndctrl_data = data;

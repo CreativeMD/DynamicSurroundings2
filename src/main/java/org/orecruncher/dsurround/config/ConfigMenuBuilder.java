@@ -35,76 +35,49 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class ConfigMenuBuilder extends ClothAPIFactory {
-
+    
     public ConfigMenuBuilder() {
         super(new TranslationTextComponent("dsurround.modname"), () -> {
-                    Config.SPEC.save();
-                    org.orecruncher.sndctrl.config.Config.SPEC.save();
-                    org.orecruncher.environs.config.Config.SPEC.save();
-                    org.orecruncher.mobeffects.config.Config.SPEC.save();
-                },
-                new ResourceLocation("minecraft:textures/block/cobblestone.png"));
+            Config.SPEC.save();
+            org.orecruncher.sndctrl.config.Config.SPEC.save();
+            org.orecruncher.environs.config.Config.SPEC.save();
+            org.orecruncher.mobeffects.config.Config.SPEC.save();
+        }, new ResourceLocation("minecraft:textures/block/cobblestone.png"));
     }
-
+    
     @Override
     protected void generate(@Nonnull final ConfigBuilder builder) {
         final ConfigEntryBuilder entryBuilder = builder.entryBuilder();
-
+        
         ConfigCategory category = createRootCategory(builder);
         SubCategoryBuilder modRoot = createSubCategory(entryBuilder, "dsurround.modname", TextFormatting.GOLD, false);
-
+        
         SubCategoryBuilder subCategory = createSubCategory(entryBuilder, "dsurround.cfg.logging", TextFormatting.YELLOW, false);
-
-        subCategory.add(
-                createBoolean(
-                        builder,
-                        Config.CLIENT.logging.onlineVersionCheck));
-
-        subCategory.add(
-                createBoolean(
-                        builder,
-                        Config.CLIENT.logging.enableLogging));
-
-        subCategory.add(
-                createInteger(
-                        builder,
-                        Config.CLIENT.logging.flagMask));
-
+        
+        subCategory.add(createBoolean(builder, Config.CLIENT.logging.onlineVersionCheck));
+        
+        subCategory.add(createBoolean(builder, Config.CLIENT.logging.enableLogging));
+        
+        subCategory.add(createInteger(builder, Config.CLIENT.logging.flagMask));
+        
         modRoot.add(subCategory.build());
-
+        
         subCategory = createSubCategory(entryBuilder, "dsurround.cfg.lightlevel", TextFormatting.YELLOW, false);
-
-        subCategory.add(
-                createEnumList(
-                        builder,
-                        LightLevelHUD.ColorSet.class,
-                        Config.CLIENT.lightLevel.colorSet));
-
-        subCategory.add(
-                createEnumList(
-                        builder,
-                        LightLevelHUD.Mode.class,
-                        Config.CLIENT.lightLevel.mode));
-
-        subCategory.add(
-                createInteger(
-                        builder,
-                        Config.CLIENT.lightLevel.range));
-
-        subCategory.add(
-                createInteger(
-                        builder,
-                        Config.CLIENT.lightLevel.lightSpawnThreshold));
-
-        subCategory.add(
-                createBoolean(
-                        builder,
-                        Config.CLIENT.lightLevel.hideSafe));
-
+        
+        subCategory.add(createEnumList(builder, LightLevelHUD.ColorSet.class, Config.CLIENT.lightLevel.colorSet));
+        
+        subCategory.add(createEnumList(builder, LightLevelHUD.Mode.class, Config.CLIENT.lightLevel.mode));
+        
+        subCategory.add(createInteger(builder, Config.CLIENT.lightLevel.range));
+        
+        subCategory.add(createInteger(builder, Config.CLIENT.lightLevel.lightSpawnThreshold));
+        
+        subCategory.add(createBoolean(builder, Config.CLIENT.lightLevel.hideSafe));
+        
         modRoot.add(subCategory.build());
-
+        
         category.addEntry(modRoot.build());
-
+        
         // Build child mod menus
         category.addEntry(org.orecruncher.sndctrl.config.ConfigGenerator.generate(builder, entryBuilder).build());
         category.addEntry(org.orecruncher.environs.config.ConfigGenerator.generate(builder, entryBuilder).build());

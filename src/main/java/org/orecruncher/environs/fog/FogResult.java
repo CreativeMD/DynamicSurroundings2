@@ -26,53 +26,53 @@ import net.minecraftforge.client.event.EntityViewRenderEvent;
 
 @OnlyIn(Dist.CLIENT)
 public final class FogResult {
-
+    
     public static final float DEFAULT_PLANE_SCALE = 0.75F;
-
+    
     private float start;
     private float end;
-
+    
     public FogResult() {
         this(0, 0);
     }
-
+    
     public FogResult(final float distance, final float scale) {
         this.set(distance, scale);
     }
-
+    
     public FogResult(@Nonnull final EntityViewRenderEvent.RenderFogEvent event) {
         this.set(event);
     }
-
+    
     public void setScaled(final float distance, final float scale) {
         this.start = distance * scale;
         this.end = distance;
     }
-
+    
     public void set(final float start, final float end) {
         this.start = start;
         this.end = end;
     }
-
+    
     public void set(@Nonnull final EntityViewRenderEvent.RenderFogEvent event) {
         this.setScaled(event.getFarPlaneDistance(), DEFAULT_PLANE_SCALE);
     }
-
+    
     public float getStart() {
         return this.start;
     }
-
+    
     public float getEnd() {
         return this.end;
     }
-
+    
     public boolean isValid(@Nonnull final EntityViewRenderEvent.RenderFogEvent event) {
         return this.end > this.start;
     }
-
+    
     @Override
     public String toString() {
         return String.format("[start: %f, end: %f]", this.start, this.end);
     }
-
+    
 }

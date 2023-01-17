@@ -28,41 +28,37 @@ import net.minecraft.core.BlockPos;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-/**
- * Serves up random blocks in an area around the player. Concentration of block
- * selections are closer to the player.
- */
+/** Serves up random blocks in an area around the player. Concentration of block
+ * selections are closer to the player. */
 @OnlyIn(Dist.CLIENT)
 public abstract class RandomScanner extends Scanner {
-
-	private final LCGRandom lcg = new LCGRandom();
-
-	private int playerX;
-	private int playerY;
-	private int playerZ;
-
-	public RandomScanner(@Nonnull final ScanContext locus, @Nonnull final String name, final int range,
-                         final int blocksPerTick) {
-		super(locus, name, range, blocksPerTick);
-	}
-
-	private int randomRange(final int range) {
-		return this.lcg.nextInt(range) - this.lcg.nextInt(range);
-	}
-
-	@Override
-	public void preScan() {
-		final BlockPos pos = this.locus.getCenter();
-		this.playerX = pos.getX();
-		this.playerY = pos.getY();
-		this.playerZ = pos.getZ();
-	}
-
-	@Override
-	@Nonnull
-	protected BlockPos nextPos(@Nonnull final BlockPos.Mutable workingPos, @Nonnull final Random rand) {
-		return workingPos.setPos(this.playerX + randomRange(this.xRange), this.playerY + randomRange(this.yRange),
-				this.playerZ + randomRange(this.zRange));
-	}
-
+    
+    private final LCGRandom lcg = new LCGRandom();
+    
+    private int playerX;
+    private int playerY;
+    private int playerZ;
+    
+    public RandomScanner(@Nonnull final ScanContext locus, @Nonnull final String name, final int range, final int blocksPerTick) {
+        super(locus, name, range, blocksPerTick);
+    }
+    
+    private int randomRange(final int range) {
+        return this.lcg.nextInt(range) - this.lcg.nextInt(range);
+    }
+    
+    @Override
+    public void preScan() {
+        final BlockPos pos = this.locus.getCenter();
+        this.playerX = pos.getX();
+        this.playerY = pos.getY();
+        this.playerZ = pos.getZ();
+    }
+    
+    @Override
+    @Nonnull
+    protected BlockPos nextPos(@Nonnull final BlockPos.Mutable workingPos, @Nonnull final Random rand) {
+        return workingPos.setPos(this.playerX + randomRange(this.xRange), this.playerY + randomRange(this.yRange), this.playerZ + randomRange(this.zRange));
+    }
+    
 }

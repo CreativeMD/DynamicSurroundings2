@@ -29,27 +29,27 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public enum Substrate {
-
-	NORMAL("normal"),
-	CARPET("carpet"),
-	FOLIAGE("foliage"),
-	MESSY("messy"),
-	FENCE("bigger");
-
-	private static final Map<String, Substrate> lookup = new Object2ObjectOpenHashMap<>();
-	static {
-		for (final Substrate s : Substrate.values())
-			lookup.put(s.name, s);
-	}
-
-	private final String name;
-
-	Substrate(@Nonnull final String name) {
-		this.name = name;
-	}
-
-	@Nonnull
-	public static Substrate get(@Nullable final String name) {
-		return StringUtils.isNullOrEmpty(name) ? Substrate.NORMAL : lookup.get(name);
-	}
+    
+    NORMAL("normal"),
+    CARPET("carpet"),
+    FOLIAGE("foliage"),
+    MESSY("messy"),
+    FENCE("bigger");
+    
+    private static final Map<String, Substrate> lookup = new Object2ObjectOpenHashMap<>();
+    static {
+        for (final Substrate s : Substrate.values())
+            lookup.put(s.name, s);
+    }
+    
+    private final String name;
+    
+    Substrate(@Nonnull final String name) {
+        this.name = name;
+    }
+    
+    @Nonnull
+    public static Substrate get(@Nullable final String name) {
+        return StringUtils.isNullOrEmpty(name) ? Substrate.NORMAL : lookup.get(name);
+    }
 }

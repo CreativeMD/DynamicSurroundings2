@@ -31,69 +31,65 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-/**
- * API Interface to the Acoustic Library that maintains a list of all acoustics.
- */
+/** API Interface to the Acoustic Library that maintains a list of all acoustics. */
 @OnlyIn(Dist.CLIENT)
 public final class Library {
     private Library() {
-
+        
     }
-
-    /**
-     * Resolves the provided name into a resource location.  The rules are:
+    
+    /** Resolves the provided name into a resource location. The rules are:
      *
-     * 1.  If the name is a fully qualified resource path it is used to create the ResourceLocation.
-     * 2.  If there is no namespace specified in the name, the defaultDomain is used as the namespace.
-     * 3.  If the name is prefixed with an @ it assumes the Minecraft domain.
+     * 1. If the name is a fully qualified resource path it is used to create the ResourceLocation.
+     * 2. If there is no namespace specified in the name, the defaultDomain is used as the namespace.
+     * 3. If the name is prefixed with an @ it assumes the Minecraft domain.
      *
-     * @param defaultDomain The namespace name to use if the name does not have that component.
-     * @param name The resource path to convert into a ResourceLocation.
-     * @return A ResourceLocation using the above rules.
-     */
-
+     * @param defaultDomain
+     *            The namespace name to use if the name does not have that component.
+     * @param name
+     *            The resource path to convert into a ResourceLocation.
+     * @return A ResourceLocation using the above rules. */
+    
     @Nonnull
     public static ResourceLocation resolveResource(@Nonnull final String defaultDomain, @Nonnull final String name) {
         return AcousticLibrary.resolveResource(defaultDomain, name);
     }
-
-    /**
-     * Finds the acoustic matching the specified ResourceLocation.
+    
+    /** Finds the acoustic matching the specified ResourceLocation.
      *
-     * @param acoustic The resource path of the desired acoustic.
-     * @return The acoustic corresponding the the resource path.
-     */
+     * @param acoustic
+     *            The resource path of the desired acoustic.
+     * @return The acoustic corresponding the the resource path. */
     @Nonnull
     public static IAcoustic resolve(@Nonnull final ResourceLocation acoustic) {
         return AcousticLibrary.resolve(acoustic);
     }
-
+    
     @Nonnull
     public static IAcoustic resolve(@Nonnull final ResourceLocation acousticName, @Nullable final String definition) {
         return resolve(acousticName, definition, false);
     }
-
+    
     @Nonnull
     public static IAcoustic resolve(@Nonnull final ResourceLocation acousticName, @Nullable final String definition, final boolean overwrite) {
         return AcousticLibrary.resolve(acousticName, definition, overwrite);
     }
-
+    
     @Nonnull
     public static IAcoustic resolve(@Nonnull final String namespace, @Nonnull String definition, @Nullable final Function<ResourceLocation, IAcoustic> acousticGenerator) {
         return AcousticLibrary.resolve(namespace, definition, acousticGenerator);
     }
-
+    
     @Nonnull
     public static IAcoustic resolve(@Nonnull final ResourceLocation acousticName, @Nonnull final ResourceLocation acousticDefinition, @Nullable final Function<ResourceLocation, IAcoustic> acousticGenerator) {
         return AcousticLibrary.resolve(acousticName, acousticDefinition, acousticGenerator);
     }
-
-    /**
-     * Finds the SoundEvent that corresponds to the specified resource path.
+    
+    /** Finds the SoundEvent that corresponds to the specified resource path.
      *
-     * @param sound The resource path of the sound to locate.
-     * @return SoundEvent instance that corresponds to the resource path
-     */
+     * @param sound
+     *            The resource path of the sound to locate.
+     * @return SoundEvent instance that corresponds to the resource path */
     @Nonnull
     public static Optional<SoundEvent> getSound(@Nonnull final ResourceLocation sound) {
         return SoundLibrary.getSound(sound);

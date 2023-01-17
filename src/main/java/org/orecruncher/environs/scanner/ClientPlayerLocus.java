@@ -26,14 +26,9 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class ClientPlayerLocus extends ScanContext {
-
-	public ClientPlayerLocus() {
-		super(
-				CommonState::getBlockReader,
-				CommonState::getPlayerPosition,
-				() -> Environs.LOGGER,
-				CommonState::getDimensionId
-		);
-	}
-
+    
+    public ClientPlayerLocus() {
+        super(CommonState::getBlockReader, CommonState::getPlayerPosition, () -> Environs.LOGGER, CommonState::getDimensionId);
+    }
+    
 }

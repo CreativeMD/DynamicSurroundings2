@@ -35,51 +35,52 @@ import net.minecraft.resources.ResourceLocation;
 
 public final class JsonUtils {
     private JsonUtils() {
-
+        
     }
-
-    /**
-     * Process the specified config file extracting data into a map based on the templated parameter.  The format of
+    
+    /** Process the specified config file extracting data into a map based on the templated parameter. The format of
      * the file is assumed to be a map.
      *
-     * @param location Location of the config file in the resource tree, typically modid:sounds.json.
-     * @param clazz    Class type of the configuration entity to revieve data for each element encountered
-     * @param <T>      Value type that is expected to be returned
-     * @return Map containing the necessary information.  If there was an error processing a null is returned.
-     */
+     * @param location
+     *            Location of the config file in the resource tree, typically modid:sounds.json.
+     * @param clazz
+     *            Class type of the configuration entity to revieve data for each element encountered
+     * @param <T>
+     *            Value type that is expected to be returned
+     * @return Map containing the necessary information. If there was an error processing a null is returned. */
     @Nonnull
     public static <T> Map<String, T> loadConfig(@Nonnull final ResourceLocation location, @Nonnull final Class<T> clazz) {
         Objects.requireNonNull(location);
         Objects.requireNonNull(clazz);
-
+        
         final String asset = String.format("/assets/%s/%s", location.getNamespace(), location.getPath());
         final ParameterizedType type = new ParameterizedType() {
             @Override
             public Type[] getActualTypeArguments() {
-                return new Type[]{String.class, clazz};
+                return new Type[] { String.class, clazz };
             }
-
+            
             @Override
             public Type getRawType() {
                 return Map.class;
             }
-
+            
             @Override
             @Nullable
             public Type getOwnerType() {
                 return null;
             }
         };
-
+        
         final Map<String, T> result = load(type, asset);
         return result != null ? result : ImmutableMap.of();
     }
-
+    
     @Nullable
     public static <T> T load(@Nonnull final Type type, @Nonnull final String path) {
         Objects.requireNonNull(type);
         Objects.requireNonNull(path);
-
+        
         try (final InputStream stream = JsonUtils.class.getResourceAsStream(path)) {
             if (stream != null)
                 return load(stream, type);
@@ -88,18 +89,18 @@ public final class JsonUtils {
         }
         return null;
     }
-
+    
     @Nonnull
     public static <T> T load(@Nonnull final ResourceLocation location, @Nonnull final Class<T> clazz) throws Exception {
         final String asset = String.format("/assets/%s/%s", location.getNamespace(), location.getPath());
         return load(asset, clazz);
     }
-
+    
     @Nonnull
     public static <T> T load(@Nonnull final String path, @Nonnull final Class<T> clazz) throws Exception {
         Objects.requireNonNull(clazz);
         Objects.requireNonNull(path);
-
+        
         try (final InputStream stream = clazz.getResourceAsStream(path)) {
             if (stream != null)
                 return load(stream, clazz);
@@ -108,12 +109,12 @@ public final class JsonUtils {
         }
         return clazz.newInstance();
     }
-
+    
     @Nonnull
     public static <T> T load(@Nonnull final InputStream stream, @Nonnull final Class<T> clazz) throws Exception {
         Objects.requireNonNull(stream);
         Objects.requireNonNull(clazz);
-
+        
         try (final InputStreamReader reader = new InputStreamReader(stream)) {
             return new Gson().fromJson(reader, clazz);
         } catch (final Throwable t) {
@@ -121,12 +122,12 @@ public final class JsonUtils {
         }
         return clazz.newInstance();
     }
-
+    
     @Nullable
     public static <T> T load(@Nonnull final InputStream stream, @Nonnull final Type type) {
         Objects.requireNonNull(stream);
         Objects.requireNonNull(type);
-
+        
         try (final InputStreamReader reader = new InputStreamReader(stream)) {
             return new Gson().fromJson(reader, type);
         } catch (final Throwable t) {
@@ -134,18 +135,18 @@ public final class JsonUtils {
         }
         return null;
     }
-
+    
     @Nullable
     public static <T> T load(@Nonnull final String source, @Nonnull final Type type) {
         Objects.requireNonNull(source);
         Objects.requireNonNull(type);
-
+        
         try {
             return new Gson().fromJson(source, type);
         } catch (final Throwable t) {
             Lib.LOGGER.error(t, "Unable to process Json from string");
         }
-
+        
         return null;
     }
 }

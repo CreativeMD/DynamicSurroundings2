@@ -36,17 +36,17 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public final class CommonState {
-
+    
     private static CommonState instance = new CommonState();
-
+    
     static CommonState getData() {
         return instance;
     }
-
+    
     static void reset() {
         instance = new CommonState();
     }
-
+    
     // State that is gathered from the various sources
     // to avoid requery. Used during the tick.
     Season season = Season.NONE;
@@ -58,91 +58,92 @@ public final class CommonState {
     BlockPos playerPosition = BlockPos.ZERO;
     Vector3d playerEyePosition = Vector3d.ZERO;
     float biomeTemperature = 0F;
-
+    
     boolean inside;
     boolean isUnderground;
     boolean isInSpace;
     boolean isInClouds;
     boolean isInVillage;
     int lightLevel;
-
+    
     DayCycle dayCycle = DayCycle.NO_SKY;
-
+    
     MinecraftClock clock = new MinecraftClock();
-
-    CommonState() {
-    }
-
+    
+    CommonState() {}
+    
     public static Season getSeason() {
         return instance.season;
     }
-
+    
     public static BiomeInfo getPlayerBiome() {
         return instance.playerBiome;
     }
-
+    
     public static BiomeInfo getTruePlayerBiome() {
         return instance.truePlayerBiome;
     }
-
+    
     public static int getDimensionId() {
         return instance.dimensionId;
     }
-
+    
     public static String getDimensioName() {
         return instance.dimensionName;
     }
-
+    
     public static DimensionInfo getDimensionInfo() {
         return instance.dimInfo;
     }
-
+    
     public static BlockPos getPlayerPosition() {
         return instance.playerPosition;
     }
-
-    public static Vector3d getPlayerEyePosition() { return instance.playerEyePosition; }
-
+    
+    public static Vector3d getPlayerEyePosition() {
+        return instance.playerEyePosition;
+    }
+    
     public static float getCurrentTemperature() {
         return instance.biomeTemperature;
     }
-
+    
     public static boolean isInside() {
         return instance.inside;
     }
-
+    
     public static boolean isUnderground() {
         return instance.isUnderground;
     }
-
+    
     public static boolean isInClouds() {
         return instance.isInClouds;
     }
-
+    
     public static boolean isInSpace() {
         return instance.isInSpace;
     }
-
+    
     public static boolean isInVillage() {
         return instance.isInVillage;
     }
-
+    
     public static int getLightLevel() {
         return instance.lightLevel;
     }
-
+    
     public static long getTick() {
         return TickCounter.getTickCount();
     }
-
+    
     public static DayCycle getDayCycle() {
         return instance.dayCycle;
     }
-
+    
     public static MinecraftClock getClock() {
         return instance.clock;
     }
-
+    
     public static IWorldReader getBlockReader() {
         return GameUtils.getWorld();
     }

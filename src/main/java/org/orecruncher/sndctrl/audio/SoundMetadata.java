@@ -39,28 +39,28 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public final class SoundMetadata {
-
+    
     private static final ITextComponent NO_STRING = StringTextComponent.EMPTY;
-
+    
     private final ITextComponent title;
     private final ITextComponent caption;
     private final ISoundCategory category;
     private final List<ITextComponent> credits;
-
+    
     public SoundMetadata() {
         this.title = NO_STRING;
         this.caption = NO_STRING;
         this.category = Category.NEUTRAL;
         this.credits = ImmutableList.of();
     }
-
+    
     public SoundMetadata(@Nonnull final SoundMetadataConfig cfg) {
         Objects.requireNonNull(cfg);
-
+        
         this.title = StringUtils.isEmpty(cfg.title) ? NO_STRING : new TranslationTextComponent(cfg.title);
         this.caption = StringUtils.isEmpty(cfg.caption) ? NO_STRING : new TranslationTextComponent(cfg.caption);
         this.category = Category.getCategory(cfg.category).orElse(Category.NEUTRAL);
-
+        
         if (cfg.credits == null || cfg.credits.size() == 0) {
             this.credits = ImmutableList.of();
         } else {
@@ -73,46 +73,38 @@ public final class SoundMetadata {
             }
         }
     }
-
-    /**
-     * Gets the title configured in sounds.json, or EMPTY if not present.
+    
+    /** Gets the title configured in sounds.json, or EMPTY if not present.
      *
-     * @return Configured title, or EMPTY if not present.
-     */
+     * @return Configured title, or EMPTY if not present. */
     @Nonnull
     public ITextComponent getTitle() {
         return this.title;
     }
-
-    /**
-     * Gets the caption (subtitle) configured in sounds.json, or EMPTY if not present.
+    
+    /** Gets the caption (subtitle) configured in sounds.json, or EMPTY if not present.
      *
-     * @return Configured caption, or EMPTY if not present.
-     */
+     * @return Configured caption, or EMPTY if not present. */
     @Nonnull
     public ITextComponent getCaption() {
         return this.caption;
     }
-
-    /**
-     * Gets the credits configured for the sound event in sounds.json, or an empty list if not present.
+    
+    /** Gets the credits configured for the sound event in sounds.json, or an empty list if not present.
      *
-     * @return List containing 0 or more strings describing the sound credits.
-     */
+     * @return List containing 0 or more strings describing the sound credits. */
     @Nonnull
     public List<ITextComponent> getCredits() {
         return this.credits;
     }
-
-    /**
-     * Gets the SoundCategory configured in the underlying sounds.json.  Note that this property has been
+    
+    /** Gets the SoundCategory configured in the underlying sounds.json. Note that this property has been
      * deprecated by Mojang, but it is kept for configuring Dynamic Surroundings sounds.
      *
-     * @return SoundCategory specified in the sound event metadata, or null if not present.
-     */
+     * @return SoundCategory specified in the sound event metadata, or null if not present. */
     @Nonnull
     public ISoundCategory getCategory() {
         return this.category;
     }
-
+    
 }

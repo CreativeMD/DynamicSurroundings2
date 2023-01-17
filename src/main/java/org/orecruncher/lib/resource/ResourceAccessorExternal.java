@@ -32,19 +32,19 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 final class ResourceAccessorExternal extends ResourceAccessorBase {
-
+    
     final Path filePath;
-
+    
     public ResourceAccessorExternal(@Nonnull final File root, @Nonnull final ResourceLocation location) {
         super(location);
         this.filePath = Paths.get(root.getPath(), location.getNamespace(), location.getPath());
     }
-
+    
     @Override
     public boolean exists() {
         return Files.exists(this.filePath);
     }
-
+    
     @Override
     @Nullable
     protected byte[] getAsset() {
@@ -55,7 +55,7 @@ final class ResourceAccessorExternal extends ResourceAccessorBase {
         }
         return null;
     }
-
+    
     @Override
     public String toString() {
         return String.format("%s (%s)", super.toString(), this.filePath);

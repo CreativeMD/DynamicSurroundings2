@@ -23,18 +23,18 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public interface IDiurnalCycle {
-
+    
     boolean isDay();
-
+    
     boolean isNight();
-
+    
     boolean isSunrise();
-
+    
     boolean isSunset();
-
+    
     boolean isAuroraVisible();
-
+    
     float getMoonPhaseFactor();
-
+    
     float getCelestialAngle();
 }

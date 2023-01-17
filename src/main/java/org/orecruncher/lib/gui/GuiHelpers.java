@@ -33,38 +33,35 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class GuiHelpers {
-
-    private final static String ELLIPSES =  "...";
-
-    /**
-     * Gets the text associated with the given language key that is formatted so that a line is <= the width
+    
+    private final static String ELLIPSES = "...";
+    
+    /** Gets the text associated with the given language key that is formatted so that a line is <= the width
      * specified.
      *
-     * @param key        Translation key for the associated text
-     * @param width      Maximum width of a line
-     * @param formatting Formatting to apply to each line
-     * @return Collection of ITextComponents for the given key
-     */
+     * @param key
+     *            Translation key for the associated text
+     * @param width
+     *            Maximum width of a line
+     * @param formatting
+     *            Formatting to apply to each line
+     * @return Collection of ITextComponents for the given key */
     public static Collection<ITextComponent> getTrimmedTextCollection(@Nonnull final String key, final int width, @Nullable final TextFormatting... formatting) {
         final Style style = prefixHelper(formatting);
-        return GameUtils.getMC().fontRenderer.getCharacterManager()
-                .func_238362_b_(
-                        new TranslationTextComponent(key),
-                        width,
-                        style)
-                .stream().map(e -> new StringTextComponent(e.getString()))
-                .collect(Collectors.toList());
+        return GameUtils.getMC().fontRenderer.getCharacterManager().func_238362_b_(new TranslationTextComponent(key), width, style).stream()
+                .map(e -> new StringTextComponent(e.getString())).collect(Collectors.toList());
     }
-
-    /**
-     * Gets the text associated with the given language key.  Text is truncated to the specified width and an
+    
+    /** Gets the text associated with the given language key. Text is truncated to the specified width and an
      * ellipses append if necessary.
      *
-     * @param key        Translation key for the associated text
-     * @param width      Maximum width of the text in GUI pixels
-     * @param formatting Formatting to apply to the text
-     * @return ITextComponent fitting the criteria specified
-     */
+     * @param key
+     *            Translation key for the associated text
+     * @param width
+     *            Maximum width of the text in GUI pixels
+     * @param formatting
+     *            Formatting to apply to the text
+     * @return ITextComponent fitting the criteria specified */
     public static ITextComponent getTrimmedText(@Nonnull final String key, final int width, @Nullable final TextFormatting... formatting) {
         final Style style = prefixHelper(formatting);
         final ITextComponent text = new TranslationTextComponent(key);
@@ -79,7 +76,7 @@ public class GuiHelpers {
         final ITextProperties str = cm.func_238358_a_(text, width, style);
         return new StringTextComponent(str.getString());
     }
-
+    
     private static Style prefixHelper(@Nullable final TextFormatting[] formatting) {
         final Style style;
         if (formatting != null && formatting.length > 0)

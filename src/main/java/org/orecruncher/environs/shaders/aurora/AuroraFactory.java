@@ -29,64 +29,59 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public final class AuroraFactory {
-
-	@Nonnull
-	public static IAurora produce(final long seed) {
-		return new AuroraShaderBand(seed);
-	}
-
-	/**
-	 * Preset geometry of an Aurora. A preset is selected by the server when an
-	 * Aurora spawns.
-	 */
-	public static final class AuroraGeometry {
-
-		public final int length;
-		public final float nodeLength;
-		public final float nodeWidth;
-		public final int alphaLimit;
-
-		private static final List<AuroraGeometry> PRESET = new ArrayList<>();
-
-		static {
-			// 10/5; 90/45
-			PRESET.add(new AuroraGeometry(128, 30.0F, 2.0F, 96));
-			PRESET.add(new AuroraGeometry(128, 15.0F, 2.0F, 96));
-			PRESET.add(new AuroraGeometry(64, 30.0F, 2.0F, 96));
-			PRESET.add(new AuroraGeometry(64, 15.0F, 2.0F, 96));
-
-			PRESET.add(new AuroraGeometry(128, 30.0F, 2.0F, 80));
-			PRESET.add(new AuroraGeometry(128, 15.0F, 2.0F, 80));
-			PRESET.add(new AuroraGeometry(64, 30.0F, 2.0F, 80));
-			PRESET.add(new AuroraGeometry(64, 15.0F, 2.0F, 80));
-
-			PRESET.add(new AuroraGeometry(128, 30.0F, 2.0F, 64));
-			PRESET.add(new AuroraGeometry(128, 15.0F, 2.0F, 64));
-			PRESET.add(new AuroraGeometry(64, 30.0F, 2.0F, 64));
-			PRESET.add(new AuroraGeometry(64, 15.0F, 2.0F, 64));
-		}
-
-		private AuroraGeometry(final int length, final float nodeLength, final float nodeWidth, final int alphaLimit) {
-			this.length = length;
-			this.nodeLength = nodeLength;
-			this.nodeWidth = nodeWidth;
-			this.alphaLimit = alphaLimit;
-		}
-
-		@Nonnull
-		public static AuroraGeometry get(@Nonnull final Random random) {
-			final int idx = random.nextInt(PRESET.size());
-			return PRESET.get(idx);
-		}
-
-		@Override
-		@Nonnull
-		public String toString() {
-			return "bandLength:" + this.length +
-					";nodeLength:" + this.nodeLength +
-					";nodeWidth:" + this.nodeWidth +
-					";alphaLimit:" + this.alphaLimit;
-		}
-	}
-
+    
+    @Nonnull
+    public static IAurora produce(final long seed) {
+        return new AuroraShaderBand(seed);
+    }
+    
+    /** Preset geometry of an Aurora. A preset is selected by the server when an
+     * Aurora spawns. */
+    public static final class AuroraGeometry {
+        
+        public final int length;
+        public final float nodeLength;
+        public final float nodeWidth;
+        public final int alphaLimit;
+        
+        private static final List<AuroraGeometry> PRESET = new ArrayList<>();
+        
+        static {
+            // 10/5; 90/45
+            PRESET.add(new AuroraGeometry(128, 30.0F, 2.0F, 96));
+            PRESET.add(new AuroraGeometry(128, 15.0F, 2.0F, 96));
+            PRESET.add(new AuroraGeometry(64, 30.0F, 2.0F, 96));
+            PRESET.add(new AuroraGeometry(64, 15.0F, 2.0F, 96));
+            
+            PRESET.add(new AuroraGeometry(128, 30.0F, 2.0F, 80));
+            PRESET.add(new AuroraGeometry(128, 15.0F, 2.0F, 80));
+            PRESET.add(new AuroraGeometry(64, 30.0F, 2.0F, 80));
+            PRESET.add(new AuroraGeometry(64, 15.0F, 2.0F, 80));
+            
+            PRESET.add(new AuroraGeometry(128, 30.0F, 2.0F, 64));
+            PRESET.add(new AuroraGeometry(128, 15.0F, 2.0F, 64));
+            PRESET.add(new AuroraGeometry(64, 30.0F, 2.0F, 64));
+            PRESET.add(new AuroraGeometry(64, 15.0F, 2.0F, 64));
+        }
+        
+        private AuroraGeometry(final int length, final float nodeLength, final float nodeWidth, final int alphaLimit) {
+            this.length = length;
+            this.nodeLength = nodeLength;
+            this.nodeWidth = nodeWidth;
+            this.alphaLimit = alphaLimit;
+        }
+        
+        @Nonnull
+        public static AuroraGeometry get(@Nonnull final Random random) {
+            final int idx = random.nextInt(PRESET.size());
+            return PRESET.get(idx);
+        }
+        
+        @Override
+        @Nonnull
+        public String toString() {
+            return "bandLength:" + this.length + ";nodeLength:" + this.nodeLength + ";nodeWidth:" + this.nodeWidth + ";alphaLimit:" + this.alphaLimit;
+        }
+    }
+    
 }

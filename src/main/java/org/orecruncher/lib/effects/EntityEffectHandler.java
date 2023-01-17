@@ -44,33 +44,29 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-/**
- * Central repository for a collection of IEntityEffectFactory instances and the
+/** Central repository for a collection of IEntityEffectFactory instances and the
  * IFactoryFilters associated with them. Typically there will be a single
  * instance of the EntityEffectLibrary for a project, but multiples can be
- * created based on the circumstances.
- */
+ * created based on the circumstances. */
 @Mod.EventBusSubscriber(modid = DynamicSurroundings.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public final class EntityEffectHandler {
-
+    
     private static final LoggingTimerEMA timer = new LoggingTimerEMA("Entity Effect Update");
     private static long nanos;
-
-    private EntityEffectHandler() {
-    }
-
+    
+    private EntityEffectHandler() {}
+    
     public static void initialize() {
         // Noop to cause class initializers to fire.
     }
-
-    /**
-     * Creates an EntityEffectHandler for the specified Entity. The IEffects
+    
+    /** Creates an EntityEffectHandler for the specified Entity. The IEffects
      * attached to the EntityEffectHandler is determined by an IFactoryFitler. An
      * EntityEffectHandler will always be created.
      *
-     * @param entity The subject Entity for which an EntityEffectHandler is created
-     * @return An EntityEffectHandler for the Entity
-     */
+     * @param entity
+     *            The subject Entity for which an EntityEffectHandler is created
+     * @return An EntityEffectHandler for the Entity */
     @Nonnull
     private static Optional<EntityEffectManager> create(@Nonnull final LivingEntity entity) {
         final ObjectArray<AbstractEntityEffect> effectToApply = EntityEffectLibrary.getEffects(entity);
@@ -80,20 +76,20 @@ public final class EntityEffectHandler {
         } else {
             result = new EntityEffectManager(entity);
         }
-
+        
         return Optional.of(result);
     }
-
+    
     @SubscribeEvent(receiveCanceled = true)
     public static void onLivingUpdate(@Nonnull final LivingEvent.LivingUpdateEvent event) {
         try {
             final LivingEntity entity = event.getEntityLiving();
             if (entity != null && entity.getEntityWorld().isRemote) {
-
+                
                 final IProfiler profiler = GameUtils.getMC().getProfiler();
                 profiler.startSection("MobEffects Living Update");
                 final long start = System.nanoTime();
-
+                
                 entity.getCapability(CapabilityEntityFXData.FX_INFO).ifPresent(cap -> {
                     final int range = Config.CLIENT.effects.effectRange.get();
                     final int effectDistSq = range * range;
@@ -107,27 +103,25 @@ public final class EntityEffectHandler {
                         mgr.update();
                     }
                 });
-
+                
                 nanos += System.nanoTime() - start;
                 profiler.endSection();
             }
-        } catch(@Nonnull final Throwable t) {
+        } catch (@Nonnull final Throwable t) {
             Lib.LOGGER.error(t, "Error ticking entity %s!");
         }
     }
-
+    
     private static void clearHandlers() {
         final Iterable<Entity> entities = GameUtils.getWorld().getAllEntities();
         for (final Entity e : entities) {
             e.getCapability(CapabilityEntityFXData.FX_INFO).ifPresent(IEntityFX::clear);
         }
     }
-
-    /**
-     * Check if the player joining the world is the one sitting at the keyboard. If
+    
+    /** Check if the player joining the world is the one sitting at the keyboard. If
      * so we need to wipe out the existing handler list because the dimension
-     * changed.
-     */
+     * changed. */
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void onEntityJoin(@Nonnull final EntityJoinWorldEvent event) {
         if (event.getWorld().isRemote) {
@@ -135,17 +129,17 @@ public final class EntityEffectHandler {
                 clearHandlers();
         }
     }
-
+    
     @SubscribeEvent
     public static void onClientTick(@Nonnull final TickEvent.ClientTickEvent event) {
         timer.update(nanos);
         nanos = 0;
     }
-
+    
     @SubscribeEvent
     public static void onDiagnostics(@Nonnull final DiagnosticEvent event) {
         if (Config.CLIENT.logging.enableLogging.get())
             event.getRenderTimers().add(timer);
     }
-
+    
 }

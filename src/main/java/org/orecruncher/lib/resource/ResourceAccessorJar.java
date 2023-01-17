@@ -30,19 +30,19 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 final class ResourceAccessorJar extends ResourceAccessorBase {
-
+    
     // Used to find assets within the current jar
     final String asset;
-
+    
     public ResourceAccessorJar(@Nonnull final String rootContainer, @Nonnull final ResourceLocation location) {
         this(location, String.format("/assets/%s/%s/%s", rootContainer, location.getNamespace(), location.getPath()));
     }
-
+    
     public ResourceAccessorJar(@Nonnull final ResourceLocation location, @Nonnull final String asset) {
         super(location);
         this.asset = asset;
     }
-
+    
     @Override
     protected byte[] getAsset() {
         try (InputStream stream = ResourceAccessorJar.class.getResourceAsStream(this.asset)) {
@@ -54,7 +54,7 @@ final class ResourceAccessorJar extends ResourceAccessorBase {
         }
         return null;
     }
-
+    
     @Override
     public String toString() {
         return String.format("%s (%s)", super.toString(), this.asset);

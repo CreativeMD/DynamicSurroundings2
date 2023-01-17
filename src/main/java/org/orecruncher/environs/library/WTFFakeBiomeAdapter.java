@@ -26,33 +26,33 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class WTFFakeBiomeAdapter extends FakeBiomeAdapter {
-
-	public WTFFakeBiomeAdapter() {
-		super("WTFJustHappened");
-	}
-
-	@Override
-	public Biome.RainType getPrecipitationType() {
-		return Biome.RainType.NONE;
-	}
-
-	@Override
-	public float getFloatTemperature(@Nonnull final BlockPos pos) {
-		return 0F;
-	}
-
-	@Override
-	public float getTemperature() {
-		return 0F;
-	}
-
-	@Override
-	public boolean isHighHumidity() {
-		return false;
-	}
-
-	@Override
-	public float getDownfall() {
-		return 0F;
-	}
+    
+    public WTFFakeBiomeAdapter() {
+        super("WTFJustHappened");
+    }
+    
+    @Override
+    public Biome.RainType getPrecipitationType() {
+        return Biome.RainType.NONE;
+    }
+    
+    @Override
+    public float getFloatTemperature(@Nonnull final BlockPos pos) {
+        return 0F;
+    }
+    
+    @Override
+    public float getTemperature() {
+        return 0F;
+    }
+    
+    @Override
+    public boolean isHighHumidity() {
+        return false;
+    }
+    
+    @Override
+    public float getDownfall() {
+        return 0F;
+    }
 }

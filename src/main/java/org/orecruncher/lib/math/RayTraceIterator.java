@@ -30,24 +30,24 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 
 public class RayTraceIterator implements Iterator<BlockRayTraceResult> {
-
+    
     @Nonnull
     private final BlockRayTrace traceContext;
     @Nonnull
     private final BlockPos targetBlock;
     @Nonnull
     private final Vector3d normal;
-
+    
     @Nullable
     private BlockRayTraceResult hitResult;
-
+    
     public RayTraceIterator(@Nonnull final BlockRayTrace traceContext) {
         this.traceContext = traceContext;
         this.targetBlock = new BlockPos(traceContext.end);
         this.normal = MathStuff.normalize(traceContext.start, traceContext.end);
         doTrace();
     }
-
+    
     private void doTrace() {
         if (this.hitResult != null && this.hitResult.getPos().equals(this.targetBlock)) {
             this.hitResult = null;
@@ -55,12 +55,12 @@ public class RayTraceIterator implements Iterator<BlockRayTraceResult> {
             this.hitResult = this.traceContext.trace();
         }
     }
-
+    
     @Override
     public boolean hasNext() {
         return this.hitResult != null && this.hitResult.getType() != RayTraceResult.Type.MISS;
     }
-
+    
     @Override
     @Nonnull
     public BlockRayTraceResult next() {
@@ -71,5 +71,5 @@ public class RayTraceIterator implements Iterator<BlockRayTraceResult> {
         doTrace();
         return result;
     }
-
+    
 }

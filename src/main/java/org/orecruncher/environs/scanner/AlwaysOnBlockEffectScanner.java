@@ -32,34 +32,32 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-/**
- * This guy scans a large area around the player looking for blocks to spawn
+/** This guy scans a large area around the player looking for blocks to spawn
  * "always on" effects such as waterfall splash and steam jets.
  *
  * The CuboidScanner tries to only scan new blocks that come into range as the
  * player moves. Once all the blocks are scanned in the region (cuboid) it will
- * stop. It will start again once the player moves location.
- */
+ * stop. It will start again once the player moves location. */
 @OnlyIn(Dist.CLIENT)
 public class AlwaysOnBlockEffectScanner extends CuboidScanner {
-
-	public AlwaysOnBlockEffectScanner(@Nonnull final ScanContext locus, final int range) {
-		super(locus, "AlwaysOnBlockEffectScanner", range, 0);
-	}
-
-	@Override
-	protected boolean interestingBlock(final BlockState state) {
-		return BlockStateUtil.getData(state).hasAlwaysOnEffects();
-	}
-
-	@Override
-	public void blockScan(@Nonnull final BlockState state, @Nonnull final BlockPos pos, @Nonnull final Random rand) {
-		final IBlockReader provider = this.locus.getWorld();
-		final Collection<BlockEffect> effects = BlockStateUtil.getData(state).getAlwaysOnEffects();
-		for (final BlockEffect be : effects) {
-			if (be.canTrigger(provider, state, pos, rand))
-				be.doEffect(provider, state, pos, rand);
- 		}
-	}
-
+    
+    public AlwaysOnBlockEffectScanner(@Nonnull final ScanContext locus, final int range) {
+        super(locus, "AlwaysOnBlockEffectScanner", range, 0);
+    }
+    
+    @Override
+    protected boolean interestingBlock(final BlockState state) {
+        return BlockStateUtil.getData(state).hasAlwaysOnEffects();
+    }
+    
+    @Override
+    public void blockScan(@Nonnull final BlockState state, @Nonnull final BlockPos pos, @Nonnull final Random rand) {
+        final IBlockReader provider = this.locus.getWorld();
+        final Collection<BlockEffect> effects = BlockStateUtil.getData(state).getAlwaysOnEffects();
+        for (final BlockEffect be : effects) {
+            if (be.canTrigger(provider, state, pos, rand))
+                be.doEffect(provider, state, pos, rand);
+        }
+    }
+    
 }

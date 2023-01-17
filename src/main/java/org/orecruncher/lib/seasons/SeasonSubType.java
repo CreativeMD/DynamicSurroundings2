@@ -27,22 +27,22 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 public enum SeasonSubType {
-
+    
     NONE("none"),
     EARLY("early"),
     MID("mid"),
     LATE("late");
-
+    
     private final String xlateKey;
-
+    
     SeasonSubType(@Nonnull final String key) {
         this.xlateKey = SoundControl.MOD_ID + ".season." + key;
     }
-
+    
     public String getTranslationKey() {
         return this.xlateKey;
     }
-
+    
     @OnlyIn(Dist.CLIENT)
     public String getFormattedText() {
         return Localization.load(this.xlateKey);

@@ -29,7 +29,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public final class BiomeUtil {
-
+    
     @Nonnull
     public static BiomeInfo getBiomeData(@Nonnull final Biome biome) {
         BiomeInfo result = ((IMixinBiomeData) (Object) biome).getInfo();
@@ -39,17 +39,17 @@ public final class BiomeUtil {
             if (forge != null) {
                 result = ((IMixinBiomeData) (Object) forge).getInfo();
             }
-
+            
             if (result == null) {
                 final BiomeAdapter handler = new BiomeAdapter(biome);
                 result = new BiomeInfo(handler);
             }
-
+            
             ((IMixinBiomeData) (Object) biome).setInfo(result);
         }
         return result;
     }
-
+    
     public static void setBiomeData(@Nonnull final Biome biome, @Nullable final BiomeInfo data) {
         ((IMixinBiomeData) (Object) biome).setInfo(data);
     }

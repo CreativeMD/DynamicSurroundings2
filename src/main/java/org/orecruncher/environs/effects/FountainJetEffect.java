@@ -34,28 +34,25 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class FountainJetEffect extends JetEffect {
-
+    
     public FountainJetEffect(final int chance) {
         super(chance);
     }
-
+    
     @Nonnull
     @Override
     public BlockEffectType getEffectType() {
         return BlockEffectType.FOUNTAIN;
     }
-
+    
     @Override
-    public boolean canTrigger(@Nonnull final IBlockReader provider, @Nonnull final BlockState state,
-                              @Nonnull final BlockPos pos, @Nonnull final Random random) {
+    public boolean canTrigger(@Nonnull final IBlockReader provider, @Nonnull final BlockState state, @Nonnull final BlockPos pos, @Nonnull final Random random) {
         return WorldUtils.isAirBlock(provider, pos.up()) && super.canTrigger(provider, state, pos, random);
     }
-
+    
     @Override
-    public void doEffect(@Nonnull final IBlockReader provider, @Nonnull final BlockState state,
-                         @Nonnull final BlockPos pos, @Nonnull final Random random) {
-        final Jet effect = new FountainJet(5, provider, pos.getX() + 0.5D, pos.getY() + 1.1D,
-                pos.getZ() + 0.5D, state);
+    public void doEffect(@Nonnull final IBlockReader provider, @Nonnull final BlockState state, @Nonnull final BlockPos pos, @Nonnull final Random random) {
+        final Jet effect = new FountainJet(5, provider, pos.getX() + 0.5D, pos.getY() + 1.1D, pos.getZ() + 0.5D, state);
         addEffect(effect);
     }
 }

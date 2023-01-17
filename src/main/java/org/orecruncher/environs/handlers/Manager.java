@@ -40,27 +40,27 @@ import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = Environs.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class Manager {
-
+    
     private static final IModLog LOGGER = Environs.LOGGER.createChild(Manager.class);
-
+    
     private static final Manager instance_ = new Manager();
     private static boolean isConnected = false;
-
+    
     public static Manager instance() {
         return instance_;
     }
-
+    
     private final ObjectArray<HandlerBase> effectHandlers = new ObjectArray<>();
-
+    
     private Manager() {
         init();
     }
-
+    
     private void register(@Nonnull final HandlerBase handler) {
         this.effectHandlers.add(handler);
         LOGGER.debug("Registered handler [%s]", handler.getClass().getName());
     }
-
+    
     private void init() {
         // This has to be first!
         register(new CommonStateHandler());
@@ -70,19 +70,19 @@ public class Manager {
         register(new AuroraHandler());
         register(new FogHandler());
     }
-
+    
     private void onConnect() {
         for (final HandlerBase h : this.effectHandlers)
             h.connect0();
         MinecraftForge.EVENT_BUS.register(this);
     }
-
+    
     private void onDisconnect() {
         MinecraftForge.EVENT_BUS.unregister(this);
         for (final HandlerBase h : this.effectHandlers)
             h.disconnect0();
     }
-
+    
     public static void connect() {
         if (isConnected) {
             LOGGER.warn("Attempt to initialize EffectManager when it is already initialized");
@@ -91,33 +91,33 @@ public class Manager {
         instance_.onConnect();
         isConnected = true;
     }
-
+    
     public static void disconnect() {
         if (isConnected) {
             instance_.onDisconnect();
             isConnected = false;
         }
     }
-
+    
     protected static PlayerEntity getPlayer() {
         return GameUtils.getPlayer();
     }
-
+    
     protected boolean checkReady(@Nonnull final TickEvent.ClientTickEvent event) {
         if (event.phase == TickEvent.Phase.END || Minecraft.getInstance().isGamePaused())
             return false;
         return GameUtils.isInGame();
     }
-
+    
     public void onTick(@Nonnull final TickEvent.ClientTickEvent event) {
         if (!checkReady(event))
             return;
-
+        
         final IProfiler profiler = GameUtils.getMC().getProfiler();
         profiler.startSection("Environs Client Tick");
-
+        
         final long tick = TickCounter.getTickCount();
-
+        
         for (final HandlerBase handler : this.effectHandlers) {
             profiler.startSection(handler.getHandlerName());
             final long mark = System.nanoTime();
@@ -126,16 +126,16 @@ public class Manager {
             handler.updateTimer(System.nanoTime() - mark);
             profiler.endSection();
         }
-
+        
         profiler.endSection();
     }
-
+    
     @SubscribeEvent
     public static void diagnosticEvent(@Nonnull final DiagnosticEvent event) {
         if (Config.CLIENT.logging.enableLogging.get())
             instance().effectHandlers.forEach(h -> event.addTimer(h.getTimer()));
     }
-
+    
     @SubscribeEvent(priority = EventPriority.HIGH)
     public static void clientTick(@Nonnull final TickEvent.ClientTickEvent event) {
         if (isConnected)

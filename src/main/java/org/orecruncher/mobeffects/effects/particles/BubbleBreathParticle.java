@@ -35,36 +35,36 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class BubbleBreathParticle  extends SpriteTexturedParticle {
+public class BubbleBreathParticle extends SpriteTexturedParticle {
     public BubbleBreathParticle(@Nonnull final LivingEntity entity, final boolean isDrowning) {
         super((ClientWorld) entity.getEntityWorld(), 0, 0, 0);
-
+        
         // Reuse the bubble sheet
         final IAnimatedSprite spriteSet = GameUtils.getMC().particles.sprites.get(ParticleTypes.BUBBLE.getRegistryName());
         this.selectSpriteRandomly(spriteSet);
-
+        
         final Vector3d origin = ParticleUtils.getBreathOrigin(entity);
         final Vector3d trajectory = ParticleUtils.getLookTrajectory(entity);
         final double factor = isDrowning ? 0.02D : 0.005D;
-
+        
         this.setPosition(origin.x, origin.y, origin.z);
         this.prevPosX = origin.x;
         this.prevPosY = origin.y;
         this.prevPosZ = origin.z;
-
+        
         this.motionX = trajectory.x * factor;
         this.motionY = trajectory.y * 0.002D;
         this.motionZ = trajectory.z * factor;
-
+        
         this.particleGravity = 0F;
-
+        
         this.setAlphaF(0.2F);
         this.setSize(0.02F, 0.02F);
         this.particleScale *= this.rand.nextFloat() * 0.6F + 0.2F;
         this.particleScale *= entity.isChild() ? 0.125F : 0.25F;
         this.maxAge = (int) (8.0D / (Math.random() * 0.8D + 0.2D));
     }
-
+    
     public void tick() {
         this.prevPosX = this.posX;
         this.prevPosY = this.posY;
@@ -82,7 +82,7 @@ public class BubbleBreathParticle  extends SpriteTexturedParticle {
             }
         }
     }
-
+    
     public IParticleRenderType getRenderType() {
         return IParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
     }

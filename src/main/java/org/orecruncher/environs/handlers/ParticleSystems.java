@@ -34,39 +34,39 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class ParticleSystems extends HandlerBase {
-
+    
     private static final Predicate<ParticleEmitter> STANDARD = system -> {
         system.tick();
         return !system.isAlive();
     };
-
+    
     ParticleSystems() {
         super("Particle Systems");
     }
-
+    
     private static ParticleSystems _instance = null;
-
+    
     private final Long2ObjectOpenHashMap<ParticleEmitter> systems = new Long2ObjectOpenHashMap<>(512);
     private BlockPos lastPos = BlockPos.ZERO;
-
+    
     @Override
     public boolean doTick(final long tick) {
         return this.systems.size() > 0;
     }
-
+    
     @Override
     public void process(@Nonnull final PlayerEntity player) {
         final BlockPos current = CommonState.getPlayerPosition();
         final boolean sittingStill = this.lastPos.equals(current);
         this.lastPos = current;
-
+        
         Predicate<ParticleEmitter> pred = STANDARD;
-
+        
         if (!sittingStill) {
             final double range = Config.CLIENT.effects.get_effectRange();
             final BlockPos min = new BlockPos(current.getX() - range, current.getY() - range, current.getZ() - range);
             final BlockPos max = new BlockPos(current.getX() + range, current.getY() + range, current.getZ() + range);
-
+            
             pred = system -> {
                 if (BlockPosUtil.notContains(system.getPos(), min, max)) {
                     system.setExpired();
@@ -76,30 +76,30 @@ public class ParticleSystems extends HandlerBase {
                 return !system.isAlive();
             };
         }
-
+        
         this.systems.values().removeIf(pred);
     }
-
+    
     @Override
     public void onConnect() {
         _instance = this;
         this.systems.clear();
     }
-
+    
     @Override
     public void onDisconnect() {
         this.systems.clear();
         _instance = null;
     }
-
+    
     // Determines if it is OK to spawn a particle system at the specified
     // location. Generally only a single system can occupy a block.
     public static boolean okToSpawn(@Nonnull final BlockPos pos) {
         return !_instance.systems.containsKey(pos.toLong());
     }
-
+    
     public static void add(@Nonnull final ParticleEmitter system) {
         _instance.systems.put(system.getPos().toLong(), system);
     }
-
+    
 }

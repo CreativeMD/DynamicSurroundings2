@@ -33,7 +33,7 @@ import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = MobEffects.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class HidePotionParticlesHandler {
-
+    
     @SubscribeEvent(priority = EventPriority.HIGH)
     public static void handler(@Nonnull final TickEvent.ClientTickEvent event) {
         if (Config.CLIENT.effects.hidePlayerPotionParticles.get() && GameUtils.isInGame()) {
@@ -42,4 +42,3 @@ public class HidePotionParticlesHandler {
         }
     }
 }
-

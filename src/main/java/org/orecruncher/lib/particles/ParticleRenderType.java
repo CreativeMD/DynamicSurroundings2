@@ -36,34 +36,34 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class ParticleRenderType implements IParticleRenderType {
-
+    
     private final ResourceLocation texture;
-
+    
     public ParticleRenderType(@Nonnull final ResourceLocation texture) {
         this.texture = texture;
     }
-
+    
     @Nonnull
     protected VertexFormat getVertexFormat() {
         return DefaultVertexFormats.PARTICLE_POSITION_TEX_COLOR_LMAP;
     }
-
+    
     @Override
     public void beginRender(@Nonnull final BufferBuilder buffer, @Nonnull final TextureManager textureManager) {
         RenderHelper.disableStandardItemLighting();
         textureManager.bindTexture(getTexture());
         buffer.begin(GL11.GL_QUADS, getVertexFormat());
     }
-
+    
     protected ResourceLocation getTexture() {
         return this.texture;
     }
-
+    
     @Override
     public void finishRender(@Nonnull final Tessellator tessellator) {
         tessellator.draw();
     }
-
+    
     @Override
     public String toString() {
         return this.texture.toString();

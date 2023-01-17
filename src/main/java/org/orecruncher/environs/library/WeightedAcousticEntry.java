@@ -31,30 +31,26 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class WeightedAcousticEntry extends AcousticEntry implements WeightTable.IItem<IAcoustic> {
-
+    
     private final int weight;
-
+    
     public WeightedAcousticEntry(@Nonnull final IAcoustic acoustic, @Nullable String conditions, final int weight) {
         super(acoustic, conditions);
         this.weight = weight;
     }
-
+    
     @Override
     public int getWeight() {
         return this.weight;
     }
-
+    
     @Override
     public IAcoustic getItem() {
         return getAcoustic();
     }
-
+    
     @Nonnull
     public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("weight", getWeight())
-                .addValue(getItem().toString())
-                .addValue(getConditionsForLogging())
-                .toString();
+        return MoreObjects.toStringHelper(this).add("weight", getWeight()).addValue(getItem().toString()).addValue(getConditionsForLogging()).toString();
     }
 }

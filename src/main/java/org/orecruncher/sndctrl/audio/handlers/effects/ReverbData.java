@@ -23,7 +23,7 @@ import org.lwjgl.openal.EXTEfx;
 import org.orecruncher.lib.math.MathStuff;
 
 public final class ReverbData extends EffectData {
-
+    
     // Defaults based on spec
     public float density = EXTEfx.AL_EAXREVERB_DEFAULT_DENSITY;
     public float diffusion = EXTEfx.AL_EAXREVERB_DEFAULT_DIFFUSION;
@@ -38,11 +38,11 @@ public final class ReverbData extends EffectData {
     public float airAbsorptionGainHF = EXTEfx.AL_EAXREVERB_DEFAULT_AIR_ABSORPTION_GAINHF;
     public float roomRolloffFactor = EXTEfx.AL_EAXREVERB_DEFAULT_ROOM_ROLLOFF_FACTOR;
     public int decayHFLimit = AL10.AL_TRUE;
-
+    
     public ReverbData() {
-
+        
     }
-
+    
     @Override
     public void clamp() {
         this.density = MathStuff.clamp(this.density, EXTEfx.AL_EAXREVERB_MIN_DENSITY, EXTEfx.AL_EAXREVERB_MAX_DENSITY);

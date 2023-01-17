@@ -34,19 +34,19 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public final class EffectConfig implements IValidator<EffectConfig> {
-
-	@SerializedName("effect")
-	public String effect = null;
-	@SerializedName("conditions")
-	public String conditions = StringUtils.EMPTY;
-	@SerializedName("chance")
-	public Integer chance = null;
-
-	@Override
-	public void validate(@Nonnull final EffectConfig obj) throws ValidationException {
-		ValidationHelpers.isEnumValue("effect", this.effect, BlockEffectType.class, Environs.LOGGER::warn);
-		if (this.chance != null)
-			// Min value of 0 means always on
-			ValidationHelpers.inRange("chance", this.chance, 0, Integer.MAX_VALUE, Environs.LOGGER::warn);
-	}
+    
+    @SerializedName("effect")
+    public String effect = null;
+    @SerializedName("conditions")
+    public String conditions = StringUtils.EMPTY;
+    @SerializedName("chance")
+    public Integer chance = null;
+    
+    @Override
+    public void validate(@Nonnull final EffectConfig obj) throws ValidationException {
+        ValidationHelpers.isEnumValue("effect", this.effect, BlockEffectType.class, Environs.LOGGER::warn);
+        if (this.chance != null)
+            // Min value of 0 means always on
+            ValidationHelpers.inRange("chance", this.chance, 0, Integer.MAX_VALUE, Environs.LOGGER::warn);
+    }
 }

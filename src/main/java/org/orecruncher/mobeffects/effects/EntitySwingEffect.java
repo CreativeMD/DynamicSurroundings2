@@ -43,32 +43,30 @@ import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = MobEffects.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class EntitySwingEffect extends AbstractEntityEffect {
-
+    
     // Grace for time between the right click being triggered and when the effect update happens
     private static final long RIGHT_CLICK_GRACE = 5;
-
+    
     private static final ResourceLocation NAME = new ResourceLocation(MobEffects.MOD_ID, "swing");
-    public static final FactoryHandler FACTORY = new FactoryHandler(
-            EntitySwingEffect.NAME,
-            entity -> new EntitySwingEffect());
-
+    public static final FactoryHandler FACTORY = new FactoryHandler(EntitySwingEffect.NAME, entity -> new EntitySwingEffect());
+    
     private static long lastRightClick;
     protected int swingProgress = 0;
     protected boolean isSwinging = false;
-
+    
     public EntitySwingEffect() {
         super(NAME);
     }
-
+    
     @Override
     public void update() {
-
+        
         final LivingEntity entity = getEntity();
-
+        
         // Boats are strange - ignore them for now
         if (entity.getRidingEntity() instanceof BoatEntity)
             return;
-
+        
         // Is the swing in motion
         if (entity.swingProgressInt > this.swingProgress && entity.swingingHand != null) {
             if (!this.isSwinging) {
@@ -83,29 +81,29 @@ public class EntitySwingEffect extends AbstractEntityEffect {
                     }
                 }
             }
-
+            
             this.isSwinging = true;
-
+            
         } else {
             this.isSwinging = false;
         }
-
+        
         this.swingProgress = entity.swingProgressInt;
     }
-
+    
     protected static boolean freeSwing(@Nonnull final LivingEntity entity) {
         final BlockRayTraceResult result = rayTraceBlock(entity);
         return result.getType() == RayTraceResult.Type.MISS;
     }
-
+    
     protected static double getReach(@Nonnull final LivingEntity entity) {
         if (entity instanceof PlayerEntity)
             return entity.getAttribute(ForgeMod.REACH_DISTANCE.get()).getValue();
-
+        
         // From EntityAIAttackMelee::getAttackReachSqr - approximate
         return entity.getWidth() * 2F + 0.6F; // 0.6 == default entity width
     }
-
+    
     protected static BlockRayTraceResult rayTraceBlock(@Nonnull final LivingEntity entity) {
         double range = getReach(entity);
         final Vector3d eyes = entity.getEyePosition(1F);
@@ -113,16 +111,16 @@ public class EntitySwingEffect extends AbstractEntityEffect {
         final Vector3d rangedLook = eyes.add(look.x * range, look.y * range, look.z * range);
         return entity.getEntityWorld().rayTraceBlocks(new RayTraceContext(eyes, rangedLook, RayTraceContext.BlockMode.OUTLINE, RayTraceContext.FluidMode.SOURCE_ONLY, entity));
     }
-
+    
     private boolean isClickOK(@Nonnull final LivingEntity entity) {
         return entity == GameUtils.getPlayer() && (lastRightClick < (TickCounter.getTickCount() - RIGHT_CLICK_GRACE));
     }
-
+    
     @SubscribeEvent
     public static void onRightClick(@Nonnull final PlayerInteractEvent.RightClickBlock event) {
         if (event.getSide() == LogicalSide.CLIENT) {
             lastRightClick = TickCounter.getTickCount();
         }
     }
-
+    
 }

@@ -32,26 +32,24 @@ import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-/**
- * Simple framework to register callbacks for whenever a player logs into a session.  These checks can be a
+/** Simple framework to register callbacks for whenever a player logs into a session. These checks can be a
  * check for updated versions of a mod, or other checks about runtime that the player may need to know about (like
- * mod conflicts).
- */
+ * mod conflicts). */
 @Mod.EventBusSubscriber(modid = DynamicSurroundings.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ClientLoginChecks {
-
+    
     private static final ObjectArray<ICallbackHandler> handlers = new ObjectArray<>();
-
+    
     public static void register(@Nonnull final ICallbackHandler handler) {
         handlers.add(handler);
     }
-
+    
     @SubscribeEvent
     public static void onLogin(@Nonnull final ClientPlayerNetworkEvent.LoggedInEvent event) {
         final ClientPlayerEntity player = event.getPlayer();
         if (player != null) {
             Lib.LOGGER.info("Player login: %s", event.getPlayer().getName().getString());
-
+            
             for (final ICallbackHandler callback : handlers) {
                 final ITextComponent msg = callback.onClientLogin(event.getPlayer());
                 if (msg != null)
@@ -59,16 +57,15 @@ public class ClientLoginChecks {
             }
         }
     }
-
+    
     @FunctionalInterface
     public interface ICallbackHandler {
-        /**
-         * Invoked by the login process.  The result, if provided, will be sent to the local chat window to
+        /** Invoked by the login process. The result, if provided, will be sent to the local chat window to
          * inform the player.
          *
-         * @param player The instance of the player that logged in
-         * @return Text message to display to the player, if any
-         */
+         * @param player
+         *            The instance of the player that logged in
+         * @return Text message to display to the player, if any */
         @Nullable
         ITextComponent onClientLogin(@Nonnull final ClientPlayerEntity player);
     }

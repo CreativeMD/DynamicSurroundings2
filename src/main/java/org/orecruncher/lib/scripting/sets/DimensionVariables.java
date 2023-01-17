@@ -31,22 +31,22 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class DimensionVariables extends VariableSet<IDimensionVariables> implements IDimensionVariables {
-
+    
     private String id;
     private String name;
     private boolean hasSky;
     private boolean isSuperFlat;
-
+    
     public DimensionVariables() {
         super("dim");
     }
-
+    
     @Nonnull
     @Override
     public IDimensionVariables getInterface() {
         return this;
     }
-
+    
     @Override
     public void update() {
         if (GameUtils.isInGame()) {
@@ -64,22 +64,22 @@ public class DimensionVariables extends VariableSet<IDimensionVariables> impleme
             this.isSuperFlat = false;
         }
     }
-
+    
     @Override
     public String getId() {
         return this.id;
     }
-
+    
     @Override
     public String getDimName() {
         return this.name;
     }
-
+    
     @Override
     public boolean hasSky() {
         return this.hasSky;
     }
-
+    
     @Override
     public boolean isSuperFlat() {
         return this.isSuperFlat;

@@ -37,26 +37,24 @@ import net.minecraftforge.fml.ModLoadingContext;
 
 @OnlyIn(Dist.CLIENT)
 public class ConfigGui {
-
+    
     public static void registerConfigGui(@Nonnull final BiFunction<Minecraft, Screen, Screen> factory) {
         final ModLoadingContext context = ModLoadingContext.get();
-        context.registerExtensionPoint(
-                ExtensionPoint.CONFIGGUIFACTORY,
-                () -> factory);
+        context.registerExtensionPoint(ExtensionPoint.CONFIGGUIFACTORY, () -> factory);
     }
-
+    
     public static class InstallClothGuiFactory implements BiFunction<Minecraft, Screen, Screen> {
-
+        
         // Resources for displaying info about getting ClothAPI
         private static final ITextComponent title = new TranslationTextComponent("dsurround.dialog.missingcloth.title");
         private static final ITextComponent description = new TranslationTextComponent("dsurround.dialog.missingcloth.description");
-
+        
         @Override
         public Screen apply(@Nonnull final Minecraft minecraft, @Nonnull final Screen screen) {
             return new InstallClothGui(screen, title, description);
         }
     }
-
+    
     // Swipe the disconnected from server dialog.  All this to replace the button resource...maybe I will fancy it
     // up with dancing creepers or something.
     private static class InstallClothGui extends Screen {
@@ -64,17 +62,17 @@ public class ConfigGui {
         private IBidiRenderer field_243289_b = IBidiRenderer.field_243257_a;
         private final Screen nextScreen;
         private int textHeight;
-
+        
         public InstallClothGui(Screen p_i242056_1_, ITextComponent p_i242056_2_, ITextComponent p_i242056_3_) {
             super(p_i242056_2_);
             this.nextScreen = p_i242056_1_;
             this.message = p_i242056_3_;
         }
-
+        
         public boolean shouldCloseOnEsc() {
             return false;
         }
-
+        
         protected void init() {
             this.field_243289_b = IBidiRenderer.func_243258_a(this.font, this.message, this.width - 50);
             this.textHeight = this.field_243289_b.func_241862_a() * 9;
@@ -82,7 +80,7 @@ public class ConfigGui {
                 this.minecraft.displayGuiScreen(this.nextScreen);
             }));
         }
-
+        
         public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
             this.renderBackground(matrixStack);
             drawCenteredString(matrixStack, this.font, this.title, this.width / 2, this.height / 2 - this.textHeight / 2 - 9 * 2, 11184810);

@@ -49,38 +49,35 @@ import net.minecraftforge.resource.VanillaResourceType;
 
 @Mod.EventBusSubscriber(modid = DynamicSurroundings.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public final class ModuleServiceManager implements ISelectiveResourceReloadListener {
-
+    
     private static final IModLog LOGGER = DynamicSurroundings.LOGGER.createChild(ModuleServiceManager.class);
-
+    
     private static final Singleton<ModuleServiceManager> instance = new Singleton<>(ModuleServiceManager::new);
-
+    
     private final ObjectArray<IModuleService> services = new ObjectArray<>();
     private boolean playerJoined = false;
     private boolean customTagsEventFired = false;
     private boolean vanillaTagsEventFired = false;
     private boolean reloadFired = false;
-
+    
     private ModuleServiceManager() {
         final IResourceManager resourceManager = GameUtils.getMC().getResourceManager();
         ((IReloadableResourceManager) resourceManager).addReloadListener(this);
     }
-
+    
     public static ModuleServiceManager instance() {
         return instance.get();
     }
-
-    /**
-     * Adds the service instance to the service manager.
+    
+    /** Adds the service instance to the service manager.
      *
-     * @param svc Service to add
-     */
+     * @param svc
+     *            Service to add */
     public void add(@Nonnull final IModuleService svc) {
         services.add(svc);
     }
-
-    /**
-     * Instructs configured services to reload configuration
-     */
+    
+    /** Instructs configured services to reload configuration */
     private void reload() {
         ForgeUtils.getEnabledResourcePacks().forEach(p -> {
             LOGGER.debug("Resource pack '%s'", p.getName());
@@ -90,14 +87,14 @@ public final class ModuleServiceManager implements ISelectiveResourceReloadListe
         performAction("reload", IModuleService::reload);
         this.services.forEach(IModuleService::log);
     }
-
-    /**
-     * Resource manager callback when resources change.  This can happen when a player alters the resource pack
+    
+    /** Resource manager callback when resources change. This can happen when a player alters the resource pack
      * list.
      *
-     * @param resourceManager   Ignored
-     * @param resourcePredicate Used to test which resource type is being reloaded
-     */
+     * @param resourceManager
+     *            Ignored
+     * @param resourcePredicate
+     *            Used to test which resource type is being reloaded */
     @Override
     public void onResourceManagerReload(@Nonnull final IResourceManager resourceManager, @Nonnull final Predicate<IResourceType> resourcePredicate) {
         // Reload based on sounds
@@ -107,28 +104,24 @@ public final class ModuleServiceManager implements ISelectiveResourceReloadListe
             this.reload();
         }
     }
-
+    
     private boolean readyForReload() {
         return this.playerJoined && (this.vanillaTagsEventFired || this.customTagsEventFired);
     }
-
+    
     private void reportStatus(@Nonnull final String msg) {
-        final String txt = String.format("%s (playerJoined: %b, reloadFired: %b, customTagsEventFired: %b, vanillaTagsEventFired: %b)",
-                msg,
-                this.playerJoined,
-                this.reloadFired,
-                this.customTagsEventFired,
-                this.vanillaTagsEventFired);
+        final String txt = String
+                .format("%s (playerJoined: %b, reloadFired: %b, customTagsEventFired: %b, vanillaTagsEventFired: %b)", msg, this.playerJoined, this.reloadFired, this.customTagsEventFired, this.vanillaTagsEventFired);
         LOGGER.info(txt);
     }
-
+    
     private void reloadIfReady() {
         if (!this.reloadFired && readyForReload()) {
             this.reloadFired = true;
             this.reload();
         }
     }
-
+    
     private void clearReloadState() {
         reportStatus("Clearing reload state");
         this.playerJoined = false;
@@ -136,7 +129,7 @@ public final class ModuleServiceManager implements ISelectiveResourceReloadListe
         this.customTagsEventFired = false;
         this.vanillaTagsEventFired = false;
     }
-
+    
     @SubscribeEvent
     public static void entityJoinWorld(@Nonnull final EntityJoinWorldEvent event) {
         final PlayerEntity player = GameUtils.getPlayer();
@@ -144,69 +137,68 @@ public final class ModuleServiceManager implements ISelectiveResourceReloadListe
             instance().joinWorld(event);
         }
     }
-
+    
     private void joinWorld(@Nonnull final EntityJoinWorldEvent ignore) {
         this.playerJoined = true;
         reportStatus("EntityJoinWorldEvent fired");
         this.reloadIfReady();
     }
-
+    
     @SubscribeEvent
     public static void onLoad(@Nonnull final TagsUpdatedEvent.VanillaTagTypes event) {
         instance().load(event);
     }
-
+    
     private void load(@Nonnull final TagsUpdatedEvent.VanillaTagTypes event) {
         this.vanillaTagsEventFired = true;
         TagUtils.setTagManager(event.getTagManager());
         reportStatus("TagsUpdatedEvent.VanillaTagTypes fired");
         this.reloadIfReady();
     }
-
+    
     @SubscribeEvent
     public static void load(@Nonnull final TagsUpdatedEvent.CustomTagTypes event) {
         instance().onLoad(event);
     }
-
+    
     private void onLoad(@Nonnull final TagsUpdatedEvent.CustomTagTypes event) {
         this.customTagsEventFired = true;
         TagUtils.setTagManager(event.getTagManager());
         reportStatus("TagsUpdatedEvent.CustomTagTypes fired");
         this.reloadIfReady();
     }
-
-    /**
-     * Causes the service stop phase to be invoked when a player logs out
+    
+    /** Causes the service stop phase to be invoked when a player logs out
      *
-     * @param event Event that is raised
-     */
+     * @param event
+     *            Event that is raised */
     @SubscribeEvent
     public static void onStop(@Nonnull final ClientPlayerNetworkEvent.LoggedOutEvent event) {
         instance().stop();
     }
-
+    
     private void stop() {
         performAction("stop", IModuleService::stop);
         TagUtils.clearTagManager();
         this.clearReloadState();
     }
-
+    
     private void performAction(@Nonnull final String actionName, @Nonnull final Consumer<IModuleService> action) {
-
+        
         LOGGER.info("Starting action '%s'", actionName);
-
+        
         long start = System.nanoTime();
-
+        
         final List<String> results = this.services.stream().map(svc -> {
             long begin = System.nanoTime();
             action.accept(svc);
             long duration = System.nanoTime() - begin;
             return String.format("Action '%s::%s' took %dmsecs", svc.name(), actionName, (long) (duration / 1000000D));
         }).collect(Collectors.toList());
-
+        
         long duration = System.nanoTime() - start;
         results.forEach(LOGGER::debug);
-
+        
         LOGGER.info("Overall Action '%s' took %dmsecs", actionName, (long) (duration / 1000000D));
     }
 }

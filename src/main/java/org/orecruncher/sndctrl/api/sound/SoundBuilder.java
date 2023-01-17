@@ -36,17 +36,15 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-/**
- * SoundBuilder is a factory object that produces ISoundInstances within the specified parameters.
- */
+/** SoundBuilder is a factory object that produces ISoundInstances within the specified parameters. */
 @SuppressWarnings("unused")
 @OnlyIn(Dist.CLIENT)
 public class SoundBuilder {
-
+    
     private static final Random RANDOM = XorShiftRandom.current();
-    private static final float[] volumeDelta = {-0.2F, 0.0F, 0.0F, 0.2F, 0.2F, 0.2F};
-    private static final float[] pitchDelta = {-0.2F, 0.0F, 0.0F, 0.2F, 0.2F, 0.2F};
-
+    private static final float[] volumeDelta = { -0.2F, 0.0F, 0.0F, 0.2F, 0.2F, 0.2F };
+    private static final float[] pitchDelta = { -0.2F, 0.0F, 0.0F, 0.2F, 0.2F, 0.2F };
+    
     @Nonnull
     private final SoundEvent soundEvent;
     @Nonnull
@@ -55,7 +53,7 @@ public class SoundBuilder {
     private Vector3d position = Vector3d.ZERO;
     @Nonnull
     private AttenuationType attenuation = AttenuationType.LINEAR;
-
+    
     private float volumeMin = 1F;
     private float volumeMax = 1F;
     private float pitchMin = 1F;
@@ -64,12 +62,12 @@ public class SoundBuilder {
     private int repeatDelayMin;
     private int repeatDelayMax;
     private boolean global;
-
+    
     private boolean variableVolume;
     private boolean variablePitch;
-
+    
     private int playDelay;
-
+    
     public SoundBuilder(@Nonnull final SoundBuilder builder) {
         this.soundEvent = builder.soundEvent;
         this.soundCategory = builder.soundCategory;
@@ -87,29 +85,29 @@ public class SoundBuilder {
         this.variablePitch = builder.variablePitch;
         this.playDelay = builder.playDelay;
     }
-
+    
     protected SoundBuilder(@Nonnull final SoundEvent evt) {
         this(evt, Category.NEUTRAL);
     }
-
+    
     protected SoundBuilder(@Nonnull final SoundEvent evt, @Nonnull final ISoundCategory cat) {
         Objects.requireNonNull(evt);
         Objects.requireNonNull(cat);
-
+        
         this.soundEvent = evt;
         this.soundCategory = cat;
     }
-
+    
     @Nonnull
     public static SoundBuilder builder(@Nonnull final SoundEvent evt) {
         return builder(evt, SoundLibrary.getSoundCategory(evt.getName(), Category.AMBIENT));
     }
-
+    
     @Nonnull
     public static SoundBuilder builder(@Nonnull final SoundEvent evt, @Nonnull final ISoundCategory cat) {
         return new SoundBuilder(evt, cat);
     }
-
+    
     @Nonnull
     public static SoundBuilder builder(@Nonnull final SoundInstance proto) {
         Objects.requireNonNull(proto);
@@ -117,16 +115,16 @@ public class SoundBuilder {
         final ISoundCategory sc = Category.getCategory(proto.getCategory()).orElseThrow(NullPointerException::new);
         return new SoundBuilder(se, sc).from(proto);
     }
-
+    
     @Nonnull
     public static SoundInstance create(@Nonnull final SoundEvent evt, @Nonnull final ISoundCategory cat) {
         return new SoundInstance(evt, cat);
     }
-
+    
     @Nonnull
     public static ISoundInstance createConfigPlay(@Nonnull final String name, final float volume) {
         Objects.requireNonNull(name);
-
+        
         final ResourceLocation resource = new ResourceLocation(name);
         final SoundEvent se = SoundLibrary.getSound(resource).orElseThrow(NullPointerException::new);
         final ISoundCategory cat = SoundLibrary.getSoundCategory(resource, Category.MASTER);
@@ -135,58 +133,56 @@ public class SoundBuilder {
         builder.setAttenuation(AttenuationType.NONE);
         return builder.build();
     }
-
+    
     @Nonnull
     public SoundBuilder from(@Nonnull final LocatableSound ps) {
         Objects.requireNonNull(ps);
-
+        
         this.soundCategory = Category.getCategory(ps.getCategory()).orElse(Category.MASTER);
         this.position = new Vector3d(ps.getX(), ps.getY(), ps.getZ());
         this.attenuation = ps.getAttenuationType();
         this.global = ps.isGlobal();
         this.repeatable = ps.canRepeat();
         this.repeatDelayMin = this.repeatDelayMax = ps.getRepeatDelay();
-
+        
         this.volumeMin = this.volumeMax = ps.volume;
         this.pitchMin = this.pitchMax = ps.pitch;
         return this;
     }
-
+    
     @Nonnull
     public ResourceLocation getResourceName() {
         return this.soundEvent.getName();
     }
-
+    
     @Nonnull
     public SoundBuilder setCategory(@Nonnull final ISoundCategory cat) {
         this.soundCategory = cat;
         return this;
     }
-
+    
     @Nonnull
     public SoundBuilder setPosition(final float x, final float y, final float z) {
         this.position = new Vector3d(x, y, z);
         return this;
     }
-
+    
     @Nonnull
     public SoundBuilder setPosition(@Nonnull final BlockPos pos) {
         Objects.requireNonNull(pos);
-
+        
         return setPosition(pos.getX() + 0.5F, pos.getY() + 0.5F, pos.getZ() + 0.5F);
     }
-
+    
     @Nonnull
     public SoundBuilder setPosition(@Nonnull final Vector3d pos) {
         Objects.requireNonNull(pos);
-
+        
         this.position = pos;
         return this;
     }
-
-    /**
-     * Sets the possible volume range for a sound instance.  Will disable variable volume setting.
-     */
+    
+    /** Sets the possible volume range for a sound instance. Will disable variable volume setting. */
     @Nonnull
     public SoundBuilder setVolumeRange(final float min, final float max) {
         this.volumeMin = MathStuff.min(min, max);
@@ -194,7 +190,7 @@ public class SoundBuilder {
         this.variableVolume = false;
         return this;
     }
-
+    
     @Nonnull
     public SoundBuilder setVariableVolume(final boolean f) {
         this.variableVolume = f;
@@ -202,10 +198,8 @@ public class SoundBuilder {
             this.volumeMax = this.volumeMin;
         return this;
     }
-
-    /**
-     * Sets the possible pitch range for a sound instance.  Will disable variable pitch setting.
-     */
+    
+    /** Sets the possible pitch range for a sound instance. Will disable variable pitch setting. */
     @Nonnull
     public SoundBuilder setPitchRange(final float min, final float max) {
         this.pitchMin = MathStuff.min(min, max);
@@ -213,7 +207,7 @@ public class SoundBuilder {
         this.variablePitch = false;
         return this;
     }
-
+    
     @Nonnull
     public SoundBuilder setVariablePitch(final boolean f) {
         this.variablePitch = f;
@@ -221,7 +215,7 @@ public class SoundBuilder {
             this.pitchMax = this.pitchMin;
         return this;
     }
-
+    
     @Nonnull
     public SoundBuilder setRepeateDelayRange(final int min, final int max) {
         this.repeatable = true;
@@ -229,13 +223,13 @@ public class SoundBuilder {
         this.repeatDelayMax = MathStuff.max(min, max);
         return this;
     }
-
+    
     @Nonnull
     public SoundBuilder setGlobal(final boolean flag) {
         this.global = flag;
         return this;
     }
-
+    
     private float getVolume() {
         if (Float.compare(this.volumeMin, this.volumeMax) == 0) {
             float result = this.volumeMin;
@@ -245,13 +239,13 @@ public class SoundBuilder {
         }
         return this.volumeMin + RANDOM.nextFloat() * (this.volumeMax - this.volumeMin);
     }
-
+    
     @Nonnull
     public SoundBuilder setVolume(final float v) {
         this.volumeMin = this.volumeMax = v;
         return this;
     }
-
+    
     private float getPitch() {
         if (Float.compare(this.pitchMin, this.pitchMax) == 0) {
             float result = this.pitchMin;
@@ -261,39 +255,39 @@ public class SoundBuilder {
         }
         return this.pitchMin + RANDOM.nextFloat() * (this.pitchMax - this.pitchMin);
     }
-
+    
     @Nonnull
     public SoundBuilder setPitch(final float p) {
         this.pitchMin = this.pitchMax = p;
         return this;
     }
-
+    
     private int getRepeatDelay() {
         if (this.repeatDelayMin == this.repeatDelayMax)
             return this.repeatDelayMin;
         return this.repeatDelayMin + RANDOM.nextInt(this.repeatDelayMax - this.repeatDelayMin + 1);
     }
-
+    
     @Nonnull
     public SoundBuilder setRepeatDelay(final int delay) {
         this.repeatable = true;
         this.repeatDelayMin = this.repeatDelayMax = delay;
         return this;
     }
-
+    
     @Nonnull
     public SoundBuilder setAttenuation(final AttenuationType type) {
         Objects.requireNonNull(type);
         this.attenuation = type;
         return this;
     }
-
+    
     @Nonnull
     public SoundBuilder setPlayDelay(final int delay) {
         this.playDelay = delay;
         return this;
     }
-
+    
     @Nonnull
     protected SoundInstance makeSound() {
         final SoundInstance sound = create(this.soundEvent, this.soundCategory);
@@ -303,20 +297,20 @@ public class SoundBuilder {
         sound.setRepeatDelay(this.getRepeatDelay());
         sound.setGlobal(this.global);
         sound.setPlayDelay(this.playDelay);
-
+        
         if (!this.global) {
             sound.setPosition(this.position);
             sound.setAttenuationType(this.attenuation);
         } else {
             sound.setAttenuationType(AttenuationType.NONE);
         }
-
+        
         return sound;
     }
-
+    
     @Nonnull
     public ISoundInstance build() {
         return makeSound();
     }
-
+    
 }

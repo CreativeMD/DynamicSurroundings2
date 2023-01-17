@@ -28,17 +28,16 @@ import javax.annotation.Nullable;
 import org.apache.commons.lang3.StringUtils;
 
 public final class Utilities {
-    private Utilities() {
-    }
-
-    /**
-     * Iterates through the parametesr to indentify the first non-null value and returns it.  If no parameters are
+    private Utilities() {}
+    
+    /** Iterates through the parametesr to indentify the first non-null value and returns it. If no parameters are
      * specified, or a non-null reference could not be found, an exception will be thrown.
      *
-     * @param objs Object references to evaluate
-     * @param <T>  Type of object
-     * @return Reference to the first non-null reference in the parameter list.
-     */
+     * @param objs
+     *            Object references to evaluate
+     * @param <T>
+     *            Type of object
+     * @return Reference to the first non-null reference in the parameter list. */
     @SafeVarargs
     @Nonnull
     public static <T> T firstNonNull(@Nullable final T... objs) {
@@ -48,41 +47,42 @@ public final class Utilities {
                     return o;
         throw new NullPointerException();
     }
-
+    
     @Nonnull
     public static <S, T> Optional<T> safeCast(@Nullable final S candidate, @Nonnull final Class<T> target) {
         return target.isInstance(candidate) ? Optional.of(target.cast(candidate)) : Optional.empty();
     }
-
+    
     public static int[] splitToInts(@Nonnull final String str, final char splitChar) {
-
+        
         final String[] tokens = StringUtils.split(str, splitChar);
         if (tokens == null || tokens.length == 0)
             return new int[0];
-
+        
         final int[] result = new int[tokens.length];
         for (int i = 0; i < tokens.length; i++) {
             result[i] = Integer.parseInt(tokens[i]);
         }
-
+        
         return result;
     }
-
+    
     @Nonnull
     public static <T> T[] append(@Nonnull final T[] a, @Nullable final T b) {
-
+        
         if (b == null)
             return a;
-
+        
         final int aLen = a.length;
-
-        @SuppressWarnings("unchecked") final T[] c = (T[]) Array.newInstance(a.getClass().getComponentType(), aLen + 1);
+        
+        @SuppressWarnings("unchecked")
+        final T[] c = (T[]) Array.newInstance(a.getClass().getComponentType(), aLen + 1);
         System.arraycopy(a, 0, c, 0, aLen);
         c[aLen] = b;
-
+        
         return c;
     }
-
+    
     public static String safeResourcePath(@Nonnull final String path) {
         return path.toLowerCase(Locale.ROOT).replaceAll("[^a-z0-9/._\\-]", ".");
     }

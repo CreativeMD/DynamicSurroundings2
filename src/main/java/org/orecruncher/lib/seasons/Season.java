@@ -28,59 +28,59 @@ import net.minecraft.world.World;
 import sereneseasons.api.season.ISeasonState;
 
 public enum Season {
-
+    
     NONE(SeasonType.NONE, SeasonSubType.NONE),
-
+    
     EARLY_SPRING(SeasonType.SPRING, SeasonSubType.EARLY),
     MID_SPRING(SeasonType.SPRING, SeasonSubType.MID),
     LATE_SPRING(SeasonType.SPRING, SeasonSubType.LATE),
-
+    
     EARLY_SUMMER(SeasonType.SUMMER, SeasonSubType.EARLY),
     MID_SUMMER(SeasonType.SUMMER, SeasonSubType.MID),
     LATE_SUMMER(SeasonType.SUMMER, SeasonSubType.LATE),
-
+    
     EARLY_AUTUMN(SeasonType.AUTUMN, SeasonSubType.EARLY),
     MID_AUTUMN(SeasonType.AUTUMN, SeasonSubType.MID),
     LATE_AUTUMN(SeasonType.AUTUMN, SeasonSubType.LATE),
-
+    
     EARLY_WINTER(SeasonType.WINTER, SeasonSubType.EARLY),
     MID_WINTER(SeasonType.WINTER, SeasonSubType.MID),
     LATE_WINTER(SeasonType.WINTER, SeasonSubType.LATE);
-
+    
     private static final String FORMAT_NONE = SoundControl.MOD_ID + ".season.noseason";
     private static final String FORMAT_STRING = SoundControl.MOD_ID + ".season.format";
     private static final ISeasonHelper SEASON_HELPER;
-
+    
     static {
         if (ModEnvironment.SereneSeasons.isLoaded())
             SEASON_HELPER = Season::getSereneSeason;
         else
             SEASON_HELPER = world -> Season.NONE;
     }
-
+    
     private final SeasonType season;
     private final SeasonSubType subType;
-
+    
     Season(@Nonnull final SeasonType type, @Nonnull final SeasonSubType subType) {
         this.season = type;
         this.subType = subType;
     }
-
+    
     @Nonnull
     public SeasonType getType() {
         return this.season;
     }
-
+    
     @Nonnull
     public SeasonSubType getSubType() {
         return this.subType;
     }
-
+    
     @Nonnull
     public static Season getSeason(@Nonnull final World world) {
         return SEASON_HELPER.getSeason(world);
     }
-
+    
     @Nonnull
     private static Season getSereneSeason(@Nonnull final World world) {
         Season season = Season.NONE;
@@ -125,23 +125,19 @@ public enum Season {
                     break;
             }
         }
-
+        
         return season;
     }
-
+    
     @Nonnull
     public String getFormattedText() {
         if (this.season == SeasonType.NONE) {
             return Localization.load(FORMAT_NONE);
         }
-
-        return Localization.format(
-                FORMAT_STRING,
-                this.subType.getFormattedText(),
-                this.season.getFormattedText()
-        );
+        
+        return Localization.format(FORMAT_STRING, this.subType.getFormattedText(), this.season.getFormattedText());
     }
-
+    
     private interface ISeasonHelper {
         Season getSeason(@Nonnull final World world);
     }

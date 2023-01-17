@@ -33,39 +33,39 @@ import net.minecraftforge.registries.tags.ITag;
 
 @OnlyIn(Dist.CLIENT)
 public final class TagUtils {
-
+    
     private TagUtils() {
-
+        
     }
-
+    
     private static ITagCollectionSupplier supplier;
-
+    
     public static void setTagManager(@Nonnull final ITagCollectionSupplier manager) {
         supplier = manager;
     }
-
+    
     public static void clearTagManager() {
         supplier = null;
     }
-
+    
     @Nullable
     public static ITag<Block> getBlockTag(@Nonnull final String name) {
         return getBlockTag(new ResourceLocation(name));
     }
-
+    
     @Nullable
     public static ITag<Block> getBlockTag(@Nonnull final ResourceLocation res) {
         if (supplier == null)
             return null;
         return supplier.getBlockTags().get(res);
     }
-
+    
     public static Stream<String> dumpBlockTags() {
         if (supplier == null)
             return ImmutableList.<String>of().stream();
-
+        
         final ITagCollection<Block> collection = supplier.getBlockTags();
-
+        
         return collection.getRegisteredTags().stream().map(loc -> {
             final StringBuilder builder = new StringBuilder();
             builder.append(loc.toString()).append(" -> ");

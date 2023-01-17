@@ -29,31 +29,31 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 abstract class ResourceAccessorBase implements IResourceAccessor {
-
+    
     private final ResourceLocation location;
     private final Singleton<byte[]> bytes;
-
+    
     public ResourceAccessorBase(@Nonnull final ResourceLocation location) {
         this.location = location;
         this.bytes = new Singleton<>(this::getAsset);
     }
-
+    
     @Override
     public ResourceLocation location() {
         return this.location;
     }
-
+    
     @Override
     public byte[] asBytes() {
         return this.bytes.get();
     }
-
+    
     @Nullable
     abstract protected byte[] getAsset();
-
+    
     @Override
     public String toString() {
         return this.location.toString();
     }
-
+    
 }

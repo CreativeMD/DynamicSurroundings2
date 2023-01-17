@@ -35,102 +35,55 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class ConfigGenerator {
-
+    
     @Nonnull
     public static SubCategoryBuilder generate(@Nonnull final ConfigBuilder builder, @Nonnull final ConfigEntryBuilder entryBuilder) {
-
+        
         SubCategoryBuilder modCategory = ClothAPIFactory.createSubCategory(entryBuilder, "sndctrl.modname", TextFormatting.GOLD, false);
-
+        
         SubCategoryBuilder subCategory = ClothAPIFactory.createSubCategory(entryBuilder, "sndctrl.cfg.logging", TextFormatting.YELLOW, false);
-        subCategory.add(
-                ClothAPIFactory.createBoolean(
-                        builder,
-                        Config.CLIENT.logging.enableLogging));
-
-        subCategory.add(
-                ClothAPIFactory.createInteger(
-                        builder,
-                        Config.CLIENT.logging.flagMask));
-
+        subCategory.add(ClothAPIFactory.createBoolean(builder, Config.CLIENT.logging.enableLogging));
+        
+        subCategory.add(ClothAPIFactory.createInteger(builder, Config.CLIENT.logging.flagMask));
+        
         modCategory.add(subCategory.build());
-
+        
         subCategory = ClothAPIFactory.createSubCategory(entryBuilder, "sndctrl.cfg.sound", TextFormatting.YELLOW, false);
-        subCategory.add(
-                ClothAPIFactory.createBoolean(
-                        builder,
-                        Config.CLIENT.sound.enableEnhancedSounds));
-
-        subCategory.add(
-                ClothAPIFactory.createBoolean(
-                        builder,
-                        Config.CLIENT.sound.enableHRTF));
-
-        subCategory.add(
-                ClothAPIFactory.createBoolean(
-                        builder,
-                        Config.CLIENT.sound.enableMonoConversion));
-
-        subCategory.add(
-                ClothAPIFactory.createIntegerSlider(
-                        builder,
-                        Config.CLIENT.sound.streamingSoundCount));
-
-        subCategory.add(
-                ClothAPIFactory.createBoolean(
-                        builder,
-                        Config.CLIENT.sound.enableOcclusionCalcs));
-
-        subCategory.add(
-                ClothAPIFactory.createBoolean(
-                        builder,
-                        Config.CLIENT.sound.occludeWeather));
-
-        subCategory.add(
-                ClothAPIFactory.createBoolean(
-                        builder,
-                        Config.CLIENT.sound.occludeRecords));
-
-        subCategory.add(
-                ClothAPIFactory.createInteger(
-                        builder,
-                        Config.CLIENT.sound.cullInterval));
-
-        subCategory.add(
-                ClothAPIFactory.createIntegerSlider(
-                        builder,
-                        Config.CLIENT.sound.backgroundThreadWorkers));
-
-        subCategory.add(
-                ClothAPIFactory.createStringList(
-                        builder,
-                        Config.CLIENT.sound.individualSounds,
-                        (v) -> {
-                            if (!IndividualSoundConfig.isValid(v))
-                                return Optional.of(new TranslationTextComponent("sndctrl.message.cfg.soundconfig.invalid"));
-                            return Optional.empty();
-                        }));
-
-        subCategory.add(
-                ClothAPIFactory.createStringList(
-                        builder,
-                        Config.CLIENT.sound.startupSoundList,
-                        null));
-
+        subCategory.add(ClothAPIFactory.createBoolean(builder, Config.CLIENT.sound.enableEnhancedSounds));
+        
+        subCategory.add(ClothAPIFactory.createBoolean(builder, Config.CLIENT.sound.enableHRTF));
+        
+        subCategory.add(ClothAPIFactory.createBoolean(builder, Config.CLIENT.sound.enableMonoConversion));
+        
+        subCategory.add(ClothAPIFactory.createIntegerSlider(builder, Config.CLIENT.sound.streamingSoundCount));
+        
+        subCategory.add(ClothAPIFactory.createBoolean(builder, Config.CLIENT.sound.enableOcclusionCalcs));
+        
+        subCategory.add(ClothAPIFactory.createBoolean(builder, Config.CLIENT.sound.occludeWeather));
+        
+        subCategory.add(ClothAPIFactory.createBoolean(builder, Config.CLIENT.sound.occludeRecords));
+        
+        subCategory.add(ClothAPIFactory.createInteger(builder, Config.CLIENT.sound.cullInterval));
+        
+        subCategory.add(ClothAPIFactory.createIntegerSlider(builder, Config.CLIENT.sound.backgroundThreadWorkers));
+        
+        subCategory.add(ClothAPIFactory.createStringList(builder, Config.CLIENT.sound.individualSounds, (v) -> {
+            if (!IndividualSoundConfig.isValid(v))
+                return Optional.of(new TranslationTextComponent("sndctrl.message.cfg.soundconfig.invalid"));
+            return Optional.empty();
+        }));
+        
+        subCategory.add(ClothAPIFactory.createStringList(builder, Config.CLIENT.sound.startupSoundList, null));
+        
         modCategory.add(subCategory.build());
-
+        
         subCategory = ClothAPIFactory.createSubCategory(entryBuilder, "sndctrl.cfg.effects", TextFormatting.YELLOW, false);
-        subCategory.add(
-                ClothAPIFactory.createBoolean(
-                        builder,
-                        Config.CLIENT.effects.fixupRandoms));
-
-        subCategory.add(
-                ClothAPIFactory.createIntegerSlider(
-                        builder,
-                        Config.CLIENT.effects.effectRange));
-
+        subCategory.add(ClothAPIFactory.createBoolean(builder, Config.CLIENT.effects.fixupRandoms));
+        
+        subCategory.add(ClothAPIFactory.createIntegerSlider(builder, Config.CLIENT.effects.effectRange));
+        
         modCategory.add(subCategory.build());
-
+        
         return modCategory;
     }
 }

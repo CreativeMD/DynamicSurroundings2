@@ -32,27 +32,21 @@ import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = SoundControl.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class Keys {
-
+    
     private static KeyBinding quickVolumeGui;
     private static KeyBinding soundConfigGui;
-
+    
     public static void register() {
-        quickVolumeGui = new KeyBinding(
-                "sndctrl.text.quickvolumemenu.open",
-                InputMappings.INPUT_INVALID.getKeyCode(),
-                "dsurround.text.controls.group");
+        quickVolumeGui = new KeyBinding("sndctrl.text.quickvolumemenu.open", InputMappings.INPUT_INVALID.getKeyCode(), "dsurround.text.controls.group");
         quickVolumeGui.setKeyModifierAndCode(KeyModifier.CONTROL, InputMappings.getInputByName("key.keyboard.v"));
-
-        soundConfigGui = new KeyBinding(
-                "sndctrl.text.soundconfig.open",
-                InputMappings.INPUT_INVALID.getKeyCode(),
-                "dsurround.text.controls.group");
+        
+        soundConfigGui = new KeyBinding("sndctrl.text.soundconfig.open", InputMappings.INPUT_INVALID.getKeyCode(), "dsurround.text.controls.group");
         soundConfigGui.setKeyModifierAndCode(KeyModifier.CONTROL, InputMappings.getInputByName("key.keyboard.i"));
-
+        
         ClientRegistry.registerKeyBinding(quickVolumeGui);
         ClientRegistry.registerKeyBinding(soundConfigGui);
     }
-
+    
     @SubscribeEvent
     public static void keyPressed(InputEvent.KeyInputEvent event) {
         if (GameUtils.getMC().currentScreen == null && GameUtils.getPlayer() != null) {

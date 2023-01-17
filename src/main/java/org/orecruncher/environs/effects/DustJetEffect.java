@@ -34,28 +34,25 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class DustJetEffect extends JetEffect {
-
+    
     public DustJetEffect(final int chance) {
         super(chance);
     }
-
+    
     @Nonnull
     @Override
     public BlockEffectType getEffectType() {
         return BlockEffectType.DUST;
     }
-
+    
     @Override
-    public boolean canTrigger(@Nonnull final IBlockReader provider, @Nonnull final BlockState state,
-                              @Nonnull final BlockPos pos, @Nonnull final Random random) {
+    public boolean canTrigger(@Nonnull final IBlockReader provider, @Nonnull final BlockState state, @Nonnull final BlockPos pos, @Nonnull final Random random) {
         return WorldUtils.isAirBlock(provider, pos.down()) && super.canTrigger(provider, state, pos, random);
     }
-
+    
     @Override
-    public void doEffect(@Nonnull final IBlockReader provider, @Nonnull final BlockState state,
-                         @Nonnull final BlockPos pos, @Nonnull final Random random) {
-        final Jet effect = new DustJet(2, provider, pos.getX() + 0.5D, pos.getY() - 0.2D,
-                pos.getZ() + 0.5D, state);
+    public void doEffect(@Nonnull final IBlockReader provider, @Nonnull final BlockState state, @Nonnull final BlockPos pos, @Nonnull final Random random) {
+        final Jet effect = new DustJet(2, provider, pos.getX() + 0.5D, pos.getY() - 0.2D, pos.getZ() + 0.5D, state);
         addEffect(effect);
     }
 }

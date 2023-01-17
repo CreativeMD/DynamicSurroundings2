@@ -32,173 +32,86 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class ConfigGenerator {
-
+    
     @Nonnull
     public static SubCategoryBuilder generate(@Nonnull final ConfigBuilder builder, @Nonnull final ConfigEntryBuilder entryBuilder) {
-
+        
         SubCategoryBuilder modCategory = ClothAPIFactory.createSubCategory(entryBuilder, "environs.modname", TextFormatting.GOLD, false);
-
+        
         SubCategoryBuilder subCategory = ClothAPIFactory.createSubCategory(entryBuilder, "environs.cfg.logging", TextFormatting.YELLOW, false);
-        subCategory.add(
-                ClothAPIFactory.createBoolean(
-                        builder,
-                        Config.CLIENT.logging.enableLogging));
-
-        subCategory.add(
-                ClothAPIFactory.createInteger(
-                        builder,
-                        Config.CLIENT.logging.flagMask));
-
+        subCategory.add(ClothAPIFactory.createBoolean(builder, Config.CLIENT.logging.enableLogging));
+        
+        subCategory.add(ClothAPIFactory.createInteger(builder, Config.CLIENT.logging.flagMask));
+        
         modCategory.add(subCategory.build());
-
+        
         subCategory = ClothAPIFactory.createSubCategory(entryBuilder, "environs.cfg.biomes", TextFormatting.YELLOW, false);
-        subCategory.add(
-                ClothAPIFactory.createInteger(
-                        builder,
-                        Config.CLIENT.biome.worldSealevelOverride));
-
-        subCategory.add(
-                ClothAPIFactory.createStringList(
-                        builder,
-                        Config.CLIENT.biome.biomeSoundBlacklist,
-                        null));
-
+        subCategory.add(ClothAPIFactory.createInteger(builder, Config.CLIENT.biome.worldSealevelOverride));
+        
+        subCategory.add(ClothAPIFactory.createStringList(builder, Config.CLIENT.biome.biomeSoundBlacklist, null));
+        
         modCategory.add(subCategory.build());
-
+        
         subCategory = ClothAPIFactory.createSubCategory(entryBuilder, "environs.cfg.effects", TextFormatting.YELLOW, false);
-        subCategory.add(
-                ClothAPIFactory.createBoolean(
-                        builder,
-                        Config.CLIENT.effects.enableFireFlies));
-
-        subCategory.add(
-                ClothAPIFactory.createBoolean(
-                        builder,
-                        Config.CLIENT.effects.enableSteamJets));
-
-        subCategory.add(
-                ClothAPIFactory.createBoolean(
-                        builder,
-                        Config.CLIENT.effects.enableFireJets));
-
-        subCategory.add(
-                ClothAPIFactory.createBoolean(
-                        builder,
-                        Config.CLIENT.effects.enableBubbleJets));
-
-        subCategory.add(
-                ClothAPIFactory.createBoolean(
-                        builder,
-                        Config.CLIENT.effects.enableDustJets));
-
-        subCategory.add(
-                ClothAPIFactory.createBoolean(
-                        builder,
-                        Config.CLIENT.effects.enableFountainJets));
-
-        subCategory.add(
-                ClothAPIFactory.createBoolean(
-                        builder,
-                        Config.CLIENT.effects.disableUnderwaterParticles));
-
-        subCategory.add(
-                ClothAPIFactory.createBoolean(
-                        builder,
-                        Config.CLIENT.effects.enableWaterfalls));
-
-        subCategory.add(
-                ClothAPIFactory.createIntegerSlider(
-                        builder,
-                        Config.CLIENT.effects.waterfallCutoff
-                ));
-
-        subCategory.add(
-                ClothAPIFactory.createBoolean(
-                        builder,
-                        Config.CLIENT.effects.enableWaterRipples));
-
-        subCategory.add(
-                ClothAPIFactory.createEnumList(
-                        builder,
-                        RippleStyle.class,
-                        Config.CLIENT.effects.waterRippleStyle));
-
+        subCategory.add(ClothAPIFactory.createBoolean(builder, Config.CLIENT.effects.enableFireFlies));
+        
+        subCategory.add(ClothAPIFactory.createBoolean(builder, Config.CLIENT.effects.enableSteamJets));
+        
+        subCategory.add(ClothAPIFactory.createBoolean(builder, Config.CLIENT.effects.enableFireJets));
+        
+        subCategory.add(ClothAPIFactory.createBoolean(builder, Config.CLIENT.effects.enableBubbleJets));
+        
+        subCategory.add(ClothAPIFactory.createBoolean(builder, Config.CLIENT.effects.enableDustJets));
+        
+        subCategory.add(ClothAPIFactory.createBoolean(builder, Config.CLIENT.effects.enableFountainJets));
+        
+        subCategory.add(ClothAPIFactory.createBoolean(builder, Config.CLIENT.effects.disableUnderwaterParticles));
+        
+        subCategory.add(ClothAPIFactory.createBoolean(builder, Config.CLIENT.effects.enableWaterfalls));
+        
+        subCategory.add(ClothAPIFactory.createIntegerSlider(builder, Config.CLIENT.effects.waterfallCutoff));
+        
+        subCategory.add(ClothAPIFactory.createBoolean(builder, Config.CLIENT.effects.enableWaterRipples));
+        
+        subCategory.add(ClothAPIFactory.createEnumList(builder, RippleStyle.class, Config.CLIENT.effects.waterRippleStyle));
+        
         modCategory.add(subCategory.build());
-
+        
         subCategory = ClothAPIFactory.createSubCategory(entryBuilder, "environs.cfg.aurora", TextFormatting.YELLOW, false);
-        subCategory.add(
-                ClothAPIFactory.createBoolean(
-                        builder,
-                        Config.CLIENT.aurora.auroraEnabled));
-
-        subCategory.add(
-                ClothAPIFactory.createIntegerSlider(
-                        builder,
-                        Config.CLIENT.aurora.maxBands));
-
+        subCategory.add(ClothAPIFactory.createBoolean(builder, Config.CLIENT.aurora.auroraEnabled));
+        
+        subCategory.add(ClothAPIFactory.createIntegerSlider(builder, Config.CLIENT.aurora.maxBands));
+        
         modCategory.add(subCategory.build());
-
+        
         subCategory = ClothAPIFactory.createSubCategory(entryBuilder, "environs.cfg.fog", TextFormatting.YELLOW, false);
-        subCategory.add(
-                ClothAPIFactory.createBoolean(
-                        builder,
-                        Config.CLIENT.fog.enableFog));
-
-        subCategory.add(
-                ClothAPIFactory.createBoolean(
-                        builder,
-                        Config.CLIENT.fog.enableBiomeFog));
-
-        subCategory.add(
-                ClothAPIFactory.createBoolean(
-                        builder,
-                        Config.CLIENT.fog.enableElevationHaze));
-
-        subCategory.add(
-                ClothAPIFactory.createBoolean(
-                        builder,
-                        Config.CLIENT.fog.enableMorningFog));
-
-        subCategory.add(
-                ClothAPIFactory.createInteger(
-                        builder,
-                        Config.CLIENT.fog.morningFogChance));
-
-        subCategory.add(
-                ClothAPIFactory.createBoolean(
-                        builder,
-                        Config.CLIENT.fog.enableBedrockFog));
-
-        subCategory.add(
-                ClothAPIFactory.createBoolean(
-                        builder,
-                        Config.CLIENT.fog.enableWeatherFog));
-
+        subCategory.add(ClothAPIFactory.createBoolean(builder, Config.CLIENT.fog.enableFog));
+        
+        subCategory.add(ClothAPIFactory.createBoolean(builder, Config.CLIENT.fog.enableBiomeFog));
+        
+        subCategory.add(ClothAPIFactory.createBoolean(builder, Config.CLIENT.fog.enableElevationHaze));
+        
+        subCategory.add(ClothAPIFactory.createBoolean(builder, Config.CLIENT.fog.enableMorningFog));
+        
+        subCategory.add(ClothAPIFactory.createInteger(builder, Config.CLIENT.fog.morningFogChance));
+        
+        subCategory.add(ClothAPIFactory.createBoolean(builder, Config.CLIENT.fog.enableBedrockFog));
+        
+        subCategory.add(ClothAPIFactory.createBoolean(builder, Config.CLIENT.fog.enableWeatherFog));
+        
         modCategory.add(subCategory.build());
-
+        
         subCategory = ClothAPIFactory.createSubCategory(entryBuilder, "environs.cfg.sound", TextFormatting.YELLOW, false);
-        subCategory.add(
-                ClothAPIFactory.createIntegerSlider(
-                        builder,
-                        Config.CLIENT.sound.biomeSoundVolume));
-
-        subCategory.add(
-                ClothAPIFactory.createIntegerSlider(
-                        builder,
-                        Config.CLIENT.sound.spotSoundVolume));
-
-        subCategory.add(
-                ClothAPIFactory.createIntegerSlider(
-                        builder,
-                        Config.CLIENT.sound.waterfallSoundVolume));
-
-        subCategory.add(
-                ClothAPIFactory.createBoolean(
-                        builder,
-                        Config.CLIENT.sound.occludeWaterfall));
-
+        subCategory.add(ClothAPIFactory.createIntegerSlider(builder, Config.CLIENT.sound.biomeSoundVolume));
+        
+        subCategory.add(ClothAPIFactory.createIntegerSlider(builder, Config.CLIENT.sound.spotSoundVolume));
+        
+        subCategory.add(ClothAPIFactory.createIntegerSlider(builder, Config.CLIENT.sound.waterfallSoundVolume));
+        
+        subCategory.add(ClothAPIFactory.createBoolean(builder, Config.CLIENT.sound.occludeWaterfall));
+        
         modCategory.add(subCategory.build());
-
+        
         return modCategory;
     }
 }

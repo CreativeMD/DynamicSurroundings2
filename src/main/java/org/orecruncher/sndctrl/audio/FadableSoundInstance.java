@@ -33,110 +33,102 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class FadableSoundInstance extends WrappedSoundInstance implements IFadableSoundInstance {
-
+    
     private static final float INITIAL_FADE = 0.00002F;
     private static final float FADE_AMOUNT = 0.02F;
-
+    
     private boolean isFading;
     private float fadeScale = INITIAL_FADE;
     private float fadeScaleTarget = 1F;
     private boolean isDonePlaying;
     private long lastTick = TickCounter.getTickCount();
-
+    
     public FadableSoundInstance(@Nonnull final ISoundInstance sound, @Nonnull final ISoundCategory category) {
         super(sound, category);
     }
-
+    
     public FadableSoundInstance(@Nonnull final ISoundInstance sound) {
         super(sound);
     }
-
+    
     public void noFade() {
         this.isFading = false;
         this.fadeScale = this.fadeScaleTarget;
     }
-
+    
     @Override
     public float getVolume() {
         return super.getVolume() * this.fadeScale;
     }
-
+    
     @Override
     public boolean isDonePlaying() {
         return this.isDonePlaying || super.isDonePlaying();
     }
-
+    
     @Override
     public void tick() {
-
+        
         // If we are being ticked again, dont process
         final long tickDelta = TickCounter.getTickCount() - this.lastTick;
         if (tickDelta < 1)
             return;
-
+        
         super.tick();
-
+        
         // If we are done playing just return
         if (isDonePlaying())
             return;
-
+        
         // Update our last tick amount
         this.lastTick = TickCounter.getTickCount();
-
+        
         // Adjust the fadeScale so it moves to the proper value.
         if ((this.fadeScale < this.fadeScaleTarget) && !isFading())
             this.fadeScale += FADE_AMOUNT * tickDelta;
         else if (isFading() || this.fadeScale > this.fadeScaleTarget) {
             this.fadeScale -= FADE_AMOUNT * tickDelta;
         }
-
+        
         // Clamp it so we are valid
         this.fadeScale = MathStuff.clamp(this.fadeScale, 0, this.fadeScaleTarget);
-
+        
         // Do the float compare.  Takes into account epsilon.
         if (Float.compare(this.fadeScale, 0) == 0) {
             this.isDonePlaying = true;
         }
     }
-
+    
     @Override
     public void fade() {
         this.isFading = true;
     }
-
+    
     @Override
     public void unfade() {
         this.isFading = false;
     }
-
+    
     @Override
     public boolean isFading() {
         return this.isFading;
     }
-
-    /**
-     * Set's the fade scale target.  The volume of the sound will glide up/down to this volume
+    
+    /** Set's the fade scale target. The volume of the sound will glide up/down to this volume
      * over time.
      *
-     * @param scale Value between 0F and 1F inclusive.
-     */
+     * @param scale
+     *            Value between 0F and 1F inclusive. */
     @Override
     public void setFadeVolume(final float scale) {
         this.fadeScaleTarget = MathStuff.clamp1(scale);
     }
-
+    
     @Override
     @Nonnull
     public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .addValue(getSoundLocation().toString())
-                .addValue(getSoundCategory().toString())
-                .addValue(getState().toString())
-                .add("v", getVolume())
-                .add("ev", SoundInstance.getEffectiveVolume(this))
-                .add("p", getPitch())
-                .add("f", this.fadeScale)
-                .toString();
+        return MoreObjects.toStringHelper(this).addValue(getSoundLocation().toString()).addValue(getSoundCategory().toString()).addValue(getState().toString())
+                .add("v", getVolume()).add("ev", SoundInstance.getEffectiveVolume(this)).add("p", getPitch()).add("f", this.fadeScale).toString();
     }
-
+    
 }

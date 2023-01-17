@@ -27,13 +27,13 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public final class SourcePropertyFloat {
-
+    
     private final int property;
     private final float min;
     private final float max;
     private float value;
     private boolean process;
-
+    
     public SourcePropertyFloat(final int property, final float val, final float min, final float max) {
         this.property = property;
         this.value = val;
@@ -41,23 +41,23 @@ public final class SourcePropertyFloat {
         this.max = max;
         this.process = false;
     }
-
+    
     public boolean doProcess() {
         return this.process;
     }
-
+    
     public void setProcess(final boolean flag) {
         this.process = flag;
     }
-
+    
     public float getValue() {
         return this.value;
     }
-
+    
     public void setValue(final float f) {
         this.value = MathStuff.clamp(f, this.min, this.max);
     }
-
+    
     public void apply(final int sourceId) {
         if (doProcess()) {
             AL11.alSourcef(sourceId, this.property, getValue());

@@ -57,37 +57,33 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
 
-@Mod.EventBusSubscriber(
-        modid = MobEffects.MOD_ID,
-        value = {Dist.CLIENT},
-        bus = Mod.EventBusSubscriber.Bus.FORGE
-)
+@Mod.EventBusSubscriber(modid = MobEffects.MOD_ID, value = { Dist.CLIENT }, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public final class EffectLibrary {
-
+    
     private static final IModLog LOGGER = MobEffects.LOGGER.createChild(EffectLibrary.class);
-
+    
     private static final ResourceLocation PLAYER = new ResourceLocation("minecraft:player");
     private static final EntityEffectInfo DEFAULT = new EntityEffectInfo();
     private static EntityEffectInfo playerEffects = DEFAULT;
-
+    
     private static final Object2ObjectOpenHashMap<ResourceLocation, EntityEffectInfo> effectConfiguration = new Object2ObjectOpenHashMap<>();
     private static final Reference2ObjectOpenHashMap<Class<? extends Entity>, EntityEffectInfo> effects = new Reference2ObjectOpenHashMap<>();
     private static final Set<ResourceLocation> blockedSounds = new ObjectOpenHashSet<>();
-
+    
     private static final Map<ResourceLocation, SoundEvent> soundReplace = new Object2ObjectOpenHashMap<>();
-
+    
     private EffectLibrary() {
-
+        
     }
-
+    
     static void initialize() {
         ModuleServiceManager.instance().add(new EffectLibraryService());
     }
-
+    
     public static boolean hasEffect(@Nonnull final Entity entity, @Nonnull final ResourceLocation loc) {
         return getEffectInfo(entity).effects.contains(loc);
     }
-
+    
     @Nonnull
     private static EntityEffectInfo getEffectInfo(@Nonnull final Entity entity) {
         if (entity instanceof PlayerEntity)
@@ -102,7 +98,7 @@ public final class EffectLibrary {
         }
         return eei;
     }
-
+    
     @SubscribeEvent(priority = EventPriority.HIGH)
     public static void soundPlay(@Nonnull PlaySoundEvent e) {
         final ISound theSound = e.getSound();
@@ -118,32 +114,32 @@ public final class EffectLibrary {
             }
         }
     }
-
+    
     private static class EffectLibraryService implements IModuleService {
-
+        
         private static final Type entityConfigType = TypeToken.getParameterized(Map.class, String.class, EntityConfig.class).getType();
-
+        
         static {
             Validators.registerValidator(entityConfigType, new MapValidator<String, EntityConfig>());
         }
-
+        
         @Override
         public String name() {
             return "MobEffectsLibrary";
         }
-
+        
         @Override
         public void start() {
-
+            
             // Seed our configuration with known entities that have defaults
             ForgeRegistries.ENTITIES.forEach(e -> {
                 if (e.getClassification() != EntityClassification.MISC)
                     effectConfiguration.put(e.getRegistryName(), DEFAULT);
             });
-
+            
             // Apply configuration.  These will replace defaults as needed.
             final Collection<IResourceAccessor> configs = ResourceUtils.findConfigs(DynamicSurroundings.MOD_ID, DynamicSurroundings.DATA_PATH, "mobeffects.json");
-
+            
             IResourceAccessor.process(configs, accessor -> {
                 Map<String, EntityConfig> cfg = accessor.as(entityConfigType);
                 for (final Map.Entry<String, EntityConfig> kvp : cfg.entrySet()) {
@@ -153,7 +149,7 @@ public final class EffectLibrary {
                     if (loc.equals(PLAYER)) {
                         playerEffects = eei;
                     }
-
+                    
                     for (final String r : kvp.getValue().blockedSounds) {
                         try {
                             blockedSounds.add(new ResourceLocation(r));
@@ -163,7 +159,7 @@ public final class EffectLibrary {
                     }
                 }
             });
-
+            
             // Replace our bow loose sounds
             final ResourceLocation bowLoose = new ResourceLocation(MobEffects.MOD_ID, "bow.loose");
             Library.getSound(bowLoose).ifPresent(se -> {
@@ -171,7 +167,7 @@ public final class EffectLibrary {
                 soundReplace.put(new ResourceLocation("minecraft:entity.skeleton.shoot"), se);
             });
         }
-
+        
         @Override
         public void log() {
             if (Config.CLIENT.logging.enableLogging.get()) {
@@ -182,7 +178,7 @@ public final class EffectLibrary {
                 }
             }
         }
-
+        
         @Override
         public void stop() {
             effectConfiguration.clear();

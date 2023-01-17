@@ -30,95 +30,83 @@ import com.google.common.base.MoreObjects;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-/**
- * An EntitySoundInstance is one that is attached to an entity and will change position with that entity
- * every tick.  If the sound is a global sound (like music), it will stay around as long as it is repeatable
- * and the entity is alive.
- */
+/** An EntitySoundInstance is one that is attached to an entity and will change position with that entity
+ * every tick. If the sound is a global sound (like music), it will stay around as long as it is repeatable
+ * and the entity is alive. */
 @OnlyIn(Dist.CLIENT)
 public class EntitySoundInstance extends WrappedSoundInstance {
-
+    
     @Nonnull
     private final Entity entity;
-
+    
     private float x;
     private float y;
     private float z;
-
+    
     public EntitySoundInstance(@Nonnull final Entity entity, @Nonnull final ISoundInstance sound) {
         super(sound);
-
+        
         this.entity = Objects.requireNonNull(entity);
-
+        
         updatePosition();
     }
-
+    
     @Override
     public double getX() {
         return this.x;
     }
-
+    
     @Override
     public double getY() {
         return this.y;
     }
-
+    
     @Override
     public double getZ() {
         return this.z;
     }
-
+    
     @Override
     public boolean isDonePlaying() {
         return !this.entity.isAlive() || super.isDonePlaying();
     }
-
+    
     @Override
     public int getPlayDelay() {
         return this.sound.getPlayDelay();
     }
-
+    
     @Override
     public void setPlayDelay(final int delay) {
         this.sound.setPlayDelay(delay);
     }
-
+    
     private void updatePosition() {
         final Vector3d box = this.entity.getBoundingBox().getCenter();
         this.x = (float) box.x;
         this.y = (float) box.y;
         this.z = (float) box.z;
     }
-
+    
     @Override
     public void tick() {
-
+        
         super.tick();
-
+        
         // If we are not done playing, and the sound is not global, we
         // update the sound's position.
         if (!isDonePlaying() && !isGlobal()) {
             updatePosition();
         }
     }
-
+    
     @Override
     @Nonnull
     public String toString() {
         //@formatter:off
-        return MoreObjects.toStringHelper(this)
-                .addValue(this.entity.toString())
-                .addValue(getSoundLocation().toString())
-                .addValue(getCategory().toString())
-                .addValue(getAttenuationType().toString())
-                .addValue(getState().toString())
-                .add("v", getVolume())
-                .add("ev", SoundInstance.getEffectiveVolume(this))
-                .add("p", getPitch())
-                .add("x", getX())
-                .add("y", getY())
-                .add("z", getZ())
-                .toString();
+        return MoreObjects.toStringHelper(this).addValue(this.entity.toString()).addValue(getSoundLocation().toString()).addValue(getCategory().toString())
+                .addValue(getAttenuationType().toString()).addValue(getState().toString()).add("v", getVolume()).add("ev", SoundInstance.getEffectiveVolume(this))
+                .add("p", getPitch()).add("x", getX()).add("y", getY()).add("z", getZ()).toString();
         //@formatter:on
     }
 }

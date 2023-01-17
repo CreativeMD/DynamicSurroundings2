@@ -36,19 +36,19 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class EntityConfig implements IValidator<EntityConfig> {
-
-	@SerializedName("effects")
-	public String effects = StringUtils.EMPTY;
-	@SerializedName("variator")
-	public String variator = "default";
-	@SerializedName("blockedSounds")
-	public List<String> blockedSounds = ImmutableList.of();
-
-	@Override
-	public void validate(@Nonnull final EntityConfig obj) throws ValidationException {
-		ValidationHelpers.notNullOrWhitespace("effects", this.effects, MobEffects.LOGGER::warn);
-		ValidationHelpers.notNullOrWhitespace("variator", this.variator, MobEffects.LOGGER::warn);
-		for (final String s : this.blockedSounds)
-			ValidationHelpers.isProperResourceLocation("blockedSounds", s, MobEffects.LOGGER::warn);
-	}
+    
+    @SerializedName("effects")
+    public String effects = StringUtils.EMPTY;
+    @SerializedName("variator")
+    public String variator = "default";
+    @SerializedName("blockedSounds")
+    public List<String> blockedSounds = ImmutableList.of();
+    
+    @Override
+    public void validate(@Nonnull final EntityConfig obj) throws ValidationException {
+        ValidationHelpers.notNullOrWhitespace("effects", this.effects, MobEffects.LOGGER::warn);
+        ValidationHelpers.notNullOrWhitespace("variator", this.variator, MobEffects.LOGGER::warn);
+        for (final String s : this.blockedSounds)
+            ValidationHelpers.isProperResourceLocation("blockedSounds", s, MobEffects.LOGGER::warn);
+    }
 }

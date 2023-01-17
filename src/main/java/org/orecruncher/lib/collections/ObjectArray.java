@@ -32,30 +32,30 @@ import org.orecruncher.lib.math.MathStuff;
 import net.minecraft.util.math.MathHelper;
 
 public class ObjectArray<T> implements Collection<T> {
-
+    
     private static final int DEFAULT_SIZE = 4;
-
+    
     protected Object[] data;
     protected int insertionIdx;
-
+    
     public ObjectArray() {
         this(DEFAULT_SIZE);
     }
-
+    
     public ObjectArray(final int size) {
         this.data = new Object[size];
     }
-
+    
     public ObjectArray(@Nonnull final ObjectArray<T> input) {
         this.data = Arrays.copyOf(input.data, input.size());
         this.insertionIdx = input.insertionIdx;
     }
-
+    
     public ObjectArray(@Nonnull final T[] input) {
         this.data = Arrays.copyOf(input, input.length);
         this.insertionIdx = input.length;
     }
-
+    
     private void resize() {
         final int newSize = MathHelper.smallestEncompassingPowerOfTwo(MathStuff.max(this.data.length * 2, DEFAULT_SIZE));
         final Object[] t = new Object[newSize];
@@ -63,26 +63,26 @@ public class ObjectArray<T> implements Collection<T> {
             System.arraycopy(this.data, 0, t, 0, this.data.length);
         this.data = t;
     }
-
+    
     @Override
     public int size() {
         return this.insertionIdx;
     }
-
+    
     @SuppressWarnings("unchecked")
     public T get(final int idx) {
         if (idx >= 0 && idx < this.insertionIdx)
             return (T) this.data[idx];
         return null;
     }
-
+    
     private void remove0(final int idx) {
         final Object m = this.data[--this.insertionIdx];
         this.data[this.insertionIdx] = null;
         if (idx < this.insertionIdx)
             this.data[idx] = m;
     }
-
+    
     @SuppressWarnings("unchecked")
     @Override
     public boolean removeIf(@Nonnull final Predicate<? super T> pred) {
@@ -96,31 +96,31 @@ public class ObjectArray<T> implements Collection<T> {
         }
         return result;
     }
-
+    
     @SuppressWarnings("unchecked")
     @Override
     public void forEach(@Nonnull final Consumer<? super T> consumer) {
         for (int i = 0; i < this.insertionIdx; i++)
             consumer.accept((T) this.data[i]);
     }
-
+    
     @Override
     public boolean isEmpty() {
         return this.size() == 0;
     }
-
+    
     private int find(@Nonnull final Object o) {
         for (int i = 0; i < this.insertionIdx; i++)
             if (o.equals(this.data[i]))
                 return i;
         return -1;
     }
-
+    
     @Override
     public boolean contains(@Nonnull final Object o) {
         return find(o) != -1;
     }
-
+    
     @Override
     @Nonnull
     public Object[] toArray() {
@@ -131,7 +131,7 @@ public class ObjectArray<T> implements Collection<T> {
         }
         return result;
     }
-
+    
     @SuppressWarnings({ "unchecked", "hiding" })
     @Override
     @Nonnull
@@ -145,7 +145,7 @@ public class ObjectArray<T> implements Collection<T> {
             a[this.insertionIdx] = null;
         return a;
     }
-
+    
     @Override
     public boolean add(@Nonnull final T e) {
         if (this.data.length == this.insertionIdx)
@@ -153,7 +153,7 @@ public class ObjectArray<T> implements Collection<T> {
         this.data[this.insertionIdx++] = e;
         return true;
     }
-
+    
     @Override
     public boolean remove(@Nonnull final Object o) {
         final int idx = find(o);
@@ -161,7 +161,7 @@ public class ObjectArray<T> implements Collection<T> {
             this.remove0(idx);
         return idx != -1;
     }
-
+    
     @Override
     public boolean containsAll(@Nonnull final Collection<?> c) {
         for (final Object obj : c)
@@ -169,30 +169,32 @@ public class ObjectArray<T> implements Collection<T> {
                 return false;
         return true;
     }
-
+    
     @Override
     public boolean addAll(@Nonnull final Collection<? extends T> c) {
         boolean result = false;
-        for (final T element : c) result |= this.add(element);
+        for (final T element : c)
+            result |= this.add(element);
         return result;
     }
-
+    
     public boolean addAll(@Nonnull final T[] list) {
         boolean result = false;
-        for (final T t : list) result |= this.add(t);
+        for (final T t : list)
+            result |= this.add(t);
         return result;
     }
-
+    
     @Override
     public boolean removeAll(@Nonnull final Collection<?> c) {
         return this.removeIf(c::contains);
     }
-
+    
     @Override
     public boolean retainAll(@Nonnull final Collection<?> c) {
         return this.removeIf(entry -> !c.contains(entry));
     }
-
+    
     public void trim() {
         if (this.insertionIdx < this.data.length) {
             if (this.insertionIdx == 0) {
@@ -204,33 +206,33 @@ public class ObjectArray<T> implements Collection<T> {
             }
         }
     }
-
+    
     @Override
     public void clear() {
         for (int i = 0; i < this.insertionIdx; i++)
             this.data[i] = null;
         this.insertionIdx = 0;
     }
-
+    
     @Override
     @Nonnull
     public Iterator<T> iterator() {
         return new Iterator<T>() {
-
+            
             private int idx = -1;
-
+            
             @Override
             public boolean hasNext() {
                 return (this.idx + 1) < ObjectArray.this.insertionIdx;
             }
-
+            
             @SuppressWarnings("unchecked")
             @Override
             public T next() {
                 return (T) ObjectArray.this.data[++this.idx];
             }
-
+            
         };
     }
-
+    
 }

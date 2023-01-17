@@ -37,33 +37,17 @@ public class AuroraRenderType extends RenderType {
     public AuroraRenderType(String nameIn, VertexFormat formatIn, int drawModeIn, int bufferSizeIn, boolean useDelegateIn, boolean needsSortingIn, Runnable setupTaskIn, Runnable clearTaskIn) {
         super(nameIn, formatIn, drawModeIn, bufferSizeIn, useDelegateIn, needsSortingIn, setupTaskIn, clearTaskIn);
     }
-
-    private static final TransparencyState AURORA_TRANSPARENCY = new TransparencyState(
-            "aurora_transparency",
-            () -> {
-                RenderSystem.enableBlend();
-                RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-            },
-            RenderSystem::disableBlend);
-
+    
+    private static final TransparencyState AURORA_TRANSPARENCY = new TransparencyState("aurora_transparency", () -> {
+        RenderSystem.enableBlend();
+        RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+    }, RenderSystem::disableBlend);
+    
     private static final TargetState TARGET = field_239238_U_;
-
-    public static ResourceLocation TEXTURE = new ResourceLocation(Environs.MOD_ID,"textures/misc/aurora_band.png");
-
-    public static final RenderType QUAD = makeType(
-            "aurora_render_type",
-            DefaultVertexFormats.POSITION_TEX,
-            GL11.GL_QUADS,
-            64,
-            RenderType.State.getBuilder()
-                    .texture(new TextureState(TEXTURE, false, false))
-                    .transparency(AURORA_TRANSPARENCY)
-                    .target(TARGET)
-                    .fog(FOG)
-                    .shadeModel(RenderState.SHADE_ENABLED)
-                    .alpha(DEFAULT_ALPHA)
-                    .depthTest(DEPTH_LEQUAL)
-                    .cull(CULL_DISABLED)
-                    .writeMask(RenderState.COLOR_DEPTH_WRITE)
-                    .build(false));
+    
+    public static ResourceLocation TEXTURE = new ResourceLocation(Environs.MOD_ID, "textures/misc/aurora_band.png");
+    
+    public static final RenderType QUAD = makeType("aurora_render_type", DefaultVertexFormats.POSITION_TEX, GL11.GL_QUADS, 64, RenderType.State.getBuilder()
+            .texture(new TextureState(TEXTURE, false, false)).transparency(AURORA_TRANSPARENCY).target(TARGET).fog(FOG).shadeModel(RenderState.SHADE_ENABLED).alpha(DEFAULT_ALPHA)
+            .depthTest(DEPTH_LEQUAL).cull(CULL_DISABLED).writeMask(RenderState.COLOR_DEPTH_WRITE).build(false));
 }

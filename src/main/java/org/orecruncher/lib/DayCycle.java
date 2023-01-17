@@ -28,48 +28,48 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @SuppressWarnings("unused")
 public enum DayCycle {
-
+    
     NO_SKY(false, "NoSky"),
     SUNRISE(false, "Sunrise"),
     SUNSET(true, "Sunset"),
     DAYTIME(false, "Daytime"),
     NIGHTTIME(true, "Nighttime");
-
+    
     private static final float DAYTIME_THRESHOLD = 0.8F;
     private static final float SUNRISE_THRESHOLD = DAYTIME_THRESHOLD - 0.04F;
     private static final float NIGHTTIME_THRESHOLD = 0.26F;
     private static final float SUNSET_THRESHOLD = NIGHTTIME_THRESHOLD - 0.04F;
-
+    
     private final boolean auroraVisible;
     private final String localizeString;
-
+    
     DayCycle(final boolean auroraVisible, @Nonnull final String localName) {
         this.auroraVisible = auroraVisible;
         this.localizeString = SoundControl.MOD_ID + ".format." + localName;
     }
-
+    
     public static boolean isDaytime(@Nonnull final IWorld world) {
         return getCycle(world) == DayCycle.DAYTIME;
     }
-
+    
     public static boolean isNighttime(@Nonnull final IWorld world) {
         return getCycle(world) == DayCycle.NIGHTTIME;
     }
-
+    
     public static boolean isSunrise(@Nonnull final IWorld world) {
         return getCycle(world) == DayCycle.SUNRISE;
     }
-
+    
     public static boolean isSunset(@Nonnull final IWorld world) {
         return getCycle(world) == DayCycle.SUNSET;
     }
-
+    
     public static DayCycle getCycle(@Nonnull final IWorld world) {
         if (world.getDimensionType().getHasCeiling() || !world.getDimensionType().hasSkyLight())
             return DayCycle.NO_SKY;
-
+        
         final float angle = world.func_242415_f(0);
-
+        
         if (angle > DAYTIME_THRESHOLD)
             return DayCycle.DAYTIME;
         if (angle > SUNRISE_THRESHOLD)
@@ -80,27 +80,27 @@ public enum DayCycle {
             return DayCycle.SUNSET;
         return DayCycle.DAYTIME;
     }
-
+    
     public static float getMoonPhaseFactor(@Nonnull final IWorld world) {
         return world.getMoonFactor();
     }
-
+    
     public static boolean isAuroraVisible(@Nonnull final IWorld world) {
         return getCycle(world).isAuroraVisible();
     }
-
+    
     public static boolean isAuroraInvisible(@Nonnull final IWorld world) {
         return !getCycle(world).isAuroraVisible();
     }
-
+    
     public boolean isAuroraVisible() {
         return this.auroraVisible;
     }
-
+    
     @OnlyIn(Dist.CLIENT)
     @Nonnull
     public String getFormattedName() {
         return Localization.load(this.localizeString);
     }
-
+    
 }

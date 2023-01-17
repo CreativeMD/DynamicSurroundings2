@@ -47,48 +47,43 @@ import net.minecraftforge.fml.config.ModConfig;
 
 @Mod.EventBusSubscriber(modid = SoundControl.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public final class SoundProcessor {
-
+    
     private static final float MIN_SOUNDFACTOR = 0F;
     private static final float MAX_SOUNDFACTOR = 4F;
     private static final float DEFAULT_SOUNDFACTOR = 1F;
-
+    
     private static final Set<ResourceLocation> blockedSounds = new ObjectOpenHashSet<>(32);
     private static final Object2LongOpenHashMap<ResourceLocation> soundCull = new Object2LongOpenHashMap<>(32);
     private static final Object2FloatOpenHashMap<ResourceLocation> volumeControl = new Object2FloatOpenHashMap<>(32);
     private static int cullInterval = 20;
-
+    
     static {
         volumeControl.defaultReturnValue(DEFAULT_SOUNDFACTOR);
         MinecraftForge.EVENT_BUS.addListener(EventPriority.HIGHEST, SoundProcessor::soundPlay);
     }
-
-    private SoundProcessor() {
-    }
-
+    
+    private SoundProcessor() {}
+    
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void onConfigLoad(@Nonnull final ModConfig.Loading configEvent) {
         applyConfig();
     }
-
+    
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void onConfigChange(@Nonnull final ModConfig.Reloading configEvent) {
         applyConfig();
     }
-
+    
     public static void applyConfig() {
         soundCull.clear();
         blockedSounds.clear();
         volumeControl.clear();
-
+        
         cullInterval = Config.CLIENT.sound.cullInterval.get();
-
-        final List<IndividualSoundConfig> configs = Config.CLIENT.sound.individualSounds.get()
-                .stream()
-                .map(IndividualSoundConfig::createFrom)
-                .filter(Objects::nonNull)
-                .filter(cfg -> !cfg.isDefault())
-                .collect(Collectors.toList());
-
+        
+        final List<IndividualSoundConfig> configs = Config.CLIENT.sound.individualSounds.get().stream().map(IndividualSoundConfig::createFrom).filter(Objects::nonNull)
+                .filter(cfg -> !cfg.isDefault()).collect(Collectors.toList());
+        
         for (final IndividualSoundConfig cfg : configs) {
             if (cfg.isBlocked())
                 blockedSounds.add(cfg.getLocation());
@@ -98,19 +93,19 @@ public final class SoundProcessor {
                 volumeControl.put(cfg.getLocation(), MathStuff.clamp(cfg.getVolumeScale(), MIN_SOUNDFACTOR, MAX_SOUNDFACTOR));
         }
     }
-
+    
     public static boolean isSoundBlocked(@Nonnull final ResourceLocation sound) {
         return blockedSounds.contains(Objects.requireNonNull(sound));
     }
-
+    
     public static float getVolumeScale(@Nonnull final ResourceLocation sound) {
         return volumeControl.getFloat(Objects.requireNonNull(sound));
     }
-
+    
     public static float getVolumeScale(@Nonnull final ISound sound) {
         return getVolumeScale(Objects.requireNonNull(sound).getSoundLocation());
     }
-
+    
     private static boolean isSoundCulledLogical(@Nonnull final ResourceLocation sound) {
         if (cullInterval > 0) {
             // Get the last time the sound was seen
@@ -127,11 +122,11 @@ public final class SoundProcessor {
         }
         return false;
     }
-
+    
     private static boolean blockSoundProcess(@Nonnull final ResourceLocation res) {
         return isSoundBlocked(res) || isSoundCulledLogical(res);
     }
-
+    
     // Event handler for sound plays - hooked in static class initializer
     private static void soundPlay(@Nonnull final PlaySoundEvent e) {
         // If there is no sound assigned, or if there is no more room in the play lists kill it
@@ -140,16 +135,16 @@ public final class SoundProcessor {
             e.setResultSound(null);
             return;
         }
-
+        
         // Don't mess with our config sound instances from the config menu
         if (MusicFader.isConfigSoundInstance(theSound))
             return;
-
+        
         // Check to see if we need to block sound processing
         final ResourceLocation soundResource = theSound.getSoundLocation();
         if (blockSoundProcess(soundResource)) {
             e.setResultSound(null);
         }
     }
-
+    
 }

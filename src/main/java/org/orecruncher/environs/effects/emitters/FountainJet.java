@@ -29,24 +29,22 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class FountainJet extends Jet {
-
-	protected final BlockState state;
-
-	public FountainJet(final int strength, final IBlockReader world, final double x, final double y, final double z,
-					   final BlockState state) {
-		super(1, strength, world, x, y, z, 1);
-		this.state = state;
-	}
-
-	@Override
-	protected void spawnJetParticle() {
-		final double motionX = RANDOM.nextGaussian() * 0.03D;
-		final double motionZ = RANDOM.nextGaussian() * 0.03D;
-		final double x = this.posX + RANDOM.nextGaussian() * 0.2D;
-		final double z = this.posZ + RANDOM.nextGaussian() * 0.2D;
-		final Particle particle = new DustParticle((World) this.world, x, this.posY, z, motionX, 0.5D, motionZ, this.state)
-				.init();
-		addParticle(particle);
-	}
-
+    
+    protected final BlockState state;
+    
+    public FountainJet(final int strength, final IBlockReader world, final double x, final double y, final double z, final BlockState state) {
+        super(1, strength, world, x, y, z, 1);
+        this.state = state;
+    }
+    
+    @Override
+    protected void spawnJetParticle() {
+        final double motionX = RANDOM.nextGaussian() * 0.03D;
+        final double motionZ = RANDOM.nextGaussian() * 0.03D;
+        final double x = this.posX + RANDOM.nextGaussian() * 0.2D;
+        final double z = this.posZ + RANDOM.nextGaussian() * 0.2D;
+        final Particle particle = new DustParticle((World) this.world, x, this.posY, z, motionX, 0.5D, motionZ, this.state).init();
+        addParticle(particle);
+    }
+    
 }

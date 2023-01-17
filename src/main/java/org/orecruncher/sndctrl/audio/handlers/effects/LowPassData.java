@@ -22,16 +22,13 @@ import org.lwjgl.openal.EXTEfx;
 import org.orecruncher.lib.math.MathStuff;
 
 public final class LowPassData extends EffectData {
-
+    
     public float gain = EXTEfx.AL_LOWPASS_DEFAULT_GAIN;
     public float gainHF = EXTEfx.AL_LOWPASS_DEFAULT_GAINHF;
-
-    public LowPassData() {
-    }
-
-    /**
-     * Ensures that the effect data is properly bounded.
-     */
+    
+    public LowPassData() {}
+    
+    /** Ensures that the effect data is properly bounded. */
     @Override
     public void clamp() {
         this.gain = MathStuff.clamp(this.gain, EXTEfx.AL_LOWPASS_MIN_GAIN, EXTEfx.AL_LOWPASS_MAX_GAIN);

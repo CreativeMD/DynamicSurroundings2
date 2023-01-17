@@ -23,17 +23,17 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public interface IModuleService {
-
+    
     String name();
-
+    
     void start();
-
+    
     default void log() {
-
+        
     }
-
+    
     void stop();
-
+    
     default void reload() {
         stop();
         start();

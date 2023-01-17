@@ -30,46 +30,32 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public interface IAcousticFactory {
-    /**
-     * Creates a non-attenuated sound instance that plays on the MASTER category.
-     */
+    /** Creates a non-attenuated sound instance that plays on the MASTER category. */
     @Nonnull
     ISoundInstance createSound();
-
-    /**
-     * Creates a sound instance centered in the block at the specified position.
-     */
+    
+    /** Creates a sound instance centered in the block at the specified position. */
     @Nonnull
     ISoundInstance createSoundAt(@Nonnull final BlockPos pos);
-
-    /**
-     * Creates a sound instance centered at the specified location.
-     */
+    
+    /** Creates a sound instance centered at the specified location. */
     @Nonnull
     ISoundInstance createSoundAt(@Nonnull final Vector3d pos);
-
-    /**
-     * Creates a sound instance within a random range centered on the specified entity.
-     */
+    
+    /** Creates a sound instance within a random range centered on the specified entity. */
     @Nonnull
     ISoundInstance createSoundNear(@Nonnull final Entity entity);
-
-    /**
-     * Creates a sound instance within a random range centered on the specified entity.
-     */
+    
+    /** Creates a sound instance within a random range centered on the specified entity. */
     @Nonnull
     ISoundInstance createSoundNear(@Nonnull final Entity entity, final int minRange, final int maxRange);
-
-    /**
-     * Attaches a sound instance to the specified entity, and will move as the entity moves.
-     */
+    
+    /** Attaches a sound instance to the specified entity, and will move as the entity moves. */
     @Nonnull
     ISoundInstance attachSound(@Nonnull final Entity entity);
-
-    /**
-     * Creates a sound instance with no attenuation and is not affected by range or other sound effects.
-     */
+    
+    /** Creates a sound instance with no attenuation and is not affected by range or other sound effects. */
     @Nonnull
     IFadableSoundInstance createBackgroundSound();
-
+    
 }

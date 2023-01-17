@@ -33,20 +33,19 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class BubbleJetEffect extends JetEffect {
-
+    
     public BubbleJetEffect(final int chance) {
         super(chance);
     }
-
+    
     @Nonnull
     @Override
     public BlockEffectType getEffectType() {
         return BlockEffectType.BUBBLE;
     }
-
+    
     @Override
-    public boolean canTrigger(@Nonnull final IBlockReader provider, @Nonnull final BlockState state,
-                              @Nonnull final BlockPos pos, @Nonnull final Random random) {
+    public boolean canTrigger(@Nonnull final IBlockReader provider, @Nonnull final BlockState state, @Nonnull final BlockPos pos, @Nonnull final Random random) {
         if (WATER_PREDICATE.test(state)) {
             final BlockState belowBlock = provider.getBlockState(pos.down());
             final Material material = belowBlock.getMaterial();
@@ -58,14 +57,12 @@ public class BubbleJetEffect extends JetEffect {
         }
         return false;
     }
-
+    
     @Override
-    public void doEffect(@Nonnull final IBlockReader provider, @Nonnull final BlockState state,
-                         @Nonnull final BlockPos pos, @Nonnull final Random random) {
+    public void doEffect(@Nonnull final IBlockReader provider, @Nonnull final BlockState state, @Nonnull final BlockPos pos, @Nonnull final Random random) {
         final int liquidBlocks = countVerticalBlocks(provider, pos, WATER_PREDICATE, 1);
         if (liquidBlocks > 0) {
-            final Jet effect = new BubbleJet(liquidBlocks, provider, pos.getX() + 0.5D,
-                    pos.getY() + 0.1D, pos.getZ() + 0.5D);
+            final Jet effect = new BubbleJet(liquidBlocks, provider, pos.getX() + 0.5D, pos.getY() + 0.1D, pos.getZ() + 0.5D);
             addEffect(effect);
         }
     }

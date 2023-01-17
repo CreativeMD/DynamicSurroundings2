@@ -30,36 +30,27 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public interface IParticleMote {
-
-    /**
-     * Indicates if a mote is active or is considered dead.
+    
+    /** Indicates if a mote is active or is considered dead.
      *
-     * @return true if the mote is active; false otherwise
-     */
+     * @return true if the mote is active; false otherwise */
     boolean isAlive();
-
-    /**
-     * Kills a mote. It will stop displaying and be released from collections.
-     */
+    
+    /** Kills a mote. It will stop displaying and be released from collections. */
     void kill();
-
-    /**
-     * Causes the mote to update advancing it's state one tick.
+    
+    /** Causes the mote to update advancing it's state one tick.
      *
-     * @return true if the particle has been ticked; false if it should die
-     */
+     * @return true if the particle has been ticked; false if it should die */
     boolean tick();
-
-    /**
-     * Causes the mote to render itself.
-     */
+    
+    /** Causes the mote to render itself. */
     void renderParticle(@Nonnull IVertexBuilder buffer, @Nonnull ActiveRenderInfo renderInfo, float partialTicks);
-
-    /**
-     * obtains the current position of the mote
-     * @return Position of the mote
-     */
+    
+    /** obtains the current position of the mote
+     * 
+     * @return Position of the mote */
     @Nonnull
     Vector3d getPosition();
-
+    
 }

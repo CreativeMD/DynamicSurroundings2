@@ -37,100 +37,90 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class WaterfallSplashEffect extends JetEffect {
-
-	private final static Vector3i[] cardinal_offsets = {
-		new Vector3i(-1, 0, 0),
-		new Vector3i(1, 0, 0),
-		new Vector3i(0, 0, -1),
-		new Vector3i(0, 0, 1)
-	};
-
-	public WaterfallSplashEffect(final int chance) {
-		super(chance);
-	}
-
-	@Override
-	@Nonnull
-	public BlockEffectType getEffectType() {
-		return BlockEffectType.SPLASH;
-	}
-
-	private static boolean isUnboundedLiquid(final IBlockReader provider, final BlockPos pos) {
-		for (final Vector3i cardinal_offset : cardinal_offsets) {
-			final BlockPos tp = pos.add(cardinal_offset);
-			final BlockState state = provider.getBlockState(tp);
-			if (state.getMaterial() == Material.AIR)
-				return true;
-			final FluidState fluidState = state.getFluidState();
-			final int height = fluidState.getLevel();
-			if (height > 0 && height < 8)
-				return true;
-		}
-
-		return false;
-	}
-
-	/**
-	 * Similar to isUnboundedLiquid() but geared towards determine that the liquid is bound on all sides.
-	 */
-	private static boolean isBoundedLiquid(final IBlockReader provider, final BlockPos pos) {
-		for (final Vector3i cardinal_offset : cardinal_offsets) {
-			final BlockPos tp = pos.add(cardinal_offset);
-			final BlockState state = provider.getBlockState(tp);
-			if (state.getMaterial() == Material.AIR)
-				return false;
-			final FluidState fluidState = state.getFluidState();
-			if (fluidState.isEmpty()) {
-				continue;
-			}
-			if (fluidState.get(FlowingFluid.FALLING))
-				return false;
-			final int height = fluidState.getLevel();
-			if (height > 0 && height < 8)
-				return false;
-		}
-
-		return true;
-	}
-
-	private int liquidBlockCount(final IBlockReader provider, final BlockPos pos) {
-		return countVerticalBlocks(provider, pos, FLUID_PREDICATE, 1);
-	}
-
-	public static boolean isValidSpawnBlock(@Nonnull final IBlockReader provider, @Nonnull final BlockPos pos) {
-		return isValidSpawnBlock(provider, provider.getBlockState(pos), pos);
-	}
-
-	private static boolean isValidSpawnBlock(final IBlockReader provider, final BlockState state,
-			final BlockPos pos) {
-		if (state.getFluidState().isEmpty())
-			return false;
-		if (provider.getFluidState(pos.up()).isEmpty())
-			return false;
-		if (isUnboundedLiquid(provider, pos)) {
-			final BlockPos down = pos.down();
-			if (WorldUtils.isBlockSolid(provider, down))
-				return true;
-			return isBoundedLiquid(provider, down);
-		}
-		return false;
-	}
-
-	@Override
-	public boolean canTrigger(@Nonnull final IBlockReader provider, @Nonnull final BlockState state,
-			@Nonnull final BlockPos pos, @Nonnull final Random random) {
-		return super.canTrigger(provider, state, pos, random) && isValidSpawnBlock(provider, state, pos);
-	}
-
-	@Override
-	public void doEffect(@Nonnull final IBlockReader provider, @Nonnull final BlockState state,
-			@Nonnull final BlockPos pos, @Nonnull final Random random) {
-
-		final int strength = liquidBlockCount(provider, pos);
-		if (strength > 1) {
-			final float height = state.getFluidState().getActualHeight(provider, pos) + 0.1F;
-			final Jet effect = new WaterSplashJet(strength, provider, pos, height);
-			addEffect(effect);
-		}
-	}
+    
+    private final static Vector3i[] cardinal_offsets = { new Vector3i(-1, 0, 0), new Vector3i(1, 0, 0), new Vector3i(0, 0, -1), new Vector3i(0, 0, 1) };
+    
+    public WaterfallSplashEffect(final int chance) {
+        super(chance);
+    }
+    
+    @Override
+    @Nonnull
+    public BlockEffectType getEffectType() {
+        return BlockEffectType.SPLASH;
+    }
+    
+    private static boolean isUnboundedLiquid(final IBlockReader provider, final BlockPos pos) {
+        for (final Vector3i cardinal_offset : cardinal_offsets) {
+            final BlockPos tp = pos.add(cardinal_offset);
+            final BlockState state = provider.getBlockState(tp);
+            if (state.getMaterial() == Material.AIR)
+                return true;
+            final FluidState fluidState = state.getFluidState();
+            final int height = fluidState.getLevel();
+            if (height > 0 && height < 8)
+                return true;
+        }
+        
+        return false;
+    }
+    
+    /** Similar to isUnboundedLiquid() but geared towards determine that the liquid is bound on all sides. */
+    private static boolean isBoundedLiquid(final IBlockReader provider, final BlockPos pos) {
+        for (final Vector3i cardinal_offset : cardinal_offsets) {
+            final BlockPos tp = pos.add(cardinal_offset);
+            final BlockState state = provider.getBlockState(tp);
+            if (state.getMaterial() == Material.AIR)
+                return false;
+            final FluidState fluidState = state.getFluidState();
+            if (fluidState.isEmpty()) {
+                continue;
+            }
+            if (fluidState.get(FlowingFluid.FALLING))
+                return false;
+            final int height = fluidState.getLevel();
+            if (height > 0 && height < 8)
+                return false;
+        }
+        
+        return true;
+    }
+    
+    private int liquidBlockCount(final IBlockReader provider, final BlockPos pos) {
+        return countVerticalBlocks(provider, pos, FLUID_PREDICATE, 1);
+    }
+    
+    public static boolean isValidSpawnBlock(@Nonnull final IBlockReader provider, @Nonnull final BlockPos pos) {
+        return isValidSpawnBlock(provider, provider.getBlockState(pos), pos);
+    }
+    
+    private static boolean isValidSpawnBlock(final IBlockReader provider, final BlockState state, final BlockPos pos) {
+        if (state.getFluidState().isEmpty())
+            return false;
+        if (provider.getFluidState(pos.up()).isEmpty())
+            return false;
+        if (isUnboundedLiquid(provider, pos)) {
+            final BlockPos down = pos.down();
+            if (WorldUtils.isBlockSolid(provider, down))
+                return true;
+            return isBoundedLiquid(provider, down);
+        }
+        return false;
+    }
+    
+    @Override
+    public boolean canTrigger(@Nonnull final IBlockReader provider, @Nonnull final BlockState state, @Nonnull final BlockPos pos, @Nonnull final Random random) {
+        return super.canTrigger(provider, state, pos, random) && isValidSpawnBlock(provider, state, pos);
+    }
+    
+    @Override
+    public void doEffect(@Nonnull final IBlockReader provider, @Nonnull final BlockState state, @Nonnull final BlockPos pos, @Nonnull final Random random) {
+        
+        final int strength = liquidBlockCount(provider, pos);
+        if (strength > 1) {
+            final float height = state.getFluidState().getActualHeight(provider, pos) + 0.1F;
+            final Jet effect = new WaterSplashJet(strength, provider, pos, height);
+            addEffect(effect);
+        }
+    }
 }

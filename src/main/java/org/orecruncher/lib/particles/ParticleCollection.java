@@ -38,61 +38,59 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 final class ParticleCollection extends BaseParticle {
-
+    
     public static final ICollectionFactory FACTORY = ParticleCollection::new;
     protected static final int MAX_PARTICLES = 4000;
     protected static final int ALLOCATION_SIZE = 128;
     protected static final int TICK_GRACE = 2;
-    /**
-     * Predicate used to update a mote and return whether it is dead or not.
-     */
+    /** Predicate used to update a mote and return whether it is dead or not. */
     private static final Predicate<IParticleMote> UPDATE_REMOVE = mote -> !mote.tick();
-
+    
     protected final LoggingTimerEMA render;
     protected final LoggingTimerEMA tick;
     protected final ObjectArray<IParticleMote> myParticles = new ObjectArray<>(ALLOCATION_SIZE);
     protected final IParticleRenderType renderType;
     protected long lastTickUpdate;
-
+    
     ParticleCollection(@Nonnull final String name, @Nonnull final World world, @Nonnull final IParticleRenderType renderType) {
         super(world, 0, 0, 0);
-
+        
         this.canCollide = false;
         this.renderType = renderType;
         this.render = new LoggingTimerEMA("Render " + name);
         this.tick = new LoggingTimerEMA("Tick " + name);
         this.lastTickUpdate = TickCounter.getTickCount();
     }
-
+    
     public boolean canFit() {
         return this.myParticles.size() < MAX_PARTICLES;
     }
-
+    
     public void addParticle(@Nonnull final IParticleMote mote) {
         if (canFit()) {
             this.myParticles.add(mote);
         }
     }
-
+    
     public int size() {
         return this.myParticles.size();
     }
-
+    
     @Nonnull
     public TimerEMA getRenderTimer() {
         return this.render;
     }
-
+    
     @Nonnull
     public TimerEMA getTickTimer() {
         return this.tick;
     }
-
+    
     public boolean shouldDie() {
         final boolean timeout = (TickCounter.getTickCount() - this.lastTickUpdate) > TICK_GRACE;
         return timeout || size() == 0 || this.world != GameUtils.getWorld();
     }
-
+    
     @Override
     public void tick() {
         this.tick.begin();
@@ -105,12 +103,12 @@ final class ParticleCollection extends BaseParticle {
         }
         this.tick.end();
     }
-
+    
     @Override
     public boolean shouldCull() {
         return false;
     }
-
+    
     @Override
     public void renderParticle(@Nonnull final IVertexBuilder buffer, @Nonnull final ActiveRenderInfo renderInfo, final float partialTicks) {
         this.render.begin();
@@ -119,19 +117,17 @@ final class ParticleCollection extends BaseParticle {
                 mote.renderParticle(buffer, renderInfo, partialTicks);
         this.render.end();
     }
-
+    
     @Override
     @Nonnull
     public IParticleRenderType getRenderType() {
         return this.renderType;
     }
-
-    /**
-     * Factory interface for creating particle collection instances. Used by the
-     * ParticleCollections manager.
-     */
+    
+    /** Factory interface for creating particle collection instances. Used by the
+     * ParticleCollections manager. */
     public interface ICollectionFactory {
         ParticleCollection create(@Nonnull final String name, @Nonnull final World world, @Nonnull final IParticleRenderType renderType);
     }
-
+    
 }

@@ -34,9 +34,8 @@ import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = SoundControl.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public final class ClientWorldPatcher {
-    private ClientWorldPatcher() {
-    }
-
+    private ClientWorldPatcher() {}
+    
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void onWorldLoad(@Nonnull final WorldEvent.Load event) {
         if (Config.CLIENT.effects.fixupRandoms.get()) {

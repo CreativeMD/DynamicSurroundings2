@@ -48,32 +48,27 @@ import net.minecraftforge.fml.common.Mod;
 public final class SoundEventHandling {
     private static final IModLog LOGGER = SoundControl.LOGGER.createChild(SoundEventHandling.class);
     private static boolean hasPlayed = false;
-
-    private SoundEventHandling() {
-    }
-
+    
+    private SoundEventHandling() {}
+    
     @SubscribeEvent
     public static void onGuiOpen(@Nonnull final GuiOpenEvent event) {
         if (!hasPlayed && event.getGui() instanceof MainMenuScreen) {
-
+            
             hasPlayed = true;
-
-            final List<String> possibles = Config.CLIENT.sound.startupSoundList.get()
-                    .stream()
-                    .map(StringUtils::trim)
-                    .filter(s -> s.length() > 0)
-                    .collect(Collectors.toList());
-
+            
+            final List<String> possibles = Config.CLIENT.sound.startupSoundList.get().stream().map(StringUtils::trim).filter(s -> s.length() > 0).collect(Collectors.toList());
+            
             if (possibles.size() == 0)
                 return;
-
+            
             final String res;
             if (possibles.size() == 1) {
                 res = possibles.get(0);
             } else {
                 res = possibles.get(XorShiftRandom.current().nextInt(possibles.size()));
             }
-
+            
             final ResourceLocation rl = new ResourceLocation(res);
             final IAcoustic acoustic = Primitives.getSound(rl, Category.MASTER);
             IAcousticFactory factory = acoustic.getFactory();

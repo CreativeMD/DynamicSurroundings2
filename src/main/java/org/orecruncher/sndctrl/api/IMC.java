@@ -39,100 +39,92 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
-/**
- * Helper interface used to register items with Sound Control using IMC.  Because of the parallel loading of Forge
- * intermod communication outside of IMC can cause all types of difficulties.
- */
+/** Helper interface used to register items with Sound Control using IMC. Because of the parallel loading of Forge
+ * intermod communication outside of IMC can cause all types of difficulties. */
 @Mod.EventBusSubscriber(modid = SoundControl.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public final class IMC {
-
+    
     private static final IModLog LOGGER = SoundControl.LOGGER.createChild(IMC.class);
     private static final ObjectArray<Runnable> callbacks = new ObjectArray<>(4);
-
+    
     static {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(IMC::processIMC);
     }
-
+    
     private IMC() {
-
+        
     }
-
+    
     private static void processIMC(@Nonnull final InterModProcessEvent event) {
         event.getIMCStream().forEach(msg -> {
             try {
                 Methods method = Methods.valueOf(msg.getMethod());
                 method.handle(msg);
-            } catch(@Nonnull final Throwable t) {
+            } catch (@Nonnull final Throwable t) {
                 SoundControl.LOGGER.warn("Unable to process IMC message '%s' - unrecognized?", msg.getMethod());
             }
         });
     }
-
+    
     private static void registerAcousticEventHandler(@Nonnull final InterModComms.IMCMessage msg) {
         handle(msg, AcousticEvent.class, AcousticEvent::register);
     }
-
+    
     private static void registerSoundCategoryHandler(@Nonnull final InterModComms.IMCMessage msg) {
         handle(msg, ISoundCategory.class, Category::register);
     }
-
+    
     private static void registerEffectFactoryHandlerHandler(@Nonnull final InterModComms.IMCMessage msg) {
         handle(msg, IEntityEffectFactoryHandler.class, EntityEffectLibrary::register);
     }
-
+    
     private static void registerCompletionCallbackHandler(@Nonnull final InterModComms.IMCMessage msg) {
         Utilities.safeCast(msg.getMessageSupplier().get(), Runnable.class).ifPresent(callbacks::add);
     }
-
+    
     private static <T> void handle(@Nonnull final InterModComms.IMCMessage msg, @Nonnull final Class<T> clazz, @Nonnull final Consumer<T> handler) {
         Utilities.safeCast(msg.getMessageSupplier().get(), clazz).ifPresent(handler);
     }
-
-    /**
-     * Adds an AcousticEvent to the system so that it is recognized by the compiler
+    
+    /** Adds an AcousticEvent to the system so that it is recognized by the compiler
      *
-     * @param event The Acoustic Event to register
-     */
+     * @param event
+     *            The Acoustic Event to register */
     public static void registerAcousticEvent(@Nonnull final AcousticEvent... event) {
         for (final AcousticEvent e : event)
             Methods.REGISTER_ACOUSTIC_EVENT.send(() -> e);
     }
-
-    /**
-     * Adds a Sound Category to the system so that it is recognized by the compiler
+    
+    /** Adds a Sound Category to the system so that it is recognized by the compiler
      *
-     * @param category Sound Category to register
-     */
+     * @param category
+     *            Sound Category to register */
     public static void registerSoundCategory(@Nonnull final ISoundCategory... category) {
         for (final ISoundCategory c : category)
             Methods.REGISTER_SOUND_CATEGORY.send(() -> c);
     }
-
-    /**
-     * Register an EffectFactoryHandler for the entity effect system.
+    
+    /** Register an EffectFactoryHandler for the entity effect system.
      *
-     * @param handler Effect handler to register
-     */
+     * @param handler
+     *            Effect handler to register */
     public static void registerEffectFactoryHandler(@Nonnull final IEntityEffectFactoryHandler... handler) {
         for (final IEntityEffectFactoryHandler h : handler)
             Methods.REGISTER_EFFECT_FACTORY_HANDLER.send(() -> h);
     }
-
-    /**
-     * Register a callback method to be invoked during completion processing.  Call may come back on a separate thread.
+    
+    /** Register a callback method to be invoked during completion processing. Call may come back on a separate thread.
      * This method is useful to prevent concurrent access by mods during setup when they need to access the acoustic
      * library and such.
      *
-     * @param callback  Callback to invoke on completion
-     */
+     * @param callback
+     *            Callback to invoke on completion */
     public static void registerCompletionCallback(@Nonnull final Runnable... callback) {
         for (final Runnable r : callback)
             Methods.REGISTER_COMPLETION_CALLBACK.send(() -> r);
     }
-
-    /**
-     * Called by the startup routine to process any callbacks that were posted.  Not to be called by other mods!
-     */
+    
+    /** Called by the startup routine to process any callbacks that were posted. Not to be called by other mods! */
     public static void processCompletions() {
         for (final Runnable r : callbacks) {
             try {
@@ -143,19 +135,19 @@ public final class IMC {
         }
         callbacks.clear();
     }
-
+    
     private enum Methods {
         REGISTER_ACOUSTIC_EVENT(IMC::registerAcousticEventHandler),
         REGISTER_SOUND_CATEGORY(IMC::registerSoundCategoryHandler),
         REGISTER_EFFECT_FACTORY_HANDLER(IMC::registerEffectFactoryHandlerHandler),
         REGISTER_COMPLETION_CALLBACK(IMC::registerCompletionCallbackHandler);
-
+        
         private final Consumer<InterModComms.IMCMessage> handler;
-
+        
         Methods(@Nonnull final Consumer<InterModComms.IMCMessage> handler) {
             this.handler = handler;
         }
-
+        
         public void handle(@Nonnull final InterModComms.IMCMessage msg) {
             LOGGER.debug("Processing IMC message '%s' from '%s'", msg.getMethod(), msg.getSenderModId());
             try {
@@ -164,10 +156,10 @@ public final class IMC {
                 LOGGER.error(t, "Error processing IMC message");
             }
         }
-
+        
         public void send(@Nonnull final Supplier<?> sup) {
             InterModComms.sendTo(SoundControl.MOD_ID, this.name(), sup);
         }
     }
-
+    
 }

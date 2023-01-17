@@ -30,20 +30,19 @@ import javax.annotation.Nullable;
 import net.minecraft.nbt.INBT;
 import net.minecraftforge.common.capabilities.Capability;
 
-/**
- * Simple storage handler that does nothing.
- * @param <T>
- */
+/** Simple storage handler that does nothing.
+ * 
+ * @param <T> */
 public final class NullStorage<T> implements Capability.IStorage<T> {
-
-	@Nullable
-	@Override
-	public INBT writeNBT(@Nonnull final Capability<T> capability, @Nonnull final T instance, @Nullable final Direction side) {
-		return null;
-	}
-
-	@Override
-	public void readNBT(@Nonnull final Capability<T> capability, @Nonnull final T instance, @Nullable final Direction side, @Nonnull final INBT nbt) {
-
-	}
+    
+    @Nullable
+    @Override
+    public INBT writeNBT(@Nonnull final Capability<T> capability, @Nonnull final T instance, @Nullable final Direction side) {
+        return null;
+    }
+    
+    @Override
+    public void readNBT(@Nonnull final Capability<T> capability, @Nonnull final T instance, @Nullable final Direction side, @Nonnull final INBT nbt) {
+        
+    }
 }

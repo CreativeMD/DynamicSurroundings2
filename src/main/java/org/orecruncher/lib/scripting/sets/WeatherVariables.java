@@ -31,7 +31,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class WeatherVariables extends VariableSet<IWeatherVariables> implements IWeatherVariables {
-
+    
     private final LazyVariable<Float> temperature = new LazyVariable<>(() -> {
         if (GameUtils.isInGame()) {
             final World world = GameUtils.getWorld();
@@ -44,17 +44,17 @@ public class WeatherVariables extends VariableSet<IWeatherVariables> implements 
     private boolean isThundering;
     private float rainIntensity;
     private float thunderIndensity;
-
+    
     public WeatherVariables() {
         super("weather");
     }
-
+    
     @Nonnull
     @Override
     public IWeatherVariables getInterface() {
         return this;
     }
-
+    
     @Override
     public void update() {
         if (GameUtils.isInGame()) {
@@ -71,27 +71,27 @@ public class WeatherVariables extends VariableSet<IWeatherVariables> implements 
         }
         this.temperature.reset();
     }
-
+    
     @Override
     public boolean isRaining() {
         return this.isRaining;
     }
-
+    
     @Override
     public boolean isThundering() {
         return this.isThundering;
     }
-
+    
     @Override
     public float getRainIntensity() {
         return this.rainIntensity;
     }
-
+    
     @Override
     public float getThunderIntensity() {
         return this.thunderIndensity;
     }
-
+    
     @Override
     public float getTemperature() {
         return this.temperature.get();

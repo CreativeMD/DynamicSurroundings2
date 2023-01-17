@@ -35,60 +35,58 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 class FacadeAccessor implements IFacadeAccessor {
-
-	protected Class<?> IFacadeClass;
-	protected Method accessor;
-
-	public FacadeAccessor(@Nonnull final String clazz, @Nonnull final String method) {
-		try {
-			this.IFacadeClass = Class.forName(clazz);
-			this.accessor = getMethod(method);
-		} catch (@Nonnull final Throwable t) {
-			this.IFacadeClass = null;
-			this.accessor = null;
-		}
-	}
-
-	@Override
-	@Nonnull
-	public String getName() {
-		return isValid() ? this.IFacadeClass.getName() : "INVALID";
-	}
-
-	@Override
-	public boolean instanceOf(@Nonnull final Block block) {
-		return isValid() && this.IFacadeClass.isInstance(block);
-	}
-
-	@Override
-	public boolean isValid() {
-		return this.accessor != null;
-	}
-
-	@Override
-	@Nullable
-	public BlockState getBlockState(@Nonnull final LivingEntity entity, @Nonnull final BlockState state,
-									@Nonnull final IBlockReader world, @Nonnull final Vector3d pos, @Nullable final Direction side) {
-		if (isValid())
-			try {
-				if (instanceOf(state.getBlock()))
-					return call(state, world, new BlockPos(pos), side);
-			} catch (@Nonnull final Throwable ex) {
-				MobEffects.LOGGER.error(ex, "Error!");
-				this.IFacadeClass = null;
-				this.accessor = null;
-			}
-
-		return null;
-	}
-
-	protected Method getMethod(@Nonnull final String method) throws Throwable {
-		return this.IFacadeClass.getMethod(method, IBlockReader.class, BlockPos.class, Direction.class);
-	}
-
-	protected BlockState call(@Nonnull final BlockState state,@Nonnull final IBlockReader world,
-			@Nonnull final BlockPos pos, @Nullable final Direction side) throws Throwable {
-		return (BlockState) this.accessor.invoke(state.getBlock(), world, pos, side);
-	}
-
+    
+    protected Class<?> IFacadeClass;
+    protected Method accessor;
+    
+    public FacadeAccessor(@Nonnull final String clazz, @Nonnull final String method) {
+        try {
+            this.IFacadeClass = Class.forName(clazz);
+            this.accessor = getMethod(method);
+        } catch (@Nonnull final Throwable t) {
+            this.IFacadeClass = null;
+            this.accessor = null;
+        }
+    }
+    
+    @Override
+    @Nonnull
+    public String getName() {
+        return isValid() ? this.IFacadeClass.getName() : "INVALID";
+    }
+    
+    @Override
+    public boolean instanceOf(@Nonnull final Block block) {
+        return isValid() && this.IFacadeClass.isInstance(block);
+    }
+    
+    @Override
+    public boolean isValid() {
+        return this.accessor != null;
+    }
+    
+    @Override
+    @Nullable
+    public BlockState getBlockState(@Nonnull final LivingEntity entity, @Nonnull final BlockState state, @Nonnull final IBlockReader world, @Nonnull final Vector3d pos, @Nullable final Direction side) {
+        if (isValid())
+            try {
+                if (instanceOf(state.getBlock()))
+                    return call(state, world, new BlockPos(pos), side);
+            } catch (@Nonnull final Throwable ex) {
+                MobEffects.LOGGER.error(ex, "Error!");
+                this.IFacadeClass = null;
+                this.accessor = null;
+            }
+        
+        return null;
+    }
+    
+    protected Method getMethod(@Nonnull final String method) throws Throwable {
+        return this.IFacadeClass.getMethod(method, IBlockReader.class, BlockPos.class, Direction.class);
+    }
+    
+    protected BlockState call(@Nonnull final BlockState state, @Nonnull final IBlockReader world, @Nonnull final BlockPos pos, @Nullable final Direction side) throws Throwable {
+        return (BlockState) this.accessor.invoke(state.getBlock(), world, pos, side);
+    }
+    
 }

@@ -39,11 +39,11 @@ public final class Effects {
     private static final float ROLLOFF_FACTOR = 1F;
     private static final float GLOBAL_REVERB_MULTIPLIER = 0.7F;
     private static final float GLOBAL_REVERB_BRIGHTNESS = 1F;
-
+    
     public static final float GLOBAL_BLOCK_ABSORPTION = 1F;
     public static final float SNOW_AIR_ABSORPTION_FACTOR = 5F;
     public static final float RAIN_AIR_ABSORPTION_FACTOR = 2F;
-
+    
     public static final ReverbData reverbData0;
     public static final ReverbData reverbData1;
     public static final ReverbData reverbData2;
@@ -61,7 +61,7 @@ public final class Effects {
     public static final LowPassFilterSlot filter2 = new LowPassFilterSlot();
     public static final LowPassFilterSlot filter3 = new LowPassFilterSlot();
     public static final LowPassFilterSlot direct = new LowPassFilterSlot();
-
+    
     static {
         reverbData0 = new ReverbData();
         reverbData0.decayTime = 0.15F;
@@ -76,7 +76,7 @@ public final class Effects {
         reverbData0.lateReverbDelay = 0.011F;
         reverbData0.airAbsorptionGainHF = 0.994F;
         reverbData0.roomRolloffFactor = 0.16F * ROLLOFF_FACTOR;
-
+        
         reverbData1 = new ReverbData();
         reverbData1.decayTime = 0.55F;
         reverbData1.density = 0.0F;
@@ -90,7 +90,7 @@ public final class Effects {
         reverbData1.lateReverbDelay = 0.011F;
         reverbData1.airAbsorptionGainHF = 0.994F;
         reverbData1.roomRolloffFactor = 0.15F * ROLLOFF_FACTOR;
-
+        
         reverbData2 = new ReverbData();
         reverbData2.decayTime = 1.68F;
         reverbData2.density = 0.1F;
@@ -104,7 +104,7 @@ public final class Effects {
         reverbData2.lateReverbDelay = 0.021F;
         reverbData2.airAbsorptionGainHF = 0.994F;
         reverbData2.roomRolloffFactor = 0.13F * ROLLOFF_FACTOR;
-
+        
         reverbData3 = new ReverbData();
         reverbData3.decayTime = 4.142F;
         reverbData3.density = 0.5F;
@@ -119,58 +119,58 @@ public final class Effects {
         reverbData3.airAbsorptionGainHF = 0.994F;
         reverbData3.roomRolloffFactor = 0.11F * ROLLOFF_FACTOR;
     }
-
+    
     private Effects() {
-
+        
     }
-
+    
     public static void initialize() {
         auxSlot0.initialize();
         auxSlot1.initialize();
         auxSlot2.initialize();
         auxSlot3.initialize();
-
+        
         reverb0.initialize();
         reverb1.initialize();
         reverb2.initialize();
         reverb3.initialize();
-
+        
         filter0.initialize();
         filter1.initialize();
         filter2.initialize();
         filter3.initialize();
-
+        
         direct.initialize();
-
+        
         reverbData0.setProcess(true);
         reverbData1.setProcess(true);
         reverbData2.setProcess(true);
         reverbData3.setProcess(true);
-
+        
         reverb0.apply(reverbData0, auxSlot0);
         reverb1.apply(reverbData1, auxSlot1);
         reverb2.apply(reverbData2, auxSlot2);
         reverb3.apply(reverbData3, auxSlot3);
     }
-
+    
     public static void deinitialize() {
         auxSlot0.deinitialize();
         auxSlot1.deinitialize();
         auxSlot2.deinitialize();
         auxSlot3.deinitialize();
-
+        
         reverb0.deinitialize();
         reverb1.deinitialize();
         reverb2.deinitialize();
         reverb3.deinitialize();
-
+        
         filter0.deinitialize();
         filter1.deinitialize();
         filter2.deinitialize();
         filter3.deinitialize();
-
+        
         direct.deinitialize();
-
+        
         reverbData0.setProcess(false);
         reverbData1.setProcess(false);
         reverbData2.setProcess(false);

@@ -33,60 +33,58 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-/**
- * Simple acoustic that has no sound.
- */
+/** Simple acoustic that has no sound. */
 @OnlyIn(Dist.CLIENT)
 public final class NullAcoustic implements IAcoustic {
-
+    
     public static final IAcoustic INSTANCE = new NullAcoustic(new ResourceLocation(SoundControl.MOD_ID, "null_acoustic"));
-
+    
     private final ResourceLocation name;
-
+    
     public NullAcoustic(@Nonnull final ResourceLocation name) {
         this.name = name;
     }
-
+    
     @Override
     public ResourceLocation getName() {
         return this.name;
     }
-
+    
     @Override
     public void play(@Nonnull final AcousticEvent event) {
-
+        
     }
-
+    
     @Override
     public void playAt(@Nonnull final BlockPos pos, @Nonnull final AcousticEvent event) {
-
+        
     }
-
+    
     @Override
     public void playAt(@Nonnull final Vector3d pos, @Nonnull final AcousticEvent event) {
-
+        
     }
-
+    
     @Override
     public void playNear(@Nonnull final Entity entity, @Nonnull final AcousticEvent event) {
-
+        
     }
-
+    
     @Override
     public void playNear(@Nonnull final Entity entity, @Nonnull final AcousticEvent event, final int minRange, final int maxRange) {
-
+        
     }
-
+    
     @Override
     public void playBackground(@Nonnull final AcousticEvent event) {
-
+        
     }
-
+    
     @Override
     public IAcousticFactory getFactory(@Nonnull final AcousticEvent event) {
         return null;
     }
-
+    
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this).toString();

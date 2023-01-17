@@ -35,16 +35,16 @@ import net.minecraftforge.common.BiomeDictionary;
 
 @OnlyIn(Dist.CLIENT)
 public class BiomeEvaluator {
-
+    
     private final ExecutionContext context = new ExecutionContext("Biomes");
-
+    
     public BiomeEvaluator() {
-
+        
     }
-
+    
     public void update(@Nonnull final BiomeInfo biome) {
         final Map<String, Object> props = new HashMap<>();
-
+        
         props.put("name", biome.getBiomeName());
         props.put("id", biome.getKey().toString());
         props.put("modid", biome.getKey().getNamespace());
@@ -56,10 +56,10 @@ public class BiomeEvaluator {
             props.put("temperature", biome.getTemperature());
             props.put("rainfall", biome.getRainfall());
         }
-
+        
         final Collection<BiomeDictionary.Type> types = BiomeUtilities.getBiomeTypes();
         final Set<BiomeDictionary.Type> biomeTypes = biome.getBiomeTypes();
-
+        
         for (final BiomeDictionary.Type t : types) {
             String name = t.getName();
             if (StringUtils.isNullOrEmpty(name))
@@ -71,15 +71,15 @@ public class BiomeEvaluator {
             }
             props.put(name, biomeTypes.contains(t));
         }
-
+        
         this.context.put("biome", props);
     }
-
+    
     public boolean matches(@Nonnull final String conditions) {
         if (conditions.length() == 0)
             return true;
         Optional<Object> result = this.context.eval(conditions);
         return result.isPresent() && (boolean) result.get();
     }
-
+    
 }

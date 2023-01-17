@@ -35,31 +35,29 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class FireJetEffect extends JetEffect {
-
+    
     public FireJetEffect(final int chance) {
         super(chance);
     }
-
+    
     @Nonnull
     @Override
     public BlockEffectType getEffectType() {
         return BlockEffectType.FIRE;
     }
-
+    
     @Override
-    public boolean canTrigger(@Nonnull final IBlockReader provider, @Nonnull final BlockState state,
-                              @Nonnull final BlockPos pos, @Nonnull final Random random) {
+    public boolean canTrigger(@Nonnull final IBlockReader provider, @Nonnull final BlockState state, @Nonnull final BlockPos pos, @Nonnull final Random random) {
         return WorldUtils.isAirBlock(provider, pos.up()) && super.canTrigger(provider, state, pos, random);
     }
-
+    
     @Override
-    public void doEffect(@Nonnull final IBlockReader provider, @Nonnull final BlockState state,
-                         @Nonnull final BlockPos pos, @Nonnull final Random random) {
-
+    public void doEffect(@Nonnull final IBlockReader provider, @Nonnull final BlockState state, @Nonnull final BlockPos pos, @Nonnull final Random random) {
+        
         final int blockCount;
         final float spawnHeight;
         final boolean isSolid;
-
+        
         if (!state.getFluidState().isEmpty()) {
             blockCount = countVerticalBlocks(provider, pos, LAVA_PREDICATE, -1);
             spawnHeight = pos.getY() + state.getFluidState().getHeight() + 0.1F;
@@ -78,7 +76,7 @@ public class FireJetEffect extends JetEffect {
                 blockCount = 1;
             }
         }
-
+        
         if (blockCount > 0) {
             final Jet effect = new FireJet(blockCount, provider, pos.getX() + 0.5D, spawnHeight, pos.getZ() + 0.5D, isSolid);
             addEffect(effect);

@@ -41,24 +41,22 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class EntityBreathEffect extends AbstractEntityEffect {
-
+    
     private static final ResourceLocation NAME = new ResourceLocation(MobEffects.MOD_ID, "breath");
-    public static final FactoryHandler FACTORY = new FactoryHandler(
-            EntityBreathEffect.NAME,
-            entity -> new EntityBreathEffect());
-
+    public static final FactoryHandler FACTORY = new FactoryHandler(EntityBreathEffect.NAME, entity -> new EntityBreathEffect());
+    
     private int seed;
-
+    
     public EntityBreathEffect() {
         super(NAME);
     }
-
+    
     @Override
     public void intitialize(@Nonnull final IEntityEffectManager state) {
         super.intitialize(state);
         this.seed = MurmurHash3.hash(getEntity().getEntityId()) & 0xFFFF;
     }
-
+    
     @Override
     public void update() {
         final LivingEntity entity = getEntity();
@@ -87,7 +85,7 @@ public class EntityBreathEffect extends AbstractEntityEffect {
             }
         }
     }
-
+    
     protected boolean isBreathVisible(@Nonnull final LivingEntity entity) {
         final PlayerEntity player = GameUtils.getPlayer();
         if (entity == player) {
@@ -95,16 +93,16 @@ public class EntityBreathEffect extends AbstractEntityEffect {
         }
         return !entity.isInvisibleToPlayer(player) && player.canEntityBeSeen(entity);
     }
-
+    
     protected BlockPos getHeadPosition(@Nonnull final LivingEntity entity) {
         final double d0 = entity.getPosY() + entity.getEyeHeight();
         return new BlockPos(entity.getPosX(), d0, entity.getPosZ());
     }
-
+    
     protected boolean showWaterBubbles(@Nonnull final BlockState headBlock) {
         return headBlock.getMaterial().isLiquid();
     }
-
+    
     protected boolean showFrostBreath(final LivingEntity entity, @Nonnull final BlockState headBlock, @Nonnull final BlockPos pos) {
         if (headBlock.getMaterial() == Material.AIR) {
             final World world = entity.getEntityWorld();
@@ -112,15 +110,15 @@ public class EntityBreathEffect extends AbstractEntityEffect {
         }
         return false;
     }
-
+    
     protected void createBubbleParticle(boolean isDrowning) {
         final BubbleBreathParticle p = new BubbleBreathParticle(getEntity(), isDrowning);
         addParticle(p);
     }
-
+    
     protected void createFrostParticle() {
         final FrostBreathParticle p = new FrostBreathParticle(getEntity());
         addParticle(p);
     }
-
+    
 }

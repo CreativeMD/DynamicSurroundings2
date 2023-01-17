@@ -26,8 +26,7 @@ class ScriptEngineLoader {
         try {
             return new ScriptEngineManager().getEngineByName("JavaScript");
             //return NashornScriptEngineLoader.getEngine();
-        } catch (@Nonnull final Throwable ignore) {
-        }
+        } catch (@Nonnull final Throwable ignore) {}
         return new ScriptEngineManager().getEngineByName("JavaScript");
     }
 }

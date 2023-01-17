@@ -20,39 +20,35 @@ package org.orecruncher.lib.scripting;
 
 import javax.annotation.Nonnull;
 
-/**
- * A VariableSet is used to insert instances into the JavaScript runtime environment so that scripts can access game
- * and mod data safely.  For example, data related to the player can be encapsulated into a player data variable set,
- * and have that data updated once per tick.  This ticking allows for the calculation and caching of values that are
+/** A VariableSet is used to insert instances into the JavaScript runtime environment so that scripts can access game
+ * and mod data safely. For example, data related to the player can be encapsulated into a player data variable set,
+ * and have that data updated once per tick. This ticking allows for the calculation and caching of values that are
  * expensive to calculate and reused repeatedly through the tick.
  *
- * @param <T>
- */
+ * @param <T> */
 public abstract class VariableSet<T> {
-
+    
     @Nonnull
     private final String setName;
-
+    
     protected VariableSet(@Nonnull final String setName) {
         this.setName = setName;
     }
-
+    
     @Nonnull
     public String getSetName() {
         return this.setName;
     }
-
+    
     public void update() {
-
+        
     }
-
-    /**
-     * Produces a class instance that will be inserted into the JavaScript runtime so that scripts can access.  The
+    
+    /** Produces a class instance that will be inserted into the JavaScript runtime so that scripts can access. The
      * class should only have accessors on the interface and avoid state changing methods.
      *
-     * @return Instance that can be registered with the JavaScript engine
-     */
+     * @return Instance that can be registered with the JavaScript engine */
     @Nonnull
     public abstract T getInterface();
-
+    
 }

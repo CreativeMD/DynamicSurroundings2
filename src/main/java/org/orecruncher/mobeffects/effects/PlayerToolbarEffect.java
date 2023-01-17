@@ -35,38 +35,36 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class PlayerToolbarEffect extends AbstractEntityEffect {
-
+    
     private static final ResourceLocation NAME = new ResourceLocation(MobEffects.MOD_ID, "toolbar");
-    public static final FactoryHandler FACTORY = new FactoryHandler(
-            PlayerToolbarEffect.NAME,
-            entity -> new PlayerToolbarEffect());
-
+    public static final FactoryHandler FACTORY = new FactoryHandler(PlayerToolbarEffect.NAME, entity -> new PlayerToolbarEffect());
+    
     protected static class HandTracker {
-
+        
         protected final IEntityEffectManager manager;
         protected final Hand hand;
         protected Item lastHeld;
-
+        
         protected HandTracker(@Nonnull final IEntityEffectManager manager, @Nonnull final PlayerEntity player) {
             this(manager, player, Hand.OFF_HAND);
         }
-
+        
         protected HandTracker(@Nonnull final IEntityEffectManager manager, @Nonnull final PlayerEntity player, @Nonnull final Hand hand) {
             this.manager = manager;
             this.hand = hand;
             this.lastHeld = getItemForHand(player, hand);
         }
-
+        
         protected Item getItemForHand(final PlayerEntity player, final Hand hand) {
             final ItemStack stack = player.getHeldItem(hand);
             return stack.getItem();
         }
-
+        
         protected boolean triggerNewEquipSound(@Nonnull final PlayerEntity player) {
             final Item heldItem = getItemForHand(player, this.hand);
             return heldItem != this.lastHeld;
         }
-
+        
         public void update(@Nonnull final PlayerEntity player) {
             if (triggerNewEquipSound(player)) {
                 final ItemStack currentStack = player.getHeldItem(this.hand);
@@ -81,47 +79,47 @@ public class PlayerToolbarEffect extends AbstractEntityEffect {
             }
         }
     }
-
+    
     protected static class MainHandTracker extends HandTracker {
-
+        
         protected int lastSlot;
-
+        
         public MainHandTracker(@Nonnull final IEntityEffectManager manager, @Nonnull final PlayerEntity player) {
             super(manager, player, Hand.MAIN_HAND);
             this.lastSlot = player.inventory.currentItem;
         }
-
+        
         @Override
         protected boolean triggerNewEquipSound(@Nonnull final PlayerEntity player) {
             return this.lastSlot != player.inventory.currentItem || super.triggerNewEquipSound(player);
         }
-
+        
         @Override
         public void update(@Nonnull final PlayerEntity player) {
             super.update(player);
             this.lastSlot = player.inventory.currentItem;
         }
     }
-
+    
     protected MainHandTracker mainHand;
     protected HandTracker offHand;
-
+    
     public PlayerToolbarEffect() {
         super(NAME);
     }
-
+    
     public void intitialize(@Nonnull final IEntityEffectManager manager) {
         super.intitialize(manager);
         final PlayerEntity player = (PlayerEntity) getEntity();
         this.mainHand = new MainHandTracker(manager, player);
         this.offHand = new HandTracker(manager, player);
     }
-
+    
     @Override
     public void update() {
         final PlayerEntity player = (PlayerEntity) getEntity();
         this.mainHand.update(player);
         this.offHand.update(player);
     }
-
+    
 }

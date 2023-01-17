@@ -29,9 +29,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public final class BlockStateUtil {
-    private BlockStateUtil() {
-    }
-
+    private BlockStateUtil() {}
+    
     @Nonnull
     public static BlockStateData getData(@Nonnull final BlockState state) {
         BlockStateData profile = ((IMixinBlockData) state).getBlockData();
@@ -41,9 +40,9 @@ public final class BlockStateUtil {
         }
         return profile;
     }
-
+    
     public static void setData(@Nonnull final BlockState state, @Nullable final BlockStateData data) {
         ((IMixinBlockData) state).setBlockData(data);
     }
-
+    
 }

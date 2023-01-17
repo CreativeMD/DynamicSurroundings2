@@ -28,22 +28,22 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public interface IEntityEffectManager {
-
+    
     boolean isActive();
-
+    
     @Nonnull
     LivingEntity getEntity();
-
+    
     boolean isEntityAlive();
-
+    
     double rangeToPlayerSq();
-
+    
     boolean isFirstPersonView();
-
+    
     void addParticle(@Nonnull final Particle particle);
-
+    
     boolean isActivePlayer(@Nonnull final LivingEntity player);
-
+    
     @Nonnull
     PlayerEntity thePlayer();
 }

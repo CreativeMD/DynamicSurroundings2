@@ -36,27 +36,27 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class FrostBreathParticle extends SpriteTexturedParticle {
     private final IAnimatedSprite field_217583_C;
-
+    
     public FrostBreathParticle(@Nonnull final LivingEntity entity) {
         super((ClientWorld) entity.getEntityWorld(), 0, 0, 0, 0.0D, 0.0D, 0.0D);
-
+        
         final Random rand = XorShiftRandom.current();
-
+        
         // Reuse the cloud sheet
         this.field_217583_C = GameUtils.getMC().particles.sprites.get(ParticleTypes.CLOUD.getRegistryName());
-
+        
         final Vector3d origin = ParticleUtils.getBreathOrigin(entity);
         final Vector3d trajectory = ParticleUtils.getLookTrajectory(entity);
-
+        
         this.setPosition(origin.x, origin.y, origin.z);
         this.prevPosX = origin.x;
         this.prevPosY = origin.y;
         this.prevPosZ = origin.z;
-
+        
         this.motionX = trajectory.x * 0.01D;
         this.motionY = trajectory.y * 0.01D;
         this.motionZ = trajectory.z * 0.01D;
-
+        
         this.setAlphaF(0.2F);
         float f1 = 1.0F - (float) (rand.nextDouble() * (double) 0.3F);
         this.particleRed = f1;
@@ -68,16 +68,16 @@ public class FrostBreathParticle extends SpriteTexturedParticle {
         this.canCollide = false;
         this.selectSpriteWithAge(this.field_217583_C);
     }
-
+    
     @Nonnull
     public IParticleRenderType getRenderType() {
         return IParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
     }
-
+    
     public float getScale(float p_217561_1_) {
         return this.particleScale * MathStuff.clamp1(((float) this.age + p_217561_1_) / (float) this.maxAge * 32.0F);
     }
-
+    
     public void tick() {
         this.prevPosX = this.posX;
         this.prevPosY = this.posY;
@@ -90,12 +90,12 @@ public class FrostBreathParticle extends SpriteTexturedParticle {
             this.motionX *= 0.96F;
             this.motionY *= 0.96F;
             this.motionZ *= 0.96F;
-
+            
             if (this.onGround) {
                 this.motionX *= 0.7F;
                 this.motionZ *= 0.7F;
             }
-
+            
         }
     }
 }

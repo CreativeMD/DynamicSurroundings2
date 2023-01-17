@@ -36,43 +36,43 @@ import net.minecraftforge.client.event.EntityViewRenderEvent;
 
 @OnlyIn(Dist.CLIENT)
 public class MorningFogRangeCalculator extends VanillaFogRangeCalculator {
-
+    
     private static final float START = 0.630F;
     private static final float END = 0.830F;
     private static final float RESERVE = 10F;
     private static final Map<Season, FogType> MAPPING = new Reference2ReferenceOpenHashMap<>();
-
+    
     static {
         MAPPING.put(Season.EARLY_AUTUMN, FogType.NORMAL);
         MAPPING.put(Season.MID_AUTUMN, FogType.MEDIUM);
         MAPPING.put(Season.LATE_AUTUMN, FogType.HEAVY);
-
+        
         MAPPING.put(Season.EARLY_WINTER, FogType.MEDIUM);
         MAPPING.put(Season.MID_WINTER, FogType.LIGHT);
         MAPPING.put(Season.LATE_WINTER, FogType.NORMAL);
-
+        
         MAPPING.put(Season.EARLY_SPRING, FogType.MEDIUM);
         MAPPING.put(Season.MID_SPRING, FogType.HEAVY);
         MAPPING.put(Season.LATE_SPRING, FogType.NORMAL);
-
+        
         MAPPING.put(Season.EARLY_SUMMER, FogType.LIGHT);
         MAPPING.put(Season.MID_SUMMER, FogType.NONE);
         MAPPING.put(Season.LATE_SUMMER, FogType.LIGHT);
     }
-
+    
     protected final FogResult cache = new FogResult();
     protected int fogDay = -1;
     protected FogType type = FogType.NORMAL;
-
+    
     public MorningFogRangeCalculator() {
         super("MorningFogRangeCalculator");
     }
-
+    
     @Override
     public boolean enabled() {
         return Config.CLIENT.fog.enableMorningFog.get();
     }
-
+    
     @Override
     @Nonnull
     public FogResult calculate(@Nonnull final EntityViewRenderEvent.RenderFogEvent event) {
@@ -84,14 +84,13 @@ public class MorningFogRangeCalculator extends VanillaFogRangeCalculator {
                 final float factor = 1F - MathStuff.abs(ca - mid) / (mid - this.type.getStart());
                 final float shift = this.cache.getStart() * factor;
                 final float newEnd = this.cache.getEnd() - shift;
-                final float newStart = MathStuff.clamp(this.cache.getStart() - shift * 2, this.type.getReserve() + 1,
-                        newEnd);
+                final float newStart = MathStuff.clamp(this.cache.getStart() - shift * 2, this.type.getReserve() + 1, newEnd);
                 this.cache.set(newStart, newEnd);
             }
         }
         return this.cache;
     }
-
+    
     @Override
     public void tick() {
         // Determine if fog is going to be done this Minecraft day
@@ -104,7 +103,7 @@ public class MorningFogRangeCalculator extends VanillaFogRangeCalculator {
             this.type = doFog ? getFogType() : FogType.NONE;
         }
     }
-
+    
     @Nonnull
     protected FogType getFogType() {
         final Season season = CommonState.getSeason();
@@ -115,35 +114,35 @@ public class MorningFogRangeCalculator extends VanillaFogRangeCalculator {
         }
         return FogType.NORMAL;
     }
-
+    
     public enum FogType {
         NONE(0F, 0F, 0F),
         NORMAL(START, END, RESERVE),
         LIGHT(START + 0.1F, END - 0.1F, RESERVE + 5F),
         MEDIUM(START - 0.1F, END + 0.1F, RESERVE),
         HEAVY(START - 0.1F, END + 0.2F, RESERVE - 5F);
-
+        
         private final float start;
         private final float end;
         private final float reserve;
-
+        
         FogType(final float start, final float end, final float reserve) {
             this.start = start;
             this.end = end;
             this.reserve = reserve;
         }
-
+        
         public float getStart() {
             return this.start;
         }
-
+        
         public float getEnd() {
             return this.end;
         }
-
+        
         public float getReserve() {
             return this.reserve;
         }
     }
-
+    
 }

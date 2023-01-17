@@ -25,33 +25,33 @@ import javax.annotation.Nullable;
 
 @SuppressWarnings("unused")
 public interface IModLog {
-
-    default void info(@Nonnull final String msg, @Nullable final Object... parms) { }
-
+    
+    default void info(@Nonnull final String msg, @Nullable final Object... parms) {}
+    
     default void info(@Nonnull final Supplier<String> message) {
         info(message.get());
     }
-
-    default void warn(@Nonnull final String msg, @Nullable final Object... parms) { }
-
+    
+    default void warn(@Nonnull final String msg, @Nullable final Object... parms) {}
+    
     default void warn(@Nonnull final Supplier<String> message) {
         warn(message.get());
     }
-
-    default void debug(@Nonnull final String msg, @Nullable final Object... parms) { }
-
+    
+    default void debug(@Nonnull final String msg, @Nullable final Object... parms) {}
+    
     default void debug(@Nonnull final Supplier<String> message) {
         debug(message.get());
     }
-
-    default void debug(final int mask, @Nonnull final String msg, @Nullable final Object... parms) { }
-
+    
+    default void debug(final int mask, @Nonnull final String msg, @Nullable final Object... parms) {}
+    
     default void debug(final int mask, @Nonnull final Supplier<String> message) {
         debug(message.get());
     }
-
-    default void error(@Nonnull final Throwable e, @Nonnull final String msg, @Nullable final Object... parms) { }
-
+    
+    default void error(@Nonnull final Throwable e, @Nonnull final String msg, @Nullable final Object... parms) {}
+    
     default void error(@Nonnull final Throwable e, @Nonnull final Supplier<String> message) {
         error(e, message.get());
     }

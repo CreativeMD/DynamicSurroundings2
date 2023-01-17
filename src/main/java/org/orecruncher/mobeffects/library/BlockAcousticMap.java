@@ -37,68 +37,65 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public final class BlockAcousticMap {
-
-	protected final Map<Block, ObjectArray<Pair<BlockStateMatcher, IAcoustic>>> data = new Reference2ObjectOpenHashMap<>();
-	protected final Function<BlockState, IAcoustic> resolver;
-
-	public BlockAcousticMap() {
-		this(s -> null);
-	}
-
-	public BlockAcousticMap(@Nonnull final Function<BlockState, IAcoustic> resolver) {
-		this.resolver = resolver;
-		put(BlockStateMatcher.create(Blocks.AIR.getDefaultState()), Constants.NOT_EMITTER);
-		put(BlockStateMatcher.create(Blocks.CAVE_AIR.getDefaultState()), Constants.NOT_EMITTER);
-		put(BlockStateMatcher.create(Blocks.VOID_AIR.getDefaultState()), Constants.NOT_EMITTER);
-	}
-
-	/**
-	 * Obtain acoustic information for a block. If the block has variants (subtypes)
-	 * it will fall back to searching for a generic if a specific one is not found.
-	 */
-	@Nonnull
-	public IAcoustic getBlockAcoustics(@Nonnull final BlockState state) {
-		IAcoustic result;
-		final ObjectArray<Pair<BlockStateMatcher, IAcoustic>> entries = this.data.get(state.getBlock());
-		if (entries != null) {
-			final BlockStateMatcher matcher = BlockStateMatcher.create(state);
-			result = find(entries, matcher);
-			if (result != null)
-				return result;
-			result = find(entries, BlockStateMatcher.asGeneric(state));
-			if (result != null)
-				return result;
-		}
-
-		return Utilities.firstNonNull(this.resolver.apply(state), Constants.EMPTY);
-	}
-
-	@Nullable
-	private IAcoustic find(@Nonnull final ObjectArray<Pair<BlockStateMatcher, IAcoustic>> entries,
-						   @Nonnull final BlockStateMatcher matcher) {
-		// Search backwards. In general highly specified states are at the end of the array.
-		for (int i = entries.size() - 1; i >= 0; i--) {
-			final Pair<BlockStateMatcher, IAcoustic> e = entries.get(i);
-			if (matcher.equals(e.getKey()))
-				return e.getValue();
-		}
-		return null;
-	}
-
-	public void put(@Nonnull final BlockStateMatcher info, @Nonnull final IAcoustic acoustics) {
-		ObjectArray<Pair<BlockStateMatcher, IAcoustic>> entry = this.data.get(info.getBlock());
-		if (entry == null) {
-			this.data.put(info.getBlock(), entry = new ObjectArray<>());
-		}
-		entry.add(Pair.of(info, acoustics));
-	}
-
-	public void clear() {
-		this.data.clear();
-	}
-
-	public void trim() {
-		this.data.forEach((key, value) -> value.trim());
-	}
-
+    
+    protected final Map<Block, ObjectArray<Pair<BlockStateMatcher, IAcoustic>>> data = new Reference2ObjectOpenHashMap<>();
+    protected final Function<BlockState, IAcoustic> resolver;
+    
+    public BlockAcousticMap() {
+        this(s -> null);
+    }
+    
+    public BlockAcousticMap(@Nonnull final Function<BlockState, IAcoustic> resolver) {
+        this.resolver = resolver;
+        put(BlockStateMatcher.create(Blocks.AIR.getDefaultState()), Constants.NOT_EMITTER);
+        put(BlockStateMatcher.create(Blocks.CAVE_AIR.getDefaultState()), Constants.NOT_EMITTER);
+        put(BlockStateMatcher.create(Blocks.VOID_AIR.getDefaultState()), Constants.NOT_EMITTER);
+    }
+    
+    /** Obtain acoustic information for a block. If the block has variants (subtypes)
+     * it will fall back to searching for a generic if a specific one is not found. */
+    @Nonnull
+    public IAcoustic getBlockAcoustics(@Nonnull final BlockState state) {
+        IAcoustic result;
+        final ObjectArray<Pair<BlockStateMatcher, IAcoustic>> entries = this.data.get(state.getBlock());
+        if (entries != null) {
+            final BlockStateMatcher matcher = BlockStateMatcher.create(state);
+            result = find(entries, matcher);
+            if (result != null)
+                return result;
+            result = find(entries, BlockStateMatcher.asGeneric(state));
+            if (result != null)
+                return result;
+        }
+        
+        return Utilities.firstNonNull(this.resolver.apply(state), Constants.EMPTY);
+    }
+    
+    @Nullable
+    private IAcoustic find(@Nonnull final ObjectArray<Pair<BlockStateMatcher, IAcoustic>> entries, @Nonnull final BlockStateMatcher matcher) {
+        // Search backwards. In general highly specified states are at the end of the array.
+        for (int i = entries.size() - 1; i >= 0; i--) {
+            final Pair<BlockStateMatcher, IAcoustic> e = entries.get(i);
+            if (matcher.equals(e.getKey()))
+                return e.getValue();
+        }
+        return null;
+    }
+    
+    public void put(@Nonnull final BlockStateMatcher info, @Nonnull final IAcoustic acoustics) {
+        ObjectArray<Pair<BlockStateMatcher, IAcoustic>> entry = this.data.get(info.getBlock());
+        if (entry == null) {
+            this.data.put(info.getBlock(), entry = new ObjectArray<>());
+        }
+        entry.add(Pair.of(info, acoustics));
+    }
+    
+    public void clear() {
+        this.data.clear();
+    }
+    
+    public void trim() {
+        this.data.forEach((key, value) -> value.trim());
+    }
+    
 }

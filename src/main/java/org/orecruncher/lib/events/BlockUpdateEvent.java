@@ -31,20 +31,20 @@ import net.minecraftforge.eventbus.api.Event;
 
 @OnlyIn(Dist.CLIENT)
 public class BlockUpdateEvent extends Event {
-
+    
     private final Collection<BlockPos> positions;
     private final Set<BlockPos> expanded;
-
+    
     public BlockUpdateEvent(@Nonnull final Collection<BlockPos> positions) {
         this.positions = positions;
         this.expanded = new ObjectOpenHashSet<>();
     }
-
+    
     @Nonnull
     public Collection<BlockPos> getPositions() {
         return this.positions;
     }
-
+    
     @Nonnull
     public Collection<BlockPos> getExpandedPositions() {
         if (this.expanded.size() == 0) {
@@ -53,7 +53,7 @@ public class BlockUpdateEvent extends Event {
         }
         return this.expanded;
     }
-
+    
     protected void expand(@Nonnull final BlockPos center, @Nonnull final Set<BlockPos> result) {
         for (int i = -1; i < 2; i++)
             for (int j = -1; j < 2; j++)

@@ -44,51 +44,51 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class Primitives {
-
+    
     private static final float MINECRAFT_VOLUME_SCALE = 0.15F;
-
+    
     private static final String ARMOR_EQUIP_PREFIX = "primitive/armor/equip/";
     private static final String ARMOR_ACCENT_PREFIX = "primitive/armor/accent/";
     private static final String FOOTSTEP_PREFIX = "primitive/block/step/";
     private static final String VANILLA_FOOTSTEP_PREFIX = "primitive/block/step/vanilla/";
     private static final String SOUND_PREFIX = "primitive/sound/";
-
+    
     private static final ResourceLocation ARMOR_TEMPLATE = new ResourceLocation(SoundControl.MOD_ID, "templates/primitive_armor_accent.json");
     private static final ResourceLocation FOOTSTEP_TEMPLATE = new ResourceLocation(SoundControl.MOD_ID, "templates/primitive_block_step.json");
-
+    
     @Nonnull
     public static ResourceLocation createArmorToolbarResource(@Nonnull final IArmorMaterial material) {
         return new ResourceLocation(MobEffects.MOD_ID, Utilities.safeResourcePath(ARMOR_EQUIP_PREFIX + material.getName()));
     }
-
+    
     @Nonnull
     public static ResourceLocation createArmorAccentResource(@Nonnull final IArmorMaterial material) {
         return new ResourceLocation(MobEffects.MOD_ID, Utilities.safeResourcePath(ARMOR_ACCENT_PREFIX + material.getName()));
     }
-
+    
     @Nonnull
     public static ResourceLocation createFootstepResource(@Nonnull final SoundType st) {
         return createFootstepResource(SoundTypeUtils.getSoundTypeName(st));
     }
-
+    
     @Nonnull
     public static ResourceLocation createVanillaFootstepResource(@Nonnull final SoundType st) {
         final String safePath = Utilities.safeResourcePath(VANILLA_FOOTSTEP_PREFIX + SoundTypeUtils.getSoundTypeName(st));
         return new ResourceLocation(MobEffects.MOD_ID, safePath);
     }
-
+    
     @Nonnull
     public static ResourceLocation createFootstepResource(@Nonnull final String soundType) {
         final String safePath = Utilities.safeResourcePath(FOOTSTEP_PREFIX + soundType);
         return new ResourceLocation(MobEffects.MOD_ID, safePath);
     }
-
+    
     @Nonnull
     private static ResourceLocation createSoundLocation(@Nonnull final ResourceLocation loc, @Nonnull final ISoundCategory category) {
         final String safePath = Utilities.safeResourcePath(SOUND_PREFIX + category.getName() + "/" + loc.toString());
         return new ResourceLocation(MobEffects.MOD_ID, safePath);
     }
-
+    
     @Nonnull
     public static IAcoustic getSound(@Nonnull final ResourceLocation loc, @Nonnull final ISoundCategory category) {
         final ResourceLocation resource = createSoundLocation(loc, category);
@@ -102,7 +102,7 @@ public class Primitives {
         }
         return acoustic;
     }
-
+    
     @Nonnull
     public static IAcoustic getArmorToolbarAcoustic(@Nonnull final IArmorMaterial material) {
         final ResourceLocation loc = createArmorToolbarResource(material);
@@ -116,7 +116,7 @@ public class Primitives {
         }
         return acoustic;
     }
-
+    
     @Nonnull
     public static IAcoustic getArmorAccentAcoustic(@Nonnull final IArmorMaterial material) {
         final ResourceLocation loc = createArmorAccentResource(material);
@@ -131,24 +131,24 @@ public class Primitives {
         }
         return footstepAcousticResolver(loc, material.getSoundEvent());
     }
-
+    
     @Nonnull
     public static IAcoustic getFootstepAcoustic(@Nonnull final BlockState state) {
         return getFootstepAcoustic(state.getSoundType());
     }
-
+    
     @Nonnull
     public static IAcoustic getVanillaFootstepAcoustic(@Nonnull final SoundType soundType) {
         final ResourceLocation loc = createVanillaFootstepResource(soundType);
         return footstepAcousticResolver(loc, soundType, true);
     }
-
+    
     @Nonnull
     public static IAcoustic getFootstepAcoustic(@Nonnull final SoundType soundType) {
         final ResourceLocation loc = createFootstepResource(soundType);
         return footstepAcousticResolver(loc, soundType, false);
     }
-
+    
     @Nonnull
     private static IAcoustic footstepAcousticResolver(@Nonnull final ResourceLocation loc, @Nonnull final SoundEvent soundType) {
         IAcoustic acoustic = AcousticLibrary.resolve(loc);
@@ -160,7 +160,7 @@ public class Primitives {
         }
         return acoustic;
     }
-
+    
     @Nonnull
     private static IAcoustic footstepAcousticResolver(@Nonnull final ResourceLocation loc, @Nonnull final SoundType soundType, final boolean isVanilla) {
         IAcoustic acoustic = AcousticLibrary.resolve(loc);
@@ -180,19 +180,16 @@ public class Primitives {
         }
         return acoustic;
     }
-
+    
     private static IAcoustic generateAcousticFromTemplate(@Nonnull final ResourceLocation template, @Nonnull final ResourceLocation name, @Nonnull final ResourceLocation acousticName) {
         try {
             String jsonResource = ResourceUtils.readResource(template);
             if (jsonResource != null) {
-                jsonResource = jsonResource
-                        .replaceAll("<NAME>", name.toString())
-                        .replaceAll("<ACOUSTIC>", acousticName.toString());
+                jsonResource = jsonResource.replaceAll("<NAME>", name.toString()).replaceAll("<ACOUSTIC>", acousticName.toString());
                 final List<IAcoustic> acoustic = new AcousticCompiler(MobEffects.MOD_ID).compile(jsonResource);
                 return acoustic.get(0);
             }
-        } catch(@Nonnull final Throwable ignore) {
-        }
+        } catch (@Nonnull final Throwable ignore) {}
         return NullAcoustic.INSTANCE;
     }
 }

@@ -35,55 +35,53 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class EntityFootprintEffect extends AbstractEntityEffect {
-
-	private static final ResourceLocation NAME = new ResourceLocation(MobEffects.MOD_ID, "footprint");
-	public static final FactoryHandler FACTORY = new FactoryHandler(
-			EntityFootprintEffect.NAME,
-			entity -> entity instanceof PlayerEntity ? new PlayerFootprintEffect() : new EntityFootprintEffect());
-
-	protected Generator generator;
-
-	public EntityFootprintEffect() {
-		super(NAME);
-	}
-
-	@Override
-	public void intitialize(@Nonnull final IEntityEffectManager state) {
-		super.intitialize(state);
-		this.generator = FootstepLibrary.createGenerator(getEntity());
-	}
-
-	@Override
-	public void update() {
-		this.generator.generateFootsteps(getEntity());
-	}
-
-	@Override
-	public String toString() {
-		return super.toString() + ": " + this.generator.getPedometer();
-	}
-
-	@OnlyIn(Dist.CLIENT)
-	private static class PlayerFootprintEffect extends EntityFootprintEffect {
-
-		protected FootprintStyle lastStyle;
-
-		@Override
-		public void intitialize(@Nonnull final IEntityEffectManager state) {
-			super.intitialize(state);
-			this.lastStyle = Config.CLIENT.footsteps.playerFootprintStyle.get();
-		}
-
-		@Override
-		public void update() {
-			final FootprintStyle currentStyle = Config.CLIENT.footsteps.playerFootprintStyle.get();
-			if (this.lastStyle != currentStyle) {
-				this.generator = FootstepLibrary.createGenerator(getEntity());
-				this.lastStyle = currentStyle;
-			}
-			super.update();
-		}
-
-	}
-
+    
+    private static final ResourceLocation NAME = new ResourceLocation(MobEffects.MOD_ID, "footprint");
+    public static final FactoryHandler FACTORY = new FactoryHandler(EntityFootprintEffect.NAME, entity -> entity instanceof PlayerEntity ? new PlayerFootprintEffect() : new EntityFootprintEffect());
+    
+    protected Generator generator;
+    
+    public EntityFootprintEffect() {
+        super(NAME);
+    }
+    
+    @Override
+    public void intitialize(@Nonnull final IEntityEffectManager state) {
+        super.intitialize(state);
+        this.generator = FootstepLibrary.createGenerator(getEntity());
+    }
+    
+    @Override
+    public void update() {
+        this.generator.generateFootsteps(getEntity());
+    }
+    
+    @Override
+    public String toString() {
+        return super.toString() + ": " + this.generator.getPedometer();
+    }
+    
+    @OnlyIn(Dist.CLIENT)
+    private static class PlayerFootprintEffect extends EntityFootprintEffect {
+        
+        protected FootprintStyle lastStyle;
+        
+        @Override
+        public void intitialize(@Nonnull final IEntityEffectManager state) {
+            super.intitialize(state);
+            this.lastStyle = Config.CLIENT.footsteps.playerFootprintStyle.get();
+        }
+        
+        @Override
+        public void update() {
+            final FootprintStyle currentStyle = Config.CLIENT.footsteps.playerFootprintStyle.get();
+            if (this.lastStyle != currentStyle) {
+                this.generator = FootstepLibrary.createGenerator(getEntity());
+                this.lastStyle = currentStyle;
+            }
+            super.update();
+        }
+        
+    }
+    
 }

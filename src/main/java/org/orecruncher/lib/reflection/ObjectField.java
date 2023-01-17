@@ -32,7 +32,7 @@ import com.google.common.base.Preconditions;
 
 @SuppressWarnings("unused")
 public class ObjectField<T, R> {
-
+    
     @Nullable
     private final Field field;
     @Nonnull
@@ -45,7 +45,7 @@ public class ObjectField<T, R> {
     private final Function<T, R> getter;
     @Nonnull
     private final BiConsumer<T, R> setter;
-
+    
     public ObjectField(@Nonnull final String className, @Nonnull final Supplier<R> defaultValue, @Nonnull final String... fieldName) {
         Preconditions.checkNotNull(defaultValue);
         Preconditions.checkNotNull(className);
@@ -54,7 +54,7 @@ public class ObjectField<T, R> {
         this.className = className;
         this.fieldName = fieldName[0];
         this.field = ReflectionHelper.resolveField(className, fieldName);
-
+        
         if (isNotAvailable()) {
             Lib.LOGGER.warn("Unable to locate field [%s::%s]", this.className, this.fieldName);
             this.getter = obj -> defaultValue.get();
@@ -64,7 +64,7 @@ public class ObjectField<T, R> {
             this.setter = this::setImpl;
         }
     }
-
+    
     public ObjectField(@Nonnull final Class<T> clazz, @Nonnull final Supplier<R> defaultValue, @Nonnull final String... fieldName) {
         Preconditions.checkNotNull(defaultValue);
         Preconditions.checkNotNull(clazz);
@@ -73,7 +73,7 @@ public class ObjectField<T, R> {
         this.className = clazz.getName();
         this.fieldName = fieldName[0];
         this.field = ReflectionHelper.resolveField(clazz, fieldName);
-
+        
         if (isNotAvailable()) {
             Lib.LOGGER.warn("Unable to locate field [%s::%s]", this.className, this.fieldName);
             this.getter = obj -> defaultValue.get();
@@ -83,40 +83,38 @@ public class ObjectField<T, R> {
             this.setter = this::setImpl;
         }
     }
-
+    
     public boolean isNotAvailable() {
         return this.field == null;
     }
-
+    
     public R get(@Nonnull T obj) {
         return this.getter.apply(obj);
     }
-
+    
     @SuppressWarnings("unchecked")
     private R getImpl(@Nonnull T obj) {
         try {
             return (R) this.field.get(obj);
-        } catch (@Nonnull final Throwable ignored) {
-        }
+        } catch (@Nonnull final Throwable ignored) {}
         return this.defaultValue.get();
     }
-
+    
     public void set(@Nonnull T obj, @Nullable R value) {
         this.setter.accept(obj, value);
     }
-
+    
     private void setImpl(@Nonnull T obj, @Nullable R value) {
         try {
             this.field.set(obj, value);
-        } catch (@Nonnull final Throwable ignored) {
-        }
+        } catch (@Nonnull final Throwable ignored) {}
     }
-
+    
     protected void check() {
         if (isNotAvailable()) {
             final String msg = String.format("Uninitialized field [%s::%s]", this.className, this.fieldName);
             throw new IllegalStateException(msg);
         }
     }
-
+    
 }

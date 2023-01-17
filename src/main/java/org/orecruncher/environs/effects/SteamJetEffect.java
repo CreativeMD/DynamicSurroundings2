@@ -35,35 +35,32 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class SteamJetEffect extends JetEffect {
-
+    
     public SteamJetEffect(final int chance) {
         super(chance);
     }
-
-    public static boolean isValidSpawnBlock(@Nonnull final IBlockReader provider,
-                                            @Nonnull final BlockPos pos, @Nonnull final BlockState source) {
+    
+    public static boolean isValidSpawnBlock(@Nonnull final IBlockReader provider, @Nonnull final BlockPos pos, @Nonnull final BlockState source) {
         if (!WorldUtils.isAirBlock(provider, pos.up()))
             return false;
         if (provider.getBlockState(pos) != source)
             return false;
         return countCubeBlocks(provider, pos, HOTBLOCK_PREDICATE, true) > 0;
     }
-
+    
     @Override
     @Nonnull
     public BlockEffectType getEffectType() {
         return BlockEffectType.STEAM;
     }
-
+    
     @Override
-    public boolean canTrigger(@Nonnull final IBlockReader provider, @Nonnull final BlockState state,
-                              @Nonnull final BlockPos pos, @Nonnull final Random random) {
+    public boolean canTrigger(@Nonnull final IBlockReader provider, @Nonnull final BlockState state, @Nonnull final BlockPos pos, @Nonnull final Random random) {
         return isValidSpawnBlock(provider, pos, state) && super.canTrigger(provider, state, pos, random);
     }
-
+    
     @Override
-    public void doEffect(@Nonnull final IBlockReader provider, @Nonnull final BlockState state,
-                         @Nonnull final BlockPos pos, @Nonnull final Random random) {
+    public void doEffect(@Nonnull final IBlockReader provider, @Nonnull final BlockState state, @Nonnull final BlockPos pos, @Nonnull final Random random) {
         final int strength = countCubeBlocks(provider, pos, HOTBLOCK_PREDICATE, false);
         if (strength > 0) {
             final FluidState fluidState = state.getFluidState();

@@ -46,26 +46,26 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 @OnlyIn(Dist.CLIENT)
 public class FogHandler extends HandlerBase {
-
+    
     protected final LoggingTimerEMA render = new LoggingTimerEMA("Render Fog");
-
+    
     protected HolisticFogRangeCalculator fogRange = new HolisticFogRangeCalculator();
-
+    
     public FogHandler() {
         super("Fog Handler");
     }
-
+    
     public static boolean doFog() {
         return Config.CLIENT.fog.enableFog.get() && CommonState.getDimensionInfo().hasFog();
     }
-
+    
     @Override
     public void process(@Nonnull final PlayerEntity player) {
         if (doFog()) {
             this.fogRange.tick();
         }
     }
-
+    
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public void fogRenderEvent(final EntityViewRenderEvent.RenderFogEvent event) {
         if (event.getType() == FogRenderer.FogType.FOG_TERRAIN && doFog()) {
@@ -82,7 +82,7 @@ public class FogHandler extends HandlerBase {
             profiler.endSection();
         }
     }
-
+    
     @SubscribeEvent
     public void diagnostics(final DiagnosticEvent event) {
         if (Config.CLIENT.logging.enableLogging.get()) {
@@ -93,7 +93,7 @@ public class FogHandler extends HandlerBase {
                 event.getLeft().add("FOG: IGNORED");
         }
     }
-
+    
     @Override
     public void onConnect() {
         this.fogRange = new HolisticFogRangeCalculator();
@@ -102,10 +102,10 @@ public class FogHandler extends HandlerBase {
         this.fogRange.add(new MorningFogRangeCalculator());
         this.fogRange.add(new BedrockFogRangeCalculator());
         this.fogRange.add(new WeatherFogRangeCalculator());
-
-//			this.fogRange
-//					.add(new FixedFogRangeCalculator(this.theme.getMinFogDistance(), this.theme.getMaxFogDistance()));
-
+        
+        //			this.fogRange
+        //					.add(new FixedFogRangeCalculator(this.theme.getMinFogDistance(), this.theme.getMaxFogDistance()));
+        
     }
-
+    
 }

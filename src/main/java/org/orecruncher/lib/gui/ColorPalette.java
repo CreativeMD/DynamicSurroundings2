@@ -42,7 +42,7 @@ public final class ColorPalette {
     public static final Color MC_LIGHTPURPLE = new Color(TextFormatting.LIGHT_PURPLE);
     public static final Color MC_YELLOW = new Color(TextFormatting.YELLOW);
     public static final Color MC_WHITE = new Color(TextFormatting.WHITE);
-
+    
     public static final Color RED = new Color(255, 0, 0);
     public static final Color ORANGE = new Color(255, 127, 0);
     public static final Color YELLOW = new Color(255, 255, 0);
@@ -66,13 +66,13 @@ public final class ColorPalette {
     public static final Color LGRAY = new Color(192, 192, 192);
     public static final Color SLATEGRAY = new Color(112, 128, 144);
     public static final Color DARKSLATEGRAY = new Color(47, 79, 79);
-
+    
     public static final Color AURORA_RED = new Color(1.0F, 0F, 0F);
     public static final Color AURORA_GREEN = new Color(0.5F, 1.0F, 0.0F);
     public static final Color AURORA_BLUE = new Color(0F, 0.8F, 1.0F);
-
+    
     private ColorPalette() {
-
+        
     }
-
+    
 }

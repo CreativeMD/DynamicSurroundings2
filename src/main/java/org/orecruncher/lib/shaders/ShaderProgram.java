@@ -33,27 +33,27 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 final class ShaderProgram implements IShaderManager {
-
+    
     private final String name;
     private final int program;
     private final ShaderLoader vert;
     private final ShaderLoader frag;
     private final Object2IntOpenHashMap<String> uniforms = new Object2IntOpenHashMap<>();
-
+    
     ShaderProgram(@Nonnull final String name, int program, @Nonnull final ShaderLoader vert, @Nonnull final ShaderLoader frag) {
         this.name = name;
         this.program = program;
         this.vert = vert;
         this.frag = frag;
-
+        
         this.uniforms.defaultReturnValue(-1);
     }
-
+    
     @Override
     public int getProgram() {
         return program;
     }
-
+    
     void setUniforms(@Nonnull final Collection<String> uniforms) {
         for (final String u : uniforms) {
             final int id = GlStateManager.getUniformLocation(this.program, u);
@@ -62,28 +62,28 @@ final class ShaderProgram implements IShaderManager {
             this.uniforms.put(u, id);
         }
     }
-
+    
     int getUniform(@Nonnull final String uniform) {
         return this.uniforms.getInt(uniform);
     }
-
+    
     @Override
     public void markDirty() {
-
+        
     }
-
+    
     @Override
     @Nonnull
     public ShaderLoader getVertexShaderLoader() {
         return vert;
     }
-
+    
     @Override
     @Nonnull
     public ShaderLoader getFragmentShaderLoader() {
         return frag;
     }
-
+    
     @Override
     public String toString() {
         return String.format("%s [%d]", this.name, this.program);

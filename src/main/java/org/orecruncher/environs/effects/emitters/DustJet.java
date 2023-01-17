@@ -16,7 +16,6 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>
  */
 
-
 package org.orecruncher.environs.effects.emitters;
 
 import org.orecruncher.environs.effects.particles.DustParticle;
@@ -30,21 +29,20 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class DustJet extends Jet {
-
-	protected final BlockState blockState;
-
-	public DustJet(final int strength, final IBlockReader world, final double x, final double y, final double z,
-				   final BlockState state) {
-		super(1, strength, world, x, y, z, 2);
-		this.blockState = state;
-	}
-
-	@Override
-	protected void spawnJetParticle() {
-		final double x = this.posX + RANDOM.nextGaussian() * 0.2D;
-		final double z = this.posZ + RANDOM.nextGaussian() * 0.2D;
-		final Particle particle = new DustParticle(GameUtils.getWorld(), x, this.posY, z, this.blockState).init();
-		addParticle(particle);
-	}
-
+    
+    protected final BlockState blockState;
+    
+    public DustJet(final int strength, final IBlockReader world, final double x, final double y, final double z, final BlockState state) {
+        super(1, strength, world, x, y, z, 2);
+        this.blockState = state;
+    }
+    
+    @Override
+    protected void spawnJetParticle() {
+        final double x = this.posX + RANDOM.nextGaussian() * 0.2D;
+        final double z = this.posZ + RANDOM.nextGaussian() * 0.2D;
+        final Particle particle = new DustParticle(GameUtils.getWorld(), x, this.posY, z, this.blockState).init();
+        addParticle(particle);
+    }
+    
 }

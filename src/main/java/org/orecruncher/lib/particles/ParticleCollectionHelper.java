@@ -33,32 +33,31 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 final class ParticleCollectionHelper implements IParticleCollection {
-
+    
     protected final String name;
     protected final ParticleCollection.ICollectionFactory factory;
     protected final IParticleRenderType renderType;
-
+    
     // Weak reference because the particle could be evicted from Minecraft's
     // particle manager for some reason.
     protected WeakReference<ParticleCollection> collection;
-
+    
     public ParticleCollectionHelper(@Nonnull final String name, @Nonnull final IParticleRenderType renderType) {
         this(name, ParticleCollection.FACTORY, renderType);
     }
-
-    public ParticleCollectionHelper(@Nonnull final String name, @Nonnull final ParticleCollection.ICollectionFactory factory,
-                                    @Nonnull final IParticleRenderType renderType) {
+    
+    public ParticleCollectionHelper(@Nonnull final String name, @Nonnull final ParticleCollection.ICollectionFactory factory, @Nonnull final IParticleRenderType renderType) {
         this.name = name;
         this.renderType = renderType;
         this.factory = factory;
     }
-
+    
     @Override
     @Nonnull
     public String name() {
         return this.name;
     }
-
+    
     @Nonnull
     private Optional<ParticleCollection> get() {
         ParticleCollection pc = this.collection != null ? this.collection.get() : null;
@@ -69,7 +68,7 @@ final class ParticleCollectionHelper implements IParticleCollection {
         }
         return Optional.of(pc);
     }
-
+    
     @Override
     public void add(@Nonnull final IParticleMote mote) {
         get().ifPresent(pc -> {
@@ -77,33 +76,33 @@ final class ParticleCollectionHelper implements IParticleCollection {
                 pc.addParticle(mote);
         });
     }
-
+    
     @Override
     public boolean canFit() {
         final Optional<ParticleCollection> pc = get();
         return pc.isPresent() && pc.get().canFit();
     }
-
+    
     void clear() {
         resolve().ifPresent(Particle::setExpired);
         this.collection = null;
     }
-
+    
     @Nonnull
     Optional<TimerEMA> getRenderTimer() {
         return resolve().map(ParticleCollection::getRenderTimer);
     }
-
+    
     @Nonnull
     Optional<TimerEMA> getTickTimer() {
         return resolve().map(ParticleCollection::getTickTimer);
     }
-
+    
     @Nonnull
     private Optional<ParticleCollection> resolve() {
         return Optional.ofNullable(this.collection != null ? this.collection.get() : null);
     }
-
+    
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();

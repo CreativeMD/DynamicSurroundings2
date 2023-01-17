@@ -34,77 +34,76 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class FakeBiomeAdapter implements IBiome {
-
-	protected final String name;
-	protected final ResourceLocation key;
-
-	@Nonnull
-	protected final BiomeInfo biomeData;
-
-	public FakeBiomeAdapter(@Nonnull final String name) {
-		this.name = name;
-		this.key = new ResourceLocation(Environs.MOD_ID, ("fake_" + name).replace(' ', '_').toLowerCase());
-		this.biomeData = new BiomeInfo(this);
-	}
-
-	@Nonnull
-	public BiomeInfo getBiomeData() {
-		return this.biomeData;
-	}
-
-	@Override
-	public Biome.RainType getPrecipitationType() {
-		return getTrueBiome().getPrecipitationType();
-	}
-
-
-	@Override
-	public float getFloatTemperature(@Nonnull final BlockPos pos) {
-		return getTrueBiome().getFloatTemperature(pos);
-	}
-
-	@Override
-	public float getTemperature() {
-		return getTrueBiome().getTemperature();
-	}
-
-	@Override
-	public boolean isHighHumidity() {
-		return getTrueBiome().isHighHumidity();
-	}
-
-	@Override
-	public float getDownfall() {
-		return getTrueBiome().getRainfall();
-	}
-
-	@Override
-	public Biome getBiome() {
-		return null;
-	}
-
-	@Override
-	public ResourceLocation getKey() {
-		return this.key;
-	}
-
-	@Override
-	public String getName() {
-		return this.name;
-	}
-
-	@Override
-	public Set<Type> getTypes() {
-		return ImmutableSet.of();
-	}
-
-	@Override
-	public boolean isFake() {
-		return true;
-	}
-
-	private static BiomeInfo getTrueBiome() {
-		return BiomeLibrary.getPlayerBiome(GameUtils.getPlayer(), true);
-	}
-
+    
+    protected final String name;
+    protected final ResourceLocation key;
+    
+    @Nonnull
+    protected final BiomeInfo biomeData;
+    
+    public FakeBiomeAdapter(@Nonnull final String name) {
+        this.name = name;
+        this.key = new ResourceLocation(Environs.MOD_ID, ("fake_" + name).replace(' ', '_').toLowerCase());
+        this.biomeData = new BiomeInfo(this);
+    }
+    
+    @Nonnull
+    public BiomeInfo getBiomeData() {
+        return this.biomeData;
+    }
+    
+    @Override
+    public Biome.RainType getPrecipitationType() {
+        return getTrueBiome().getPrecipitationType();
+    }
+    
+    @Override
+    public float getFloatTemperature(@Nonnull final BlockPos pos) {
+        return getTrueBiome().getFloatTemperature(pos);
+    }
+    
+    @Override
+    public float getTemperature() {
+        return getTrueBiome().getTemperature();
+    }
+    
+    @Override
+    public boolean isHighHumidity() {
+        return getTrueBiome().isHighHumidity();
+    }
+    
+    @Override
+    public float getDownfall() {
+        return getTrueBiome().getRainfall();
+    }
+    
+    @Override
+    public Biome getBiome() {
+        return null;
+    }
+    
+    @Override
+    public ResourceLocation getKey() {
+        return this.key;
+    }
+    
+    @Override
+    public String getName() {
+        return this.name;
+    }
+    
+    @Override
+    public Set<Type> getTypes() {
+        return ImmutableSet.of();
+    }
+    
+    @Override
+    public boolean isFake() {
+        return true;
+    }
+    
+    private static BiomeInfo getTrueBiome() {
+        return BiomeLibrary.getPlayerBiome(GameUtils.getPlayer(), true);
+    }
+    
 }

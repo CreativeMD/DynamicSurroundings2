@@ -21,23 +21,23 @@ package org.orecruncher.lib.math;
 import javax.annotation.Nonnull;
 
 public class LoggingTimerEMA extends TimerEMA {
-
+    
     private long timeMark;
-
+    
     public LoggingTimerEMA(@Nonnull final String name) {
         super(name);
     }
-
+    
     public LoggingTimerEMA(@Nonnull final String name, final int periods) {
         super(name, periods);
     }
-
+    
     public void begin() {
         this.timeMark = System.nanoTime();
     }
-
+    
     public void end() {
         this.update(System.nanoTime() - this.timeMark);
     }
-
+    
 }

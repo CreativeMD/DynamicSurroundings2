@@ -27,15 +27,15 @@ import net.minecraft.world.level.block.state.BlockState;
 
 @Mixin(BlockState.class)
 public class MixinBlockState implements IMixinBlockData {
-
+    
     private BlockStateData environs_blockData;
-
+    
     @Nullable
     @Override
     public BlockStateData getBlockData() {
         return this.environs_blockData;
     }
-
+    
     @Override
     public void setBlockData(@Nullable final BlockStateData data) {
         this.environs_blockData = data;

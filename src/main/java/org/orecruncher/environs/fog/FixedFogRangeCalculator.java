@@ -26,18 +26,18 @@ import net.minecraftforge.client.event.EntityViewRenderEvent;
 
 @OnlyIn(Dist.CLIENT)
 public class FixedFogRangeCalculator extends VanillaFogRangeCalculator {
-
+    
     protected final FogResult cached;
-
+    
     public FixedFogRangeCalculator(final float minDistance, final float maxDistance) {
         super("FixedFogRangeCalculator");
         this.cached = new FogResult(minDistance, maxDistance);
     }
-
+    
     @Override
     @Nonnull
     public FogResult calculate(@Nonnull final EntityViewRenderEvent.RenderFogEvent event) {
         return this.cached;
     }
-
+    
 }

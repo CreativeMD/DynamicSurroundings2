@@ -30,20 +30,18 @@ import org.orecruncher.lib.Lib;
 import net.minecraftforge.fml.loading.FMLPaths;
 
 public final class ConfigUtils {
-    private ConfigUtils() {
-    }
-
-    /**
-     * Gets the path to a mod's configuration directory. If it doesn't exist it will be created.  If for some reason
+    private ConfigUtils() {}
+    
+    /** Gets the path to a mod's configuration directory. If it doesn't exist it will be created. If for some reason
      * it cannot be created, the standard Forge config path will be returned.
      *
-     * @param modId ModId to obtain the configuration path.
-     * @return Path to the mod's configuration directory.
-     */
+     * @param modId
+     *            ModId to obtain the configuration path.
+     * @return Path to the mod's configuration directory. */
     @Nonnull
     public static Path getConfigPath(@Nonnull final String modId) {
         Path configPath = FMLPaths.CONFIGDIR.get().resolve(Objects.requireNonNull(modId));
-
+        
         if (Files.notExists(configPath))
             try {
                 Files.createDirectory(configPath);
@@ -51,8 +49,8 @@ public final class ConfigUtils {
                 Lib.LOGGER.error(ex, "Unable to create directory path %s", configPath.toString());
                 configPath = FMLPaths.CONFIGDIR.get();
             }
-
+        
         return configPath;
     }
-
+    
 }

@@ -33,26 +33,26 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class FactoryHandler implements IEntityEffectFactoryHandler {
-
+    
     private final ResourceLocation name;
     private final Function<LivingEntity, AbstractEntityEffect> factory;
-
+    
     public FactoryHandler(@Nonnull final ResourceLocation res, @Nonnull final Function<LivingEntity, AbstractEntityEffect> factory) {
         this.name = res;
         this.factory = factory;
     }
-
+    
     @Override
     @Nonnull
     public ResourceLocation getName() {
         return this.name;
     }
-
+    
     @Override
     public boolean appliesTo(@Nonnull final LivingEntity entity) {
         return EffectLibrary.hasEffect(entity, getName());
     }
-
+    
     @Override
     @Nonnull
     public AbstractEntityEffect get(@Nonnull final LivingEntity entity) {

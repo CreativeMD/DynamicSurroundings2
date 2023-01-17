@@ -36,8 +36,9 @@ import net.minecraft.particles.BasicParticleType;
 
 @Mixin(RainParticle.Factory.class)
 public class MixinRainParticle {
-
-    @Inject(method = "makeParticle(Lnet/minecraft/particles/BasicParticleType;Lnet/minecraft/client/world/ClientWorld;DDDDDD)Lnet/minecraft/client/particle/Particle;", at = @At("RETURN"), locals = LocalCapture.CAPTURE_FAILSOFT)
+    
+    @Inject(method = "makeParticle(Lnet/minecraft/particles/BasicParticleType;Lnet/minecraft/client/world/ClientWorld;DDDDDD)Lnet/minecraft/client/particle/Particle;",
+            at = @At("RETURN"), locals = LocalCapture.CAPTURE_FAILSOFT)
     public void makeParticle(BasicParticleType typeIn, ClientWorld worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, CallbackInfoReturnable<Particle> cir, @Nullable final RainParticle particle) {
         if (!Config.CLIENT.effects.enableWaterRipples.get())
             return;

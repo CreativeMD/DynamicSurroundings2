@@ -29,13 +29,13 @@ import it.unimi.dsi.fastutil.objects.Reference2ObjectOpenHashMap;
 
 @SuppressWarnings("unused")
 public final class SoundTypeUtils {
-
+    
     private static final Reference2ObjectOpenHashMap<SoundType, String> soundTypeMap = new Reference2ObjectOpenHashMap<>();
     private static final Map<String, SoundType> soundTypeMapInv = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
-
+    
     static {
         soundTypeMap.defaultReturnValue("CUSTOM");
-
+        
         soundTypeMap.put(SoundType.WOOD, "WOOD");
         soundTypeMap.put(SoundType.GROUND, "GROUND");
         soundTypeMap.put(SoundType.PLANT, "PLANT");
@@ -83,36 +83,36 @@ public final class SoundTypeUtils {
         soundTypeMap.put(SoundType.CHAIN, "CHAIN");
         soundTypeMap.put(SoundType.NETHER_GOLD, "NETHER_GOLD");
         soundTypeMap.put(SoundType.GILDED_BLACKSTONE, "GILDED_BLACKSTONE");
-
+        
         // Create the inverse map
         for (final Map.Entry<SoundType, String> kvp : soundTypeMap.entrySet()) {
             soundTypeMapInv.put(kvp.getValue(), kvp.getKey());
         }
     }
-
+    
     private SoundTypeUtils() {
-
+        
     }
-
+    
     public static void forEach(@Nonnull final Consumer<SoundType> consumer) {
         for (final SoundType type : soundTypeMap.keySet())
             consumer.accept(type);
     }
-
+    
     @Nullable
     public static SoundType getSoundType(@Nonnull final String name) {
         return soundTypeMapInv.get(name);
     }
-
+    
     @Nullable
     public static String getSoundTypeName(@Nonnull final SoundType st) {
         return soundTypeMap.get(st);
     }
-
+    
     public static boolean isStepSoundValid(@Nullable final SoundType st) {
         return st != null && isValid(st.getStepSound());
     }
-
+    
     public static boolean isValid(@Nonnull final SoundEvent se) {
         return se != null && se.getName() != null;
     }

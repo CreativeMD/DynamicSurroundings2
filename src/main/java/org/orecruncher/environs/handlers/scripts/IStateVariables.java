@@ -23,19 +23,19 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public interface IStateVariables {
-
+    
     boolean isInside();
-
+    
     float getCurrentTemperature();
-
+    
     boolean isUnderground();
-
+    
     boolean isInClouds();
-
+    
     boolean isInSpace();
-
+    
     boolean isInVillage();
-
+    
     int getLightLevel();
-
+    
 }

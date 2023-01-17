@@ -29,41 +29,39 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
 
-/**
- * Consults various different fog calculators and aggregates the results into a
- * single set.
- */
+/** Consults various different fog calculators and aggregates the results into a
+ * single set. */
 @OnlyIn(Dist.CLIENT)
 public class HolisticFogRangeCalculator implements IFogRangeCalculator {
-
+    
     private static final IModLog LOGGER = Environs.LOGGER.createChild(HolisticFogRangeCalculator.class);
-
+    
     protected final ObjectArray<IFogRangeCalculator> calculators = new ObjectArray<>(8);
     protected final FogResult cached = new FogResult();
-
+    
     public void add(@Nonnull final IFogRangeCalculator calc) {
         this.calculators.add(calc);
     }
-
+    
     @Override
     @Nonnull
     public String getName() {
         return "HolisticFogRangeCalculator";
     }
-
+    
     @Override
     public boolean enabled() {
         return Config.CLIENT.fog.enableFog.get();
     }
-
+    
     @Override
     @Nonnull
     public FogResult calculate(@Nonnull final EntityViewRenderEvent.RenderFogEvent event) {
-
+        
         this.cached.set(event);
         float start = this.cached.getStart();
         float end = this.cached.getEnd();
-
+        
         for (final IFogRangeCalculator calc : this.calculators) {
             if (calc.enabled()) {
                 final FogResult result = calc.calculate(event);
@@ -75,16 +73,16 @@ public class HolisticFogRangeCalculator implements IFogRangeCalculator {
                 }
             }
         }
-
+        
         this.cached.set(start, end);
         return this.cached;
     }
-
+    
     @Override
     public void tick() {
         this.calculators.forEach(IFogRangeCalculator::tick);
     }
-
+    
     @Override
     @Nonnull
     public String toString() {

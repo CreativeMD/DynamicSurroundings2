@@ -50,64 +50,60 @@ import net.minecraftforge.fml.network.FMLNetworkConstants;
 
 @Mod(SoundControl.MOD_ID)
 public final class SoundControl {
-
-    /**
-     * ID of the mod
-     */
+    
+    /** ID of the mod */
     public static final String MOD_ID = "sndctrl";
-    /**
-     * Logging instance for trace
-     */
+    /** Logging instance for trace */
     public static final ModLog LOGGER = new ModLog(SoundControl.class);
-
+    
     public SoundControl() {
-
+        
         // Since we are 100% client side
         ModLoadingContext.get().registerExtensionPoint(ExtensionPoint.DISPLAYTEST, () -> Pair.of(() -> FMLNetworkConstants.IGNORESERVERONLY, (a, b) -> true));
-
+        
         if (FMLEnvironment.dist == Dist.CLIENT) {
             // Various event bus registrations
             FMLJavaModLoadingContext.get().getModEventBus().addListener(this::commonSetup);
             FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
             FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setupComplete);
             MinecraftForge.EVENT_BUS.register(this);
-
+            
             // Initialize our configuration
             Config.setup();
-
+            
             DynamicSurroundings.doConfigMenuSetup();
         }
     }
-
+    
     private void commonSetup(@Nonnull final FMLCommonSetupEvent event) {
         CapabilityEntityFXData.register();
     }
-
+    
     private void clientSetup(@Nonnull final FMLClientSetupEvent event) {
         Keys.register();
-
+        
         if (Config.CLIENT.effects.fixupRandoms.get()) {
             GameUtils.getMC().gameRenderer.random = new XorShiftRandom();
         }
-
+        
         AudioEngine.initialize();
         EntityEffectLibrary.initialize();
         EntityEffectHandler.initialize();
     }
-
+    
     private void setupComplete(@Nonnull final FMLLoadCompleteEvent event) {
         // Mod initialization and IMC processing should have completed by now.  Do any further baking.
         AudioEffectLibrary.initialize();
         EntityEffectLibrary.complete();
-
+        
         // Callback initialization where the acoustic library is concerned.  Only way to serialize access because
         // of the new Forge parallel loading.
         IMC.processCompletions();
-
+        
         // Initialize after.  Reason is that a mod could override a regular sound with a complex
         // acoustic, so we only want to create a SimpleAcoustic if it does not exist in the map.
         SoundLibrary.initialize();
         AcousticLibrary.initialize();
     }
-
+    
 }

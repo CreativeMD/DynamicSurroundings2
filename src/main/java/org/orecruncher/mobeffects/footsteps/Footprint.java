@@ -29,49 +29,48 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class Footprint {
-
-	private FootprintStyle style;
-	private LivingEntity entity;
-	private Vector3d stepLoc;
-	private boolean isRightFoot;
-	private float rotation;
-	private float scale;
-
-	public static Footprint produce(@Nonnull final FootprintStyle style, @Nonnull final LivingEntity entity,
-			@Nonnull final Vector3d stepLoc, final float rotation, final float scale, final boolean rightFoot) {
-		final Footprint print = new Footprint();
-		print.style = style;
-		print.entity = entity;
-		print.stepLoc = stepLoc;
-		print.rotation = rotation;
-		print.isRightFoot = rightFoot;
-		print.scale = scale;
-		return print;
-	}
-
-	public FootprintStyle getStyle() {
-		return this.style;
-	}
-
-	public LivingEntity getEntity() {
-		return this.entity;
-	}
-
-	@Nullable
-	public Vector3d getStepLocation() {
-		return this.stepLoc;
-	}
-
-	public boolean isRightFoot() {
-		return this.isRightFoot;
-	}
-
-	public float getRotation() {
-		return this.rotation;
-	}
-
-	public float getScale() {
-		return this.scale;
-	}
-
+    
+    private FootprintStyle style;
+    private LivingEntity entity;
+    private Vector3d stepLoc;
+    private boolean isRightFoot;
+    private float rotation;
+    private float scale;
+    
+    public static Footprint produce(@Nonnull final FootprintStyle style, @Nonnull final LivingEntity entity, @Nonnull final Vector3d stepLoc, final float rotation, final float scale, final boolean rightFoot) {
+        final Footprint print = new Footprint();
+        print.style = style;
+        print.entity = entity;
+        print.stepLoc = stepLoc;
+        print.rotation = rotation;
+        print.isRightFoot = rightFoot;
+        print.scale = scale;
+        return print;
+    }
+    
+    public FootprintStyle getStyle() {
+        return this.style;
+    }
+    
+    public LivingEntity getEntity() {
+        return this.entity;
+    }
+    
+    @Nullable
+    public Vector3d getStepLocation() {
+        return this.stepLoc;
+    }
+    
+    public boolean isRightFoot() {
+        return this.isRightFoot;
+    }
+    
+    public float getRotation() {
+        return this.rotation;
+    }
+    
+    public float getScale() {
+        return this.scale;
+    }
+    
 }

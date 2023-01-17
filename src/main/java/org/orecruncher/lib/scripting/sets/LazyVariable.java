@@ -25,28 +25,27 @@ import javax.annotation.Nonnull;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-/**
- * LazyVariable performs value caching to minimize the impact of initialization.  It has a reset mechanic so the value
- * can be cleared and requeried as needed.  (Essentially this is a lighter weight LazyOptional.)
+/** LazyVariable performs value caching to minimize the impact of initialization. It has a reset mechanic so the value
+ * can be cleared and requeried as needed. (Essentially this is a lighter weight LazyOptional.)
  *
- * @param <T> Type of value that is cached
- */
+ * @param <T>
+ *            Type of value that is cached */
 @OnlyIn(Dist.CLIENT)
 public final class LazyVariable<T> {
-
+    
     @Nonnull
     private final Supplier<T> supplier;
-
+    
     private T value;
-
+    
     public LazyVariable(@Nonnull final Supplier<T> supplier) {
         this.supplier = supplier;
     }
-
+    
     public void reset() {
         this.value = null;
     }
-
+    
     public T get() {
         if (this.value == null)
             this.value = this.supplier.get();

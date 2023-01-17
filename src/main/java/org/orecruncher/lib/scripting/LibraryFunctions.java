@@ -26,21 +26,19 @@ import javax.annotation.Nullable;
 
 import org.orecruncher.lib.fml.ForgeUtils;
 
-/**
- * Methods that are added to the JavaScript runtime environment for use by scripts.
- */
+/** Methods that are added to the JavaScript runtime environment for use by scripts. */
 public final class LibraryFunctions {
-
+    
     public Object iif(final boolean flag, @Nullable final Object trueResult, @Nullable final Object falseResult) {
         return flag ? trueResult : falseResult;
     }
-
+    
     public boolean match(@Nonnull final String pattern, @Nonnull final String subject) {
         Objects.requireNonNull(pattern);
         Objects.requireNonNull(subject);
         return Pattern.matches(pattern, subject);
     }
-
+    
     public boolean oneof(@Nonnull final Object testee, @Nonnull final Object... possibles) {
         Objects.requireNonNull(testee);
         Objects.requireNonNull(possibles);
@@ -49,11 +47,11 @@ public final class LibraryFunctions {
                 return true;
         return false;
     }
-
+    
     public boolean isBetween(final double value, final double min, final double max) {
         return value >= min && value <= max;
     }
-
+    
     public boolean isModLoaded(@Nonnull final String mod) {
         return ForgeUtils.isModLoaded(mod);
     }

@@ -35,19 +35,19 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 @OnlyIn(Dist.CLIENT)
 class AreaBlockEffects extends HandlerBase {
-
+    
     protected final LoggingTimerEMA blockChange = new LoggingTimerEMA("Area Block Update");
     protected ClientPlayerLocus locus;
     protected RandomBlockEffectScanner nearEffects;
     protected RandomBlockEffectScanner farEffects;
     protected AlwaysOnBlockEffectScanner alwaysOn;
-
+    
     protected long nanos;
-
+    
     public AreaBlockEffects() {
         super("Area Block Effects");
     }
-
+    
     @Override
     public void process(@Nonnull final PlayerEntity player) {
         this.nearEffects.tick();
@@ -56,7 +56,7 @@ class AreaBlockEffects extends HandlerBase {
         this.blockChange.update(this.nanos);
         this.nanos = 0;
     }
-
+    
     @Override
     public void onConnect() {
         this.locus = new ClientPlayerLocus();
@@ -64,7 +64,7 @@ class AreaBlockEffects extends HandlerBase {
         this.farEffects = new RandomBlockEffectScanner(this.locus, RandomBlockEffectScanner.FAR_RANGE);
         this.alwaysOn = new AlwaysOnBlockEffectScanner(this.locus, Config.CLIENT.effects.get_effectRange());
     }
-
+    
     @Override
     public void onDisconnect() {
         this.locus = null;
@@ -72,13 +72,13 @@ class AreaBlockEffects extends HandlerBase {
         this.farEffects = null;
         this.alwaysOn = null;
     }
-
+    
     @SubscribeEvent
     public void onDiagnostics(@Nonnull final DiagnosticEvent event) {
         if (Config.CLIENT.logging.enableLogging.get())
             event.addRenderTimer(this.blockChange);
     }
-
+    
     @SubscribeEvent
     public void onBlockUpdate(@Nonnull final BlockUpdateEvent event) {
         final long start = System.nanoTime();
