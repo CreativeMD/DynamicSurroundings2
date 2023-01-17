@@ -18,18 +18,19 @@
 
 package org.orecruncher.lib.blockstate;
 
-import com.google.common.base.MoreObjects;
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+import com.google.common.base.MoreObjects;
+
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import net.minecraft.world.level.block.state.BlockState;
 
 /**
  * Special Map implementation that is implemented with BlockStateMatcher as a key type.  It handles any special

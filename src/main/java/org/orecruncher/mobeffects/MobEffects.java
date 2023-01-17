@@ -18,6 +18,19 @@
 
 package org.orecruncher.mobeffects;
 
+import org.apache.commons.lang3.tuple.Pair;
+import org.orecruncher.dsurround.DynamicSurroundings;
+import org.orecruncher.lib.logging.ModLog;
+import org.orecruncher.mobeffects.config.Config;
+import org.orecruncher.mobeffects.effects.EntityBowEffect;
+import org.orecruncher.mobeffects.effects.EntityBreathEffect;
+import org.orecruncher.mobeffects.effects.EntityFootprintEffect;
+import org.orecruncher.mobeffects.effects.EntitySwingEffect;
+import org.orecruncher.mobeffects.effects.PlayerToolbarEffect;
+import org.orecruncher.mobeffects.library.Constants;
+import org.orecruncher.mobeffects.library.Libraries;
+import org.orecruncher.sndctrl.api.IMC;
+
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.ExtensionPoint;
@@ -27,14 +40,6 @@ import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.fml.network.FMLNetworkConstants;
-import org.apache.commons.lang3.tuple.Pair;
-import org.orecruncher.dsurround.DynamicSurroundings;
-import org.orecruncher.lib.logging.ModLog;
-import org.orecruncher.mobeffects.config.Config;
-import org.orecruncher.mobeffects.effects.*;
-import org.orecruncher.mobeffects.library.Constants;
-import org.orecruncher.mobeffects.library.Libraries;
-import org.orecruncher.sndctrl.api.IMC;
 
 @Mod(MobEffects.MOD_ID)
 public final class MobEffects {

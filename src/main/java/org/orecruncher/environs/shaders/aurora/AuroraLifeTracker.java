@@ -18,9 +18,10 @@
 
 package org.orecruncher.environs.shaders.aurora;
 
+import org.orecruncher.lib.math.MathStuff;
+
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import org.orecruncher.lib.math.MathStuff;
 
 @OnlyIn(Dist.CLIENT)
 public class AuroraLifeTracker {

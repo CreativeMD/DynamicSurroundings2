@@ -18,17 +18,18 @@
 
 package org.orecruncher.lib.particles;
 
+import java.lang.ref.WeakReference;
+import java.util.Optional;
+
+import javax.annotation.Nonnull;
+
+import org.orecruncher.lib.GameUtils;
+import org.orecruncher.lib.math.TimerEMA;
+
 import net.minecraft.client.particle.IParticleRenderType;
 import net.minecraft.client.particle.Particle;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import org.orecruncher.lib.GameUtils;
-import org.orecruncher.lib.math.TimerEMA;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.lang.ref.WeakReference;
-import java.util.Optional;
 
 @OnlyIn(Dist.CLIENT)
 final class ParticleCollectionHelper implements IParticleCollection {

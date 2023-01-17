@@ -18,11 +18,11 @@
 
 package org.orecruncher.sndctrl.audio.handlers;
 
-import com.google.common.base.Preconditions;
-import net.minecraft.client.audio.ISound;
-import net.minecraft.util.SoundCategory;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import java.util.Optional;
+import java.util.function.Function;
+
+import javax.annotation.Nonnull;
+
 import org.orecruncher.lib.GameUtils;
 import org.orecruncher.lib.Utilities;
 import org.orecruncher.lib.collections.ObjectArray;
@@ -31,9 +31,12 @@ import org.orecruncher.sndctrl.api.sound.Category;
 import org.orecruncher.sndctrl.api.sound.ISoundCategory;
 import org.orecruncher.sndctrl.api.sound.ISoundInstance;
 
-import javax.annotation.Nonnull;
-import java.util.Optional;
-import java.util.function.Function;
+import com.google.common.base.Preconditions;
+
+import net.minecraft.client.audio.ISound;
+import net.minecraft.util.SoundCategory;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 /**
  * Handler that calculates an effective volume for a given sound based on

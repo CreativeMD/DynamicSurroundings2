@@ -18,17 +18,19 @@
 
 package org.orecruncher.dsurround.gui;
 
-import net.minecraft.client.settings.KeyBinding;
+import javax.swing.text.JTextComponent.KeyBinding;
+
+import org.orecruncher.dsurround.DynamicSurroundings;
+import org.orecruncher.dsurround.config.Config;
+import org.orecruncher.dsurround.huds.lightlevel.LightLevelHUD;
+import org.orecruncher.lib.GameUtils;
+
 import net.minecraft.client.util.InputMappings;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
-import org.orecruncher.dsurround.DynamicSurroundings;
-import org.orecruncher.dsurround.config.Config;
-import org.orecruncher.dsurround.huds.lightlevel.LightLevelHUD;
-import org.orecruncher.lib.GameUtils;
 
 @Mod.EventBusSubscriber(modid = DynamicSurroundings.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class Keys {

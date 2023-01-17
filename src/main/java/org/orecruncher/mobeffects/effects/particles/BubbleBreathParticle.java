@@ -18,20 +18,21 @@
 
 package org.orecruncher.mobeffects.effects.particles;
 
+import javax.annotation.Nonnull;
+
+import org.joml.Vector3d;
+import org.orecruncher.lib.GameUtils;
+
 import net.minecraft.client.particle.IAnimatedSprite;
 import net.minecraft.client.particle.IParticleRenderType;
 import net.minecraft.client.particle.SpriteTexturedParticle;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.particles.ParticleTypes;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import org.orecruncher.lib.GameUtils;
-
-import javax.annotation.Nonnull;
 
 @OnlyIn(Dist.CLIENT)
 public class BubbleBreathParticle  extends SpriteTexturedParticle {

@@ -18,12 +18,13 @@
 
 package org.orecruncher.mobeffects.mixins;
 
-import net.minecraft.block.BlockState;
+import javax.annotation.Nullable;
+
 import org.orecruncher.mobeffects.misc.IMixinFootstepData;
 import org.orecruncher.sndctrl.api.acoustics.IAcoustic;
 import org.spongepowered.asm.mixin.Mixin;
 
-import javax.annotation.Nullable;
+import net.minecraft.world.level.block.state.BlockState;
 
 @Mixin(BlockState.class)
 public class MixinBlockState implements IMixinFootstepData {

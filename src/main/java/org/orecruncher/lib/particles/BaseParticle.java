@@ -18,17 +18,19 @@
 
 package org.orecruncher.lib.particles;
 
+import java.util.Random;
+
+import javax.annotation.Nonnull;
+
+import org.orecruncher.lib.GameUtils;
+import org.orecruncher.lib.random.XorShiftRandom;
+
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import org.orecruncher.lib.GameUtils;
-import org.orecruncher.lib.random.XorShiftRandom;
-
-import javax.annotation.Nonnull;
-import java.util.Random;
 
 @OnlyIn(Dist.CLIENT)
 public abstract class BaseParticle extends Particle {

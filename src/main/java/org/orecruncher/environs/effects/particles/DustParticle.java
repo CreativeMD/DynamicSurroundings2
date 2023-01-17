@@ -18,15 +18,15 @@
 
 package org.orecruncher.environs.effects.particles;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.client.particle.DiggingParticle;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import org.orecruncher.lib.WorldUtils;
 
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.client.particle.DiggingParticle;
+import net.minecraft.client.world.ClientWorld;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class DustParticle extends DiggingParticle {

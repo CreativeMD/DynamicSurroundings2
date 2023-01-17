@@ -18,16 +18,18 @@
 
 package org.orecruncher.mobeffects.effects;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import java.util.function.Function;
+
+import javax.annotation.Nonnull;
+
 import org.orecruncher.mobeffects.library.EffectLibrary;
 import org.orecruncher.sndctrl.api.effects.AbstractEntityEffect;
 import org.orecruncher.sndctrl.api.effects.IEntityEffectFactoryHandler;
 
-import javax.annotation.Nonnull;
-import java.util.function.Function;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class FactoryHandler implements IEntityEffectFactoryHandler {

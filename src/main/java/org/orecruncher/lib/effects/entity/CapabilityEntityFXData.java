@@ -20,13 +20,15 @@ package org.orecruncher.lib.effects.entity;
 
 import javax.annotation.Nonnull;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
+import org.orecruncher.lib.capability.NullStorage;
+import org.orecruncher.lib.capability.SimpleProvider;
+import org.orecruncher.sndctrl.SoundControl;
+
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.World;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
@@ -34,9 +36,6 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import org.orecruncher.lib.capability.NullStorage;
-import org.orecruncher.lib.capability.SimpleProvider;
-import org.orecruncher.sndctrl.SoundControl;
 
 @OnlyIn(Dist.CLIENT)
 public class CapabilityEntityFXData {

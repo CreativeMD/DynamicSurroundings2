@@ -18,16 +18,19 @@
 
 package org.orecruncher.lib.scripting;
 
-import org.orecruncher.lib.Lib;
-import org.orecruncher.lib.collections.ObjectArray;
-import org.orecruncher.lib.logging.IModLog;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.script.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.script.Compilable;
+import javax.script.CompiledScript;
+import javax.script.ScriptEngine;
+
+import org.orecruncher.lib.Lib;
+import org.orecruncher.lib.collections.ObjectArray;
+import org.orecruncher.lib.logging.IModLog;
 
 public final class ExecutionContext {
 

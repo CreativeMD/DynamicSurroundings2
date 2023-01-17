@@ -18,10 +18,11 @@
 
 package org.orecruncher.sndctrl.audio.handlers.effects;
 
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import org.lwjgl.openal.AL10;
 import org.lwjgl.openal.EXTEfx;
+
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class AuxSlot extends Slot {

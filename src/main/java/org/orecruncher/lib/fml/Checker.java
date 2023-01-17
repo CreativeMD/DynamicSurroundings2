@@ -18,13 +18,13 @@
 
 package org.orecruncher.lib.fml;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 @OnlyIn(Dist.CLIENT)
 public abstract class Checker implements ClientLoginChecks.ICallbackHandler {

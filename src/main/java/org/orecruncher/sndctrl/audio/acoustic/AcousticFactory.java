@@ -18,25 +18,25 @@
 
 package org.orecruncher.sndctrl.audio.acoustic;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import java.util.Random;
+
+import javax.annotation.Nonnull;
+
+import org.joml.Vector3d;
 import org.orecruncher.lib.random.XorShiftRandom;
 import org.orecruncher.sndctrl.api.acoustics.IAcousticFactory;
+import org.orecruncher.sndctrl.api.sound.Category;
 import org.orecruncher.sndctrl.api.sound.IFadableSoundInstance;
 import org.orecruncher.sndctrl.api.sound.ISoundCategory;
-import org.orecruncher.sndctrl.audio.BackgroundSoundInstance;
 import org.orecruncher.sndctrl.api.sound.ISoundInstance;
 import org.orecruncher.sndctrl.api.sound.SoundBuilder;
-import org.orecruncher.sndctrl.api.sound.Category;
+import org.orecruncher.sndctrl.audio.BackgroundSoundInstance;
 import org.orecruncher.sndctrl.audio.EntitySoundInstance;
 import org.orecruncher.sndctrl.audio.SoundInstance;
 
-import javax.annotation.Nonnull;
-import java.util.Random;
+import net.minecraft.core.BlockPos;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 /**
  * Helper that creates sound instances using a SoundBuilder, but tweaks based on the circumstances requested.

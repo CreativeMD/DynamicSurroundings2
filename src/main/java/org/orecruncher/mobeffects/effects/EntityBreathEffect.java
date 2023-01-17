@@ -18,15 +18,8 @@
 
 package org.orecruncher.mobeffects.effects;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.material.Material;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import javax.annotation.Nonnull;
+
 import org.orecruncher.lib.GameUtils;
 import org.orecruncher.lib.TickCounter;
 import org.orecruncher.lib.WorldUtils;
@@ -37,7 +30,14 @@ import org.orecruncher.mobeffects.effects.particles.FrostBreathParticle;
 import org.orecruncher.sndctrl.api.effects.AbstractEntityEffect;
 import org.orecruncher.sndctrl.api.effects.IEntityEffectManager;
 
-import javax.annotation.Nonnull;
+import net.minecraft.core.BlockPos;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.World;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class EntityBreathEffect extends AbstractEntityEffect {

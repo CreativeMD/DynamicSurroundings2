@@ -18,6 +18,14 @@
 
 package org.orecruncher.lib;
 
+import javax.annotation.Nonnull;
+
+import org.orecruncher.dsurround.DynamicSurroundings;
+import org.orecruncher.lib.events.DiagnosticEvent;
+import org.orecruncher.lib.math.LoggingTimerEMA;
+import org.orecruncher.lib.math.MathStuff;
+import org.orecruncher.lib.math.TimerEMA;
+
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
@@ -26,13 +34,6 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import org.orecruncher.dsurround.DynamicSurroundings;
-import org.orecruncher.lib.events.DiagnosticEvent;
-import org.orecruncher.lib.math.LoggingTimerEMA;
-import org.orecruncher.lib.math.MathStuff;
-import org.orecruncher.lib.math.TimerEMA;
-
-import javax.annotation.Nonnull;
 
 /**
  * Diagnostic helper that fires an event every tick to collect data that will be rendered on the diagnostics

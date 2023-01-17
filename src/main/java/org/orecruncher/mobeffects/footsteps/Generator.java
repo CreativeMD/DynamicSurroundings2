@@ -23,27 +23,15 @@ import java.util.Random;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.material.Material;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.tags.BlockTags;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.ForgeHooks;
+import org.joml.Vector3d;
 import org.orecruncher.lib.GameUtils;
 import org.orecruncher.lib.TickCounter;
 import org.orecruncher.lib.collections.ObjectArray;
 import org.orecruncher.lib.logging.IModLog;
 import org.orecruncher.lib.math.MathStuff;
 import org.orecruncher.lib.random.XorShiftRandom;
-
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.World;
-import org.orecruncher.mobeffects.config.Config;
 import org.orecruncher.mobeffects.MobEffects;
+import org.orecruncher.mobeffects.config.Config;
 import org.orecruncher.mobeffects.effects.particles.Collections;
 import org.orecruncher.mobeffects.footsteps.accents.FootstepAccents;
 import org.orecruncher.mobeffects.library.Constants;
@@ -51,6 +39,17 @@ import org.orecruncher.mobeffects.library.FootstepLibrary;
 import org.orecruncher.sndctrl.api.acoustics.AcousticEvent;
 import org.orecruncher.sndctrl.api.acoustics.IAcoustic;
 import org.orecruncher.sndctrl.audio.acoustic.AcousticCompiler;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.World;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.ForgeHooks;
 
 @OnlyIn(Dist.CLIENT)
 public class Generator {

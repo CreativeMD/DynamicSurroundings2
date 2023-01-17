@@ -18,19 +18,9 @@
 
 package org.orecruncher.mobeffects.effects;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.item.BoatEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.*;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.common.ForgeMod;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.LogicalSide;
-import net.minecraftforge.fml.common.Mod;
+import javax.annotation.Nonnull;
+
+import org.joml.Vector3d;
 import org.orecruncher.lib.GameUtils;
 import org.orecruncher.lib.TickCounter;
 import org.orecruncher.mobeffects.MobEffects;
@@ -38,7 +28,18 @@ import org.orecruncher.mobeffects.library.ItemData;
 import org.orecruncher.mobeffects.library.ItemLibrary;
 import org.orecruncher.sndctrl.api.effects.AbstractEntityEffect;
 
-import javax.annotation.Nonnull;
+import net.minecraft.entity.item.BoatEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.math.*;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.common.ForgeMod;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = MobEffects.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class EntitySwingEffect extends AbstractEntityEffect {

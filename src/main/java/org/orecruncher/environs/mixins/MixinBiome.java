@@ -17,7 +17,9 @@
  */
 package org.orecruncher.environs.mixins;
 
-import net.minecraft.world.biome.Biome;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import org.orecruncher.environs.config.Config;
 import org.orecruncher.environs.handlers.FogHandler;
 import org.orecruncher.environs.library.BiomeInfo;
@@ -28,9 +30,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 @Mixin(Biome.class)
 public class MixinBiome implements IMixinBiomeData {

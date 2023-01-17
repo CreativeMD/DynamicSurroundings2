@@ -18,13 +18,14 @@
 
 package org.orecruncher.lib.seasons;
 
-import net.minecraft.world.World;
-import org.orecruncher.lib.Localization;
-import org.orecruncher.sndctrl.SoundControl;
-import org.orecruncher.lib.compat.ModEnvironment;
-import sereneseasons.api.season.ISeasonState;
-
 import javax.annotation.Nonnull;
+
+import org.orecruncher.lib.Localization;
+import org.orecruncher.lib.compat.ModEnvironment;
+import org.orecruncher.sndctrl.SoundControl;
+
+import net.minecraft.world.World;
+import sereneseasons.api.season.ISeasonState;
 
 public enum Season {
 

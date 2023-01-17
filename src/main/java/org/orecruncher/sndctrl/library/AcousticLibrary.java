@@ -18,26 +18,34 @@
 
 package org.orecruncher.sndctrl.library;
 
-import it.unimi.dsi.fastutil.objects.Object2ObjectAVLTreeMap;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.StringUtils;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import org.orecruncher.dsurround.DynamicSurroundings;
 import org.orecruncher.lib.logging.IModLog;
 import org.orecruncher.lib.resource.IResourceAccessor;
 import org.orecruncher.lib.resource.ResourceUtils;
 import org.orecruncher.sndctrl.SoundControl;
 import org.orecruncher.sndctrl.api.acoustics.IAcoustic;
-import org.orecruncher.sndctrl.audio.acoustic.*;
+import org.orecruncher.sndctrl.audio.acoustic.AcousticCompiler;
+import org.orecruncher.sndctrl.audio.acoustic.NullAcoustic;
+import org.orecruncher.sndctrl.audio.acoustic.SimpleAcoustic;
+import org.orecruncher.sndctrl.audio.acoustic.SimultaneousAcoustic;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.*;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import it.unimi.dsi.fastutil.objects.Object2ObjectAVLTreeMap;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public final class AcousticLibrary {

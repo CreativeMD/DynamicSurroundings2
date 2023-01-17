@@ -18,16 +18,18 @@
 
 package org.orecruncher.environs.effects;
 
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import org.orecruncher.environs.config.Config;
-
-import javax.annotation.Nonnull;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Supplier;
+
+import javax.annotation.Nonnull;
+
+import org.orecruncher.environs.config.Config;
+
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 /**
  * Describes the various types of block effects that can be generated.

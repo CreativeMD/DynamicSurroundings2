@@ -18,15 +18,18 @@
 
 package org.orecruncher.environs.shaders;
 
-import com.google.common.collect.ImmutableList;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import java.util.Collection;
+
+import javax.annotation.Nonnull;
+
 import org.orecruncher.lib.shaders.IShaderResourceProvider;
 import org.orecruncher.lib.shaders.ShaderManager;
 
-import javax.annotation.Nonnull;
-import java.util.Collection;
+import com.google.common.collect.ImmutableList;
+
+import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public enum ShaderPrograms implements IShaderResourceProvider {

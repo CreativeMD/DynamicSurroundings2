@@ -18,28 +18,31 @@
 
 package org.orecruncher.sndctrl.audio.handlers;
 
-import net.minecraft.client.gui.screen.MainMenuScreen;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.GuiOpenEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.annotation.Nonnull;
+
 import org.apache.commons.lang3.StringUtils;
 import org.orecruncher.lib.GameUtils;
 import org.orecruncher.lib.logging.IModLog;
 import org.orecruncher.lib.random.XorShiftRandom;
+import org.orecruncher.sndctrl.SoundControl;
+import org.orecruncher.sndctrl.api.acoustics.IAcoustic;
 import org.orecruncher.sndctrl.api.acoustics.IAcousticFactory;
 import org.orecruncher.sndctrl.api.sound.Category;
 import org.orecruncher.sndctrl.api.sound.ISoundInstance;
+import org.orecruncher.sndctrl.audio.AudioEngine;
+import org.orecruncher.sndctrl.audio.PlayerCenteredSoundInstance;
 import org.orecruncher.sndctrl.config.Config;
-import org.orecruncher.sndctrl.SoundControl;
-import org.orecruncher.sndctrl.audio.*;
-import org.orecruncher.sndctrl.api.acoustics.IAcoustic;
 import org.orecruncher.sndctrl.library.Primitives;
 
-import javax.annotation.Nonnull;
-import java.util.List;
-import java.util.stream.Collectors;
+import net.minecraft.client.gui.screen.MainMenuScreen;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.GuiOpenEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = SoundControl.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public final class SoundEventHandling {

@@ -18,19 +18,6 @@
 
 package org.orecruncher.lib.shaders;
 
-import net.minecraft.client.shader.ShaderLinkHelper;
-import net.minecraft.client.shader.ShaderLoader;
-import net.minecraft.resources.IReloadableResourceManager;
-import net.minecraft.resources.IResourceManager;
-import net.minecraft.resources.IResourceManagerReloadListener;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraft.util.ResourceLocation;
-import org.orecruncher.lib.GameUtils;
-import org.orecruncher.lib.Lib;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -39,6 +26,21 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+import org.orecruncher.lib.GameUtils;
+import org.orecruncher.lib.Lib;
+
+import net.minecraft.client.shader.ShaderLinkHelper;
+import net.minecraft.client.shader.ShaderLoader;
+import net.minecraft.resources.IReloadableResourceManager;
+import net.minecraft.resources.IResourceManager;
+import net.minecraft.resources.IResourceManagerReloadListener;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public final class ShaderManager<T extends Enum<T> & IShaderResourceProvider> {

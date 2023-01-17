@@ -18,10 +18,21 @@
 
 package org.orecruncher.sndctrl.gui;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.Nonnull;
+
+import org.orecruncher.lib.gui.ColorPalette;
+import org.orecruncher.sndctrl.SoundControl;
+import org.orecruncher.sndctrl.api.sound.Category;
+import org.orecruncher.sndctrl.api.sound.ISoundCategory;
+import org.orecruncher.sndctrl.config.Config;
+
 import com.mojang.blaze3d.matrix.MatrixStack;
+
 import net.minecraft.client.gui.DialogTexts;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
@@ -30,15 +41,6 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.fml.client.gui.widget.Slider;
-import org.orecruncher.lib.gui.ColorPalette;
-import org.orecruncher.sndctrl.SoundControl;
-import org.orecruncher.sndctrl.api.sound.Category;
-import org.orecruncher.sndctrl.api.sound.ISoundCategory;
-import org.orecruncher.sndctrl.config.Config;
-
-import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
 public class QuickVolumeScreen extends Screen implements Slider.ISlider {

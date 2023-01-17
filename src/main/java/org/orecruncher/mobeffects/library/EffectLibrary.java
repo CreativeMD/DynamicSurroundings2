@@ -18,43 +18,44 @@
 
 package org.orecruncher.mobeffects.library;
 
+import java.lang.reflect.Type;
+import java.util.Collection;
+import java.util.Map;
+import java.util.Set;
+
+import javax.annotation.Nonnull;
+
+import org.orecruncher.dsurround.DynamicSurroundings;
+import org.orecruncher.lib.logging.IModLog;
+import org.orecruncher.lib.resource.IResourceAccessor;
+import org.orecruncher.lib.resource.ResourceUtils;
+import org.orecruncher.lib.service.IModuleService;
+import org.orecruncher.lib.service.ModuleServiceManager;
+import org.orecruncher.lib.validation.MapValidator;
+import org.orecruncher.lib.validation.Validators;
+import org.orecruncher.mobeffects.MobEffects;
+import org.orecruncher.mobeffects.config.Config;
+import org.orecruncher.mobeffects.library.config.EntityConfig;
+import org.orecruncher.sndctrl.api.acoustics.Library;
+import org.orecruncher.sndctrl.api.sound.SoundBuilder;
+
 import com.google.gson.reflect.TypeToken;
+
 import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import it.unimi.dsi.fastutil.objects.Reference2ObjectOpenHashMap;
 import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.LocatableSound;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.sound.PlaySoundEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
-import org.orecruncher.dsurround.DynamicSurroundings;
-import org.orecruncher.lib.logging.IModLog;
-import org.orecruncher.lib.resource.IResourceAccessor;
-import org.orecruncher.lib.resource.ResourceUtils;
-import org.orecruncher.lib.service.ModuleServiceManager;
-import org.orecruncher.lib.service.IModuleService;
-import org.orecruncher.lib.validation.MapValidator;
-import org.orecruncher.lib.validation.Validators;
-import org.orecruncher.mobeffects.config.Config;
-import org.orecruncher.mobeffects.MobEffects;
-import org.orecruncher.mobeffects.library.config.EntityConfig;
-import org.orecruncher.sndctrl.api.acoustics.Library;
-import org.orecruncher.sndctrl.api.sound.SoundBuilder;
-
-import javax.annotation.Nonnull;
-import java.lang.reflect.Type;
-import java.util.Collection;
-import java.util.Map;
-import java.util.Set;
 
 @Mod.EventBusSubscriber(
         modid = MobEffects.MOD_ID,

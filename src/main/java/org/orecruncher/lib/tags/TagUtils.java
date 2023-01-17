@@ -18,17 +18,18 @@
 
 package org.orecruncher.lib.tags;
 
-import com.google.common.collect.ImmutableList;
-import net.minecraft.block.Block;
-import net.minecraft.tags.*;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+
+import com.google.common.collect.ImmutableList;
+
+import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.registries.tags.ITag;
 
 @OnlyIn(Dist.CLIENT)
 public final class TagUtils {

@@ -18,15 +18,16 @@
 
 package org.orecruncher.lib.reflection;
 
-import com.google.common.base.Preconditions;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+import com.google.common.base.Preconditions;
 
 @SuppressWarnings("unused")
 public final class ReflectionHelper {

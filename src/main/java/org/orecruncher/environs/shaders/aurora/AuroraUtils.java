@@ -18,14 +18,14 @@
 
 package org.orecruncher.environs.shaders.aurora;
 
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import java.time.Instant;
 
 import org.orecruncher.environs.handlers.CommonState;
 import org.orecruncher.lib.GameUtils;
 import org.orecruncher.lib.TickCounter;
 
-import java.time.Instant;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class AuroraUtils {

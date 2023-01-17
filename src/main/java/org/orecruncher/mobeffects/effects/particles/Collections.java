@@ -18,15 +18,9 @@
 
 package org.orecruncher.mobeffects.effects.particles;
 
-import com.mojang.blaze3d.platform.GlStateManager;
-import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.texture.TextureManager;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import javax.annotation.Nonnull;
+
+import org.joml.Vector3d;
 import org.orecruncher.lib.particles.CollectionManager;
 import org.orecruncher.lib.particles.IParticleCollection;
 import org.orecruncher.lib.particles.IParticleMote;
@@ -34,7 +28,15 @@ import org.orecruncher.lib.particles.ParticleRenderType;
 import org.orecruncher.mobeffects.MobEffects;
 import org.orecruncher.mobeffects.footsteps.FootprintStyle;
 
-import javax.annotation.Nonnull;
+import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.BufferBuilder;
+
+import net.minecraft.client.renderer.texture.TextureManager;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public final class Collections {

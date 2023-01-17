@@ -18,9 +18,10 @@
 
 package org.orecruncher.lib.logging;
 
+import java.util.function.Supplier;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.function.Supplier;
 
 @SuppressWarnings("unused")
 public interface IModLog {

@@ -18,19 +18,18 @@
 
 package org.orecruncher.sndctrl.audio.handlers;
 
-import it.unimi.dsi.fastutil.objects.ReferenceOpenHashSet;
-import net.minecraft.client.audio.AudioStreamBuffer;
-import net.minecraft.client.audio.ChannelManager;
-import net.minecraft.client.audio.ISound;
-import net.minecraft.client.audio.SoundSource;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.LogicalSide;
-import net.minecraftforge.fml.common.Mod;
+import java.util.Arrays;
+import java.util.Optional;
+import java.util.Set;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.function.Supplier;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import org.apache.commons.lang3.StringUtils;
 import org.lwjgl.openal.AL10;
 import org.orecruncher.lib.Singleton;
@@ -39,21 +38,27 @@ import org.orecruncher.lib.collections.ObjectArray;
 import org.orecruncher.lib.events.DiagnosticEvent;
 import org.orecruncher.lib.logging.IModLog;
 import org.orecruncher.lib.threading.Worker;
+import org.orecruncher.sndctrl.SoundControl;
 import org.orecruncher.sndctrl.api.sound.Category;
 import org.orecruncher.sndctrl.api.sound.ISoundCategory;
-import org.orecruncher.sndctrl.config.Config;
-import org.orecruncher.sndctrl.SoundControl;
 import org.orecruncher.sndctrl.audio.Conversion;
 import org.orecruncher.sndctrl.audio.SoundUtils;
+import org.orecruncher.sndctrl.config.Config;
 import org.orecruncher.sndctrl.misc.IMixinSoundContext;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.Arrays;
-import java.util.Optional;
-import java.util.Set;
-import java.util.concurrent.*;
-import java.util.function.Supplier;
+import it.unimi.dsi.fastutil.objects.ReferenceOpenHashSet;
+import net.minecraft.client.audio.AudioStreamBuffer;
+import net.minecraft.client.audio.ChannelManager;
+import net.minecraft.client.audio.ISound;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = SoundControl.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public final class SoundFXProcessor {

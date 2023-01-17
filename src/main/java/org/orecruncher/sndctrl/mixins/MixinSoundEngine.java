@@ -18,12 +18,14 @@
 
 package org.orecruncher.sndctrl.mixins;
 
-import com.google.common.collect.Multimap;
-import net.minecraft.client.GameSettings;
-import net.minecraft.client.audio.*;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.vector.Vector3d;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+
+import javax.annotation.Nonnull;
+
+import org.joml.Vector3d;
 import org.orecruncher.sndctrl.SoundControl;
 import org.orecruncher.sndctrl.api.sound.Category;
 import org.orecruncher.sndctrl.api.sound.ISoundInstance;
@@ -40,11 +42,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
-import javax.annotation.Nonnull;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.CompletableFuture;
+import com.google.common.collect.Multimap;
+
+import net.minecraft.client.GameSettings;
+import net.minecraft.client.audio.*;
+import net.minecraft.client.sounds.SoundEngine;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.SoundCategory;
 
 @Mixin(SoundEngine.class)
 public class MixinSoundEngine {

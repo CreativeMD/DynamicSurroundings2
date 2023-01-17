@@ -18,22 +18,14 @@
 
 package org.orecruncher.sndctrl.gui;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import net.minecraft.client.audio.SoundHandler;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.IGuiEventListener;
-import net.minecraft.client.gui.widget.Widget;
-import net.minecraft.client.gui.widget.button.Button;
-import net.minecraft.client.gui.widget.list.AbstractOptionList;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.client.gui.widget.Slider;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
+
+import javax.annotation.Nonnull;
+
+import org.jline.reader.Widget;
 import org.orecruncher.lib.GameUtils;
 import org.orecruncher.lib.fml.ForgeUtils;
 import org.orecruncher.lib.gui.ColorPalette;
@@ -47,11 +39,20 @@ import org.orecruncher.sndctrl.audio.SoundMetadata;
 import org.orecruncher.sndctrl.library.IndividualSoundConfig;
 import org.orecruncher.sndctrl.library.SoundLibrary;
 
-import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import com.mojang.blaze3d.matrix.MatrixStack;
+
+import net.minecraft.client.audio.SoundHandler;
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.IGuiEventListener;
+import net.minecraft.client.gui.widget.list.AbstractOptionList;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.client.gui.widget.Slider;
 
 @OnlyIn(Dist.CLIENT)
 public class IndividualSoundControlListEntry extends AbstractOptionList.Entry<IndividualSoundControlListEntry> implements Slider.ISlider, AutoCloseable {

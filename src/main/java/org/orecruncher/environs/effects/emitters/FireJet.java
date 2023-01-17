@@ -19,17 +19,17 @@
 
 package org.orecruncher.environs.effects.emitters;
 
+import org.orecruncher.lib.GameUtils;
+import org.orecruncher.sndctrl.api.acoustics.Library;
+
 import net.minecraft.client.particle.FlameParticle;
+import net.minecraft.client.particle.Particle;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.particles.IParticleData;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.IBlockReader;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-
-import net.minecraft.client.particle.Particle;
-import org.orecruncher.lib.GameUtils;
-import org.orecruncher.sndctrl.api.acoustics.Library;
 
 @OnlyIn(Dist.CLIENT)
 public class FireJet extends Jet {

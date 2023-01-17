@@ -18,20 +18,22 @@
 
 package org.orecruncher.environs.effects.particles;
 
+import java.util.Random;
+
+import javax.annotation.Nonnull;
+
+import org.orecruncher.lib.GameUtils;
+import org.orecruncher.lib.random.XorShiftRandom;
+
 import net.minecraft.client.particle.IAnimatedSprite;
 import net.minecraft.client.particle.IParticleRenderType;
 import net.minecraft.client.particle.SpriteTexturedParticle;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.particles.ParticleTypes;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import org.orecruncher.lib.GameUtils;
-import org.orecruncher.lib.random.XorShiftRandom;
-
-import javax.annotation.Nonnull;
-import java.util.Random;
 
 @OnlyIn(Dist.CLIENT)
 public class SteamCloudParticle extends SpriteTexturedParticle {

@@ -18,17 +18,12 @@
 
 package org.orecruncher.lib.world;
 
-import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
-import net.minecraft.block.BlockState;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.world.WorldEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Set;
+
+import javax.annotation.Nonnull;
+
 import org.apache.commons.lang3.tuple.Pair;
 import org.orecruncher.dsurround.DynamicSurroundings;
 import org.orecruncher.lib.events.BlockUpdateEvent;
@@ -36,8 +31,17 @@ import org.orecruncher.lib.events.DiagnosticEvent;
 import org.orecruncher.lib.math.LoggingTimerEMA;
 import org.orecruncher.sndctrl.config.Config;
 
-import javax.annotation.Nonnull;
-import java.util.*;
+import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
+import net.minecraft.client.world.ClientWorld;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.world.WorldEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = DynamicSurroundings.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public final class ClientBlockUpdateHandler {

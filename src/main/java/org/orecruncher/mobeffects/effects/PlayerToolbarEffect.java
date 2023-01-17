@@ -18,20 +18,20 @@
 
 package org.orecruncher.mobeffects.effects;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Hand;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import javax.annotation.Nonnull;
+
 import org.orecruncher.mobeffects.MobEffects;
 import org.orecruncher.mobeffects.library.ItemData;
 import org.orecruncher.mobeffects.library.ItemLibrary;
 import org.orecruncher.sndctrl.api.effects.AbstractEntityEffect;
 import org.orecruncher.sndctrl.api.effects.IEntityEffectManager;
 
-import javax.annotation.Nonnull;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Hand;
+import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class PlayerToolbarEffect extends AbstractEntityEffect {

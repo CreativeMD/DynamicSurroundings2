@@ -18,11 +18,12 @@
 
 package org.orecruncher.sndctrl.audio.handlers.effects;
 
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import javax.annotation.Nonnull;
+
 import org.lwjgl.openal.EXTEfx;
 
-import javax.annotation.Nonnull;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class ReverbEffectSlot extends Slot {

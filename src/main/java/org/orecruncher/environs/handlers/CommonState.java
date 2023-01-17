@@ -18,17 +18,21 @@
 
 package org.orecruncher.environs.handlers;
 
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.IWorldReader;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import org.apache.commons.lang3.StringUtils;
+import org.joml.Vector3d;
 import org.orecruncher.environs.library.BiomeInfo;
 import org.orecruncher.environs.library.BiomeLibrary;
 import org.orecruncher.environs.library.DimensionInfo;
-import org.orecruncher.lib.*;
+import org.orecruncher.lib.DayCycle;
+import org.orecruncher.lib.GameUtils;
+import org.orecruncher.lib.MinecraftClock;
+import org.orecruncher.lib.TickCounter;
 import org.orecruncher.lib.seasons.Season;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.IWorldReader;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public final class CommonState {

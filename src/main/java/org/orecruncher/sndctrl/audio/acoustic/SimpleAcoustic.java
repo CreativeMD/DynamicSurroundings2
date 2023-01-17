@@ -18,23 +18,24 @@
 
 package org.orecruncher.sndctrl.audio.acoustic;
 
-import com.google.common.base.MoreObjects;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import java.util.Objects;
+
+import javax.annotation.Nonnull;
+
+import org.joml.Vector3d;
 import org.orecruncher.sndctrl.api.acoustics.AcousticEvent;
 import org.orecruncher.sndctrl.api.acoustics.IAcoustic;
 import org.orecruncher.sndctrl.api.acoustics.IAcousticFactory;
 import org.orecruncher.sndctrl.api.sound.ISoundCategory;
-import org.orecruncher.sndctrl.audio.AudioEngine;
 import org.orecruncher.sndctrl.api.sound.ISoundInstance;
+import org.orecruncher.sndctrl.audio.AudioEngine;
 
-import javax.annotation.Nonnull;
-import java.util.Objects;
+import com.google.common.base.MoreObjects;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 /**
  * A simple acoustic that uses an AcousticFactory to produce sound instances for playing.

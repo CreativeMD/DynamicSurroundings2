@@ -18,9 +18,9 @@
 
 package org.orecruncher.environs.misc;
 
-import org.orecruncher.environs.library.BlockStateData;
-
 import javax.annotation.Nullable;
+
+import org.orecruncher.environs.library.BlockStateData;
 
 public interface IMixinBlockData {
 

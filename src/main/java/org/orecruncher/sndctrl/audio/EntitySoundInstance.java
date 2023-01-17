@@ -18,15 +18,17 @@
 
 package org.orecruncher.sndctrl.audio;
 
-import com.google.common.base.MoreObjects;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import org.orecruncher.sndctrl.api.sound.ISoundInstance;
+import java.util.Objects;
 
 import javax.annotation.Nonnull;
-import java.util.Objects;
+
+import org.joml.Vector3d;
+import org.orecruncher.sndctrl.api.sound.ISoundInstance;
+
+import com.google.common.base.MoreObjects;
+
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 /**
  * An EntitySoundInstance is one that is attached to an entity and will change position with that entity

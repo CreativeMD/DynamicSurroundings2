@@ -18,15 +18,15 @@
 
 package org.orecruncher.sndctrl.api.acoustics;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import javax.annotation.Nonnull;
+
+import org.joml.Vector3d;
 import org.orecruncher.sndctrl.api.sound.IFadableSoundInstance;
 import org.orecruncher.sndctrl.api.sound.ISoundInstance;
 
-import javax.annotation.Nonnull;
+import net.minecraft.core.BlockPos;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public interface IAcousticFactory {

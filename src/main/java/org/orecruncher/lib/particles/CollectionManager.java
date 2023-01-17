@@ -18,6 +18,13 @@
 
 package org.orecruncher.lib.particles;
 
+import javax.annotation.Nonnull;
+
+import org.orecruncher.lib.collections.ObjectArray;
+import org.orecruncher.lib.events.DiagnosticEvent;
+import org.orecruncher.sndctrl.SoundControl;
+import org.orecruncher.sndctrl.config.Config;
+
 import net.minecraft.client.particle.IParticleRenderType;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.util.text.TextFormatting;
@@ -25,12 +32,6 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import org.orecruncher.lib.collections.ObjectArray;
-import org.orecruncher.lib.events.DiagnosticEvent;
-import org.orecruncher.sndctrl.config.Config;
-import org.orecruncher.sndctrl.SoundControl;
-
-import javax.annotation.Nonnull;
 
 @Mod.EventBusSubscriber(modid = SoundControl.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public final class CollectionManager {

@@ -18,6 +18,16 @@
 
 package org.orecruncher.environs.handlers;
 
+import javax.annotation.Nonnull;
+
+import org.orecruncher.environs.Environs;
+import org.orecruncher.environs.config.Config;
+import org.orecruncher.lib.GameUtils;
+import org.orecruncher.lib.TickCounter;
+import org.orecruncher.lib.collections.ObjectArray;
+import org.orecruncher.lib.events.DiagnosticEvent;
+import org.orecruncher.lib.logging.IModLog;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.profiler.IProfiler;
@@ -27,15 +37,6 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import org.orecruncher.environs.config.Config;
-import org.orecruncher.environs.Environs;
-import org.orecruncher.lib.GameUtils;
-import org.orecruncher.lib.TickCounter;
-import org.orecruncher.lib.collections.ObjectArray;
-import org.orecruncher.lib.events.DiagnosticEvent;
-import org.orecruncher.lib.logging.IModLog;
-
-import javax.annotation.Nonnull;
 
 @Mod.EventBusSubscriber(modid = Environs.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class Manager {

@@ -18,16 +18,16 @@
 
 package org.orecruncher.environs.scanner;
 
+import java.util.function.Supplier;
+
 import javax.annotation.Nonnull;
 
+import org.orecruncher.lib.logging.IModLog;
+
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-
-import net.minecraft.util.math.BlockPos;
-import org.orecruncher.lib.logging.IModLog;
-
-import java.util.function.Supplier;
 
 @OnlyIn(Dist.CLIENT)
 public class ScanContext {

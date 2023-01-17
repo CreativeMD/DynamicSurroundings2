@@ -18,11 +18,12 @@
 
 package org.orecruncher.sndctrl.audio.handlers;
 
-import com.google.common.base.MoreObjects;
-import net.minecraft.client.audio.ISound;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import java.util.concurrent.Callable;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+import org.joml.Vector3d;
 import org.lwjgl.openal.EXTEfx;
 import org.orecruncher.lib.logging.IModLog;
 import org.orecruncher.lib.random.LCGRandom;
@@ -33,9 +34,11 @@ import org.orecruncher.sndctrl.audio.SoundUtils;
 import org.orecruncher.sndctrl.audio.handlers.effects.LowPassData;
 import org.orecruncher.sndctrl.audio.handlers.effects.SourcePropertyFloat;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.concurrent.Callable;
+import com.google.common.base.MoreObjects;
+
+import net.minecraft.client.audio.ISound;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 /**
  * Used to track and apply sound effects for a given sound instance in the sound engine.  It is also a task to

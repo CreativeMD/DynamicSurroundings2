@@ -18,8 +18,9 @@
 
 package org.orecruncher.sndctrl.mixins;
 
-import net.minecraft.client.audio.AudioStreamBuffer;
-import net.minecraft.client.audio.SoundSource;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import org.lwjgl.openal.AL10;
 import org.orecruncher.sndctrl.SoundControl;
 import org.orecruncher.sndctrl.audio.handlers.SoundFXProcessor;
@@ -32,8 +33,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import net.minecraft.client.audio.AudioStreamBuffer;
+import net.minecraft.sounds.SoundSource;
 
 @Mixin(SoundSource.class)
 public class MixinSoundSource implements IMixinSoundContext {

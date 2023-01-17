@@ -18,20 +18,19 @@
 
 package org.orecruncher.lib.blockstate;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.state.Property;
-import net.minecraft.state.StateContainer;
-import net.minecraftforge.registries.ForgeRegistries;
-import org.orecruncher.lib.Lib;
-import org.orecruncher.lib.blockstate.BlockStateParser.ParseResult;
-
-import javax.annotation.Nonnull;
 import java.util.IdentityHashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import javax.annotation.Nonnull;
+
+import org.orecruncher.lib.Lib;
+import org.orecruncher.lib.blockstate.BlockStateParser.ParseResult;
+
+import net.minecraft.state.StateContainer;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public final class BlockStateMatcher {
 

@@ -18,20 +18,9 @@
 
 package org.orecruncher.environs.effects.particles;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.material.Material;
-import net.minecraft.client.particle.DripParticle;
-import net.minecraft.client.particle.Particle;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.tags.FluidTags;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import javax.annotation.Nonnull;
+
+import org.joml.Vector3d;
 import org.orecruncher.environs.Environs;
 import org.orecruncher.environs.config.Config;
 import org.orecruncher.environs.effects.JetEffect;
@@ -39,7 +28,17 @@ import org.orecruncher.lib.GameUtils;
 import org.orecruncher.lib.particles.ParticleCollisionResult;
 import org.orecruncher.sndctrl.api.acoustics.Library;
 
-import javax.annotation.Nonnull;
+import net.minecraft.client.particle.DripParticle;
+import net.minecraft.client.particle.Particle;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.world.IBlockReader;
+import net.minecraft.world.World;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public final class ParticleHooks {

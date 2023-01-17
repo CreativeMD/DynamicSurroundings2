@@ -22,19 +22,18 @@ import java.util.Random;
 
 import javax.annotation.Nonnull;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.fluid.FlowingFluid;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.world.IBlockReader;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import org.joml.Vector3i;
 import org.orecruncher.environs.effects.emitters.Jet;
 import org.orecruncher.environs.effects.emitters.WaterSplashJet;
 import org.orecruncher.lib.WorldUtils;
 
-import net.minecraft.block.material.Material;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3i;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.IBlockReader;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.FlowingFluid;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class WaterfallSplashEffect extends JetEffect {

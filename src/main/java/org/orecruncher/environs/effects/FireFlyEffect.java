@@ -18,16 +18,17 @@
 
 package org.orecruncher.environs.effects;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorldReader;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import org.orecruncher.environs.effects.particles.Collections;
+import java.util.Random;
 
 import javax.annotation.Nonnull;
-import java.util.Random;
+
+import org.orecruncher.environs.effects.particles.Collections;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.IBlockReader;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class FireFlyEffect extends BlockEffect {

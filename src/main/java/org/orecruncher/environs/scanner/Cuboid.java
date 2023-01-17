@@ -18,13 +18,14 @@
 
 package org.orecruncher.environs.scanner;
 
-import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import org.orecruncher.lib.BlockPosUtil;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import org.orecruncher.lib.BlockPosUtil;
+
+import net.minecraft.core.BlockPos;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class Cuboid {

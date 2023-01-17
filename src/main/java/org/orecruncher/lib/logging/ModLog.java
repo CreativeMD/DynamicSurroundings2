@@ -18,16 +18,17 @@
 
 package org.orecruncher.lib.logging;
 
+import java.util.Objects;
+import java.util.function.Supplier;
+import java.util.regex.Pattern;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.Objects;
-import java.util.function.Supplier;
-import java.util.regex.Pattern;
 
 public final class ModLog implements IModLog {
 

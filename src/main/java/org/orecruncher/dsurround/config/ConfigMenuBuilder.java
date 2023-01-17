@@ -18,19 +18,20 @@
 
 package org.orecruncher.dsurround.config;
 
+import javax.annotation.Nonnull;
+
+import org.orecruncher.dsurround.huds.lightlevel.LightLevelHUD;
+import org.orecruncher.lib.config.ClothAPIFactory;
+
 import me.shedaniel.clothconfig2.forge.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.forge.api.ConfigCategory;
 import me.shedaniel.clothconfig2.forge.api.ConfigEntryBuilder;
 import me.shedaniel.clothconfig2.forge.impl.builders.SubCategoryBuilder;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import org.orecruncher.dsurround.huds.lightlevel.LightLevelHUD;
-import org.orecruncher.lib.config.ClothAPIFactory;
-
-import javax.annotation.Nonnull;
 
 @OnlyIn(Dist.CLIENT)
 public class ConfigMenuBuilder extends ClothAPIFactory {

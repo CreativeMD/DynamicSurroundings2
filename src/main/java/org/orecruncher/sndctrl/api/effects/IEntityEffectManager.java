@@ -18,13 +18,13 @@
 
 package org.orecruncher.sndctrl.api.effects;
 
+import javax.annotation.Nonnull;
+
 import net.minecraft.client.particle.Particle;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-
-import javax.annotation.Nonnull;
 
 @OnlyIn(Dist.CLIENT)
 public interface IEntityEffectManager {

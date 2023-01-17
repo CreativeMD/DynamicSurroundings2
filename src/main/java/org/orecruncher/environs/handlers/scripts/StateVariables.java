@@ -18,12 +18,13 @@
 
 package org.orecruncher.environs.handlers.scripts;
 
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import javax.annotation.Nonnull;
+
 import org.orecruncher.environs.handlers.CommonState;
 import org.orecruncher.lib.scripting.VariableSet;
 
-import javax.annotation.Nonnull;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 class StateVariables extends VariableSet<IStateVariables> implements IStateVariables {

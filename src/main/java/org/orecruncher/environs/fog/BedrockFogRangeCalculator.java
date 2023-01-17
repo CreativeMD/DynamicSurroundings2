@@ -18,17 +18,18 @@
 
 package org.orecruncher.environs.fog;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.MathHelper;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.EntityViewRenderEvent;
+import javax.annotation.Nonnull;
+
 import org.orecruncher.environs.config.Config;
 import org.orecruncher.environs.handlers.CommonState;
 import org.orecruncher.lib.GameUtils;
 import org.orecruncher.lib.WorldUtils;
 
-import javax.annotation.Nonnull;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.math.MathHelper;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.event.EntityViewRenderEvent;
 
 /**
  * Implements the void fog (the fog at bedrock) of older versions of Minecraft.

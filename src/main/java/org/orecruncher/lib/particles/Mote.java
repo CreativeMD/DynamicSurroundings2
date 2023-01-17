@@ -18,18 +18,20 @@
 
 package org.orecruncher.lib.particles;
 
+import javax.annotation.Nonnull;
+
+import org.joml.Vector3d;
+import org.orecruncher.lib.GameUtils;
+
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+
 import net.minecraft.client.renderer.ActiveRenderInfo;
 import net.minecraft.client.renderer.WorldRenderer;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import org.orecruncher.lib.GameUtils;
-
-import javax.annotation.Nonnull;
 
 @OnlyIn(Dist.CLIENT)
 public abstract class Mote implements IParticleMote {

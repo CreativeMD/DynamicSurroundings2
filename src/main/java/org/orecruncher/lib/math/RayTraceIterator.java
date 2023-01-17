@@ -18,14 +18,16 @@
 
 package org.orecruncher.lib.math;
 
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.vector.Vector3d;
+import java.util.Iterator;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.Iterator;
+
+import org.joml.Vector3d;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.RayTraceResult;
 
 public class RayTraceIterator implements Iterator<BlockRayTraceResult> {
 

@@ -23,17 +23,16 @@ import java.util.Random;
 
 import javax.annotation.Nonnull;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorldReader;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-
-import net.minecraft.util.math.BlockPos;
 import org.orecruncher.environs.effects.BlockEffect;
 import org.orecruncher.environs.library.BlockStateData;
 import org.orecruncher.environs.library.BlockStateUtil;
 import org.orecruncher.sndctrl.api.acoustics.IAcoustic;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.IBlockReader;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 /**
  * Modeled after WorldClient::doVoidFogParticles() which handles the random

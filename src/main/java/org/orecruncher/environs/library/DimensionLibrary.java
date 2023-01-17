@@ -27,24 +27,26 @@ import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
-import com.google.gson.reflect.TypeToken;
-import net.minecraft.util.RegistryKey;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import org.orecruncher.dsurround.DynamicSurroundings;
-import org.orecruncher.environs.config.Config;
 import org.orecruncher.environs.Environs;
+import org.orecruncher.environs.config.Config;
 import org.orecruncher.environs.library.config.DimensionConfig;
 import org.orecruncher.lib.collections.ObjectArray;
 import org.orecruncher.lib.logging.IModLog;
 import org.orecruncher.lib.resource.IResourceAccessor;
 import org.orecruncher.lib.resource.ResourceUtils;
-import org.orecruncher.lib.service.ModuleServiceManager;
 import org.orecruncher.lib.service.IModuleService;
+import org.orecruncher.lib.service.ModuleServiceManager;
 import org.orecruncher.lib.validation.ListValidator;
 import org.orecruncher.lib.validation.Validators;
+
+import com.google.gson.reflect.TypeToken;
+
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.RegistryKey;
+import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public final class DimensionLibrary {

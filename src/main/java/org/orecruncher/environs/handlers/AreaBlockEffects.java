@@ -18,17 +18,20 @@
 
 package org.orecruncher.environs.handlers;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import javax.annotation.Nonnull;
+
 import org.orecruncher.environs.config.Config;
-import org.orecruncher.environs.scanner.*;
+import org.orecruncher.environs.scanner.AlwaysOnBlockEffectScanner;
+import org.orecruncher.environs.scanner.ClientPlayerLocus;
+import org.orecruncher.environs.scanner.RandomBlockEffectScanner;
 import org.orecruncher.lib.events.BlockUpdateEvent;
 import org.orecruncher.lib.events.DiagnosticEvent;
 import org.orecruncher.lib.math.LoggingTimerEMA;
 
-import javax.annotation.Nonnull;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 @OnlyIn(Dist.CLIENT)
 class AreaBlockEffects extends HandlerBase {

@@ -18,16 +18,18 @@
 
 package org.orecruncher.lib.blockstate;
 
-import com.google.common.base.MoreObjects;
-import com.google.common.collect.ImmutableMap;
-import net.minecraft.block.BlockState;
-import net.minecraft.state.Property;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import javax.annotation.Nonnull;
+
 import org.apache.commons.lang3.StringUtils;
 import org.orecruncher.lib.Lib;
 
-import javax.annotation.Nonnull;
-import java.util.Map;
-import java.util.stream.Collectors;
+import com.google.common.base.MoreObjects;
+import com.google.common.collect.ImmutableMap;
+
+import net.minecraft.world.level.block.state.BlockState;
 
 /**
  * Special property collection that can be used to perform fuzzy matching against other

@@ -20,23 +20,24 @@ package org.orecruncher.environs.handlers;
 
 import javax.annotation.Nonnull;
 
+import org.orecruncher.environs.Environs;
+import org.orecruncher.environs.config.Config;
+import org.orecruncher.environs.shaders.ShaderPrograms;
+import org.orecruncher.environs.shaders.aurora.AuroraFactory;
+import org.orecruncher.environs.shaders.aurora.AuroraUtils;
+import org.orecruncher.environs.shaders.aurora.IAurora;
+import org.orecruncher.lib.GameUtils;
+import org.orecruncher.lib.events.DiagnosticEvent;
+import org.orecruncher.lib.logging.IModLog;
+import org.orecruncher.lib.math.LoggingTimerEMA;
+
 import com.mojang.blaze3d.matrix.MatrixStack;
+
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.profiler.IProfiler;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import org.orecruncher.environs.config.Config;
-import org.orecruncher.environs.Environs;
-import org.orecruncher.environs.shaders.ShaderPrograms;
-import org.orecruncher.lib.GameUtils;
-import org.orecruncher.environs.shaders.aurora.AuroraFactory;
-import org.orecruncher.environs.shaders.aurora.AuroraUtils;
-import org.orecruncher.environs.shaders.aurora.IAurora;
-import org.orecruncher.lib.events.DiagnosticEvent;
-import org.orecruncher.lib.logging.IModLog;
-
-import org.orecruncher.lib.math.LoggingTimerEMA;
 
 @OnlyIn(Dist.CLIENT)
 public final class AuroraHandler extends HandlerBase {

@@ -21,8 +21,9 @@ package org.orecruncher.mobeffects.footsteps;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.math.vector.Vector3d;
+import org.joml.Vector3d;
+
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 

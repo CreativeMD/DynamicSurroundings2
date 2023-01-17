@@ -23,12 +23,11 @@ import java.util.Iterator;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.orecruncher.lib.BlockPosUtil;
+
+import net.minecraft.core.BlockPos;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockPos.Mutable;
-import org.orecruncher.lib.BlockPosUtil;
 
 /**
  * Implements a "peeking" iterator. The iterator uses mutables for position so

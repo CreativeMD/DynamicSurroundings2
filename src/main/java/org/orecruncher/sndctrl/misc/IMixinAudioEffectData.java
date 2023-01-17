@@ -17,9 +17,9 @@
  */
 package org.orecruncher.sndctrl.misc;
 
-import org.orecruncher.sndctrl.library.AudioEffectLibrary;
-
 import javax.annotation.Nullable;
+
+import org.orecruncher.sndctrl.library.AudioEffectLibrary;
 
 public interface IMixinAudioEffectData {
     @Nullable

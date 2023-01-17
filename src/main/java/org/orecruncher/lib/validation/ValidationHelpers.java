@@ -18,17 +18,19 @@
 
 package org.orecruncher.lib.validation;
 
-import net.minecraft.util.ResourceLocation;
-import org.apache.commons.lang3.StringUtils;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.regex.Pattern;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+import org.apache.commons.lang3.StringUtils;
+
+import net.minecraft.resources.ResourceLocation;
 
 @SuppressWarnings("unused")
 public class ValidationHelpers {

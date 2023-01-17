@@ -18,11 +18,11 @@
 
 package org.orecruncher.environs.fog;
 
+import javax.annotation.Nonnull;
+
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
-
-import javax.annotation.Nonnull;
 
 @OnlyIn(Dist.CLIENT)
 public interface IFogRangeCalculator {

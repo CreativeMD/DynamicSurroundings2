@@ -17,12 +17,13 @@
  */
 package org.orecruncher.environs.mixins;
 
-import net.minecraft.block.BlockState;
+import javax.annotation.Nullable;
+
 import org.orecruncher.environs.library.BlockStateData;
 import org.orecruncher.environs.misc.IMixinBlockData;
 import org.spongepowered.asm.mixin.Mixin;
 
-import javax.annotation.Nullable;
+import net.minecraft.world.level.block.state.BlockState;
 
 @Mixin(BlockState.class)
 public class MixinBlockState implements IMixinBlockData {

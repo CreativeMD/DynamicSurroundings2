@@ -18,17 +18,18 @@
 
 package org.orecruncher.mobeffects.misc;
 
-import net.minecraft.entity.LivingEntity;
+import javax.annotation.Nonnull;
+
+import org.orecruncher.lib.GameUtils;
+import org.orecruncher.mobeffects.MobEffects;
+import org.orecruncher.mobeffects.config.Config;
+
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import org.orecruncher.lib.GameUtils;
-import org.orecruncher.mobeffects.config.Config;
-import org.orecruncher.mobeffects.MobEffects;
-
-import javax.annotation.Nonnull;
 
 @Mod.EventBusSubscriber(modid = MobEffects.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class HidePotionParticlesHandler {

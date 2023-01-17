@@ -18,11 +18,8 @@
 
 package org.orecruncher.environs.effects.emitters;
 
-import net.minecraft.client.settings.ParticleStatus;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.IBlockReader;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import java.util.Arrays;
+
 import org.orecruncher.environs.Environs;
 import org.orecruncher.environs.config.Config;
 import org.orecruncher.environs.effects.JetEffect;
@@ -33,15 +30,18 @@ import org.orecruncher.environs.library.Constants;
 import org.orecruncher.lib.GameUtils;
 import org.orecruncher.lib.WorldUtils;
 import org.orecruncher.lib.math.MathStuff;
-
-import net.minecraft.util.math.BlockPos;
 import org.orecruncher.sndctrl.api.acoustics.IAcoustic;
 import org.orecruncher.sndctrl.api.acoustics.Library;
 import org.orecruncher.sndctrl.audio.AudioEngine;
 import org.orecruncher.sndctrl.audio.LoopingSoundInstance;
 import org.orecruncher.sndctrl.audio.SoundUtils;
 
-import java.util.Arrays;
+import net.minecraft.client.ParticleStatus;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.IBlockReader;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class WaterSplashJet extends Jet {

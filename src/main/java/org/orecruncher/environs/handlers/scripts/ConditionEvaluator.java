@@ -18,14 +18,20 @@
 
 package org.orecruncher.environs.handlers.scripts;
 
-import net.minecraft.util.StringUtils;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import org.orecruncher.lib.scripting.ExecutionContext;
-import org.orecruncher.lib.scripting.sets.*;
+import java.util.Optional;
 
 import javax.annotation.Nonnull;
-import java.util.Optional;
+
+import org.orecruncher.lib.scripting.ExecutionContext;
+import org.orecruncher.lib.scripting.sets.BiomeVariables;
+import org.orecruncher.lib.scripting.sets.DimensionVariables;
+import org.orecruncher.lib.scripting.sets.DiurnalCycleVariables;
+import org.orecruncher.lib.scripting.sets.PlayerVariables;
+import org.orecruncher.lib.scripting.sets.SeasonVariables;
+import org.orecruncher.lib.scripting.sets.WeatherVariables;
+
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public final class ConditionEvaluator {

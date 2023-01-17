@@ -18,13 +18,14 @@
 
 package org.orecruncher.lib;
 
-import org.orecruncher.lib.collections.ObjectArray;
-import org.orecruncher.lib.random.XorShiftRandom;
+import java.util.Collection;
+import java.util.Random;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.Collection;
-import java.util.Random;
+
+import org.orecruncher.lib.collections.ObjectArray;
+import org.orecruncher.lib.random.XorShiftRandom;
 
 /**
  * Classic WeightTable for random weighted selection.

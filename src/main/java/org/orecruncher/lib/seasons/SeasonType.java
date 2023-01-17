@@ -18,12 +18,13 @@
 
 package org.orecruncher.lib.seasons;
 
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import javax.annotation.Nonnull;
+
 import org.orecruncher.lib.Localization;
 import org.orecruncher.sndctrl.SoundControl;
 
-import javax.annotation.Nonnull;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 public enum SeasonType {
 

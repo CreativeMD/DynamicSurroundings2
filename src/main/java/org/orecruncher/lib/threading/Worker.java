@@ -18,13 +18,14 @@
 
 package org.orecruncher.lib.threading;
 
+import java.util.concurrent.TimeUnit;
+
+import javax.annotation.Nonnull;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.StopWatch;
 import org.orecruncher.lib.logging.IModLog;
 import org.orecruncher.lib.math.TimerEMA;
-
-import javax.annotation.Nonnull;
-import java.util.concurrent.TimeUnit;
 
 public final class Worker {
 

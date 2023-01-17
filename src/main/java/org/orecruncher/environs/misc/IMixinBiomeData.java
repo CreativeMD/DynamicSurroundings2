@@ -18,9 +18,9 @@
 
 package org.orecruncher.environs.misc;
 
-import org.orecruncher.environs.library.BiomeInfo;
-
 import javax.annotation.Nullable;
+
+import org.orecruncher.environs.library.BiomeInfo;
 
 public interface IMixinBiomeData {
 

@@ -18,9 +18,9 @@
 
 package org.orecruncher.lib.compat;
 
-import net.minecraftforge.fml.ModList;
-
 import javax.annotation.Nonnull;
+
+import net.minecraftforge.fml.ModList;
 
 public enum ModEnvironment {
 

@@ -18,27 +18,25 @@
 
 package org.orecruncher.lib;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.material.Material;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorldReader;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.gen.Heightmap;
-import net.minecraft.world.storage.IWorldInfo;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import java.lang.reflect.Method;
+
+import javax.annotation.Nonnull;
+
 import org.orecruncher.lib.compat.ModEnvironment;
 import org.orecruncher.lib.reflection.BooleanField;
 //import sereneseasons.season.SeasonHooks;
 
-import javax.annotation.Nonnull;
-import java.lang.reflect.Method;
+import net.minecraft.client.world.ClientWorld;
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.math.shapes.ISelectionContext;
+import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IWorldReader;
+import net.minecraft.world.World;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.storage.IWorldInfo;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 @SuppressWarnings("unused")
 public final class WorldUtils {

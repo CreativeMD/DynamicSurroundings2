@@ -18,17 +18,18 @@
 
 package org.orecruncher.environs.library.config;
 
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import org.apache.commons.lang3.StringUtils;
+import javax.annotation.Nonnull;
 
-import com.google.gson.annotations.SerializedName;
+import org.apache.commons.lang3.StringUtils;
 import org.orecruncher.environs.Environs;
 import org.orecruncher.lib.validation.IValidator;
 import org.orecruncher.lib.validation.ValidationException;
 import org.orecruncher.lib.validation.ValidationHelpers;
 
-import javax.annotation.Nonnull;
+import com.google.gson.annotations.SerializedName;
+
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class AcousticConfig implements IValidator<AcousticConfig> {

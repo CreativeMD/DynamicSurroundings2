@@ -17,9 +17,9 @@
  */
 package org.orecruncher.sndctrl.misc;
 
-import org.orecruncher.sndctrl.audio.handlers.SourceContext;
-
 import javax.annotation.Nullable;
+
+import org.orecruncher.sndctrl.audio.handlers.SourceContext;
 
 public interface IMixinSoundContext {
     @Nullable

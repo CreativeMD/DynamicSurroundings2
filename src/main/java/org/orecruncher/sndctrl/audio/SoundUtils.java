@@ -18,26 +18,37 @@
 
 package org.orecruncher.sndctrl.audio;
 
-import com.google.common.base.MoreObjects;
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
-import net.minecraft.client.audio.*;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import org.lwjgl.openal.*;
-import org.orecruncher.lib.GameUtils;
-import org.orecruncher.lib.compat.ModEnvironment;
-import org.orecruncher.lib.logging.IModLog;
-import org.orecruncher.sndctrl.config.Config;
-import org.orecruncher.sndctrl.SoundControl;
-import org.orecruncher.sndctrl.api.sound.ISoundInstance;
-import org.orecruncher.sndctrl.audio.handlers.SoundFXProcessor;
+import java.util.Map;
+import java.util.Objects;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.Map;
-import java.util.Objects;
+
+import org.joml.Vector3d;
+import org.lwjgl.openal.AL10;
+import org.lwjgl.openal.ALC;
+import org.lwjgl.openal.ALC10;
+import org.lwjgl.openal.ALC11;
+import org.lwjgl.openal.ALCCapabilities;
+import org.lwjgl.openal.EXTEfx;
+import org.lwjgl.openal.EXTSourceDistanceModel;
+import org.lwjgl.openal.SOFTHRTF;
+import org.orecruncher.lib.GameUtils;
+import org.orecruncher.lib.compat.ModEnvironment;
+import org.orecruncher.lib.logging.IModLog;
+import org.orecruncher.sndctrl.SoundControl;
+import org.orecruncher.sndctrl.api.sound.ISoundInstance;
+import org.orecruncher.sndctrl.audio.handlers.SoundFXProcessor;
+import org.orecruncher.sndctrl.config.Config;
+
+import com.google.common.base.MoreObjects;
+
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import net.minecraft.client.audio.*;
+import net.minecraft.client.sounds.SoundEngine;
+import net.minecraft.util.SoundCategory;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 /**
  * Helper class that obtains information about the current sound processing environment

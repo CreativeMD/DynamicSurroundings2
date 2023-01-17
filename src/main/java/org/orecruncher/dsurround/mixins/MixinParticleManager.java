@@ -18,12 +18,6 @@
 
 package org.orecruncher.dsurround.mixins;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import net.minecraft.client.particle.ParticleManager;
-import net.minecraft.client.renderer.ActiveRenderInfo;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.LightTexture;
-import net.minecraft.client.renderer.culling.ClippingHelper;
 import org.orecruncher.dsurround.huds.lightlevel.LightLevelHUD;
 import org.orecruncher.environs.handlers.AuroraHandler;
 import org.orecruncher.lib.particles.FrustumHelper;
@@ -31,6 +25,14 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import com.mojang.blaze3d.matrix.MatrixStack;
+
+import net.minecraft.client.particle.ParticleManager;
+import net.minecraft.client.renderer.ActiveRenderInfo;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.LightTexture;
+import net.minecraft.client.renderer.culling.ClippingHelper;
 
 @Mixin(ParticleManager.class)
 public class MixinParticleManager {

@@ -22,17 +22,15 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import org.orecruncher.environs.Environs;
+import org.orecruncher.lib.GameUtils;
 
 import com.google.common.collect.ImmutableSet;
 
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.biome.Biome;
-import net.minecraftforge.common.BiomeDictionary.Type;
-import org.orecruncher.environs.Environs;
-import org.orecruncher.lib.GameUtils;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class FakeBiomeAdapter implements IBiome {

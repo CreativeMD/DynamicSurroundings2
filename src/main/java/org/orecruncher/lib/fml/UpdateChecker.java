@@ -18,8 +18,13 @@
 
 package org.orecruncher.lib.fml;
 
+import java.util.Optional;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import net.minecraft.client.entity.player.ClientPlayerEntity;
-import net.minecraft.client.resources.I18n;
+import net.minecraft.client.resources.language.I18n;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -27,10 +32,6 @@ import net.minecraftforge.fml.VersionChecker;
 import net.minecraftforge.fml.VersionChecker.CheckResult;
 import net.minecraftforge.fml.VersionChecker.Status;
 import net.minecraftforge.forgespi.language.IModInfo;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.Optional;
 
 /**
  * Simple update checker that can be registered with the ClientLoginChecks manager to provide feedback to the player

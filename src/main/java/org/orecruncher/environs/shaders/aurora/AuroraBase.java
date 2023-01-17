@@ -22,11 +22,6 @@ import java.util.Random;
 
 import javax.annotation.Nonnull;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.MathHelper;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import org.orecruncher.environs.config.Config;
 import org.orecruncher.environs.handlers.CommonState;
 import org.orecruncher.environs.library.DimensionInfo;
@@ -34,6 +29,13 @@ import org.orecruncher.lib.GameUtils;
 import org.orecruncher.lib.gui.Color;
 import org.orecruncher.lib.math.MathStuff;
 import org.orecruncher.lib.random.XorShiftRandom;
+
+import com.mojang.blaze3d.matrix.MatrixStack;
+
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.math.MathHelper;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public abstract class AuroraBase implements IAurora {

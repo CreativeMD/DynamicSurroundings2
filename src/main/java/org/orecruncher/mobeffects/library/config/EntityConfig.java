@@ -18,18 +18,21 @@
 
 package org.orecruncher.mobeffects.library.config;
 
-import com.google.common.collect.ImmutableList;
-import com.google.gson.annotations.SerializedName;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import java.util.List;
+
+import javax.annotation.Nonnull;
+
 import org.apache.commons.lang3.StringUtils;
 import org.orecruncher.lib.validation.IValidator;
 import org.orecruncher.lib.validation.ValidationException;
 import org.orecruncher.lib.validation.ValidationHelpers;
 import org.orecruncher.mobeffects.MobEffects;
 
-import javax.annotation.Nonnull;
-import java.util.List;
+import com.google.common.collect.ImmutableList;
+import com.google.gson.annotations.SerializedName;
+
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class EntityConfig implements IValidator<EntityConfig> {

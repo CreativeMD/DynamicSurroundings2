@@ -18,15 +18,14 @@
 
 package org.orecruncher.lib;
 
-import it.unimi.dsi.fastutil.objects.Reference2ObjectOpenHashMap;
-import net.minecraft.block.SoundType;
-import net.minecraft.util.SoundEvent;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.function.Consumer;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+import it.unimi.dsi.fastutil.objects.Reference2ObjectOpenHashMap;
 
 @SuppressWarnings("unused")
 public final class SoundTypeUtils {

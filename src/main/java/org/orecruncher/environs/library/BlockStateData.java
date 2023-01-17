@@ -23,13 +23,15 @@ import java.util.Random;
 
 import javax.annotation.Nonnull;
 
-import com.google.common.base.Joiner;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import org.orecruncher.environs.effects.BlockEffect;
 import org.orecruncher.lib.WeightTable;
 import org.orecruncher.lib.collections.ObjectArray;
 import org.orecruncher.sndctrl.api.acoustics.IAcoustic;
+
+import com.google.common.base.Joiner;
+
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 /**
  * Base class for the data being assigned into the IBlockState implementation.

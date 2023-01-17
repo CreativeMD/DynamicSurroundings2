@@ -23,17 +23,15 @@ import java.lang.reflect.Method;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.vector.Vector3d;
+import org.joml.Vector3d;
+import org.orecruncher.mobeffects.MobEffects;
+
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-
-import net.minecraft.block.Block;
-import net.minecraft.util.math.BlockPos;
-import org.orecruncher.mobeffects.MobEffects;
 
 @OnlyIn(Dist.CLIENT)
 class FacadeAccessor implements IFacadeAccessor {

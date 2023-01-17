@@ -18,22 +18,23 @@
 
 package org.orecruncher.sndctrl.gui;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.list.AbstractOptionList;
-import net.minecraft.util.StringUtils;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import org.orecruncher.sndctrl.library.IndividualSoundConfig;
-import org.orecruncher.sndctrl.library.SoundLibrary;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Supplier;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+import org.orecruncher.sndctrl.library.IndividualSoundConfig;
+import org.orecruncher.sndctrl.library.SoundLibrary;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.widget.list.AbstractOptionList;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class IndividualSoundControlList extends AbstractOptionList<IndividualSoundControlListEntry> {

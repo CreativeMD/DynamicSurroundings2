@@ -18,17 +18,18 @@
 
 package org.orecruncher.mobeffects.misc;
 
-import net.minecraft.util.text.TextFormatting;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import javax.annotation.Nonnull;
+
 import org.orecruncher.lib.effects.EntityEffectManager;
 import org.orecruncher.lib.effects.entity.CapabilityEntityFXData;
 import org.orecruncher.mobeffects.MobEffects;
 import org.orecruncher.sndctrl.events.EntityInspectionEvent;
 
-import javax.annotation.Nonnull;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.eventbus.api.EventPriority;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = MobEffects.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class EntityInspectionHandler {

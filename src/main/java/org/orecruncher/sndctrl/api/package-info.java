@@ -23,6 +23,4 @@
 @MethodsReturnNonnullByDefault
 package org.orecruncher.sndctrl.api;
 
-import mcp.MethodsReturnNonnullByDefault;
-
 import javax.annotation.ParametersAreNonnullByDefault;

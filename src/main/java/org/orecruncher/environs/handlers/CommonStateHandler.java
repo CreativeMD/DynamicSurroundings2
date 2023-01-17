@@ -18,14 +18,34 @@
 
 package org.orecruncher.environs.handlers;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+
+import javax.annotation.Nonnull;
+
+import org.orecruncher.environs.Environs;
+import org.orecruncher.environs.config.Config;
+import org.orecruncher.environs.handlers.scripts.ConditionEvaluator;
+import org.orecruncher.environs.library.BiomeLibrary;
+import org.orecruncher.environs.library.DimensionLibrary;
+import org.orecruncher.environs.scanner.CeilingCoverage;
+import org.orecruncher.lib.DayCycle;
+import org.orecruncher.lib.GameUtils;
+import org.orecruncher.lib.TickCounter;
+import org.orecruncher.lib.WorldUtils;
+import org.orecruncher.lib.events.DiagnosticEvent;
+import org.orecruncher.lib.resource.ResourceUtils;
+import org.orecruncher.lib.seasons.Season;
+
 import com.google.common.collect.Streams;
-import net.minecraft.entity.Entity;
+
 import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tileentity.BellTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StringUtils;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.LightType;
 import net.minecraft.world.World;
@@ -33,22 +53,6 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import org.orecruncher.environs.Environs;
-import org.orecruncher.environs.config.Config;
-import org.orecruncher.environs.handlers.scripts.ConditionEvaluator;
-import org.orecruncher.environs.library.BiomeLibrary;
-import org.orecruncher.environs.library.DimensionLibrary;
-import org.orecruncher.environs.scanner.CeilingCoverage;
-import org.orecruncher.lib.*;
-import org.orecruncher.lib.events.DiagnosticEvent;
-import org.orecruncher.lib.resource.ResourceUtils;
-import org.orecruncher.lib.seasons.Season;
-
-import javax.annotation.Nonnull;
-import java.util.List;
-import java.util.Optional;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 @OnlyIn(Dist.CLIENT)
 class CommonStateHandler extends HandlerBase {

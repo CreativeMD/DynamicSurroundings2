@@ -18,22 +18,23 @@
 
 package org.orecruncher.lib.blockstate;
 
-import com.google.common.collect.ImmutableMap;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.registries.ForgeRegistries;
-import org.apache.commons.lang3.StringUtils;
-import org.orecruncher.lib.Lib;
-import org.orecruncher.lib.logging.IModLog;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+import org.apache.commons.lang3.StringUtils;
+import org.orecruncher.lib.Lib;
+import org.orecruncher.lib.logging.IModLog;
+
+import com.google.common.collect.ImmutableMap;
+
+import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.registries.ForgeRegistries;
 
 /**
  * Utility functions for parsing and handling string based block names.  Handles things like properties, both fully

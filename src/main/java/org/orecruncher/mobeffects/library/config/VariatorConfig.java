@@ -18,13 +18,15 @@
 
 package org.orecruncher.mobeffects.library.config;
 
-import com.google.gson.annotations.SerializedName;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import javax.annotation.Nonnull;
+
 import org.orecruncher.lib.validation.IValidator;
 import org.orecruncher.lib.validation.ValidationException;
 
-import javax.annotation.Nonnull;
+import com.google.gson.annotations.SerializedName;
+
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class VariatorConfig implements IValidator<VariatorConfig> {

@@ -18,22 +18,21 @@
 
 package org.orecruncher.lib.particles;
 
+import java.util.Optional;
+
 import javax.annotation.Nonnull;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.material.Material;
+import org.joml.Vector3d;
+
 import net.minecraft.client.renderer.ActiveRenderInfo;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.util.Direction;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-
-import java.util.Optional;
 
 /**
  * A particle that is capable of moving it's position in the world.

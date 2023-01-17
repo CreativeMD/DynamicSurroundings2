@@ -18,25 +18,24 @@
 
 package org.orecruncher.mobeffects.library;
 
-import com.google.gson.reflect.TypeToken;
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
-import it.unimi.dsi.fastutil.objects.ReferenceOpenHashSet;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.tags.ITag;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.EnumMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Stream;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import org.apache.commons.lang3.tuple.Pair;
 import org.orecruncher.dsurround.DynamicSurroundings;
 import org.orecruncher.lib.SoundTypeUtils;
-import org.orecruncher.lib.tags.TagUtils;
 import org.orecruncher.lib.blockstate.BlockStateMatcher;
 import org.orecruncher.lib.blockstate.BlockStateMatcherMap;
 import org.orecruncher.lib.blockstate.BlockStateParser;
@@ -44,12 +43,13 @@ import org.orecruncher.lib.fml.ForgeUtils;
 import org.orecruncher.lib.logging.IModLog;
 import org.orecruncher.lib.resource.IResourceAccessor;
 import org.orecruncher.lib.resource.ResourceUtils;
-import org.orecruncher.lib.service.ModuleServiceManager;
 import org.orecruncher.lib.service.IModuleService;
+import org.orecruncher.lib.service.ModuleServiceManager;
+import org.orecruncher.lib.tags.TagUtils;
 import org.orecruncher.lib.validation.MapValidator;
 import org.orecruncher.lib.validation.Validators;
-import org.orecruncher.mobeffects.config.Config;
 import org.orecruncher.mobeffects.MobEffects;
+import org.orecruncher.mobeffects.config.Config;
 import org.orecruncher.mobeffects.footsteps.Generator;
 import org.orecruncher.mobeffects.footsteps.GeneratorQP;
 import org.orecruncher.mobeffects.footsteps.Substrate;
@@ -63,11 +63,19 @@ import org.orecruncher.sndctrl.audio.acoustic.NullAcoustic;
 import org.orecruncher.sndctrl.events.BlockInspectionEvent;
 import org.orecruncher.sndctrl.library.Primitives;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.lang.reflect.Type;
-import java.util.*;
-import java.util.stream.Stream;
+import com.google.gson.reflect.TypeToken;
+
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.objects.ReferenceOpenHashSet;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.tags.ITag;
 
 @Mod.EventBusSubscriber(modid = MobEffects.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public final class FootstepLibrary {

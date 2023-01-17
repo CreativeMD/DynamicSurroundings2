@@ -18,13 +18,17 @@
 
 package org.orecruncher.lib.reflection;
 
-import com.google.common.base.Preconditions;
-import org.orecruncher.lib.Lib;
+import java.lang.reflect.Field;
+import java.util.function.BiConsumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.lang.reflect.Field;
-import java.util.function.*;
+
+import org.orecruncher.lib.Lib;
+
+import com.google.common.base.Preconditions;
 
 @SuppressWarnings("unused")
 public class ObjectField<T, R> {

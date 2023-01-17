@@ -18,6 +18,7 @@
 package org.orecruncher.lib.resource;
 
 import com.google.gson.annotations.SerializedName;
+
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 

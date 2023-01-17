@@ -18,22 +18,23 @@
 
 package org.orecruncher.mobeffects.effects.particles;
 
-import com.mojang.blaze3d.vertex.IVertexBuilder;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.client.renderer.ActiveRenderInfo;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector2f;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import javax.annotation.Nonnull;
+
+import org.joml.Vector2f;
 import org.orecruncher.lib.WorldUtils;
 import org.orecruncher.lib.math.MathStuff;
 import org.orecruncher.lib.particles.AgeableMote;
 import org.orecruncher.mobeffects.footsteps.FootprintStyle;
 
-import javax.annotation.Nonnull;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
+
+import net.minecraft.client.renderer.ActiveRenderInfo;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.IBlockReader;
+import net.minecraft.world.World;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class FootprintMote extends AgeableMote {

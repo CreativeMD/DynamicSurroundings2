@@ -18,9 +18,9 @@
 
 package org.orecruncher.lib.random;
 
-import org.orecruncher.lib.math.MathStuff;
-
 import java.util.Random;
+
+import org.orecruncher.lib.math.MathStuff;
 
 /**
  * @see "http://xoroshiro.di.unimi.it/xoroshiro128plus.c"

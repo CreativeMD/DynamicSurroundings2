@@ -18,20 +18,19 @@
 
 package org.orecruncher.environs.fog;
 
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.util.CubicSampler;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.BiomeManager;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.EntityViewRenderEvent;
+import javax.annotation.Nonnull;
+
+import org.joml.Vector3d;
 import org.orecruncher.environs.config.Config;
 import org.orecruncher.environs.library.BiomeInfo;
 import org.orecruncher.environs.library.BiomeUtil;
 import org.orecruncher.lib.GameUtils;
 
-import javax.annotation.Nonnull;
+import net.minecraft.client.world.ClientWorld;
+import net.minecraft.util.CubicSampler;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.event.EntityViewRenderEvent;
 
 /**
  * Scans the biome area around the player to determine the fog parameters.

@@ -18,11 +18,12 @@
 
 package org.orecruncher.sndctrl.mixins;
 
-import net.minecraft.client.audio.SoundSystem;
 import org.orecruncher.sndctrl.config.Config;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
+
+import net.minecraft.client.audio.SoundSystem;
 
 @Mixin(SoundSystem.class)
 public class MixinSoundSystem {

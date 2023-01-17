@@ -18,18 +18,19 @@
 
 package org.orecruncher.environs.effects.particles;
 
-import com.mojang.blaze3d.vertex.IVertexBuilder;
-import net.minecraft.client.renderer.ActiveRenderInfo;
-import net.minecraft.world.IBlockReader;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import javax.annotation.Nonnull;
 
 import org.orecruncher.environs.config.Config;
 import org.orecruncher.lib.biomes.BiomeUtilities;
 import org.orecruncher.lib.gui.Color;
 import org.orecruncher.lib.particles.AgeableMote;
 
-import javax.annotation.Nonnull;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
+
+import net.minecraft.client.renderer.ActiveRenderInfo;
+import net.minecraft.world.IBlockReader;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class MoteWaterRipple extends AgeableMote {

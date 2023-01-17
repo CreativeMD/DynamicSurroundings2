@@ -18,15 +18,16 @@
 
 package org.orecruncher.environs.fog;
 
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.EntityViewRenderEvent;
+import javax.annotation.Nonnull;
+
 import org.orecruncher.environs.Environs;
 import org.orecruncher.environs.config.Config;
 import org.orecruncher.lib.collections.ObjectArray;
 import org.orecruncher.lib.logging.IModLog;
 
-import javax.annotation.Nonnull;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.event.EntityViewRenderEvent;
 
 /**
  * Consults various different fog calculators and aggregates the results into a

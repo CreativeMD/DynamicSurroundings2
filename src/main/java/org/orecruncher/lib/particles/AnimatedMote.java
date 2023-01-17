@@ -18,22 +18,24 @@
 
 package org.orecruncher.lib.particles;
 
+import java.util.Random;
+
 import javax.annotation.Nonnull;
 
+import org.joml.Vector3f;
+import org.orecruncher.lib.gui.Color;
+import org.orecruncher.lib.random.XorShiftRandom;
+
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+
 import net.minecraft.client.particle.IAnimatedSprite;
 import net.minecraft.client.renderer.ActiveRenderInfo;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Quaternion;
-import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.IBlockReader;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import org.orecruncher.lib.gui.Color;
-import org.orecruncher.lib.random.XorShiftRandom;
-
-import java.util.Random;
 
 @OnlyIn(Dist.CLIENT)
 public abstract class AnimatedMote extends MotionMote {

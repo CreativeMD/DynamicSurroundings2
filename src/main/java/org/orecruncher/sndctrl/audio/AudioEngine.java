@@ -18,12 +18,30 @@
 
 package org.orecruncher.sndctrl.audio;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+import org.apache.commons.lang3.StringUtils;
+import org.joml.Vector3d;
+import org.orecruncher.lib.GameUtils;
+import org.orecruncher.lib.events.DiagnosticEvent;
+import org.orecruncher.lib.logging.IModLog;
+import org.orecruncher.sndctrl.SoundControl;
+import org.orecruncher.sndctrl.api.sound.ISoundInstance;
+import org.orecruncher.sndctrl.config.Config;
+
 import com.google.common.collect.ImmutableList;
+
 import it.unimi.dsi.fastutil.objects.ReferenceOpenHashSet;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.*;
-import net.minecraft.client.audio.ChannelManager.Entry;
-import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -33,22 +51,6 @@ import net.minecraftforge.event.TickEvent.Phase;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.LogicalSide;
-import org.apache.commons.lang3.StringUtils;
-import org.orecruncher.lib.GameUtils;
-import org.orecruncher.lib.events.DiagnosticEvent;
-import org.orecruncher.lib.logging.IModLog;
-import org.orecruncher.sndctrl.config.Config;
-import org.orecruncher.sndctrl.SoundControl;
-import org.orecruncher.sndctrl.api.sound.ISoundInstance;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 /**
  * Handles the life cycle of sounds submitted to the Minecraft sound engine.

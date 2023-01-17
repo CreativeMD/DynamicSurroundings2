@@ -28,7 +28,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import net.minecraft.nbt.INBT;
-import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 
 /**

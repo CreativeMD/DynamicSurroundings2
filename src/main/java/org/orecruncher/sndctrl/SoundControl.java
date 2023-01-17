@@ -18,6 +18,24 @@
 
 package org.orecruncher.sndctrl;
 
+import javax.annotation.Nonnull;
+
+import org.apache.commons.lang3.tuple.Pair;
+import org.orecruncher.dsurround.DynamicSurroundings;
+import org.orecruncher.lib.GameUtils;
+import org.orecruncher.lib.effects.EntityEffectHandler;
+import org.orecruncher.lib.effects.entity.CapabilityEntityFXData;
+import org.orecruncher.lib.logging.ModLog;
+import org.orecruncher.lib.random.XorShiftRandom;
+import org.orecruncher.sndctrl.api.IMC;
+import org.orecruncher.sndctrl.audio.AudioEngine;
+import org.orecruncher.sndctrl.config.Config;
+import org.orecruncher.sndctrl.gui.Keys;
+import org.orecruncher.sndctrl.library.AcousticLibrary;
+import org.orecruncher.sndctrl.library.AudioEffectLibrary;
+import org.orecruncher.sndctrl.library.EntityEffectLibrary;
+import org.orecruncher.sndctrl.library.SoundLibrary;
+
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.ExtensionPoint;
@@ -29,23 +47,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.fml.network.FMLNetworkConstants;
-import org.apache.commons.lang3.tuple.Pair;
-import org.orecruncher.dsurround.DynamicSurroundings;
-import org.orecruncher.lib.GameUtils;
-import org.orecruncher.lib.effects.EntityEffectHandler;
-import org.orecruncher.lib.logging.ModLog;
-import org.orecruncher.lib.random.XorShiftRandom;
-import org.orecruncher.sndctrl.api.IMC;
-import org.orecruncher.sndctrl.audio.AudioEngine;
-import org.orecruncher.lib.effects.entity.CapabilityEntityFXData;
-import org.orecruncher.sndctrl.config.Config;
-import org.orecruncher.sndctrl.gui.Keys;
-import org.orecruncher.sndctrl.library.AcousticLibrary;
-import org.orecruncher.sndctrl.library.AudioEffectLibrary;
-import org.orecruncher.sndctrl.library.EntityEffectLibrary;
-import org.orecruncher.sndctrl.library.SoundLibrary;
-
-import javax.annotation.Nonnull;
 
 @Mod(SoundControl.MOD_ID)
 public final class SoundControl {

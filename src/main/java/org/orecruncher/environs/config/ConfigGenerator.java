@@ -18,16 +18,17 @@
 
 package org.orecruncher.environs.config;
 
+import javax.annotation.Nonnull;
+
+import org.orecruncher.environs.effects.particles.RippleStyle;
+import org.orecruncher.lib.config.ClothAPIFactory;
+
 import me.shedaniel.clothconfig2.forge.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.forge.api.ConfigEntryBuilder;
 import me.shedaniel.clothconfig2.forge.impl.builders.*;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import org.orecruncher.environs.effects.particles.RippleStyle;
-import org.orecruncher.lib.config.ClothAPIFactory;
-
-import javax.annotation.Nonnull;
 
 @OnlyIn(Dist.CLIENT)
 public class ConfigGenerator {

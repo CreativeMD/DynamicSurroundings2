@@ -20,10 +20,9 @@ package org.orecruncher.lib;
 
 import javax.annotation.Nonnull;
 
+import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-
-import net.minecraft.world.World;
 
 @OnlyIn(Dist.CLIENT)
 public class MinecraftClock {

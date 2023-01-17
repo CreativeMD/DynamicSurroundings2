@@ -17,8 +17,9 @@
  */
 package org.orecruncher.lib.validation;
 
-import javax.annotation.Nonnull;
 import java.util.List;
+
+import javax.annotation.Nonnull;
 
 public class ListValidator<V extends IValidator<V>> implements IValidator<List<V>> {
     @Override

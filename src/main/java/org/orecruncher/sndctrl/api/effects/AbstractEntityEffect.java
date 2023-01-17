@@ -20,15 +20,17 @@ package org.orecruncher.sndctrl.api.effects;
 
 import javax.annotation.Nonnull;
 
-import com.google.common.base.MoreObjects;
-import net.minecraft.client.particle.Particle;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import org.orecruncher.sndctrl.api.acoustics.IAcoustic;
 import org.orecruncher.sndctrl.library.AcousticLibrary;
+
+import com.google.common.base.MoreObjects;
+
+import net.minecraft.client.particle.Particle;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 /**
  * Interface for an effect.

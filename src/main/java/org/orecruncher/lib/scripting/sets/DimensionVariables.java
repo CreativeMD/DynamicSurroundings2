@@ -18,15 +18,16 @@
 
 package org.orecruncher.lib.scripting.sets;
 
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.DimensionType;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import javax.annotation.Nonnull;
+
 import org.orecruncher.lib.GameUtils;
 import org.orecruncher.lib.WorldUtils;
 import org.orecruncher.lib.scripting.VariableSet;
 
-import javax.annotation.Nonnull;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.dimension.DimensionType;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class DimensionVariables extends VariableSet<IDimensionVariables> implements IDimensionVariables {

@@ -18,24 +18,26 @@
 
 package org.orecruncher.sndctrl.api;
 
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.fml.InterModComms;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
+
+import javax.annotation.Nonnull;
+
 import org.orecruncher.lib.Utilities;
 import org.orecruncher.lib.collections.ObjectArray;
 import org.orecruncher.lib.logging.IModLog;
 import org.orecruncher.sndctrl.SoundControl;
 import org.orecruncher.sndctrl.api.acoustics.AcousticEvent;
-import org.orecruncher.sndctrl.api.sound.ISoundCategory;
 import org.orecruncher.sndctrl.api.effects.IEntityEffectFactoryHandler;
 import org.orecruncher.sndctrl.api.sound.Category;
+import org.orecruncher.sndctrl.api.sound.ISoundCategory;
 import org.orecruncher.sndctrl.library.EntityEffectLibrary;
 
-import javax.annotation.Nonnull;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.fml.InterModComms;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 /**
  * Helper interface used to register items with Sound Control using IMC.  Because of the parallel loading of Forge

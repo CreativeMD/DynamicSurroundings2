@@ -18,11 +18,9 @@
 
 package org.orecruncher.environs.mixins;
 
-import net.minecraft.client.particle.Particle;
-import net.minecraft.client.particle.RainParticle;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.particles.BasicParticleType;
-import net.minecraft.util.math.vector.Vector3d;
+import javax.annotation.Nullable;
+
+import org.joml.Vector3d;
 import org.orecruncher.environs.config.Config;
 import org.orecruncher.environs.effects.particles.ParticleHooks;
 import org.spongepowered.asm.mixin.Mixin;
@@ -31,7 +29,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
-import javax.annotation.Nullable;
+import net.minecraft.client.particle.Particle;
+import net.minecraft.client.particle.RainParticle;
+import net.minecraft.client.world.ClientWorld;
+import net.minecraft.particles.BasicParticleType;
 
 @Mixin(RainParticle.Factory.class)
 public class MixinRainParticle {

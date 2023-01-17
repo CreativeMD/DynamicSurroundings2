@@ -18,9 +18,24 @@
 
 package org.orecruncher.lib.effects;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
+import java.util.Optional;
+
+import javax.annotation.Nonnull;
+
+import org.orecruncher.dsurround.DynamicSurroundings;
+import org.orecruncher.lib.GameUtils;
+import org.orecruncher.lib.Lib;
+import org.orecruncher.lib.collections.ObjectArray;
+import org.orecruncher.lib.effects.entity.CapabilityEntityFXData;
+import org.orecruncher.lib.effects.entity.IEntityFX;
+import org.orecruncher.lib.events.DiagnosticEvent;
+import org.orecruncher.lib.math.LoggingTimerEMA;
+import org.orecruncher.sndctrl.api.effects.AbstractEntityEffect;
+import org.orecruncher.sndctrl.config.Config;
+import org.orecruncher.sndctrl.library.EntityEffectLibrary;
+
 import net.minecraft.profiler.IProfiler;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
@@ -28,20 +43,6 @@ import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import org.orecruncher.dsurround.DynamicSurroundings;
-import org.orecruncher.lib.GameUtils;
-import org.orecruncher.lib.Lib;
-import org.orecruncher.lib.collections.ObjectArray;
-import org.orecruncher.lib.events.DiagnosticEvent;
-import org.orecruncher.lib.math.LoggingTimerEMA;
-import org.orecruncher.sndctrl.config.Config;
-import org.orecruncher.lib.effects.entity.CapabilityEntityFXData;
-import org.orecruncher.lib.effects.entity.IEntityFX;
-import org.orecruncher.sndctrl.api.effects.AbstractEntityEffect;
-import org.orecruncher.sndctrl.library.EntityEffectLibrary;
-
-import javax.annotation.Nonnull;
-import java.util.Optional;
 
 /**
  * Central repository for a collection of IEntityEffectFactory instances and the

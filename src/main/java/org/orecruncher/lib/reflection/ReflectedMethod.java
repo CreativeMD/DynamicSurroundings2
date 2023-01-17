@@ -18,13 +18,15 @@
 
 package org.orecruncher.lib.reflection;
 
-import com.google.common.base.Preconditions;
-import org.apache.commons.lang3.StringUtils;
-import org.orecruncher.lib.Lib;
+import java.lang.reflect.Method;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.lang.reflect.Method;
+
+import org.apache.commons.lang3.StringUtils;
+import org.orecruncher.lib.Lib;
+
+import com.google.common.base.Preconditions;
 
 @SuppressWarnings("unused")
 public class ReflectedMethod<R> {

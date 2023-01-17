@@ -18,10 +18,22 @@
 
 package org.orecruncher.environs;
 
+import javax.annotation.Nonnull;
+
+import org.apache.commons.lang3.tuple.Pair;
+import org.orecruncher.dsurround.DynamicSurroundings;
+import org.orecruncher.environs.config.Config;
+import org.orecruncher.environs.handlers.Manager;
+import org.orecruncher.environs.library.Constants;
+import org.orecruncher.environs.library.Libraries;
+import org.orecruncher.environs.shaders.ShaderPrograms;
+import org.orecruncher.lib.logging.ModLog;
+import org.orecruncher.sndctrl.api.IMC;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.IParticleFactory;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.particles.BasicParticleType;
-import net.minecraft.particles.ParticleTypes;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -35,17 +47,6 @@ import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.fml.network.FMLNetworkConstants;
-import org.apache.commons.lang3.tuple.Pair;
-import org.orecruncher.dsurround.DynamicSurroundings;
-import org.orecruncher.environs.config.Config;
-import org.orecruncher.environs.handlers.Manager;
-import org.orecruncher.environs.library.Constants;
-import org.orecruncher.environs.library.Libraries;
-import org.orecruncher.environs.shaders.ShaderPrograms;
-import org.orecruncher.lib.logging.ModLog;
-import org.orecruncher.sndctrl.api.IMC;
-
-import javax.annotation.Nonnull;
 
 @Mod(Environs.MOD_ID)
 public final class Environs {

@@ -18,17 +18,19 @@
 
 package org.orecruncher.environs.handlers;
 
-import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import java.util.function.Predicate;
+
+import javax.annotation.Nonnull;
+
 import org.orecruncher.environs.config.Config;
 import org.orecruncher.environs.effects.emitters.ParticleEmitter;
 import org.orecruncher.lib.BlockPosUtil;
 
-import javax.annotation.Nonnull;
-import java.util.function.Predicate;
+import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
+import net.minecraft.core.BlockPos;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class ParticleSystems extends HandlerBase {

@@ -18,15 +18,17 @@
 
 package org.orecruncher.lib.gui;
 
-import com.google.common.base.Preconditions;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import javax.annotation.Nonnull;
+
+import org.joml.Vector3d;
 import org.orecruncher.lib.Utilities;
 import org.orecruncher.lib.math.MathStuff;
 
-import javax.annotation.Nonnull;
+import com.google.common.base.Preconditions;
+
+import net.minecraft.util.text.TextFormatting;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 /**
  * Holds an RGB triple. See: http://www.rapidtables.com/web/color/RGB_Color.htm

@@ -18,15 +18,9 @@
 
 package org.orecruncher.environs.scanner;
 
-import it.unimi.dsi.fastutil.objects.Reference2IntMap;
-import it.unimi.dsi.fastutil.objects.Reference2IntOpenHashMap;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.IWorldReader;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import java.util.HashSet;
+import java.util.Set;
 
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.biome.Biome;
 import org.orecruncher.environs.Environs;
 import org.orecruncher.environs.handlers.CommonState;
 import org.orecruncher.environs.library.BiomeInfo;
@@ -34,8 +28,13 @@ import org.orecruncher.environs.library.BiomeUtil;
 import org.orecruncher.lib.TickCounter;
 import org.orecruncher.lib.biomes.BiomeUtilities;
 
-import java.util.HashSet;
-import java.util.Set;
+import it.unimi.dsi.fastutil.objects.Reference2IntMap;
+import it.unimi.dsi.fastutil.objects.Reference2IntOpenHashMap;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.IWorldReader;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 /**
  * Performs an area scan around the to calculate the relative weights of the

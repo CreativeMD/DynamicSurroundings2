@@ -18,16 +18,18 @@
 
 package org.orecruncher.mobeffects.library;
 
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.annotation.Nonnull;
+
 import org.orecruncher.mobeffects.MobEffects;
 import org.orecruncher.mobeffects.library.config.EntityConfig;
 import org.orecruncher.sndctrl.api.acoustics.Library;
 
-import javax.annotation.Nonnull;
-import java.util.HashSet;
-import java.util.Set;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class EntityEffectInfo {

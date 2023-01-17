@@ -18,11 +18,12 @@
 
 package org.orecruncher.lib.scripting.sets;
 
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import java.util.function.Supplier;
 
 import javax.annotation.Nonnull;
-import java.util.function.Supplier;
+
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 /**
  * LazyVariable performs value caching to minimize the impact of initialization.  It has a reset mechanic so the value

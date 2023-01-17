@@ -18,19 +18,20 @@
 
 package org.orecruncher.mobeffects.effects.particles;
 
-import net.minecraft.client.particle.*;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import java.util.Random;
+
+import javax.annotation.Nonnull;
+
+import org.joml.Vector3d;
 import org.orecruncher.lib.GameUtils;
 import org.orecruncher.lib.math.MathStuff;
 import org.orecruncher.lib.random.XorShiftRandom;
 
-import javax.annotation.Nonnull;
-import java.util.Random;
+import net.minecraft.client.world.ClientWorld;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class FrostBreathParticle extends SpriteTexturedParticle {

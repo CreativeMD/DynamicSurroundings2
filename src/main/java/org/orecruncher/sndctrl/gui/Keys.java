@@ -17,7 +17,11 @@
  */
 package org.orecruncher.sndctrl.gui;
 
-import net.minecraft.client.settings.KeyBinding;
+import javax.swing.text.JTextComponent.KeyBinding;
+
+import org.orecruncher.lib.GameUtils;
+import org.orecruncher.sndctrl.SoundControl;
+
 import net.minecraft.client.util.InputMappings;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
@@ -25,8 +29,6 @@ import net.minecraftforge.client.settings.KeyModifier;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
-import org.orecruncher.lib.GameUtils;
-import org.orecruncher.sndctrl.SoundControl;
 
 @Mod.EventBusSubscriber(modid = SoundControl.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class Keys {

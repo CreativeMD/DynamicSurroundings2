@@ -18,6 +18,24 @@
 
 package org.orecruncher.dsurround;
 
+import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import javax.annotation.Nonnull;
+
+import org.apache.commons.lang3.tuple.Pair;
+import org.orecruncher.dsurround.config.Config;
+import org.orecruncher.dsurround.config.ConfigMenuBuilder;
+import org.orecruncher.dsurround.gui.Keys;
+import org.orecruncher.lib.compat.ModEnvironment;
+import org.orecruncher.lib.config.ConfigGui;
+import org.orecruncher.lib.fml.ClientLoginChecks;
+import org.orecruncher.lib.fml.ConfigUtils;
+import org.orecruncher.lib.fml.ForgeUtils;
+import org.orecruncher.lib.fml.UpdateChecker;
+import org.orecruncher.lib.logging.ModLog;
+
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.ExtensionPoint;
@@ -28,22 +46,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.fml.network.FMLNetworkConstants;
-import org.apache.commons.lang3.tuple.Pair;
-import org.orecruncher.dsurround.config.Config;
-import org.orecruncher.dsurround.config.ConfigMenuBuilder;
-import org.orecruncher.dsurround.gui.Keys;
-import org.orecruncher.lib.config.ConfigGui;
-import org.orecruncher.lib.compat.ModEnvironment;
-import org.orecruncher.lib.fml.ClientLoginChecks;
-import org.orecruncher.lib.fml.ConfigUtils;
-import org.orecruncher.lib.fml.ForgeUtils;
-import org.orecruncher.lib.fml.UpdateChecker;
-import org.orecruncher.lib.logging.ModLog;
-
-import javax.annotation.Nonnull;
-import java.io.File;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 @Mod(DynamicSurroundings.MOD_ID)
 public final class DynamicSurroundings {

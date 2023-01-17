@@ -18,12 +18,13 @@
 
 package org.orecruncher.lib;
 
+import javax.annotation.Nonnull;
+
+import org.orecruncher.sndctrl.SoundControl;
+
 import net.minecraft.world.IWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import org.orecruncher.sndctrl.SoundControl;
-
-import javax.annotation.Nonnull;
 
 @SuppressWarnings("unused")
 public enum DayCycle {

@@ -18,18 +18,13 @@
 
 package org.orecruncher.lib.service;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.resources.IReloadableResourceManager;
-import net.minecraft.resources.IResourceManager;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
-import net.minecraftforge.event.TagsUpdatedEvent;
-import net.minecraftforge.event.entity.EntityJoinWorldEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.resource.IResourceType;
-import net.minecraftforge.resource.ISelectiveResourceReloadListener;
-import net.minecraftforge.resource.VanillaResourceType;
+import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+
+import javax.annotation.Nonnull;
+
 import org.orecruncher.dsurround.DynamicSurroundings;
 import org.orecruncher.lib.GameUtils;
 import org.orecruncher.lib.Singleton;
@@ -39,11 +34,18 @@ import org.orecruncher.lib.logging.IModLog;
 import org.orecruncher.lib.resource.ResourceUtils;
 import org.orecruncher.lib.tags.TagUtils;
 
-import javax.annotation.Nonnull;
-import java.util.List;
-import java.util.function.Consumer;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.resources.IReloadableResourceManager;
+import net.minecraft.resources.IResourceManager;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
+import net.minecraftforge.common.data.ExistingFileHelper.IResourceType;
+import net.minecraftforge.event.TagsUpdatedEvent;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.resource.ISelectiveResourceReloadListener;
+import net.minecraftforge.resource.VanillaResourceType;
 
 @Mod.EventBusSubscriber(modid = DynamicSurroundings.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public final class ModuleServiceManager implements ISelectiveResourceReloadListener {

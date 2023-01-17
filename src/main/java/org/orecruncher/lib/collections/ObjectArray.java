@@ -18,16 +18,18 @@
 
 package org.orecruncher.lib.collections;
 
-import net.minecraft.util.math.MathHelper;
-import org.apache.commons.lang3.ArrayUtils;
-import org.orecruncher.lib.math.MathStuff;
-
-import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
+
+import javax.annotation.Nonnull;
+
+import org.apache.commons.lang3.ArrayUtils;
+import org.orecruncher.lib.math.MathStuff;
+
+import net.minecraft.util.math.MathHelper;
 
 public class ObjectArray<T> implements Collection<T> {
 

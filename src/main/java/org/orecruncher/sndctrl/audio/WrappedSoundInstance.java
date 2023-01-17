@@ -18,20 +18,21 @@
 
 package org.orecruncher.sndctrl.audio;
 
-import net.minecraft.client.audio.ITickableSound;
-import net.minecraft.client.audio.Sound;
-import net.minecraft.client.audio.SoundEventAccessor;
-import net.minecraft.client.audio.SoundHandler;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import org.orecruncher.sndctrl.api.sound.ISoundCategory;
-import org.orecruncher.sndctrl.api.sound.ISoundInstance;
+import java.util.Objects;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.Objects;
+
+import org.orecruncher.sndctrl.api.sound.ISoundCategory;
+import org.orecruncher.sndctrl.api.sound.ISoundInstance;
+
+import net.minecraft.client.audio.ITickableSound;
+import net.minecraft.client.audio.SoundEventAccessor;
+import net.minecraft.client.audio.SoundHandler;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.SoundCategory;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 /**
  * Base class for special sounds that aggregate the true sound being played.

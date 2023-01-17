@@ -18,18 +18,20 @@
 
 package org.orecruncher.environs.effects;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.world.IBlockReader;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import java.util.Random;
+
+import javax.annotation.Nonnull;
+
 import org.orecruncher.environs.effects.emitters.FireJet;
 import org.orecruncher.environs.effects.emitters.Jet;
 import org.orecruncher.lib.WorldUtils;
 
-import javax.annotation.Nonnull;
-import java.util.Random;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.IBlockReader;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class FireJetEffect extends JetEffect {

@@ -18,6 +18,13 @@
 
 package org.orecruncher.sndctrl.config;
 
+import java.util.Optional;
+
+import javax.annotation.Nonnull;
+
+import org.orecruncher.lib.config.ClothAPIFactory;
+import org.orecruncher.sndctrl.library.IndividualSoundConfig;
+
 import me.shedaniel.clothconfig2.forge.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.forge.api.ConfigEntryBuilder;
 import me.shedaniel.clothconfig2.forge.impl.builders.*;
@@ -25,11 +32,6 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import org.orecruncher.lib.config.ClothAPIFactory;
-import org.orecruncher.sndctrl.library.IndividualSoundConfig;
-
-import javax.annotation.Nonnull;
-import java.util.Optional;
 
 @OnlyIn(Dist.CLIENT)
 public class ConfigGenerator {

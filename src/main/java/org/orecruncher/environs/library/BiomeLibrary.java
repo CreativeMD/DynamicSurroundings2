@@ -27,29 +27,29 @@ import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
+import org.orecruncher.dsurround.DynamicSurroundings;
+import org.orecruncher.environs.Environs;
+import org.orecruncher.environs.config.Config;
+import org.orecruncher.environs.library.config.BiomeConfig;
+import org.orecruncher.lib.fml.ForgeUtils;
+import org.orecruncher.lib.logging.IModLog;
+import org.orecruncher.lib.math.MathStuff;
+import org.orecruncher.lib.resource.IResourceAccessor;
+import org.orecruncher.lib.resource.ResourceUtils;
+import org.orecruncher.lib.service.IModuleService;
+import org.orecruncher.lib.service.ModuleServiceManager;
+import org.orecruncher.lib.validation.ListValidator;
+import org.orecruncher.lib.validation.Validators;
+
 import com.google.gson.reflect.TypeToken;
+
+import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
+import net.minecraft.core.BlockPos;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.biome.BiomeRegistry;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import org.orecruncher.dsurround.DynamicSurroundings;
-import org.orecruncher.environs.config.Config;
-import org.orecruncher.environs.Environs;
-import org.orecruncher.environs.library.config.BiomeConfig;
-import org.orecruncher.lib.fml.ForgeUtils;
-import org.orecruncher.lib.logging.IModLog;
-import org.orecruncher.lib.math.MathStuff;
-
-import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.biome.Biome;
-import org.orecruncher.lib.resource.IResourceAccessor;
-import org.orecruncher.lib.resource.ResourceUtils;
-import org.orecruncher.lib.service.ModuleServiceManager;
-import org.orecruncher.lib.service.IModuleService;
-import org.orecruncher.lib.validation.ListValidator;
-import org.orecruncher.lib.validation.Validators;
 
 @OnlyIn(Dist.CLIENT)
 public final class BiomeLibrary {

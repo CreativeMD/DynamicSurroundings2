@@ -18,12 +18,13 @@
 
 package org.orecruncher.lib.shaders;
 
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import java.util.Collection;
 
 import javax.annotation.Nonnull;
-import java.util.Collection;
+
+import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public interface IShaderResourceProvider {

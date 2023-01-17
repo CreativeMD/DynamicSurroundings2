@@ -18,11 +18,12 @@
 
 package org.orecruncher.environs.shaders.aurora;
 
+import javax.annotation.Nonnull;
+
 import com.mojang.blaze3d.matrix.MatrixStack;
+
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-
-import javax.annotation.Nonnull;
 
 /*
  * Implemented by an aurora so that it can go through it's life cycle.

@@ -18,16 +18,17 @@
 
 package org.orecruncher.environs.fog;
 
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.EntityViewRenderEvent;
+import javax.annotation.Nonnull;
+
+import org.joml.Vector3d;
 import org.orecruncher.environs.config.Config;
 import org.orecruncher.environs.handlers.CommonState;
 import org.orecruncher.environs.library.DimensionInfo;
 import org.orecruncher.lib.GameUtils;
 
-import javax.annotation.Nonnull;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.event.EntityViewRenderEvent;
 
 /**
  * Calculates the fog ranges based on player elevation as compared to the

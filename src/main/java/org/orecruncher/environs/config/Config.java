@@ -18,6 +18,18 @@
 
 package org.orecruncher.environs.config;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.Nonnull;
+
+import org.apache.commons.lang3.tuple.Pair;
+import org.orecruncher.dsurround.DynamicSurroundings;
+import org.orecruncher.environs.Environs;
+import org.orecruncher.environs.effects.JetEffect;
+import org.orecruncher.environs.effects.particles.RippleStyle;
+
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
@@ -26,16 +38,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
-import org.apache.commons.lang3.tuple.Pair;
-import org.orecruncher.dsurround.DynamicSurroundings;
-import org.orecruncher.environs.Environs;
-import org.orecruncher.environs.effects.JetEffect;
-import org.orecruncher.environs.effects.particles.RippleStyle;
-
-import javax.annotation.Nonnull;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 @Mod.EventBusSubscriber(modid = Environs.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public final class Config {

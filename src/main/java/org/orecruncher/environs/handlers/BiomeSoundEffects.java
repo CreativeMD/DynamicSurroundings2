@@ -18,12 +18,10 @@
 
 package org.orecruncher.environs.handlers;
 
-import it.unimi.dsi.fastutil.objects.*;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import java.util.Collection;
+
+import javax.annotation.Nonnull;
+
 import org.orecruncher.environs.config.Config;
 import org.orecruncher.environs.library.BiomeInfo;
 import org.orecruncher.environs.library.BiomeLibrary;
@@ -35,8 +33,13 @@ import org.orecruncher.sndctrl.api.acoustics.IAcoustic;
 import org.orecruncher.sndctrl.audio.AudioEngine;
 import org.orecruncher.sndctrl.audio.acoustic.AcousticFactory;
 
-import javax.annotation.Nonnull;
-import java.util.Collection;
+import it.unimi.dsi.fastutil.objects.Reference2FloatOpenHashMap;
+import it.unimi.dsi.fastutil.objects.Reference2IntMap;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.eventbus.api.EventPriority;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 @OnlyIn(Dist.CLIENT)
 public class BiomeSoundEffects extends HandlerBase {

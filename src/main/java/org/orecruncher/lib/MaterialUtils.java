@@ -18,14 +18,14 @@
 
 package org.orecruncher.lib;
 
-import it.unimi.dsi.fastutil.objects.Reference2ObjectOpenHashMap;
-import net.minecraft.block.material.Material;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+import it.unimi.dsi.fastutil.objects.Reference2ObjectOpenHashMap;
 
 @SuppressWarnings("unused")
 public final class MaterialUtils {

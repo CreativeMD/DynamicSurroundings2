@@ -17,14 +17,14 @@
  */
 package org.orecruncher.mobeffects.mixins;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.projectile.AbstractArrowEntity;
-import net.minecraft.world.World;
 import org.orecruncher.mobeffects.config.Config;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
+
+import net.minecraft.entity.projectile.AbstractArrowEntity;
+import net.minecraft.world.World;
+import net.minecraft.world.entity.EntityType;
 
 @Mixin(AbstractArrowEntity.class)
 public abstract class MixinEntityArrow extends Entity {

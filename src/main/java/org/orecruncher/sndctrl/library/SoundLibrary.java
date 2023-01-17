@@ -18,13 +18,19 @@
 
 package org.orecruncher.sndctrl.library;
 
-import com.google.gson.reflect.TypeToken;
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.registries.ForgeRegistries;
+import java.lang.reflect.Type;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.SortedMap;
+import java.util.TreeMap;
+import java.util.stream.Collectors;
+
+import javax.annotation.Nonnull;
+
 import org.orecruncher.lib.Utilities;
 import org.orecruncher.lib.logging.IModLog;
 import org.orecruncher.lib.resource.IResourceAccessor;
@@ -39,10 +45,13 @@ import org.orecruncher.sndctrl.audio.handlers.SoundProcessor;
 import org.orecruncher.sndctrl.config.Config;
 import org.orecruncher.sndctrl.library.config.SoundMetadataConfig;
 
-import javax.annotation.Nonnull;
-import java.lang.reflect.Type;
-import java.util.*;
-import java.util.stream.Collectors;
+import com.google.gson.reflect.TypeToken;
+
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.registries.ForgeRegistries;
 
 /**
  * Handles all things related to registered sounds.  This registry is kept in parallel with the Forge registeries.

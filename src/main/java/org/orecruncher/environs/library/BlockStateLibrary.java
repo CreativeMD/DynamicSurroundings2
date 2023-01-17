@@ -18,39 +18,42 @@
 
 package org.orecruncher.environs.library;
 
-import com.google.common.collect.ImmutableList;
-import com.google.gson.reflect.TypeToken;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.tags.ITag;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import java.lang.reflect.Type;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.annotation.Nonnull;
+
 import org.apache.commons.lang3.StringUtils;
 import org.orecruncher.dsurround.DynamicSurroundings;
 import org.orecruncher.environs.Environs;
 import org.orecruncher.environs.effects.BlockEffectType;
-import org.orecruncher.environs.library.config.*;
-import org.orecruncher.lib.tags.TagUtils;
+import org.orecruncher.environs.library.config.AcousticConfig;
+import org.orecruncher.environs.library.config.BlockConfig;
+import org.orecruncher.environs.library.config.EffectConfig;
 import org.orecruncher.lib.blockstate.BlockStateMatcher;
 import org.orecruncher.lib.blockstate.BlockStateMatcherMap;
 import org.orecruncher.lib.fml.ForgeUtils;
 import org.orecruncher.lib.logging.IModLog;
 import org.orecruncher.lib.resource.IResourceAccessor;
 import org.orecruncher.lib.resource.ResourceUtils;
-import org.orecruncher.lib.service.ModuleServiceManager;
 import org.orecruncher.lib.service.IModuleService;
+import org.orecruncher.lib.service.ModuleServiceManager;
+import org.orecruncher.lib.tags.TagUtils;
 import org.orecruncher.lib.validation.ListValidator;
 import org.orecruncher.lib.validation.Validators;
 import org.orecruncher.sndctrl.api.acoustics.IAcoustic;
 import org.orecruncher.sndctrl.api.acoustics.Library;
 
-import javax.annotation.Nonnull;
-import java.lang.reflect.Type;
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
+import com.google.common.collect.ImmutableList;
+import com.google.gson.reflect.TypeToken;
+
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.registries.tags.ITag;
 
 @OnlyIn(Dist.CLIENT)
 public final class BlockStateLibrary {

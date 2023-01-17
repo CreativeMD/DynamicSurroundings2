@@ -18,11 +18,12 @@
 
 package org.orecruncher.environs.effects.emitters;
 
-import net.minecraft.particles.ParticleTypes;
+import org.orecruncher.lib.GameUtils;
+
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.IBlockReader;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import org.orecruncher.lib.GameUtils;
 
 @OnlyIn(Dist.CLIENT)
 public class BubbleJet extends Jet {

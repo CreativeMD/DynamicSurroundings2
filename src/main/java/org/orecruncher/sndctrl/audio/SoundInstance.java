@@ -18,22 +18,23 @@
 
 package org.orecruncher.sndctrl.audio;
 
-import com.google.common.base.MoreObjects;
-import net.minecraft.client.audio.ISound;
-import net.minecraft.client.audio.LocatableSound;
-import net.minecraft.client.audio.SoundHandler;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.math.vector.Vector3i;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import javax.annotation.Nonnull;
+
+import org.joml.Vector3d;
+import org.joml.Vector3i;
 import org.orecruncher.lib.GameUtils;
 import org.orecruncher.sndctrl.api.sound.ISoundCategory;
 import org.orecruncher.sndctrl.api.sound.ISoundInstance;
 import org.orecruncher.sndctrl.audio.handlers.SoundVolumeEvaluator;
 
-import javax.annotation.Nonnull;
+import com.google.common.base.MoreObjects;
+
+import net.minecraft.client.audio.ISound;
+import net.minecraft.client.audio.LocatableSound;
+import net.minecraft.client.audio.SoundHandler;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class SoundInstance extends LocatableSound implements ISoundInstance {

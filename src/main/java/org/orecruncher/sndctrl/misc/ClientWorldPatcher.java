@@ -18,6 +18,12 @@
 
 package org.orecruncher.sndctrl.misc;
 
+import javax.annotation.Nonnull;
+
+import org.orecruncher.lib.random.XorShiftRandom;
+import org.orecruncher.sndctrl.SoundControl;
+import org.orecruncher.sndctrl.config.Config;
+
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -25,11 +31,6 @@ import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import org.orecruncher.lib.random.XorShiftRandom;
-import org.orecruncher.sndctrl.config.Config;
-import org.orecruncher.sndctrl.SoundControl;
-
-import javax.annotation.Nonnull;
 
 @Mod.EventBusSubscriber(modid = SoundControl.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public final class ClientWorldPatcher {

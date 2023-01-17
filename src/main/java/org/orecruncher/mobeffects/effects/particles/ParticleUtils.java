@@ -18,15 +18,16 @@
 
 package org.orecruncher.mobeffects.effects.particles;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import org.orecruncher.lib.random.XorShiftRandom;
+import java.util.Random;
 
 import javax.annotation.Nonnull;
-import java.util.Random;
+
+import org.joml.Vector3d;
+import org.orecruncher.lib.random.XorShiftRandom;
+
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public final class ParticleUtils {

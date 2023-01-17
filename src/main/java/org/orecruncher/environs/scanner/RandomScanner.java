@@ -22,11 +22,11 @@ import java.util.Random;
 
 import javax.annotation.Nonnull;
 
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import org.orecruncher.lib.random.LCGRandom;
 
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 /**
  * Serves up random blocks in an area around the player. Concentration of block

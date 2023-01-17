@@ -18,19 +18,19 @@
 
 package org.orecruncher.lib.fml;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+import org.orecruncher.dsurround.DynamicSurroundings;
+import org.orecruncher.lib.Lib;
+import org.orecruncher.lib.collections.ObjectArray;
+
 import net.minecraft.client.entity.player.ClientPlayerEntity;
-import net.minecraft.util.Util;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import org.orecruncher.dsurround.DynamicSurroundings;
-import org.orecruncher.lib.Lib;
-import org.orecruncher.lib.collections.ObjectArray;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 /**
  * Simple framework to register callbacks for whenever a player logs into a session.  These checks can be a

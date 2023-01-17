@@ -23,20 +23,20 @@ import java.util.stream.Collectors;
 
 import javax.annotation.Nonnull;
 
-import net.minecraft.client.GameSettings;
-import net.minecraft.client.particle.Particle;
-import net.minecraft.client.settings.PointOfView;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import org.orecruncher.lib.GameUtils;
 import org.orecruncher.lib.collections.ObjectArray;
+import org.orecruncher.sndctrl.api.effects.AbstractEntityEffect;
+import org.orecruncher.sndctrl.api.effects.IEntityEffectManager;
 
 import com.google.common.collect.ImmutableList;
 
-import org.orecruncher.sndctrl.api.effects.AbstractEntityEffect;
-import org.orecruncher.sndctrl.api.effects.IEntityEffectManager;
+import net.minecraft.client.GameSettings;
+import net.minecraft.client.particle.Particle;
+import net.minecraft.client.settings.PointOfView;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 /**
  * An EntityEffectManager is responsible for managing the effects that are

@@ -18,34 +18,34 @@
 
 package org.orecruncher.sndctrl.library;
 
-import com.google.common.collect.ImmutableMap;
-import com.google.gson.annotations.SerializedName;
-import it.unimi.dsi.fastutil.objects.Object2FloatOpenHashMap;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.material.Material;
-import net.minecraft.tags.ITag;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import java.util.Collection;
+import java.util.Map;
+
+import javax.annotation.Nonnull;
+
 import org.orecruncher.dsurround.DynamicSurroundings;
 import org.orecruncher.lib.MaterialUtils;
-import org.orecruncher.lib.tags.TagUtils;
 import org.orecruncher.lib.blockstate.BlockStateMatcherMap;
 import org.orecruncher.lib.fml.ForgeUtils;
 import org.orecruncher.lib.logging.IModLog;
 import org.orecruncher.lib.math.MathStuff;
 import org.orecruncher.lib.resource.IResourceAccessor;
 import org.orecruncher.lib.resource.ResourceUtils;
-import org.orecruncher.lib.service.ModuleServiceManager;
 import org.orecruncher.lib.service.IModuleService;
+import org.orecruncher.lib.service.ModuleServiceManager;
+import org.orecruncher.lib.tags.TagUtils;
 import org.orecruncher.sndctrl.SoundControl;
 import org.orecruncher.sndctrl.misc.IMixinAudioEffectData;
 
-import javax.annotation.Nonnull;
-import java.util.Collection;
-import java.util.Map;
+import com.google.common.collect.ImmutableMap;
+import com.google.gson.annotations.SerializedName;
+
+import it.unimi.dsi.fastutil.objects.Object2FloatOpenHashMap;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.registries.tags.ITag;
 
 @OnlyIn(Dist.CLIENT)
 public final class AudioEffectLibrary {

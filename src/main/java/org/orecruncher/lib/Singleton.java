@@ -18,9 +18,10 @@
 
 package org.orecruncher.lib;
 
+import java.util.function.Supplier;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.function.Supplier;
 
 public final class Singleton<T> {
 

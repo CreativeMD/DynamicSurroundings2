@@ -23,10 +23,11 @@ import java.util.Random;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import net.minecraft.util.math.vector.Vector3f;
+import org.joml.Vector3f;
+import org.orecruncher.lib.math.MathStuff;
+
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import org.orecruncher.lib.math.MathStuff;
 
 @OnlyIn(Dist.CLIENT)
 public class AuroraBand {

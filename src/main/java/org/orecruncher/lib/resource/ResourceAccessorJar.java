@@ -18,13 +18,15 @@
 
 package org.orecruncher.lib.resource;
 
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import org.apache.commons.io.IOUtils;
+import java.io.InputStream;
 
 import javax.annotation.Nonnull;
-import java.io.InputStream;
+
+import org.apache.commons.io.IOUtils;
+
+import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 final class ResourceAccessorJar extends ResourceAccessorBase {

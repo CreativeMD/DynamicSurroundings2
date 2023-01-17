@@ -18,11 +18,12 @@
 
 package org.orecruncher.lib.math;
 
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Vector2f;
-import net.minecraft.util.math.vector.Vector3d;
-
 import javax.annotation.Nonnull;
+
+import org.joml.Vector2f;
+import org.joml.Vector3d;
+
+import net.minecraft.util.math.MathHelper;
 
 /**
  * Replacement algos for SIN_TABLE/cos in Minecraft's MathStuff routines. Use

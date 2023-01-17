@@ -18,13 +18,14 @@
 
 package org.orecruncher.environs.library;
 
-import net.minecraft.block.BlockState;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import org.orecruncher.environs.misc.IMixinBlockData;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import org.orecruncher.environs.misc.IMixinBlockData;
+
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public final class BlockStateUtil {

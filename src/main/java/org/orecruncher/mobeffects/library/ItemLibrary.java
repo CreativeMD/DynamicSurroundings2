@@ -18,33 +18,40 @@
 
 package org.orecruncher.mobeffects.library;
 
-import com.google.gson.reflect.TypeToken;
-import it.unimi.dsi.fastutil.objects.Object2ReferenceAVLTreeMap;
-import it.unimi.dsi.fastutil.objects.Reference2ReferenceOpenHashMap;
-import it.unimi.dsi.fastutil.objects.ReferenceOpenHashSet;
-import net.minecraft.item.*;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.registries.ForgeRegistries;
+import java.lang.reflect.Type;
+import java.util.Collection;
+import java.util.IdentityHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import org.orecruncher.dsurround.DynamicSurroundings;
 import org.orecruncher.lib.logging.IModLog;
 import org.orecruncher.lib.resource.IResourceAccessor;
 import org.orecruncher.lib.resource.ResourceUtils;
-import org.orecruncher.lib.service.ModuleServiceManager;
 import org.orecruncher.lib.service.IModuleService;
-import org.orecruncher.lib.validation.ListValidator;
-import org.orecruncher.lib.validation.MapValidator;
-import org.orecruncher.lib.validation.Validators;
+import org.orecruncher.lib.service.ModuleServiceManager;
 import org.orecruncher.mobeffects.MobEffects;
 import org.orecruncher.sndctrl.library.Primitives;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.lang.reflect.Type;
-import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import com.google.gson.reflect.TypeToken;
+
+import it.unimi.dsi.fastutil.objects.Object2ReferenceAVLTreeMap;
+import it.unimi.dsi.fastutil.objects.Reference2ReferenceOpenHashMap;
+import it.unimi.dsi.fastutil.objects.ReferenceOpenHashSet;
+import net.minecraft.item.*;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.registries.ForgeRegistries;
 
 @OnlyIn(Dist.CLIENT)
 public final class ItemLibrary {

@@ -18,41 +18,42 @@
 
 package org.orecruncher.sndctrl.client;
 
-import com.google.common.collect.ImmutableList;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.SoundType;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.NBTUtil;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.annotation.Nonnull;
+
 import org.apache.commons.lang3.StringUtils;
 import org.orecruncher.lib.GameUtils;
 import org.orecruncher.lib.MaterialUtils;
 import org.orecruncher.lib.TickCounter;
 import org.orecruncher.lib.blockstate.BlockStateMatcher;
 import org.orecruncher.lib.events.DiagnosticEvent;
-import org.orecruncher.sndctrl.config.Config;
 import org.orecruncher.sndctrl.SoundControl;
+import org.orecruncher.sndctrl.config.Config;
 import org.orecruncher.sndctrl.events.BlockInspectionEvent;
 import org.orecruncher.sndctrl.events.EntityInspectionEvent;
 import org.orecruncher.sndctrl.library.AudioEffectLibrary;
 
-import javax.annotation.Nonnull;
-import java.util.List;
-import java.util.stream.Collectors;
+import com.google.common.collect.ImmutableList;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.NBTUtil;
+import net.minecraft.util.Hand;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.world.World;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = SoundControl.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class Inspector {

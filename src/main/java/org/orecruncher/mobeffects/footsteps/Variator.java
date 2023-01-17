@@ -20,9 +20,10 @@ package org.orecruncher.mobeffects.footsteps;
 
 import javax.annotation.Nonnull;
 
+import org.orecruncher.mobeffects.library.config.VariatorConfig;
+
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import org.orecruncher.mobeffects.library.config.VariatorConfig;
 
 @OnlyIn(Dist.CLIENT)
 public class Variator {

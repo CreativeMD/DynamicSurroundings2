@@ -18,9 +18,9 @@
 
 package org.orecruncher.mobeffects.misc;
 
-import org.orecruncher.sndctrl.api.acoustics.IAcoustic;
-
 import javax.annotation.Nullable;
+
+import org.orecruncher.sndctrl.api.acoustics.IAcoustic;
 
 public interface IMixinFootstepData {
 

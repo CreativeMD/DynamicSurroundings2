@@ -18,17 +18,18 @@
 
 package org.orecruncher.lib.math;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.*;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.IBlockReader;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import org.joml.Vector3d;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.math.*;
+import net.minecraft.util.math.shapes.ISelectionContext;
+import net.minecraft.world.IBlockReader;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 /**
  * Block ray trace and context rolled into one!  With some optimizations specific to blocks.  These routines are

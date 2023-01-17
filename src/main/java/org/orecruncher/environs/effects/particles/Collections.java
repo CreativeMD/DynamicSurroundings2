@@ -18,20 +18,25 @@
 
 package org.orecruncher.environs.effects.particles;
 
+import javax.annotation.Nonnull;
+
+import org.orecruncher.environs.Environs;
+import org.orecruncher.environs.config.Config;
+import org.orecruncher.lib.particles.CollectionManager;
+import org.orecruncher.lib.particles.IParticleCollection;
+import org.orecruncher.lib.particles.IParticleMote;
+import org.orecruncher.lib.particles.ParticleRenderType;
+
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.BufferBuilder;
+
 import net.minecraft.client.particle.IParticleRenderType;
-import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.texture.TextureManager;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.IBlockReader;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.common.Mod;
-import org.orecruncher.environs.Environs;
-import org.orecruncher.environs.config.Config;
-import org.orecruncher.lib.particles.*;
-
-import javax.annotation.Nonnull;
 
 @Mod.EventBusSubscriber(modid = Environs.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public final class Collections {

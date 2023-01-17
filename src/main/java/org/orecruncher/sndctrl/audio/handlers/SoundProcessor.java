@@ -18,11 +18,25 @@
 
 package org.orecruncher.sndctrl.audio.handlers;
 
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import javax.annotation.Nonnull;
+
+import org.orecruncher.lib.TickCounter;
+import org.orecruncher.lib.math.MathStuff;
+import org.orecruncher.sndctrl.SoundControl;
+import org.orecruncher.sndctrl.audio.SoundUtils;
+import org.orecruncher.sndctrl.config.Config;
+import org.orecruncher.sndctrl.library.IndividualSoundConfig;
+
 import it.unimi.dsi.fastutil.objects.Object2FloatOpenHashMap;
 import it.unimi.dsi.fastutil.objects.Object2LongOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.client.audio.ISound;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.sound.PlaySoundEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -30,16 +44,6 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
-import org.orecruncher.lib.TickCounter;
-import org.orecruncher.lib.math.MathStuff;
-import org.orecruncher.sndctrl.config.Config;
-import org.orecruncher.sndctrl.SoundControl;
-import org.orecruncher.sndctrl.audio.SoundUtils;
-import org.orecruncher.sndctrl.library.IndividualSoundConfig;
-
-import javax.annotation.Nonnull;
-import java.util.*;
-import java.util.stream.Collectors;
 
 @Mod.EventBusSubscriber(modid = SoundControl.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public final class SoundProcessor {

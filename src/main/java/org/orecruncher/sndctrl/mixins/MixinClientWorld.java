@@ -18,14 +18,15 @@
 
 package org.orecruncher.sndctrl.mixins;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.util.math.BlockPos;
 import org.orecruncher.lib.world.ClientBlockUpdateHandler;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import net.minecraft.client.world.ClientWorld;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.state.BlockState;
 
 @Mixin(ClientWorld.class)
 public class MixinClientWorld {

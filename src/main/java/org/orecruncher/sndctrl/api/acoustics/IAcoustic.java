@@ -18,14 +18,14 @@
 
 package org.orecruncher.sndctrl.api.acoustics;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3d;
+import javax.annotation.Nonnull;
+
+import org.joml.Vector3d;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-
-import javax.annotation.Nonnull;
 
 @OnlyIn(Dist.CLIENT)
 public interface IAcoustic {

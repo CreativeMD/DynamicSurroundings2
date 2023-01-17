@@ -18,17 +18,18 @@
 
 package org.orecruncher.environs.effects;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.material.Material;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import java.util.Random;
+
+import javax.annotation.Nonnull;
+
 import org.orecruncher.environs.effects.emitters.BubbleJet;
 import org.orecruncher.environs.effects.emitters.Jet;
 
-import javax.annotation.Nonnull;
-import java.util.Random;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.IBlockReader;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class BubbleJetEffect extends JetEffect {

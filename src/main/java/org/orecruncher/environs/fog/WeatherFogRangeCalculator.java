@@ -18,14 +18,15 @@
 
 package org.orecruncher.environs.fog;
 
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.EntityViewRenderEvent;
+import javax.annotation.Nonnull;
+
 import org.orecruncher.environs.config.Config;
 import org.orecruncher.lib.GameUtils;
 import org.orecruncher.lib.WorldUtils;
 
-import javax.annotation.Nonnull;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.event.EntityViewRenderEvent;
 
 /**
  * Calculates the fog ranges based on current weather. The stronger the

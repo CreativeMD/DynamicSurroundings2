@@ -18,8 +18,9 @@
 
 package org.orecruncher.lib.validation;
 
-import javax.annotation.Nonnull;
 import java.util.Map;
+
+import javax.annotation.Nonnull;
 
 public class MapValidator<K, V extends IValidator<V>> implements IValidator<Map<K, V>> {
     @Override

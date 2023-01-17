@@ -18,21 +18,30 @@
 
 package org.orecruncher.sndctrl.api.sound;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.IdentityHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
+
+import javax.annotation.Nonnull;
+
+import org.orecruncher.lib.GameUtils;
+import org.orecruncher.sndctrl.audio.handlers.MusicFader;
+import org.orecruncher.sndctrl.config.Config;
+
 import com.google.common.base.MoreObjects;
+
 import net.minecraft.client.audio.ISound;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import org.orecruncher.lib.GameUtils;
-import org.orecruncher.sndctrl.audio.handlers.MusicFader;
-import org.orecruncher.sndctrl.config.Config;
-
-import javax.annotation.Nonnull;
-import java.util.*;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 @OnlyIn(Dist.CLIENT)
 public class Category implements ISoundCategory {

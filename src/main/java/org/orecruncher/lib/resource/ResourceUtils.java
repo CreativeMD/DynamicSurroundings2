@@ -18,19 +18,26 @@
 
 package org.orecruncher.lib.resource;
 
-import net.minecraft.resources.IResourcePack;
-import net.minecraft.resources.ResourcePackInfo;
-import net.minecraft.resources.ResourcePackType;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import org.orecruncher.lib.Lib;
-import org.orecruncher.lib.fml.ForgeUtils;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.io.File;
-import java.util.*;
+
+import org.orecruncher.lib.Lib;
+import org.orecruncher.lib.fml.ForgeUtils;
+
+import net.minecraft.resources.IResourcePack;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.ResourcePackInfo;
+import net.minecraft.resources.ResourcePackType;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public final class ResourceUtils {

@@ -18,12 +18,12 @@
 
 package org.orecruncher.sndctrl.api.effects;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.ResourceLocation;
+import javax.annotation.Nonnull;
+
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-
-import javax.annotation.Nonnull;
 
 @OnlyIn(Dist.CLIENT)
 public interface IEntityEffectFactoryHandler {

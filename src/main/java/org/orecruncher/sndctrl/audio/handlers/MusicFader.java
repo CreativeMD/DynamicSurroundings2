@@ -18,6 +18,19 @@
 
 package org.orecruncher.sndctrl.audio.handlers;
 
+import java.util.Objects;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+import org.orecruncher.lib.GameUtils;
+import org.orecruncher.lib.logging.IModLog;
+import org.orecruncher.lib.math.MathStuff;
+import org.orecruncher.sndctrl.SoundControl;
+import org.orecruncher.sndctrl.api.sound.ISoundInstance;
+import org.orecruncher.sndctrl.audio.AudioEngine;
+import org.orecruncher.sndctrl.events.AudioEvent.MusicFadeAudioEvent;
+
 import net.minecraft.client.audio.ISound;
 import net.minecraft.util.SoundCategory;
 import net.minecraftforge.api.distmarker.Dist;
@@ -27,17 +40,6 @@ import net.minecraftforge.event.TickEvent.Phase;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod;
-import org.orecruncher.lib.GameUtils;
-import org.orecruncher.lib.logging.IModLog;
-import org.orecruncher.lib.math.MathStuff;
-import org.orecruncher.sndctrl.SoundControl;
-import org.orecruncher.sndctrl.audio.AudioEngine;
-import org.orecruncher.sndctrl.api.sound.ISoundInstance;
-import org.orecruncher.sndctrl.events.AudioEvent.MusicFadeAudioEvent;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.Objects;
 
 /**
  * This guy is responsible for manipulating the volume state of the Music

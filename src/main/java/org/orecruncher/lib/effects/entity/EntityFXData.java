@@ -20,9 +20,10 @@ package org.orecruncher.lib.effects.entity;
 
 import javax.annotation.Nullable;
 
+import org.orecruncher.lib.effects.EntityEffectManager;
+
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import org.orecruncher.lib.effects.EntityEffectManager;
 
 
 @OnlyIn(Dist.CLIENT)

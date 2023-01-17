@@ -18,14 +18,16 @@
 
 package org.orecruncher.lib.fml;
 
-import net.minecraftforge.fml.loading.FMLPaths;
-import org.orecruncher.lib.Lib;
-
-import javax.annotation.Nonnull;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Objects;
+
+import javax.annotation.Nonnull;
+
+import org.orecruncher.lib.Lib;
+
+import net.minecraftforge.fml.loading.FMLPaths;
 
 public final class ConfigUtils {
     private ConfigUtils() {

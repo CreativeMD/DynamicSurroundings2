@@ -18,17 +18,13 @@
 
 package org.orecruncher.environs.scanner;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import javax.annotation.Nonnull;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.ITag;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.Tags;
+import org.joml.Vector3i;
 import org.orecruncher.environs.handlers.CommonState;
 import org.orecruncher.environs.library.DimensionInfo;
 import org.orecruncher.environs.library.DimensionLibrary;
@@ -38,9 +34,14 @@ import org.orecruncher.lib.WorldUtils;
 import org.orecruncher.lib.collections.ObjectArray;
 import org.orecruncher.lib.math.MathStuff;
 
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3i;
+import net.minecraft.core.BlockPos;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.World;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.Tags;
+import net.minecraftforge.registries.tags.ITag;
 
 /**
  * Performs area scanning around the player to determine area ceiling coverage.

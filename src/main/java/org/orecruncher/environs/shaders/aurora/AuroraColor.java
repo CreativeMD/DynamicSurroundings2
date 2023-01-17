@@ -18,15 +18,17 @@
 
 package org.orecruncher.environs.shaders.aurora;
 
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import org.orecruncher.lib.gui.Color;
-import org.orecruncher.lib.gui.ColorPalette;
-
-import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import javax.annotation.Nonnull;
+
+import org.orecruncher.lib.gui.Color;
+import org.orecruncher.lib.gui.ColorPalette;
+
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public final class AuroraColor {

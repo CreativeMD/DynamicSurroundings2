@@ -18,19 +18,20 @@
 
 package org.orecruncher.sndctrl.audio.acoustic;
 
-import com.google.common.base.MoreObjects;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import javax.annotation.Nonnull;
+
+import org.joml.Vector3d;
 import org.orecruncher.sndctrl.SoundControl;
 import org.orecruncher.sndctrl.api.acoustics.AcousticEvent;
 import org.orecruncher.sndctrl.api.acoustics.IAcoustic;
 import org.orecruncher.sndctrl.api.acoustics.IAcousticFactory;
 
-import javax.annotation.Nonnull;
+import com.google.common.base.MoreObjects;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 /**
  * Simple acoustic that has no sound.

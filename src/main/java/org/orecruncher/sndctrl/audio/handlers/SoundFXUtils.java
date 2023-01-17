@@ -29,29 +29,30 @@
 
 package org.orecruncher.sndctrl.audio.handlers;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.*;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.math.vector.Vector3i;
-import net.minecraft.world.IWorldReader;
-import net.minecraft.world.biome.Biome;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import java.util.Iterator;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+import org.joml.Vector3d;
+import org.joml.Vector3i;
 import org.orecruncher.lib.WorldUtils;
 import org.orecruncher.lib.math.BlockRayTrace;
 import org.orecruncher.lib.math.MathStuff;
 import org.orecruncher.lib.math.RayTraceIterator;
 import org.orecruncher.mobeffects.library.Constants;
 import org.orecruncher.sndctrl.audio.SoundUtils;
-import org.orecruncher.sndctrl.config.Config;
 import org.orecruncher.sndctrl.audio.handlers.effects.LowPassData;
 import org.orecruncher.sndctrl.audio.handlers.effects.SourcePropertyFloat;
+import org.orecruncher.sndctrl.config.Config;
 import org.orecruncher.sndctrl.library.AudioEffectLibrary;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.Iterator;
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.math.*;
+import net.minecraft.world.IWorldReader;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public final class SoundFXUtils {

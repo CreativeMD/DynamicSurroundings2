@@ -18,6 +18,14 @@
 
 package org.orecruncher.dsurround.config;
 
+import java.io.File;
+
+import javax.annotation.Nonnull;
+
+import org.apache.commons.lang3.tuple.Pair;
+import org.orecruncher.dsurround.DynamicSurroundings;
+import org.orecruncher.dsurround.huds.lightlevel.LightLevelHUD;
+
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
@@ -26,12 +34,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
-import org.apache.commons.lang3.tuple.Pair;
-import org.orecruncher.dsurround.DynamicSurroundings;
-import org.orecruncher.dsurround.huds.lightlevel.LightLevelHUD;
-
-import javax.annotation.Nonnull;
-import java.io.File;
 
 @Mod.EventBusSubscriber(modid = DynamicSurroundings.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public final class Config {

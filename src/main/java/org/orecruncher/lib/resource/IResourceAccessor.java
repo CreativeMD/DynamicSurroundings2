@@ -18,23 +18,25 @@
 
 package org.orecruncher.lib.resource;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import net.minecraft.resources.IResourcePack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import org.orecruncher.lib.Lib;
-import org.orecruncher.lib.validation.ValidationHelpers;
-import org.orecruncher.lib.validation.Validators;
-
-import javax.annotation.Nonnull;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.lang.reflect.Type;
 import java.nio.charset.Charset;
 import java.util.Collection;
 import java.util.function.Consumer;
+
+import javax.annotation.Nonnull;
+
+import org.orecruncher.lib.Lib;
+import org.orecruncher.lib.validation.Validators;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import net.minecraft.resources.IResourcePack;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 /**
  * A resource accessor is used to obtain the content of a resource from within the JAR or from an external disk source.

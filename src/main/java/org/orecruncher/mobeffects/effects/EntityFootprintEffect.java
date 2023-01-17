@@ -20,18 +20,18 @@ package org.orecruncher.mobeffects.effects;
 
 import javax.annotation.Nonnull;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-
-import org.orecruncher.mobeffects.config.Config;
 import org.orecruncher.mobeffects.MobEffects;
+import org.orecruncher.mobeffects.config.Config;
 import org.orecruncher.mobeffects.footsteps.FootprintStyle;
 import org.orecruncher.mobeffects.footsteps.Generator;
 import org.orecruncher.mobeffects.library.FootstepLibrary;
 import org.orecruncher.sndctrl.api.effects.AbstractEntityEffect;
 import org.orecruncher.sndctrl.api.effects.IEntityEffectManager;
+
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class EntityFootprintEffect extends AbstractEntityEffect {

@@ -25,12 +25,13 @@
 
 package org.orecruncher.sndctrl.audio.handlers;
 
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import org.orecruncher.sndctrl.audio.handlers.effects.AuxSlot;
 import org.orecruncher.sndctrl.audio.handlers.effects.LowPassFilterSlot;
 import org.orecruncher.sndctrl.audio.handlers.effects.ReverbData;
 import org.orecruncher.sndctrl.audio.handlers.effects.ReverbEffectSlot;
+
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public final class Effects {

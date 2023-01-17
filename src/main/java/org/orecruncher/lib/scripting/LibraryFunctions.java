@@ -18,12 +18,13 @@
 
 package org.orecruncher.lib.scripting;
 
-import org.orecruncher.lib.fml.ForgeUtils;
+import java.util.Objects;
+import java.util.regex.Pattern;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.Objects;
-import java.util.regex.Pattern;
+
+import org.orecruncher.lib.fml.ForgeUtils;
 
 /**
  * Methods that are added to the JavaScript runtime environment for use by scripts.

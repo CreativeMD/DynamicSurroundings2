@@ -21,20 +21,8 @@ package org.orecruncher.mobeffects.footsteps;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.IWorldReader;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import org.joml.Vector3d;
 import org.orecruncher.lib.math.MathStuff;
-
-import net.minecraft.util.math.BlockPos;
 import org.orecruncher.mobeffects.config.Config;
 import org.orecruncher.mobeffects.footsteps.facade.FacadeHelper;
 import org.orecruncher.mobeffects.library.Constants;
@@ -42,6 +30,14 @@ import org.orecruncher.mobeffects.library.FootstepLibrary;
 import org.orecruncher.sndctrl.api.acoustics.IAcoustic;
 import org.orecruncher.sndctrl.audio.acoustic.AcousticCompiler;
 import org.orecruncher.sndctrl.library.Primitives;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.IWorldReader;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class AcousticResolver {

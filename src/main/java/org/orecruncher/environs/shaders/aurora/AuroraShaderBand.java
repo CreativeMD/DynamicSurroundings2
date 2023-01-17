@@ -18,22 +18,25 @@
 
 package org.orecruncher.environs.shaders.aurora;
 
+import java.util.function.Consumer;
+
+import javax.annotation.Nonnull;
+
+import org.joml.Matrix4f;
+import org.joml.Vector3d;
+import org.joml.Vector3f;
+import org.orecruncher.environs.shaders.ShaderPrograms;
+import org.orecruncher.lib.GameUtils;
+import org.orecruncher.lib.math.MathStuff;
+import org.orecruncher.lib.shaders.ShaderCallContext;
+
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-import net.minecraft.client.renderer.*;
-import net.minecraft.util.math.vector.Matrix4f;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.math.vector.Vector3f;
+
+import net.minecraft.client.renderer.RenderType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import org.orecruncher.environs.shaders.ShaderPrograms;
-import org.orecruncher.lib.shaders.ShaderCallContext;
-import org.orecruncher.lib.GameUtils;
-import org.orecruncher.lib.math.MathStuff;
-
-import javax.annotation.Nonnull;
-import java.util.function.Consumer;
 
 /*
  * Renders a shader generated aurora along a curved path.  Makes it ribbon like.

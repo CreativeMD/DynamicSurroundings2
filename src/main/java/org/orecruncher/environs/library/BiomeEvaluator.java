@@ -18,15 +18,20 @@
 
 package org.orecruncher.environs.library;
 
-import net.minecraft.util.StringUtils;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.BiomeDictionary;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+
+import javax.annotation.Nonnull;
+
 import org.orecruncher.lib.biomes.BiomeUtilities;
 import org.orecruncher.lib.scripting.ExecutionContext;
 
-import javax.annotation.Nonnull;
-import java.util.*;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.BiomeDictionary;
 
 @OnlyIn(Dist.CLIENT)
 public class BiomeEvaluator {

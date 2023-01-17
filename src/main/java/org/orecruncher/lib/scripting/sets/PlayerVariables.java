@@ -18,16 +18,16 @@
 
 package org.orecruncher.lib.scripting.sets;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.potion.Effects;
-import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import javax.annotation.Nonnull;
+
 import org.orecruncher.lib.GameUtils;
 import org.orecruncher.lib.WorldUtils;
 import org.orecruncher.lib.scripting.VariableSet;
 
-import javax.annotation.Nonnull;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class PlayerVariables extends VariableSet<IPlayerVariables> implements IPlayerVariables {

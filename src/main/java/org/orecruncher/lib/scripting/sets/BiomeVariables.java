@@ -18,20 +18,20 @@
 
 package org.orecruncher.lib.scripting.sets;
 
-import net.minecraft.util.RegistryKey;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.BiomeRegistry;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.BiomeDictionary;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import javax.annotation.Nonnull;
+
 import org.orecruncher.lib.GameUtils;
 import org.orecruncher.lib.biomes.BiomeUtilities;
 import org.orecruncher.lib.scripting.VariableSet;
 
-import javax.annotation.Nonnull;
-import java.util.Set;
-import java.util.stream.Collectors;
+import net.minecraft.util.RegistryKey;
+import net.minecraft.world.biome.BiomeRegistry;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.BiomeDictionary;
 
 @OnlyIn(Dist.CLIENT)
 public class BiomeVariables extends VariableSet<IBiomeVariables> implements IBiomeVariables {

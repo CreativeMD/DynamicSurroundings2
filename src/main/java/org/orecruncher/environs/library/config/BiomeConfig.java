@@ -18,18 +18,21 @@
 
 package org.orecruncher.environs.library.config;
 
-import com.google.common.collect.ImmutableList;
-import com.google.gson.annotations.SerializedName;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import java.util.List;
+
+import javax.annotation.Nonnull;
+
 import org.apache.commons.lang3.StringUtils;
 import org.orecruncher.environs.Environs;
 import org.orecruncher.lib.validation.IValidator;
 import org.orecruncher.lib.validation.ValidationException;
 import org.orecruncher.lib.validation.ValidationHelpers;
 
-import javax.annotation.Nonnull;
-import java.util.List;
+import com.google.common.collect.ImmutableList;
+import com.google.gson.annotations.SerializedName;
+
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public final class BiomeConfig implements IValidator<BiomeConfig> {
