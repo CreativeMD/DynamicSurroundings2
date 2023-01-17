@@ -21,68 +21,66 @@ package org.orecruncher.lib;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import net.minecraft.client.GameSettings;
+import net.minecraft.client.CameraType;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.audio.SoundHandler;
-import net.minecraft.client.settings.PointOfView;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.client.Options;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.sounds.SoundManager;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 public final class GameUtils {
-    private GameUtils() {
-
-    }
-
-    // Client methods
+    
+    private static final Minecraft mc = Minecraft.getInstance();
+    
     @OnlyIn(Dist.CLIENT)
     @Nullable
-    public static PlayerEntity getPlayer() {
-        return getMC().player;
+    public static Player getPlayer() {
+        return mc.player;
     }
-
+    
     @OnlyIn(Dist.CLIENT)
     @Nullable
-    public static ClientWorld getWorld() {
-        return getMC().world;
+    public static ClientLevel getLevel() {
+        return mc.level;
     }
-
+    
     @OnlyIn(Dist.CLIENT)
     @Nonnull
     public static Minecraft getMC() {
-        return Minecraft.getInstance();
+        return mc;
     }
-
+    
     @OnlyIn(Dist.CLIENT)
     @Nonnull
-    public static GameSettings getGameSettings() {
-        return getMC().gameSettings;
+    public static Options getOptions() {
+        return mc.options;
     }
-
+    
     @OnlyIn(Dist.CLIENT)
     public static boolean displayDebug() {
-        return getGameSettings().showDebugInfo;
+        return mc.options.renderDebug;
     }
-
+    
     @OnlyIn(Dist.CLIENT)
     @Nonnull
-    public static SoundHandler getSoundHander() {
-        return getMC().getSoundHandler();
+    public static SoundManager getSoundManager() {
+        return mc.getSoundManager();
     }
-
+    
     @OnlyIn(Dist.CLIENT)
     public static boolean isInGame() {
-        return getWorld() != null && getPlayer() != null;
+        return getLevel() != null && getPlayer() != null;
     }
-
+    
     @OnlyIn(Dist.CLIENT)
     public static boolean isThirdPersonView() {
-        return getGameSettings().getPointOfView() != PointOfView.FIRST_PERSON;
+        return mc.options.getCameraType() != CameraType.FIRST_PERSON;
     }
-
+    
     @OnlyIn(Dist.CLIENT)
     public static boolean isFirstPersonView() {
-        return getGameSettings().getPointOfView() == PointOfView.FIRST_PERSON;
+        return mc.options.getCameraType() == CameraType.FIRST_PERSON;
     }
 }

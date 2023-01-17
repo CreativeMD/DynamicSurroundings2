@@ -24,7 +24,6 @@ import java.nio.file.Paths;
 
 import javax.annotation.Nonnull;
 
-import org.apache.commons.lang3.tuple.Pair;
 import org.orecruncher.dsurround.config.Config;
 import org.orecruncher.dsurround.config.ConfigMenuBuilder;
 import org.orecruncher.dsurround.gui.Keys;
@@ -32,71 +31,34 @@ import org.orecruncher.lib.compat.ModEnvironment;
 import org.orecruncher.lib.config.ConfigGui;
 import org.orecruncher.lib.fml.ClientLoginChecks;
 import org.orecruncher.lib.fml.ConfigUtils;
-import org.orecruncher.lib.fml.ForgeUtils;
 import org.orecruncher.lib.fml.UpdateChecker;
 import org.orecruncher.lib.logging.ModLog;
 
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.ExtensionPoint;
-import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fml.loading.FMLEnvironment;
-import net.minecraftforge.fml.network.FMLNetworkConstants;
+import team.creative.creativecore.CreativeCore;
+import team.creative.creativecore.ICreativeLoader;
+import team.creative.creativecore.client.ClientLoader;
 
-@Mod(DynamicSurroundings.MOD_ID)
-public final class DynamicSurroundings {
-
-    /**
-     * ID of the mod
-     */
-    public static final String MOD_ID = "dsurround";
-
-    /**
-     * Logging instance for trace
-     */
+@Mod(DynamicSurroundings.MODID)
+public final class DynamicSurroundings implements ClientLoader {
+    
+    public static final String MODID = "dsurround";
     public static final ModLog LOGGER = new ModLog(DynamicSurroundings.class);
-
-    /**
-     * Path to the mod's configuration directory
-     */
-    public static final Path CONFIG_PATH = ConfigUtils.getConfigPath(MOD_ID);
-
-    /**
-     * Path to the external config data cache for user customization
-     */
+    
+    /** Path to the mod's configuration directory */
+    public static final Path CONFIG_PATH = ConfigUtils.getConfigPath(MODID);
+    
+    /** Path to the external config data cache for user customization */
     public static final File DATA_PATH = Paths.get(CONFIG_PATH.toString(), "configs").toFile();
-
-    /**
-     * Path to the external folder for dumping data
-     */
+    
+    /** Path to the external folder for dumping data */
     public static final File DUMP_PATH = Paths.get(CONFIG_PATH.toString(), "dumps").toFile();
-
+    
     public DynamicSurroundings() {
-
-        // Since we are 100% client side
-        ModLoadingContext.get().registerExtensionPoint(ExtensionPoint.DISPLAYTEST, () -> Pair.of(() -> FMLNetworkConstants.IGNORESERVERONLY, (a, b) -> true));
-
-        if (FMLEnvironment.dist == Dist.CLIENT) {
-            // Various event bus registrations
-            FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
-            FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setupComplete);
-            MinecraftForge.EVENT_BUS.register(this);
-
-            // Initialize our configuration
-            Config.setup();
-
-            // Create additional data paths if needed
-            createPath(DATA_PATH);
-            createPath(DUMP_PATH);
-
-            doConfigMenuSetup();
-        }
+        ICreativeLoader loader = CreativeCore.loader();
+        loader.registerClient(this);
     }
-
+    
     public static void doConfigMenuSetup() {
         // If ClothAPI is available, use that.  Otherwise post a message to install it.
         if (ModEnvironment.ClothAPI.isLoaded())
@@ -104,7 +66,7 @@ public final class DynamicSurroundings {
         else
             ConfigGui.registerConfigGui(new ConfigGui.InstallClothGuiFactory());
     }
-
+    
     private static void createPath(@Nonnull final File path) {
         if (!path.exists()) {
             try {
@@ -114,24 +76,25 @@ public final class DynamicSurroundings {
             }
         }
     }
-
-    private void clientSetup(@Nonnull final FMLClientSetupEvent event) {
+    
+    @Override
+    public void onInitializeClient() {
+        // Since we are 100% client side
+        ICreativeLoader loader = CreativeCore.loader();
+        loader.registerDisplayTest(() -> loader.ignoreServerNetworkConstant(), (a, b) -> true);
+        
+        // Initialize our configuration
+        Config.setup();
+        
+        // Create additional data paths if needed
+        createPath(DATA_PATH);
+        createPath(DUMP_PATH);
+        
+        doConfigMenuSetup();
+        
         Keys.register();
         if (Config.CLIENT.logging.onlineVersionCheck.get())
-            ClientLoginChecks.register(new UpdateChecker(DynamicSurroundings.MOD_ID));
+            ClientLoginChecks.register(new UpdateChecker(DynamicSurroundings.MODID));
     }
-
-    private void setupComplete(@Nonnull final FMLLoadCompleteEvent event) {
-        if (LOGGER.isDebugging()) {
-            // Dump out the mod list
-            LOGGER.info("Loaded Mods");
-            LOGGER.info("===========");
-            ForgeUtils.getModIdList().forEach(l -> LOGGER.info("Mod '%s' detected", l));
-
-            LOGGER.info("Resource Packs");
-            LOGGER.info("==============");
-            ForgeUtils.getEnabledResourcePacks().forEach(l -> LOGGER.info("%s (%s)", l.getTitle().getString(), l.getDescription().getString()));
-        }
-    }
-
+    
 }
